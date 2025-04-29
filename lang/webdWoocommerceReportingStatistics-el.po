@@ -1,0 +1,841 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: MyWooCommerceShowroom\n"
+"POT-Creation-Date: 2019-01-23 16:15+0200\n"
+"PO-Revision-Date: 2019-01-23 16:37+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.1.1\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: ..\n"
+"X-Poedit-SearchPath-1: .\n"
+
+#: ../class-admin.php:33
+msgid "Go PRO and get more important features!"
+msgstr "Αποκτήστε την PRO έκδοση για πολλές περισσότερες λειτουργίες!"
+
+#: ../class-admin.php:35
+msgid "Reporting & Stats with Product Search"
+msgstr "Αναφορές και Στατιστικά βάσει Προιόντος"
+
+#: ../class-admin.php:36
+msgid "Reporting  & Stats with Category Search"
+msgstr "Αναφορές και Στατιστικά βάσει Κατηγορίας"
+
+#: ../class-admin.php:37
+msgid "Next Months Forecast per Category"
+msgstr "Πρόγνωση Πωλήσεων Επόμενου Μήνα κατηγορίας"
+
+#: ../class-admin.php:38
+msgid "Next Months Forecast per Product"
+msgstr "Πρόγνωση Πωλήσεων Επόμενου Μήνα προιόντος"
+
+#: ../class-admin.php:39
+msgid "Custom Set From - To date to Search"
+msgstr "Ημερομηνίες προεπιλεγμένες από το Χρήστη"
+
+#: ../class-admin.php:40
+msgid "Predefined Periods Search"
+msgstr "Προκαθορισμένες Περίοδοι για Αναζήτηση"
+
+#: ../class-admin.php:41
+msgid "Export in Excel"
+msgstr "Εξαγωγή σε Excel"
+
+#: ../class-admin.php:42
+msgid "Search functionality in Tables"
+msgstr "Αναζήτηση Δεδομένων στις Αναφορές"
+
+#: ../class-admin.php:43
+msgid "Current Selling Products Low Stock Products Reminder!"
+msgstr "Ειδοποίηση Χαμηλού Αποθέματος για Κινήσιμα Προιόντα"
+
+#: ../class-admin.php:44
+msgid "Low Stock Products Report"
+msgstr "Αναφορά Χαμηλού Στοκ Προιόντων"
+
+#: ../class-admin.php:45
+msgid "Email Report on Weekly or Monthly"
+msgstr "Αποστολή Email Αναφοράς Εβδομαδιαία ή Μηνιαία"
+
+#: ../class-admin.php:46
+msgid "GET IT HERE"
+msgstr "ΑΠΟΚΤΗΣΤΕ ΤΟ ΕΔΩ"
+
+#: ../class-admin.php:65
+msgid "ALL SALES"
+msgstr "ΟΛΕΣ ΟΙ ΠΩΛΗΣΕΙΣ"
+
+#: ../class-admin.php:65
+msgid "PER YEAR"
+msgstr "ΑΝΑ ΕΤΟΣ"
+
+#: ../class-admin.php:65
+msgid "PER MONTH"
+msgstr "ΑΝΑ ΜΗΝΑ"
+
+#: ../class-admin.php:65
+msgid "TOP 5 PRODUCTS"
+msgstr ""
+
+#: ../class-admin.php:75
+msgid "STOCK MANAGEMENT"
+msgstr "ΧΑΜΗΛΟ ΑΠΟΘΕΜΑ"
+
+#: ../class-admin.php:76
+msgid "EMAIL REPORT"
+msgstr "ΑΠΟΣΤΟΛΗ EMAIL"
+
+#: ../class-admin.php:100 ../class-admin.php:125
+msgid "Only available on PRO Version"
+msgstr "Διαθέσιμο μόνο στην PRO έκδοση"
+
+#: ../class-admin.php:100 ../class-admin.php:125
+msgid "Get it Here"
+msgstr "Αποκτήστε το εδώ"
+
+#: ../class-admin.php:108
+msgid "Selling Products Low Stock Reminder"
+msgstr "Ειδοποίηση Χαμηλού Αποθέματος για Κινήσιμα Προιόντα"
+
+#: ../class-admin.php:109
+msgid "All Time Low Stock Products"
+msgstr "Προιόντα με Χαμηλό Στοκ"
+
+#: ../class-admin.php:160 ../class-admin.php:175
+msgid "Select..."
+msgstr "Επιλέξτε..."
+
+#: ../class-admin.php:229
+msgid "YEAR"
+msgstr "ΕΤΟΣ"
+
+#: ../class-admin.php:230 ../class-admin.php:343 ../class-admin.php:747
+msgid "SALES"
+msgstr "ΠΩΛΗΣΕΙΣ"
+
+#: ../class-admin.php:231 ../class-admin.php:344
+msgid "OF TOTAL SALES %"
+msgstr "% ΤΩΝ ΠΩΛΗΣΕΩΝ"
+
+#: ../class-admin.php:278 ../class-admin.php:396 ../class-admin.php:860
+#: ../class-admin.php:918 ../class-admin.php:1014 ../class-admin.php:1074
+#: ../class-admin.php:1170 ../class-admin.php:1264 ../class-admin.php:1348
+msgid "TOTALS"
+msgstr "ΣΥΝΟΛΑ"
+
+#: ../class-admin.php:342
+msgid "MONTH / YEAR"
+msgstr "ΜΗΝΑΣ / ΕΤΟΣ"
+
+#: ../class-admin.php:408
+msgid "AVERAGE SALES"
+msgstr "ΜΕΣΟΣ ΟΡΟΣ ΠΩΛΗΣΕΩΝ"
+
+#: ../class-admin.php:413
+msgid "NEXT MONTH SALES FORECAST"
+msgstr "ΠΡΟΓΝΩΣΗ ΠΩΛΗΣΕΩΝ ΕΠΟΜΕΝΟΥ ΜΗΝΑ"
+
+#: ../class-admin.php:499
+msgid "Filter by date"
+msgstr "Αναζήτηση βάσει ημερομήνιας"
+
+#: ../class-admin.php:501
+msgid "Select Month"
+msgstr "Επιλέξτε Μήνα"
+
+#: ../class-admin.php:509 ../class-admin.php:523
+#, php-format
+msgid "%1$s %2$d"
+msgstr ""
+
+#: ../class-admin.php:516
+msgid "Select Year"
+msgstr "Επιλέξτε Έτος"
+
+#: ../class-admin.php:527
+msgid "Preselected Period"
+msgstr "Προεπιλεγμένη Περίοδος"
+
+#: ../class-admin.php:528
+msgid "Today"
+msgstr "Σήμερα"
+
+#: ../class-admin.php:529
+msgid "Yesterday"
+msgstr "Αύριο"
+
+#: ../class-admin.php:530
+msgid "This Week"
+msgstr "Αυτή την Εβδομάδα"
+
+#: ../class-admin.php:531
+msgid "This Month"
+msgstr "Αυτό το μήνα"
+
+#: ../class-admin.php:532
+msgid "Last 3 Months"
+msgstr "Τελευταίοι 3 μήνες"
+
+#: ../class-admin.php:533
+msgid "Last 6 Months"
+msgstr "Τελευταίοι 6 μήνες"
+
+#: ../class-admin.php:534
+msgid "Get All"
+msgstr "Όλα"
+
+#: ../class-admin.php:549
+msgid "Select a Product.."
+msgstr "Επιλέξτε προιόν..."
+
+#: ../class-admin.php:733
+msgid "Analysis for "
+msgstr "Ανάλυση για "
+
+#: ../class-admin.php:735
+msgid "Analysis"
+msgstr "Ανάλυση "
+
+#: ../class-admin.php:736
+msgid "This Month Analysis"
+msgstr "Ανάλυση τρέχοντος μήνα"
+
+#: ../class-admin.php:741
+msgid "TOTAL SALES "
+msgstr "ΣΥΝΟΛΙΚΕΣ ΠΩΛΗΣΕΙΣ"
+
+#: ../class-admin.php:744
+msgid "NET SALES"
+msgstr "ΚΑΘΑΡΕΣ ΠΩΛΗΣΕΙΣ"
+
+#: ../class-admin.php:750
+msgid "SHIPPING"
+msgstr "ΜΕΤΑΦΟΡΙΚΑ"
+
+#: ../class-admin.php:753
+msgid "TAXES"
+msgstr "ΦΟΡΟΙ"
+
+#: ../class-admin.php:756
+msgid "REFUNDS"
+msgstr "ΕΠΙΣΤΡΟΦΕΣ"
+
+#: ../class-admin.php:759
+msgid "DISCOUNT"
+msgstr "ΕΚΠΤΩΣΕΙΣ"
+
+#: ../class-admin.php:762
+msgid "TOTAL PRODUCTS PURCHASED"
+msgstr "ΣΥΝΟΛΟ ΠΩΛΗΘΕΝΤΩΝ ΠΡΟΙΟΝΤΩΝ"
+
+#: ../class-admin.php:765
+msgid "TOTAL ORDERS"
+msgstr "ΣΥΝΟΛΟ ΠΑΡΑΓΓΕΛΙΩΝ"
+
+#: ../class-admin.php:768
+msgid "AVG NET SALES / day"
+msgstr "ΜΕΣΟΣ ΟΡΟΣ ΠΩΛΗΣΕΩΝ/ημέρες"
+
+#: ../class-admin.php:771
+msgid "SALES EVERY"
+msgstr "ΠΩΛΗΣΗ ΚΑΘΕ"
+
+#: ../class-admin.php:771
+msgid "DAYS"
+msgstr "ΗΜΕΡΕΣ"
+
+#: ../class-admin.php:779 ../class-admin.php:882 ../class-admin.php:1037
+msgid "Orders"
+msgstr "Παραγγελίες"
+
+#: ../class-admin.php:780
+msgid "Customers"
+msgstr "Πελάτες"
+
+#: ../class-admin.php:781
+msgid "Products"
+msgstr "Προιόντα"
+
+#: ../class-admin.php:782
+msgid "Categories"
+msgstr "Κατηγορίες"
+
+#: ../class-admin.php:783
+msgid "Countries"
+msgstr "Χώρες"
+
+#: ../class-admin.php:784
+msgid "Payment Methods"
+msgstr "Μέθοδοι Πληρωμής"
+
+#: ../class-admin.php:785 ../class-admin.php:824
+msgid "Coupons"
+msgstr "Κουπόνια"
+
+#: ../class-admin.php:804 ../class-admin.php:806 ../class-admin.php:807
+msgid "No orders for "
+msgstr "Δεν υπάρχουν παραγγελίες για "
+
+#: ../class-admin.php:817
+msgid "ORDERS PLACED"
+msgstr "ΠΑΡΑΓΓΕΛΙΕΣ"
+
+#: ../class-admin.php:821
+msgid "Order ID"
+msgstr "ID Παραγγελίας"
+
+#: ../class-admin.php:822
+msgid "Date"
+msgstr "Ημερομηνία"
+
+#: ../class-admin.php:823 ../class-admin.php:881
+msgid "Payment Method"
+msgstr "Μέθοδος Πληρωμής"
+
+#: ../class-admin.php:825
+msgid "Cust Name"
+msgstr "Όνομα Πελάτη"
+
+#: ../class-admin.php:826
+msgid "Cust Country"
+msgstr "Χώρα Πελάτη"
+
+#: ../class-admin.php:827
+msgid "Net Sales"
+msgstr "Καθαρές Πωλήσεις"
+
+#: ../class-admin.php:828
+msgid "Discount"
+msgstr "Έκπτωση"
+
+#: ../class-admin.php:829
+msgid "Shipping Cost"
+msgstr "Μεταφορικά"
+
+#: ../class-admin.php:830
+msgid "Refunds"
+msgstr "Επιστροφές"
+
+#: ../class-admin.php:831
+msgid "Taxes"
+msgstr "Φόροι"
+
+#: ../class-admin.php:832
+msgid "Total of Sales"
+msgstr "Σύνολο Πωλήσεων"
+
+#: ../class-admin.php:863 ../class-admin.php:921 ../class-admin.php:1017
+#: ../class-admin.php:1077 ../class-admin.php:1173 ../class-admin.php:1267
+#: ../class-admin.php:1351 ../class-admin.php:1484 ../class-admin.php:1511
+msgid "Export"
+msgstr "Εξαγωγή"
+
+#: ../class-admin.php:863 ../class-admin.php:921 ../class-admin.php:1017
+#: ../class-admin.php:1077 ../class-admin.php:1173 ../class-admin.php:1267
+#: ../class-admin.php:1351 ../class-admin.php:1484 ../class-admin.php:1511
+msgid "Search..."
+msgstr "Αναζήτηση.."
+
+#: ../class-admin.php:866
+msgid "No data for orders"
+msgstr "Δεν υπάρχουν δεδομένα για τις παραγγελίες"
+
+#: ../class-admin.php:877
+msgid "PAYMENT METHODS"
+msgstr "ΜΕΘΟΔΟΙ ΠΛΗΡΩΜΗΣ"
+
+#: ../class-admin.php:883 ../class-admin.php:979 ../class-admin.php:1038
+#: ../class-admin.php:1131 ../class-admin.php:1228 ../class-admin.php:1442
+#: ../class-admin.php:1478
+msgid "Sales"
+msgstr "Πωλήσεις"
+
+#: ../class-admin.php:959
+msgid "No data for payments"
+msgstr "Δεν υπάρχουν δεδομένα για τις μεθόδους πληρωμής"
+
+#: ../class-admin.php:968
+msgid "CUSTOMERS"
+msgstr "ΠΕΛΑΤΕΣ"
+
+#: ../class-admin.php:972
+msgid "Customer Name"
+msgstr "Όνομα Πελάτη"
+
+#: ../class-admin.php:973
+msgid "Phone"
+msgstr "Τηλέφωνο"
+
+#: ../class-admin.php:974
+msgid "Email"
+msgstr "Email"
+
+#: ../class-admin.php:975 ../class-admin.php:1036
+msgid "Country"
+msgstr "Χώρα"
+
+#: ../class-admin.php:976
+msgid "State"
+msgstr "Περιοχή"
+
+#: ../class-admin.php:977
+msgid "City"
+msgstr "Πόλη"
+
+#: ../class-admin.php:978 ../class-admin.php:1441
+msgid "Quantity"
+msgstr "Ποσότητα"
+
+#: ../class-admin.php:1019
+msgid "No data for customers"
+msgstr "Δεν υπάρχουν δεδομένα για τους πελάτες"
+
+#: ../class-admin.php:1032
+msgid "COUNTRIES"
+msgstr "ΧΩΡΕΣ"
+
+#: ../class-admin.php:1115
+msgid "No data for countries"
+msgstr "Δεν υπάρχουν δεδομένα για τις χώρες"
+
+#: ../class-admin.php:1125
+msgid "PRODUCTS"
+msgstr "ΠΡΟΙΟΝΤΑ"
+
+#: ../class-admin.php:1129 ../class-admin.php:1440 ../class-admin.php:1498
+msgid "Product"
+msgstr "Προιόν"
+
+#: ../class-admin.php:1130 ../class-admin.php:1227 ../class-admin.php:1499
+msgid "Items Sold"
+msgstr "Πόσα πουλήθηκαν"
+
+#: ../class-admin.php:1210
+msgid "No data for products"
+msgstr "Δεν υπάρχουν δεδομένα για τα προιόντα"
+
+#: ../class-admin.php:1222
+msgid "CATEGORIES"
+msgstr "ΚΑΤΗΓΟΡΙΕΣ"
+
+#: ../class-admin.php:1226 ../class-admin.php:1439
+msgid "Category"
+msgstr "Κατηγορία"
+
+#: ../class-admin.php:1302
+msgid "No data for categories"
+msgstr "Δεν υπάρχουν δεδομένα για τις κατηγορίες"
+
+#: ../class-admin.php:1315
+msgid "COUPONS"
+msgstr "ΚΟΥΠΟΝΙΑ"
+
+#: ../class-admin.php:1319
+msgid "Coupon"
+msgstr "Κουπόνι"
+
+#: ../class-admin.php:1320
+msgid "Total"
+msgstr "Σύνολο"
+
+#: ../class-admin.php:1386
+msgid "No data for coupons"
+msgstr "Δεν υπάρχουν δεδομένα για τα κουπόνια"
+
+#: ../class-admin.php:1436
+msgid "ALL TIMES TOP 5 SELLING PRODUCTS"
+msgstr "ΚΟΡΥΦΑΙΑ 5 ΠΩΛΗΘΕΝΤΑ ΠΡΟΙΟΝΤΑ"
+
+#: ../class-admin.php:1472
+msgid "All Time Low Stock Products( < 5 items )"
+msgstr "Προιοντα Χαμηλού Αποθέματος (< 5 )"
+
+#: ../class-admin.php:1476
+msgid "Title"
+msgstr "Τίτλος"
+
+#: ../class-admin.php:1477
+msgid "Stock"
+msgstr "Απόθεμα"
+
+#: ../class-admin.php:1482 ../class-admin.php:1509
+msgid "PRO VERSION ONLY- get it Here!"
+msgstr "PRO Έκδοση μόνο - αποκτήστε την εδώ!"
+
+#: ../class-admin.php:1494
+msgid "Last 30 days Selling Products Stock Reminder"
+msgstr "Ειδοποίηση Χαμηλού Αποθέματος (βάσει Τελευταίες 30 Ημέρες) Πωληθέντων Προιόντων"
+
+#: ../class-admin.php:1500
+msgid "In Stock"
+msgstr "Σε Απόθεμα"
+
+#: ../class-admin.php:1501
+msgid "Sales Amount"
+msgstr "Σύνολο Πωλήσεων"
+
+#: ../class-admin.php:1502
+msgid "Sales Every (days)"
+msgstr "Πωλήσεις κάθε (ημέρες)"
+
+#: ../class-admin.php:1503
+msgid "Avg Quantity Sold / Order"
+msgstr "Μέσος όρος αριθμού πωληθέντων / παραγγελία"
+
+#: ../class-admin.php:1504
+msgid "Next Order Forecasted Quantity"
+msgstr "Πρόγνωση Ποσότητας για την Επόμενη Παραγγελία"
+
+#: ../class-admin.php:1505
+msgid "Days Left to Out of Stock"
+msgstr "Μέρες που απομένουν "
+
+#: ../webd-woocommerce-reporting-statistics.php:138
+msgid "Statistics"
+msgstr "Στατιστικά"
+
+#~ msgid "Set showroom image"
+#~ msgstr "Επιλέξτε εικόνα αποκλειστικά για το Showroom"
+
+#~ msgid "Remove showroom image"
+#~ msgstr "Αφαιρέστε την εικόνα του Showroom"
+
+#~ msgid "What to do? Click here!"
+#~ msgstr "Χρειάζεστε Οδηγίες? Πατήστε Εδώ!"
+
+#~ msgid "Add / Replace images to the showroom."
+#~ msgstr "Προσθέστε / Αντικαταστήστε Εικόνα Προιόντος στο Showroom."
+
+#~ msgid "Select a Product Image"
+#~ msgstr "Κλικάρετε Εικόνα Προιόντος"
+
+#~ msgid "Select your Image"
+#~ msgstr "Επιλέξτε μια δική σας Φωτο"
+
+#~ msgid "Search in product categories and Click on a product image - it will be inserted in the Showroom area. "
+#~ msgstr "Αναζητήστε προιόντα ανά κατηγορία και κλικάρετε σε μία εικόνα - θα εισαχθεί στο showroom. "
+
+#~ msgid "Upload an Image of your Space to test the products"
+#~ msgstr "Ανεβάστε Φωτογραφία του Χώρου σας  - Δείτε Πώς Ταιριάζει το Προιόν μας"
+
+#~ msgid "Upload your Image"
+#~ msgstr "Ανεβάστε Εικόνα"
+
+#~ msgid "Now it's time to play! This is your Showroom."
+#~ msgstr "Τώρα ήρθε η ώρα για να δοκιμάσετε. Αυτή είναι η περιοχή του Showroom."
+
+#~ msgid "Click on Product Image to Resize"
+#~ msgstr "Κλικάρετε ένα Προιόν για Αλλαγή Μεγέθους"
+
+#~ msgid "By clicking you can reduce the size of a selected product image."
+#~ msgstr "Κλικάροντας μπορείτε να μειώσετε το μέγεθος της εικόνας του επιλεγμένου."
+
+#~ msgid "By clicking you can increase the size of a selected product image."
+#~ msgstr "Κλικάροντας μπορείτε να αυξήσετε το μέγεθος της εικόνας του επιλεγμένου."
+
+#~ msgid "Rotate to the right."
+#~ msgstr "Περιστρέψτε Δεξιά."
+
+#~ msgid "Now rotate to the left."
+#~ msgstr "Τώρα περιστρέψτε Αριστερά."
+
+#~ msgid "Rotate to the left."
+#~ msgstr "Περιστρέψτε Αριστερά."
+
+#~ msgid "Flip an image."
+#~ msgstr "Αντιστρέψτε μία εικόνα."
+
+#~ msgid "Skew in X Axis."
+#~ msgstr "Δώστε Κλίση στον Άξονα Χ."
+
+#~ msgid "Skew in Y Axis."
+#~ msgstr "Δώστε Κλίση στον Άξονα Υ."
+
+#~ msgid "3D Rotate.  For Printscreen with 3d Rotation please get Printscreen of your whole screen."
+#~ msgstr "Περιστρέψτε 3d. Για printscreen που να φαίνεται η 3d περιστροφή πάρτε printscreen ολόκληρης της οθόνης σας."
+
+#~ msgid "Remove the Product Image"
+#~ msgstr "Αφαιρέστε την Εικόνα Προιόντος"
+
+#~ msgid "Save a printscreen of the showroom area!"
+#~ msgstr "Αποθηκεύστε printscreen με τα επιλεγμένα!"
+
+#~ msgid "Save a printscreen of the showroom area"
+#~ msgstr "Αποθηκεύστε printscreen με τα επιλεγμένα"
+
+#~ msgid "In case your image is falsely rotated, please use the controls below to rotate correctly."
+#~ msgstr "Σε περίπτωση που η εικόνα σας έχει περιστραφεί λανθασμένα, παρακαλώ χρησιμοποιήστε τα κουμπιά παρακάτω για να την περιστρέψετε σωστά."
+
+#~ msgid "Looking for..."
+#~ msgstr "Αναζήτηση για..."
+
+#~ msgid "Click & add to the Showroom!"
+#~ msgstr "Πατήστε Πάνω στην Εικόνα για να μπει στο Showroom!"
+
+#~ msgid "View the Product."
+#~ msgstr "Δείτε περισσότερα για το Προιόν."
+
+#~ msgid "Add to Cart"
+#~ msgstr "Προσθήκη στο Καλάθι"
+
+#~ msgid "Remove Image"
+#~ msgstr "Αντικατάσταση Εικόνας"
+
+#~ msgid "Choose"
+#~ msgstr "Επιλέξτε"
+
+#~ msgid "Buttons Background"
+#~ msgstr "Background Κουμπιών"
+
+#~ msgid "Buttons Colors"
+#~ msgstr "Χρώμα Κουμπιών"
+
+#~ msgid "Font Size (include px,em, % ..)"
+#~ msgstr "Μέγεθος Γραμματοσειράς  (αναφέρετε px,em, % ..)"
+
+#~ msgid "Box Shadow"
+#~ msgstr "Χρώμα Σκίασης"
+
+#~ msgid "Intro Background"
+#~ msgstr "Background Εισαγωγικής Οθόνης"
+
+#~ msgid "Pick End Color for Gradient Background"
+#~ msgstr "Επιλέξτε τελικό  χρώμα για gradient"
+
+#~ msgid "Intro Background Image "
+#~ msgstr "Background Εισαγωγικής Οθόνης "
+
+#~ msgid "Backround  Choice "
+#~ msgstr "Επιλογή Background "
+
+#~ msgid "Title Size (include px,em, % ..)"
+#~ msgstr "Μέγεθος Τίτλου (px,em, % ..)"
+
+#~ msgid "Title Color"
+#~ msgstr "Χρώμα Τίτλου"
+
+#~ msgid "Title Alignment"
+#~ msgstr "Στοίχιση Τίτλου"
+
+#~ msgid "Description Text"
+#~ msgstr "Κείμενο Περιγραφής"
+
+#~ msgid "Description Text Size (include px,em, % ..)"
+#~ msgstr "Μέγεθος Περιγραφής(px,em, % ..)"
+
+#~ msgid "Description Color"
+#~ msgstr "Χρώμα Περιγραφής"
+
+#~ msgid "Description Alignment"
+#~ msgstr "Στοίχιση Περιγραφής"
+
+#~ msgid "Button Text"
+#~ msgstr "Χρώμα Κουμπιού Εισ. Οθόνης"
+
+#~ msgid "Button Size (include px,em, % ..)"
+#~ msgstr "Μέγεθος Κουμπιού (px,em, % ..)"
+
+#~ msgid "Button Background"
+#~ msgstr "Background Κουμπιού"
+
+#~ msgid "Button Color"
+#~ msgstr "Χρώμα Κουμπιού"
+
+#~ msgid "Button Alignment"
+#~ msgstr "Στοίχιση Κουμπιού"
+
+#~ msgid "Your Business Case"
+#~ msgstr "Είδος Επιχείρησης για το Showroom"
+
+#~ msgid "Description/instructions for your Showroom"
+#~ msgstr "Περιγραφή/Οδηγίες για τους Χρήστες που θα χρησιμοποιήσουν το Showroom"
+
+#~ msgid "Use Media Gallery Pics"
+#~ msgstr "Χρησιμοποιήστε Φωτογραφίες από τη Gallery"
+
+#~ msgid "Images"
+#~ msgstr "Εικόνες"
+
+#~ msgid "Post Type"
+#~ msgstr "Τύπος Περιεχομένου"
+
+#~ msgid "Woocommerce-Show Product Variations"
+#~ msgstr "Woocommerce-Εμφάνιση των Variations για τα Προιόντα"
+
+#~ msgid "Woocommerce-Show Add to Cart Button"
+#~ msgstr "Woocommerce-Εμφάνιση Κουμπιού Προσθήκη στο Καλάθι"
+
+#~ msgid "Taxonomy"
+#~ msgstr "Ταξινόμηση / Κατηγοριοποίηση"
+
+#~ msgid "Number of Products to Appear in Showroom"
+#~ msgstr "Αριθμός Προιόντων που θα Εμφανιστούν στο Showroom"
+
+#~ msgid "Add Image"
+#~ msgstr "Προσθήκη Εικόνας"
+
+#~ msgid "Replace image"
+#~ msgstr "Αντικατάσταση Εικόνας"
+
+#~ msgid "Click on product to resize"
+#~ msgstr "Κλικάρετε ένα Προιόν για Επιλογή"
+
+#~ msgid "View Your Cart"
+#~ msgstr "Δείτε το Καλάθι σας"
+
+#~ msgid "View"
+#~ msgstr "Δείτε το"
+
+#~ msgid "Price"
+#~ msgstr "Τιμή"
+
+#~ msgid "Added to cart!"
+#~ msgstr "Προστέθηκε στο Καλάθι!"
+
+#~ msgid "Showcase the Products! Drag, Resize product images, Save a printscreen or Upload new image clicking the button above."
+#~ msgstr "Δοκιμάστε τα Προιόντα! Σύρετε, Αλλάξτε το Μέγεθος, Αποθηκεύστε printscreen επιλεγμένων ή ανεβάστε φωτογραφία σας."
+
+#~ msgid "Product selected! Now select an image of yours."
+#~ msgstr "Επιλέξατε προιόν για εμφάνιση. Τώρα ανεβάστε μια φωτογραφία σας."
+
+#~ msgid "Allow your customers to check your products on a picture they upload!"
+#~ msgstr "Επιτρέψτε τους Χρήστες να Προβάρουν τα Προιόντα σας σε Φωτογραφία που Ανεβάζουν και Αυξήστε τις Πωλήσεις σας!"
+
+#~ msgid "Main Options"
+#~ msgstr "Κυρίως Επιλογές"
+
+#~ msgid "Showroom Intro"
+#~ msgstr "Εισαγωγική Οθόνη"
+
+#~ msgid "General Style"
+#~ msgstr "Γενικό Στυλ"
+
+#~ msgid "Select Post Type, Number of Products to display in the Showroom, Content Taxonomies."
+#~ msgstr "Επιλέξτε Τύπο Περιεχομένου, Αριθμό Προιόντων για Προβολή, Ταξινόμηση-Κατηγορία του Περιεχομένου."
+
+#~ msgid "An IMAGE Field has been created for each product -Selected POST TYPE- for use in the showroom (upload image with no background), in case you don't want to replace the existing product image of your product page."
+#~ msgstr "Έχει δημιουργηθεί ένα πεδίο για Αποθήκευση Εικόνας  χωρίς background   σε κάθε προιόν - Επιλεγμένο Τύπο ύλης-  για να χρησιμοποιηθεί στο showroom, αν δεν επιθυμείτε να αντικαταστήσετε την υπάρχουσα εικόνα προιόντος που εμφανίζεται στη σελίδα του προιόντος."
+
+#~ msgid "Once you are ready, enter the shortcode [MyWooCommerceShowroom] in any page you like to run your showroom!"
+#~ msgstr "Μόλις είστε έτοιμοι, εισάγετε τον shortcode  [MyWooCommerceShowroom] σε οποιαδήποτε σελίδα θέλετε να είναι το Showroom!"
+
+#~ msgid "Upload a picture of your Space - Check how our Product Fits!"
+#~ msgstr "Αανεβάστε Φωτογραφία του Χώρου σας  - Δείτε Πώς Ταιριάζει το Προιόν μας!"
+
+#~ msgid "Here"
+#~ msgstr "Εδώ"
+
+#~ msgid "Upload a Picture of your Space"
+#~ msgstr "Ανεβάστε μια Φωτογραφία του Χώρου σας"
+
+#~ msgid "Click On a Product to Select"
+#~ msgstr "Πατήστε με το Mouse σε ένα Προιόν για Επιλογή"
+
+#~ msgid "Preview Product - Move & Resize"
+#~ msgstr "Δοκιμάστε το Προιόν - Σύρετε το και Αλλάξτε το Μέγεθος του (βελάκι κάτω δεξιά)"
+
+#~ msgid "Previous"
+#~ msgstr "Προηγουμενο"
+
+#~ msgid "Next"
+#~ msgstr "Επόμενο"
+
+#~ msgid "Download Picture"
+#~ msgstr "Κατεβάστε ως Φωτογραφία"
+
+#~ msgid "Preview Product"
+#~ msgstr "Δοκιμάστε το Προιόν"
+
+#~ msgid "Add more images to the showroom. Click on an image to replace the previously selected, press the  + button to add another product, press the replace button to replace the selected."
+#~ msgstr "Προσθέστε περισσότερα προιόντα στο showroom. Κλικάρετε σε μία εικόνα για να αντικαταστήσετε το προηγούμενο επιλεγμένο, πατήστε το + για να προσθέσετε ένα ακόμα προιόν, πατήστε το εικονίδιο αντικατάστασης για να αντικαταστήσετε το επιλεγμένο."
+
+#~ msgid "Search in product categories and Click on a product image - it will be inserted in the Showroom area."
+#~ msgstr "Αναζητήστε προιόντα βάσει κατηγορίας, κλικάρετε σε μία εικόνα προιόντος - Κατά αυτό τον τρόπο θα εισαχθεί στο showroom."
+
+#~ msgid "See the showroom in Full Screen."
+#~ msgstr "Δείτε σε Πλήρη Οθόνη."
+
+#~ msgid "Full Screen Showroom"
+#~ msgstr "Πλήρης Οθόνη"
+
+#~ msgid "Check and Click on a Product image"
+#~ msgstr "Διαλέξτε και Κλικάρετε ένα Προιόν"
+
+#~ msgid "Upload an Image of your Space"
+#~ msgstr "Ανεβάστε μια Φωτογραφία του Χώρου σας"
+
+#~ msgid "Drag around, Resize, Flip product images to see how they fit in your space!"
+#~ msgstr "Σύρετε, Αλλάξτε μέγεθος, περιστρέψτε τις εικόνες για να δείτε πώς ταιριάζουν!"
+
+#~ msgid "Product Showroom"
+#~ msgstr "Showroom Προιόντων"
+
+#~ msgid "Sunglasses Showroom"
+#~ msgstr "Showroom Γυαλιών Ηλίου"
+
+#~ msgid "Tshirt Showroom"
+#~ msgstr "Showroom για Tshirt"
+
+#~ msgid "Rotate in X Axis."
+#~ msgstr "Περιστρέψτε στον Άξονα Χ."
+
+#~ msgid "Rotate in Y Axis."
+#~ msgstr "Περιστρέψτε στον Άξονα Υ."
+
+#~ msgid "Choose photos with no background for your products to appear attractive in the showroom."
+#~ msgstr "Επιλέξτε Φωτογραφίες Χωρίς Background για να εμφανίζονται σωστές και ελκυστικές στο Showroom."
+
+#~ msgid "An IMAGE Field has been created in your Selected POST TYPE if you want to use Specific Image for the showroom, instead of the default."
+#~ msgstr "Έχει δημιουργηθεί ένα πεδίο για Αποθήκευση Εικόνας χωρίς background στο Επιλεγμένο Τύπο ύλης για να το χρησιμοποιήσετε στο showroom, αν δεν επιθυμείτε να αντικαταστήσετε την υπάρχουσα εικόνα προιόντος."
+
+#~ msgid "3D Rotate. Watchout! 3D cannot be properly applied in a printscreen."
+#~ msgstr "Περιστρέψτε 3d. Προσοχή! Η περιστροφή 3d δεν μπορεί να φανεί στο printscreen του showroom, χρησιμοποιήστε printscreen της οθόνης σας."
+
+#~ msgid "Rotate in X Axis up."
+#~ msgstr "Περιστρέψτε στον Άξονα Χ προς τα επάνω."
+
+#~ msgid "Rotate in X Axis down."
+#~ msgstr "Περιστρέψτε στον Άξονα Χ προς τα κάτω."
+
+#~ msgid "Rotate in Y Axis left."
+#~ msgstr "Περιστρέψτε στον Άξονα Υ αριστερά."
+
+#~ msgid "Rotate in Y Axis right."
+#~ msgstr "Περιστρέψτε στον Άξονα Υ δεξιά."
+
+#~ msgid "View Button Background"
+#~ msgstr "Background Κουμπιού Εμφάνισης Προιόντος"
+
+#~ msgid "View Button Color"
+#~ msgstr "Χρώμα Κουμπιού Εμφάνισης Προιόντος"
+
+#~ msgid "Cart Button Background"
+#~ msgstr "Background Κουμπιού για Προσθήκη στο Καλάθι"
+
+#~ msgid "Cart Button Color"
+#~ msgstr "Χρώμα Κουμπιού για Προσθήκη στο Καλάθι"
+
+#~ msgid "Intro Background Image - Use instead of Color"
+#~ msgstr "Εικόνα για Background - Χρησιμοποιείστε αντί για το Χρώμα"
+
+#~ msgid "Intro Image"
+#~ msgstr "Εικόνα Εισαγωγικής οθόνης"
+
+#~ msgid "Save Picture"
+#~ msgstr "Αποθήκευση Φωτογραφίας"
+
+#~ msgid "Picture uploaded! Proceed to Step 2 by clicking the tab above or click on the picture if you would like to upload a different one."
+#~ msgstr "Η Φωτογραφία σας Επιλέχθηκε! Προχωρήστε στο 2ο Βήμα πατώντας το κουμπί παραπάνω ή Πατήστε πάνω στη φωτογραφία σας αν θέλετε να επιλέξετε μια άλλη."
+
+#~ msgid "Product selected! Proceed to Step 3 by clicking the tab above or click on another product to select."
+#~ msgstr "Επιλέξατε προιόν! Προχωρήστε στο 3ο Βήμα πατώντας στο κουμπί παραπάνω ή πατήστε σε άλλο προιόν για επιλογή."
+
+#~ msgid "INSTRUCTIONS"
+#~ msgstr "ΟΔΗΓΙΕΣ"
