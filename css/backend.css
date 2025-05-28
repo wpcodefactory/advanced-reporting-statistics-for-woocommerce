@@ -29,7 +29,6 @@
 	}
 }
 
-
 .rightToLeft{
 	-webkit-animation: rightToLeft 2s ease-in-out;
 	-moz-animation: rightToLeft 2s ease-in-out;
@@ -166,7 +165,6 @@
 	margin:0 0.5%;
 }
 
-
 .webdWoocommerceReportingStatistics.column1{
 	width:100%;
 	float:none;
@@ -187,14 +185,11 @@
 	width:15.6%;
 }
 
-
-
 */
 .webdWoocommerceReportingStatistics .report_widget tbody tr,.webdWoocommerceReportingStatistics .report_widget thead th,
 .webdWoocommerceReportingStatistics #tabs2 tbody tr,.webdWoocommerceReportingStatistics #tabs2 thead th{
 		text-align:center;
 }
-
 
 /*  PRO VERSION MODAL */
 #webdWoocommerceReportingStatisticsModal, #extendwp_extensions_popup {
@@ -406,14 +401,9 @@
 	background:#fff !important;
 }
 
-
-
-
 .webdWoocommerceReportingStatistics .dateFilter {
 	margin-bottom: 10px;
 }
-
-
 
 @media (max-width:767px){
 	.webdWoocommerceReportingStatistics.columns2,

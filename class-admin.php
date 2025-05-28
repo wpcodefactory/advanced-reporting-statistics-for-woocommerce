@@ -153,7 +153,6 @@ class webdWoocommerceReportingStatisticsAdmin {
 		<?php
 	}
 
-
 	public function adminSettings(){
 				global $product;
 
@@ -176,8 +175,6 @@ class webdWoocommerceReportingStatisticsAdmin {
 
 				<?php
 				$selected = '';
-
-
 
 				if( ( isset( $_GET['tab'] ) && $_GET['tab'] =='all' ) || !isset( $_GET['tab'] ) ){
 
@@ -261,7 +258,6 @@ class webdWoocommerceReportingStatisticsAdmin {
 			<option value=''><?php esc_html_e( 'Choose Status...', $this->plugin );?></option>
 			<?php
 
-
 			foreach( wc_get_order_statuses() as $key=>$value){
 
 				$in = in_array( $key, $default_status ) ? "selected" : "";
@@ -320,7 +316,6 @@ class webdWoocommerceReportingStatisticsAdmin {
 		add_settings_field('emailForReport',"Emai for Report", array($this, 'emailForReport'),  "webd-woocommerce-reporting-statistics"."general-options", "webd-woocommerce-reporting-statistics"."general");
 	}
 
-
 	public function displayOrdersBy( $period ) {
 
 		echo '<div class="column1 periods">';
@@ -341,16 +336,13 @@ class webdWoocommerceReportingStatisticsAdmin {
 
 			echo '</div>';
 
-
 			print "<div class='report_widget columns2 em '><b><i class='fa fa-2x fa-filter'></i> ". esc_html__( 'AVERAGE SALES', "webd-woocommerce-reporting-statistics" ) . " <span class='avg_period'></span></b></div>";
 			print "<div class='report_widget columns2 em'><b><i class='fa fa-2x fa-signal'></i> ". esc_html__( 'NEXT ', "webd-woocommerce-reporting-statistics" ) . esc_html( strtoupper( $period ) ) . esc_html__( ' SALES FORECAST', "webd-woocommerce-reporting-statistics" ) . " <span class='forecast'></span></b></div>";
-
 
 		echo '</div>';
 
 		?>
 		<div  class="chart-container column1 byPeriod periods" style="position: relative" ></div>
-
 
 		<div class='no_orders'>
 			<center>
@@ -433,8 +425,6 @@ class webdWoocommerceReportingStatisticsAdmin {
 					<option value="<?php print date( 'Y-m-d', strtotime( $date . "- 6 months" ) ); ?>"><?php  esc_html_e( 'Last 6 Months', "webd-woocommerce-reporting-statistics" );?></option>
 				</select>
 
-
-
 				<select name='month' class='dateFilter proVersionPreselect' style='background:#eee;' id="pt-filter-by-date">
 
 					<option value=''><?php esc_html_e( 'Select Month..',"webd-woocommerce-reporting-statistics" );?></option>
@@ -455,8 +445,6 @@ class webdWoocommerceReportingStatisticsAdmin {
 
 				</select>
 
-
-
 				 <input  placeholder='From'  class="from datepicker dateFilter" readonly name='from' value='' />
 				 <input  placeholder='To'  class="to datepicker dateFilter"  readonly name='to' value='' />
 
@@ -471,8 +459,6 @@ class webdWoocommerceReportingStatisticsAdmin {
 
 	}
 
-
-
 	public function overview(){
 
 		?>
@@ -482,7 +468,6 @@ class webdWoocommerceReportingStatisticsAdmin {
 			<div class='overview clearfix'>
 				<div class='flexmeContainer'>
 					<?php
-
 
 					print "<div class='report_widget'><h3><i class='fa fa-2x fa-signal' ></i> " . esc_html__( "GROSS SALES", $this->plugin )." <br/><small><i>".esc_html__( 'after tax, shipping, discount & refunds' , $this->plugin )."</i></small><hr/> <span class='total'></span></h3></div>";
 					print "<div class='report_widget'><h3><i class='fa fa-2x fa-signal' ></i> " . esc_html__( "NET SALES", $this->plugin )." <br/><small><i>".esc_html__( 'before tax, shipping, discount, after refunds' , $this->plugin )."</i></small><hr/> <span class='subtotal'></span></h3></div>";
@@ -530,7 +515,6 @@ class webdWoocommerceReportingStatisticsAdmin {
 		<?php
 
 	}
-
 
 	public function orders( ){?>
 
@@ -692,7 +676,6 @@ class webdWoocommerceReportingStatisticsAdmin {
 			</div>
 			<div class="chart-container productChart" ></div>
 
-
 		</div>
 	<?php
 
@@ -755,8 +738,6 @@ class webdWoocommerceReportingStatisticsAdmin {
 	<?php
 
 	}
-
-
 
 	public function topSellers(){
 			global $woocommerce;
@@ -831,7 +812,6 @@ class webdWoocommerceReportingStatisticsAdmin {
 				<?php
 				}else print esc_html__("There is no sale yet!","webd-woocommerce-reporting-statistics");
 	}
-
 
 	public function LowStock(){
 			?>
@@ -939,7 +919,6 @@ class webdWoocommerceReportingStatisticsAdmin {
 
 							if( $post->class == 'webdWoocommerceReportingStatisticsPro'   ){
 
-
 							}else{
 
 								echo "<div class='columns3'><a target='_blank' href='".esc_url( $post->url )."' /><img src='".esc_url( $post->image )."' /></a>
@@ -948,7 +927,6 @@ class webdWoocommerceReportingStatisticsAdmin {
 								<a class='button_extensions button-primary' target='_blank' href='".esc_url( $post->url )."' />". esc_html__( 'Get it here', "webd-woocommerce-reporting-statistics" ) . " <i class='fa fa-angle-double-right'></i></a>
 								</div>";
 							}
-
 
 						}
 						print "</div>";

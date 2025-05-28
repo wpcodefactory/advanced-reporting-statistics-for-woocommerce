@@ -38,7 +38,6 @@ A comprehensive WordPress Plugin for Advanced WooCommerce Reporting, Product Sal
 * 100% Responsive
 * 100% with WooCommerce HPOS Orders Storage tables
 
-
 **[Get PRO Version with Search Product-Category ability, Low Stock Reminders, Email Report & Export Capabilities](https://extend-wp.com/product/woocommerce-advanced-reporting-statistics/ "Advanced WooCommerce Reporting - Statistics & Forecast PRO")**
 
 = PRO Features =
@@ -58,7 +57,6 @@ A comprehensive WordPress Plugin for Advanced WooCommerce Reporting, Product Sal
 * Email Report - get email on a Weekly or Monthly basis. The email includes This Month's , This Week's Report & Low Stock Management Report.
 * Export Reports in excel file - save reports in xlsx format for further analysis
 
-
 **[Get PRO Version with Search Product-Category ability, Low Stock Reminders, Email Report & Export Capabilities](https://extend-wp.com/product/woocommerce-advanced-reporting-statistics/ "Advanced WooCommerce Reporting - Statistics & Forecast PRO")**
 
 [youtube https://www.youtube.com/watch?v=ZsjD-FUEOJs&rel=0]
@@ -68,7 +66,6 @@ A comprehensive WordPress Plugin for Advanced WooCommerce Reporting, Product Sal
 1. Upload the plugin files to the `/wp-content/plugins` directory and unzip, or install the plugin through the WordPress plugins screen directly.
 2. Activate Advanced Reporting - WooCommerce Statistics & Forecast through the 'Plugins' screen in WordPress
 3. Use the Reporting & Statistics submenu  from WooCommerce to view the Sales Reports, Statistics and Forecast.
-
 
 == Frequently Asked Questions ==
 
@@ -83,7 +80,6 @@ Check that wp-cron is active . You can install WP Cron control plugin . check th
 1. Advanced WooCommerce Reporting - Statistics & Forecast | General Analysis - by date - here you find orders, customers, products, categories, coupons, countries, payment gateways report and tables.
 2. Advanced WooCommerce Reporting - Statistics & Forecast | Analysis Grouped by year
 3. Advanced WooCommerce Reporting - Statistics & Forecast | Analysis Grouped by Month and next Month's Forecast
-
 
 == Changelog ==
 
