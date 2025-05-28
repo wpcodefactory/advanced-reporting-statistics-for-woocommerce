@@ -82,6 +82,45 @@ final class WPFactory_WC_ARS {
 		// "Recommendations" page
 		add_action( 'init', array( $this, 'add_cross_selling_library' ) );
 
+		// Settings
+		add_filter( 'admin_menu', array( $this, 'add_settings' ), 11 );
+
+	}
+
+	/**
+	 * add_settings.
+	 *
+	 * @version 4.0.0
+	 * @since   4.0.0
+	 */
+	function add_settings() {
+
+		if ( ! class_exists( 'WPFactory\WPFactory_Admin_Menu\WPFactory_Admin_Menu' ) ) {
+			return;
+		}
+
+		$admin_menu = WPFactory\WPFactory_Admin_Menu\WPFactory_Admin_Menu::get_instance();
+
+		add_submenu_page(
+			$admin_menu->get_menu_slug(),
+			__( 'Reporting & Statistics', 'webd-woocommerce-reporting-statistics' ),
+			__( 'Reporting & Statistics', 'webd-woocommerce-reporting-statistics' ),
+			'manage_woocommerce',
+			'webd-woocommerce-reporting-statistics',
+			array( $this, 'output_settings' ),
+			30
+		);
+
+	}
+
+	/**
+	 * output_settings.
+	 *
+	 * @version 4.0.0
+	 * @since   4.0.0
+	 */
+	function output_settings() {
+		do_action( 'wpfactory_wc_ars_output_settings' );
 	}
 
 	/**

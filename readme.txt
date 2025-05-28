@@ -88,6 +88,8 @@ Check that wp-cron is active . You can install WP Cron control plugin . check th
 == Changelog ==
 
 = 4.0.0 - 28/05/2025 =
+* Dev - Plugin settings moved to the "WPFactory" menu.
+* Dev - "Recommendations" added.
 * Dev - Code refactoring and cleanup.
 * WC tested up to: 9.8.
 * Tested up to: 6.8.
