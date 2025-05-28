@@ -92,119 +92,65 @@ Check that wp-cron is active . You can install WP Cron control plugin . check th
 * Tested up to: 6.8.
 
 = 3.1 =
-Bug fixes
+* Bug fixes.
 
 = 3.0 =
-Bug fixes , include helper class file, check wp and woo latest compatibility
+* Bug fixes , include helper class file, check wp and woo latest compatibility.
 
 = 2.9 =
-Bug fixes , include helper class file, check wp and woo latest compatibility
+* Bug fixes , include helper class file, check wp and woo latest compatibility.
 
 = 2.8 =
-Code rewritten to handle larger orders queries - pagination added. No wp-cron required
+* Code rewritten to handle larger orders queries - pagination added. No wp-cron required.
 
 = 2.3 =
-Code rewritten to handle larger orders queries. Prerequisite is active wp-cron. Order data are saved in text file.
-Updates when new orders created or Order status updated.
-Added feature to query by Customer.
-Check WooCommerce - WP compatibility.
+* Code rewritten to handle larger orders queries. Prerequisite is active wp-cron. Order data are saved in text file.
+* Updates when new orders created or Order status updated.
+* Added feature to query by Customer.
+* Check WooCommerce - WP compatibility.
 
 = 2.2 =
-fix css issues
+* Fix css issues.
 
 = 2.1 =
-fix disabled in js
-show sign up on plugin page only
+* Fix disabled in js.
+* Show sign up on plugin page only.
 
 = 2.0 =
-fix countries bar chart labels
+* Fix countries bar chart labels.
 
 = 1.9 =
-fix order edit link
+* Fix order edit link.
 
 = 1.8 =
-fix sorting on months report
+* Fix sorting on months report.
 
 = 1.7 =
-compatible with HPOS WooCommerce custom Orders table
+* Compatible with HPOS WooCommerce custom Orders table.
 
 = 1.6 =
-Added feature to get Orders by Status  - dropdown
-fixed get_used_coupons checking WooCommerce Version
-fixed isset php warnings
-fixed issue in customers tab
-fixed issue in forecast function
+* Added feature to get Orders by Status - dropdown.
+* Fixed get_used_coupons checking WooCommerce Version.
+* Fixed isset php warnings.
+* Fixed issue in customers tab.
+* Fixed issue in forecast function.
 
 = 1.5 =
-check compatibility, fix translation ready strings
+* Check compatibility, fix translation ready strings.
 
 = 1.4 =
-manage_options capability changed to manage_woocommerce so shop_manager role can access the plugin
+* manage_options capability changed to manage_woocommerce so shop_manager role can access the plugin.
 
 = 1.2 =
-Check wp compatibility - remove wp-load call
+* Check wp compatibility - remove wp-load call.
 
 = 1.1 =
-Fix sort table function breaking wp table sorting
+* Fix sort table function breaking wp table sorting.
 
 = 1.0 =
+* Initial release.
 
 == Upgrade Notice ==
 
-= 1.0 =
-
-= 1.1 =
-Fix sort table function breaking wp table sorting
-
-= 1.2 =
-Check wp compatibility - remove wp-load call
-
-= 1.4 =
-manage_options capability changed to manage_woocommerce so shop_manager role can access the plugin
-
-= 1.5 =
-check compatibility, fix translation ready strings
-
-= 1.6 =
-Added feature to get Orders by Status  - dropdown
-fix get_used_coupons checking WooCommerce Version
-fix isset php warnings
-fix issue in customers tab
-fix issue in forecast function
-
-= 1.7 =
-compatible with HPOS WooCommerce custom Orders table
-
-= 1.8 =
-fix sorting on months report
-
-= 1.9 =
-fix order edit link
-
-= 2.0 =
-fix countries bar chart labels
-
-= 2.1 =
-fix disabled in js
-show sign up on plugin page only
-
-= 2.2 =
-fix css issues
-
-= 2.3 =
-Code rewritten to handle larger orders queries. Prerequisite is active wp-cron. Order data are saved in text file.
-Updates when new orders created or Order status updated.
-Added feature to query by Customer.
-Check WooCommerce - WP compatibility.
-
-= 2.8 =
-Code rewritten to handle larger orders queries - pagination added. No wp-cron required
-
-= 2.9 =
-Bug fixes , include helper class file, check wp and woo latest compatibility
-
-= 3.0 =
-Bug fixes , include helper class file, check wp and woo latest compatibility
-
 = 3.1 =
-Bug fixes
+Bug fixes.
