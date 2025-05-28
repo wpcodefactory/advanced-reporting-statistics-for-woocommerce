@@ -1,11 +1,11 @@
 /* ANIMATION RIGHT TO LEFT*/
-@-webkit-keyframes rightToLeft{ 
+@-webkit-keyframes rightToLeft{
 	0% {
 	    opacity: 0;
 	    -webkit-transform: translateX(300px);
 	    -moz-transform: translateX(300px);
 	    transform: translateX(300px) ;
-	    
+
 	}
 	30% {
 	    opacity: 1;
@@ -19,7 +19,7 @@
 	    -webkit-transform: scale(1) ;
 	    -moz-transform:  scale(1) ;
 	    transform:  scale(1) ;
-	    
+
 	}
 }
 
@@ -29,8 +29,8 @@
     -moz-animation: rightToLeft 2s ease-in-out;
     -o-animation: rightToLeft 2s ease-in-out;
     -ms-animation: rightToLeft 2s ease-in-out;
-    animation: rightToLeft 2s ease-in-out;	
-	
+    animation: rightToLeft 2s ease-in-out;
+
 }
 
 .web_logo{
@@ -136,15 +136,15 @@
 .webdWoocommerceReportingStatistics .reportCalendar{
 		text-align:center;
 		padding:10px;
-		
+
 }
 .webdWoocommerceReportingStatistics .reportCalendar input{
 		border-radius:3px;
-		
+
 }
 .webdWoocommerceReportingStatistics .reportCalendar input.from,.webdWoocommerceReportingStatistics .reportCalendar input.to{
 		padding:4px;
-		
+
 }
 
 .webdWoocommerceReportingStatistics.column1,
@@ -207,7 +207,7 @@
 /* Modal Content/Box */
 #webdWoocommerceReportingStatisticsModal .modal-content, .extendwp_extensions_content {
     background-color: #fefefe;
-    margin: 10% auto; 
+    margin: 10% auto;
     padding: 20px;
     border: 1px solid #888;
     width: 50%; /* Could be more or less, depending on screen size */
@@ -231,7 +231,7 @@
 .verticalAlign{
   display: flex;
   align-items: center;
-  justify-content: center;	
+  justify-content: center;
 }
 
 .extend_flex{
@@ -285,7 +285,7 @@
 
 .webdWoocommerceReportingStatistics .flexmeContainer{
 	display: flex;
-	justify-content: space-between; 
+	justify-content: space-between;
 	align-items:center;
 	flex-wrap: wrap;
 	margin-bottom:30px;
@@ -298,21 +298,21 @@
 	box-sizing:border-box;
 	margin-bottom:20px;
 	width:24%;
-					
-}  
+
+}
 .webdWoocommerceReportingStatistics.flexmeContainer .dashicons-yes-alt{
 	color:#42b72a;
 }
 .webdWoocommerceReportingStatistics.flexmeContainer .dashicons-warning{
 	color:#FF8C00;
-}   
+}
 .webdWoocommerceReportingStatistics .flexmeContainer .dashicons-dismiss{
 	color:#db4938;
-}           
+}
 
 .webdWoocommerceReportingStatistics .column1, .webdWoocommerceReportingStatistics .columns2, .webdWoocommerceReportingStatistics .overview , .webdWoocommerceReportingStatistics .no_orders {
 	display:none;
-}    
+}
 
 .webdWoocommerceReportingStatistics .progress{
 	font-weight:600;
@@ -324,18 +324,18 @@
 	height:30px;
 	margin:10px 0;
 }
-		
+
 @media only screen and (max-width: 980px) {
 	.webdWoocommerceReportingStatistics .flexmeContainer{
 		display: block;
 	}
 	.webdWoocommerceReportingStatistics .flexmeContainer div{
 		width:99%;
-	}	
-} 
+	}
+}
 
 @media (min-width:768px){
-	
+
 	.webdWoocommerceReportingStatistics table thead,.webdWoocommerceReportingStatistics table tbody{
 		display:block;
 	}
@@ -410,7 +410,7 @@
 
 
 @media (max-width:767px){
-	.webdWoocommerceReportingStatistics.columns2, 
+	.webdWoocommerceReportingStatistics.columns2,
 	.webdWoocommerceReportingStatistics.columns3,
 	.webdWoocommerceReportingStatistics.columns4,
 	.webdWoocommerceReportingStatistics.columns5,
@@ -418,7 +418,7 @@
 		float:none !important;
 		width:99% !important;
 	}
-	
+
 	.webdWoocommerceReportingStatistics .chart-container{
 		width:100%;
 		height:400px;
@@ -429,7 +429,7 @@
 		width:90% !important;
 		height:90% !important;
 	}
-	
+
 	.extend_flex{
 		display:block
 	}
@@ -437,5 +437,5 @@
 		width:100% !important;
 		padding:10px !important;
 		box-sizing:border-box !important;
-	}	
+	}
 }

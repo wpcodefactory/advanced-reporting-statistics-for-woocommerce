@@ -1,21 +1,20 @@
 === Advanced WooCommerce Product Sales Reporting - Statistics & Forecast  ===
-Contributors: taz_bambu
-Donate link: https://extend-wp.com/advanced-reporting-statistics-plugin-for-woocommerce/
+Contributors: wpcodefactory, algoritmika, anbinder, karzin, omardabbas
 Tags: reporting, woocommerce statistics, sales report, analytics, woocommerce sales
 Requires at least: 3.0.1
 Requires PHP: 5.2.4
-Tested up to: 6.7
+Tested up to: 6.8
 Stable tag: 3.1
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License: GNU General Public License v3.0
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 A comprehensive WordPress Plugin for Advanced WooCommerce Reporting, Product Sales Report, Statistics, Analytics & Forecasting Tool for Orders, Products, Countries, Payment Gateways Shipping, Tax, Refunds, Top Products
- 
+
 == Description ==
 
-<p>A comprehensive WordPress Plugin for Advanced WooCommerce Reporting of Product Sales, Statistics, Analytics & Forecasting Tool for Orders, Sales, Products, Countries, Payment Gateways Shipping, Tax, Refunds, Top Products</p> 
+<p>A comprehensive WordPress Plugin for Advanced WooCommerce Reporting of Product Sales, Statistics, Analytics & Forecasting Tool for Orders, Sales, Products, Countries, Payment Gateways Shipping, Tax, Refunds, Top Products</p>
 
-<p>Get Sales Report  - Reports of Product Sales for WooCommerce for either Completed Orders or Filter By Order Status </p> 
+<p>Get Sales Report  - Reports of Product Sales for WooCommerce for either Completed Orders or Filter By Order Status </p>
 
 == Fully compatible with WooCommerce HPOS Orders Tables ==
 
@@ -29,7 +28,7 @@ A comprehensive WordPress Plugin for Advanced WooCommerce Reporting, Product Sal
 * Orders Sales Report
 * Customers Sales Report
 * Countries Sales Report
-* WooCommerce Report By Payment Method 
+* WooCommerce Report By Payment Method
 * WooCommerce Product Sales Report
 * Product Category Sales Report
 * Coupons Report
@@ -81,12 +80,17 @@ Check that wp-cron is active . You can install WP Cron control plugin . check th
 
 == Screenshots ==
 
-1. Advanced WooCommerce Reporting - Statistics & Forecast | General Analysis - by date - here you find orders, customers, products, categories, coupons, countries, payment gateways report and tables. 
+1. Advanced WooCommerce Reporting - Statistics & Forecast | General Analysis - by date - here you find orders, customers, products, categories, coupons, countries, payment gateways report and tables.
 2. Advanced WooCommerce Reporting - Statistics & Forecast | Analysis Grouped by year
 3. Advanced WooCommerce Reporting - Statistics & Forecast | Analysis Grouped by Month and next Month's Forecast
 
 
 == Changelog ==
+
+= 4.0.0 - 28/05/2025 =
+* Dev - Code refactoring and cleanup.
+* WC tested up to: 9.8.
+* Tested up to: 6.8.
 
 = 3.1 =
 Bug fixes
@@ -103,18 +107,18 @@ Code rewritten to handle larger orders queries - pagination added. No wp-cron re
 = 2.3 =
 Code rewritten to handle larger orders queries. Prerequisite is active wp-cron. Order data are saved in text file.
 Updates when new orders created or Order status updated.
-Added feature to query by Customer. 
+Added feature to query by Customer.
 Check WooCommerce - WP compatibility.
 
 = 2.2 =
-fix css issues 
+fix css issues
 
 = 2.1 =
 fix disabled in js
 show sign up on plugin page only
 
 = 2.0 =
-fix countries bar chart labels 
+fix countries bar chart labels
 
 = 1.9 =
 fix order edit link
@@ -126,7 +130,7 @@ fix sorting on months report
 compatible with HPOS WooCommerce custom Orders table
 
 = 1.6 =
-Added feature to get Orders by Status  - dropdown 
+Added feature to get Orders by Status  - dropdown
 fixed get_used_coupons checking WooCommerce Version
 fixed isset php warnings
 fixed issue in customers tab
@@ -163,7 +167,7 @@ manage_options capability changed to manage_woocommerce so shop_manager role can
 check compatibility, fix translation ready strings
 
 = 1.6 =
-Added feature to get Orders by Status  - dropdown 
+Added feature to get Orders by Status  - dropdown
 fix get_used_coupons checking WooCommerce Version
 fix isset php warnings
 fix issue in customers tab
@@ -179,19 +183,19 @@ fix sorting on months report
 fix order edit link
 
 = 2.0 =
-fix countries bar chart labels 
+fix countries bar chart labels
 
 = 2.1 =
 fix disabled in js
 show sign up on plugin page only
 
 = 2.2 =
-fix css issues 
+fix css issues
 
 = 2.3 =
 Code rewritten to handle larger orders queries. Prerequisite is active wp-cron. Order data are saved in text file.
 Updates when new orders created or Order status updated.
-Added feature to query by Customer. 
+Added feature to query by Customer.
 Check WooCommerce - WP compatibility.
 
 = 2.8 =
