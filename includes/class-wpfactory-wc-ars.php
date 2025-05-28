@@ -75,7 +75,31 @@ final class WPFactory_WC_ARS {
 	 * @since   4.0.0
 	 */
 	function admin() {
-		return true;
+
+		// Load libs
+		require_once plugin_dir_path( WPFACTORY_WC_ARS_FILE ) . 'vendor/autoload.php';
+
+		// "Recommendations" page
+		add_action( 'init', array( $this, 'add_cross_selling_library' ) );
+
+	}
+
+	/**
+	 * add_cross_selling_library.
+	 *
+	 * @version 4.0.0
+	 * @since   4.0.0
+	 */
+	function add_cross_selling_library() {
+
+		if ( ! class_exists( '\WPFactory\WPFactory_Cross_Selling\WPFactory_Cross_Selling' ) ) {
+			return;
+		}
+
+		$cross_selling = new \WPFactory\WPFactory_Cross_Selling\WPFactory_Cross_Selling();
+		$cross_selling->setup( array( 'plugin_file_path' => WPFACTORY_WC_ARS_FILE ) );
+		$cross_selling->init();
+
 	}
 
 	/**
