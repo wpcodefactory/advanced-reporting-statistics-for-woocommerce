@@ -75,9 +75,6 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 
 			add_action( 'wpfactory_wc_ars_output_settings', array( $this, 'init' ) );
 
-			add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), array($this, 'Links') );
-
-
 			register_activation_hook( __FILE__,  array($this, 'onActivation') );
 			register_deactivation_hook( __FILE__,  array($this, 'onDeactivation') );
 
@@ -221,14 +218,6 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 			);
 			wp_localize_script("webd-woocommerce-reporting-statistics"."adminJs", "webdWoocommerceReportingStatistics" , $this->localizeBackend );
 			wp_enqueue_script( "webd-woocommerce-reporting-statistics"."adminJs");
-		}
-
-
-		public function Links($links){
-			$mylinks=array();
-			$mylinks[] .=  '<a href="' . admin_url( "admin.php?page=".$this->slug ) . '">' . esc_html__( "Reports", "webd-woocommerce-reporting-statistics" ) . '</a>';
-			$mylinks[] .=  '<a target="_blank" href="' . $this->proUrl . '">' . esc_html__( "PRO Version", "webd-woocommerce-reporting-statistics" ) . '</a>';
-			return array_merge( $links, $mylinks );
 		}
 
 		public function init(){

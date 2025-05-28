@@ -119,11 +119,42 @@ final class WPFactory_WC_ARS {
 		// Load libs
 		require_once plugin_dir_path( WPFACTORY_WC_ARS_FILE ) . 'vendor/autoload.php';
 
+		// Action links
+		add_filter(
+			'plugin_action_links_' . plugin_basename( WPFACTORY_WC_ARS_FILE ),
+			array( $this, 'action_links' )
+		);
+
 		// "Recommendations" page
 		add_action( 'init', array( $this, 'add_cross_selling_library' ) );
 
 		// Settings
 		add_filter( 'admin_menu', array( $this, 'add_settings' ), 11 );
+
+	}
+
+	/**
+	 * action_links.
+	 *
+	 * @version 4.0.0
+	 * @since   4.0.0
+	 *
+	 * @param   mixed $links
+	 * @return  array
+	 */
+	function action_links( $links ) {
+		$custom_links = array();
+
+		$custom_links[] = '<a href="' . admin_url( 'admin.php?page=webd-woocommerce-reporting-statistics' ) . '">' .
+			__( 'Reports', 'webd-woocommerce-reporting-statistics' ) .
+		'</a>';
+
+		$pro_url = 'https://extend-wp.com/product/woocommerce-advanced-reporting-statistics/';
+		$custom_links[] = '<a target="_blank" style="font-weight: bold; color: green;" href="' . $pro_url . '">' .
+			__( 'Go Pro', 'webd-woocommerce-reporting-statistics' ) .
+		'</a>';
+
+		return array_merge( $custom_links, $links );
 
 	}
 
