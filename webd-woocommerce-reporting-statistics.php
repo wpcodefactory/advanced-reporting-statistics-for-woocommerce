@@ -103,7 +103,6 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 	 * @version 4.0.0
 	 */
 	public function notification() {
-
 		$screen = get_current_screen();
 		if ( 'wpfactory_page_webd-woocommerce-reporting-statistics' !== $screen->base ) {
 			return;
@@ -155,16 +154,16 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 
 		$default_status = ['wc-completed', 'wc-processing', 'wc-on-hold', 'wc-refunded' ];
 		update_option( $this->plugin.'_status' , $default_status );
-
 	}
 
 	/**
 	 * BackEndScripts.
 	 *
 	 * @version 4.0.0
+	 *
+	 * @todo    (v4.0.0) add `version`, etc.
 	 */
 	public function BackEndScripts() {
-
 		$screen = get_current_screen();
 		if ( 'wpfactory_page_webd-woocommerce-reporting-statistics' !== $screen->base ) {
 			return;
@@ -188,12 +187,6 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 
 		wp_enqueue_style( "webd-woocommerce-reporting-statistics"."_fa", plugins_url( '/css/font-awesome.min.css', __FILE__ ));
 
-		$page = $this->slug;
-		$tab = array( 'all' );
-		$custom_fields = get_option( $this->plugin."_custom_fields" );
-
-		$queryLimit = get_option( $this->plugin."queryLimit" , 500 );
-
 		wp_localize_script(
 			"webd-woocommerce-reporting-statistics"."adminJs",
 			"webdWoocommerceReportingStatistics",
@@ -205,14 +198,14 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 				'siteUrl'        => site_url(),
 				'plugin_wrapper' => "webd-woocommerce-reporting-statistics",
 				'select'         => esc_html__( 'Select...', $this->plugin ),
-				'orders_loading' => esc_html__ ( "Your orders are loading please wait...", $this->plugin ),
-				'orders_loaded'  => esc_html__ ( "All orders are loaded!", $this->plugin ),
-				'no_orders'      => esc_html__ ( "No orders found...", $this->plugin ),
-				'page'           => $page,
-				'tab'            => $tab,
-				'custom_fields'  => $custom_fields,
+				'orders_loading' => esc_html__( "Your orders are loading please wait...", $this->plugin ),
+				'orders_loaded'  => esc_html__( "All orders are loaded!", $this->plugin ),
+				'no_orders'      => esc_html__( "No orders found...", $this->plugin ),
+				'page'           => $this->slug,
+				'tab'            => array( 'all' ),
+				'custom_fields'  => get_option( $this->plugin."_custom_fields" ),
 				'currency'       => get_woocommerce_currency_symbol(),
-				'limit'          => $queryLimit,
+				'limit'          => get_option( $this->plugin."queryLimit" , 500 ),
 			)
 		);
 
@@ -237,7 +230,6 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 		$this->adminHeader();
 		echo "<h3>". esc_html__('Statistics',"webd-woocommerce-reporting-statistics") ."</h3>";
 		echo do_shortcode( '[adStats]' );
-
 		$this->adminFooter();
 		print "</div>";
 	}
