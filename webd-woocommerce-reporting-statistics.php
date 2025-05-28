@@ -23,6 +23,22 @@ defined( 'WPFACTORY_WC_ARS_VERSION' ) || define( 'WPFACTORY_WC_ARS_VERSION', '4.
 
 defined( 'WPFACTORY_WC_ARS_FILE' ) || define( 'WPFACTORY_WC_ARS_FILE', __FILE__ );
 
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-wpfactory-wc-ars.php';
+
+if ( ! function_exists( 'wpfactory_wc_ars' ) ) {
+	/**
+	 * Returns the main instance of WPFactory_WC_ARS to prevent the need to use globals.
+	 *
+	 * @version 4.0.0
+	 * @since   4.0.0
+	 */
+	function wpfactory_wc_ars() {
+		return WPFactory_WC_ARS::instance();
+	}
+}
+
+add_action( 'plugins_loaded', 'wpfactory_wc_ars' );
+
 /**
  * includes.
  */
