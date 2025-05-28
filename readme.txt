@@ -46,7 +46,7 @@ A comprehensive WordPress Plugin for Advanced WooCommerce Reporting, Product Sal
 * Advanced Search Customly defined specific period | From - To dates
 * Search and Get Product Sales Reports by Month
 * Search and Get Product Sales Reports by Year
-* Get reports by City , Country, Payment Method
+* Get reports by City, Country, Payment Method
 * Search & Sort List Reports with input field
 * WooCommerce Sales Reports by Product
 * WooCommerce Sales Reports by Category
@@ -54,7 +54,7 @@ A comprehensive WordPress Plugin for Advanced WooCommerce Reporting, Product Sal
 * Next Month's Sales Forecast for Specified Category
 * WooCommerce Stock Reports: Low Stock Reporting - you get a report for products low in stock, independent of sales
 * WooCommerce Stock Reports: LLatest Selling Products Low Stock Reminder - report for low stock of products that actually sell!
-* Email Report - get email on a Weekly or Monthly basis. The email includes This Month's , This Week's Report & Low Stock Management Report.
+* Email Report - get email on a Weekly or Monthly basis. The email includes This Month's, This Week's Report & Low Stock Management Report.
 * Export Reports in excel file - save reports in xlsx format for further analysis
 
 **[Get PRO Version with Search Product-Category ability, Low Stock Reminders, Email Report & Export Capabilities](https://extend-wp.com/product/woocommerce-advanced-reporting-statistics/ "Advanced WooCommerce Reporting - Statistics & Forecast PRO")**
@@ -95,10 +95,10 @@ Check that wp-cron is active . You can install WP Cron control plugin . check th
 * Bug fixes.
 
 = 3.0 =
-* Bug fixes , include helper class file, check wp and woo latest compatibility.
+* Bug fixes, include helper class file, check wp and woo latest compatibility.
 
 = 2.9 =
-* Bug fixes , include helper class file, check wp and woo latest compatibility.
+* Bug fixes, include helper class file, check wp and woo latest compatibility.
 
 = 2.8 =
 * Code rewritten to handle larger orders queries - pagination added. No wp-cron required.
