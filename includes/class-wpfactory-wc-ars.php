@@ -81,7 +81,7 @@ final class WPFactory_WC_ARS {
 		load_plugin_textdomain(
 			'webd-woocommerce-reporting-statistics',
 			false,
-			dirname( plugin_basename( WPFACTORY_WC_ARS_FILE ) ) . '/lang/'
+			dirname( plugin_basename( WPFACTORY_WC_ARS_FILE ) ) . '/langs/'
 		);
 	}
 

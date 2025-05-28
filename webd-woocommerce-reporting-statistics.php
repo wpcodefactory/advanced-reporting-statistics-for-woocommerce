@@ -10,7 +10,7 @@
  * WC tested up to: 9.8
  * Requires Plugins: woocommerce
  * Text Domain: webd-woocommerce-reporting-statistics
- * Domain Path: /lang
+ * Domain Path: /langs
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * Created On: 23-01-2019
