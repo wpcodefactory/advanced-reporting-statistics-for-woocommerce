@@ -37,11 +37,7 @@
 
 		});
 
-
-
-
 	$('.webdWoocommerceReportingStatistics .nav-tab-wrapper a').click(function(e){
-
 
 		if( $(this).hasClass("proVersion") ){
 			e.preventDefault();
@@ -50,7 +46,6 @@
 		}
 
 	});
-
 
 		//EXTENSIONS
 		$(".webdWoocommerceReportingStatistics .extendwp_extensions").click(function(e){
@@ -126,9 +121,6 @@
 		  };
 		}
 
-
-
-
 	/*DATEPICKER*/
 	$('.webdWoocommerceReportingStatistics .datepicker').datepicker({
 	   //dateFormat: 'yy-mm-dd', //maybe you want something like this
@@ -148,8 +140,6 @@
 		$( ".webdWoocommerceReportingStatistics #tabs" ).tabs();
 		$( ".webdWoocommerceReportingStatistics #tabs2" ).tabs();
 		$( ".webdWoocommerceReportingStatistics #tabs3" ).tabs();
-
-
 
 		$(".webdWoocommerceReportingStatistics .search").keyup(function () {
 			var value = this.value.toLowerCase().trim();
@@ -171,7 +161,6 @@
 		});
 	}
 
-
 		$("#webdWoocommerceReportingStatistics_signup").on('submit',function(e){
 			e.preventDefault();
 			var dat = $(this).serialize();
@@ -192,7 +181,6 @@
 			});
 		});
 
-
 		function dismiss(){
 
 				var ajax_options = {
@@ -206,7 +194,6 @@
 					$(".webdWoocommerceReportingStatistics_notification").fadeOut();
 				});
 
-
 		}
 
 		$(".webdWoocommerceReportingStatistics_notification .dismiss").on('click',function(e){
@@ -214,8 +201,6 @@
 				console.log('clicked');
 
 		});
-
-
 
 	// get url parameters function
 	$.urlParam = function(name){
@@ -313,11 +298,9 @@
 
 				if ( ordersLength !=0 && ( totalOrders=='' || sumOrders < totalOrders )  ) {
 
-
 					var selected = $("#selected").val();
 					var order_status =  $("#order_status").val();
 					var customer = $("#customer").val();
-
 
 					$.ajax({
 						type: 'POST',
@@ -351,7 +334,6 @@
 
 							}else{
 
-
 								totalOrders = obj[0]['total_orders'] << 0;
 								days = obj[0]['days'] << 0;
 
@@ -380,9 +362,7 @@
 
 									}
 
-
 								});
-
 
 								$(".subtotal").html( subtotal.toFixed(2) + currency );
 								$(".shipping").html( shipping.toFixed(2) + currency );
@@ -400,12 +380,10 @@
 								}else $(".avg").html( ( ( total - refund ) / days ).toFixed(2)  +currency );
 								$(".salesEvery").html( parseInt( days / unique_dates.length ) );
 
-
 								offset += limit << 0;
 								width = ( sumOrders / totalOrders  ) *100 ;
 
 							}
-
 
 							$(".progressBar").css( "width",  width + "%" );
 
@@ -422,7 +400,6 @@
 								getOrders();
 						}
 					});
-
 
 				}else{
 
@@ -445,15 +422,12 @@
 						$(".progressBar").fadeOut();
 					},3000);
 
-
-
 				}
 			}
 
 	var paged = 1; // Start from the first page
 
 	function load_orders() {
-
 
 		$.ajax({
 			url: webdWoocommerceReportingStatistics.ajax_url,
@@ -599,7 +573,6 @@
 
 				if (couponsChartTotals.length !== 0)chart( 'pie', 'Coupons', 'couponCharts', couponsChartLabels,  couponsChartTotals, coupons_colors );
 
-
 			}
 		});
 	}
@@ -637,7 +610,6 @@
 
 				if (productsChartTotals.length !== 0)chart( 'bar','Products', 'productChart', productsChartLabels,  productsChartTotals, products_colors );
 
-
 			}
 		});
 	}
@@ -674,7 +646,6 @@
 				$('#categories table tbody').html( data.categories );
 
 				if (categoriesChartTotals.length !== 0)chart( 'pie','Categories', 'categoriesChart', categoriesChartLabels,  categoriesChartTotals, categories_colors );
-
 
 			}
 		});
@@ -758,8 +729,6 @@
 		});
 	}
 
-
-
 	$(document).on('click', '.orders-pagination .page-numbers', function( e) {
 		e.preventDefault();
 		//console.log('Load More button clicked'); // Debugging line
@@ -767,8 +736,6 @@
 		$('#orders table tbody').html(''); // Clear the orders container
 		load_orders(); // Load the orders for the clicked page number
 	});
-
-
 
 	function noOrders(){
 
@@ -781,7 +748,6 @@
 		$(".webdWoocommerceReportingStatistics #tabs2").css('visibility','hidden');
 	}
 
-
 	// Run getOrders only if url parameter specific
 	if ( ( $.urlParam('page') == page && !$.urlParam('tab') ) || ( $.urlParam('page') == page && $.inArray( $.urlParam('tab') , tabs ) !== -1 ) ){
 		getOrders();
@@ -789,9 +755,6 @@
 	if( $.urlParam('page') == page && ( $.urlParam('tab') =='months'  || $.urlParam('tab') =='years' ) ){
 		display_orders_by_period();
 	}
-
-
-
 
 	// On form filters submission , rerun the getOrders function
 	$('.reportCalendar form input[type=submit] ').click(function(e){
@@ -823,11 +786,8 @@
 		ordersLength=1;
 		orderids =[];
 
-
 		$( ".subtotal, .total , .tax, .discount, .shipping, .num_orders, .num_products, .sum_products, .refund, .avg, .salesEvery , .avg_period, .shipping , .results_found ").html( '' );
 		$( ".chart-container canvas").remove();
-
-
 
 		$.ajax({
 			url: window.location.href,
@@ -869,7 +829,6 @@
 		return color;
 	}
 
-
 	// main chart function for charts in reports
 	function chart( type='bar', text, id , xValues, yValues, color ){
 
@@ -892,6 +851,5 @@
 		  }
 		});
 	}
-
 
 })( jQuery )
