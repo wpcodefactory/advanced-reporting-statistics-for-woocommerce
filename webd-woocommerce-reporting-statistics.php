@@ -47,6 +47,8 @@ include_once( plugin_dir_path(__FILE__) ."/class-admin.php");
 
 /**
  * webdWoocommerceReportingStatistics class.
+ *
+ * @version 4.0.0
  */
 class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatisticsAdmin {
 
@@ -62,10 +64,17 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 		public $localizeBackend;
 		public $localizeFrontend;
 
+		/**
+		 * Constructor.
+		 *
+		 * @version 4.0.0
+		 */
 		public function __construct() {
 
 			add_action('admin_enqueue_scripts', array($this, 'BackEndScripts') );
-			add_action('admin_menu', array($this, 'SettingsPage') );
+
+			add_action( 'wpfactory_wc_ars_output_settings', array( $this, 'init' ) );
+
 			add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), array($this, 'Links') );
 
 
@@ -113,10 +122,15 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 
 		}
 
+		/**
+		 * notification.
+		 *
+		 * @version 4.0.0
+		 */
 		public function notification(){
 
 			$screen = get_current_screen();
-			if ( 'woocommerce_page_webd-woocommerce-reporting-statistics'  !== $screen->base )
+			if ( 'wpfactory_page_webd-woocommerce-reporting-statistics'  !== $screen->base )
 			return;
 
 			/* Check transient, if available display notice */
@@ -169,10 +183,15 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 
 		}
 
+		/**
+		 * BackEndScripts.
+		 *
+		 * @version 4.0.0
+		 */
 		public function BackEndScripts(){
 
 			$screen = get_current_screen();
-			if ( 'woocommerce_page_webd-woocommerce-reporting-statistics'  !== $screen->base )
+			if ( 'wpfactory_page_webd-woocommerce-reporting-statistics'  !== $screen->base )
 			return;
 
 			wp_enqueue_style( "webd-woocommerce-reporting-statistics"."adminCss", plugins_url( "/css/backend.css?v=bvc", __FILE__ ) );
@@ -215,10 +234,6 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 			wp_enqueue_script( "webd-woocommerce-reporting-statistics"."adminJs");
 		}
 
-
-		public function SettingsPage(){
-			add_submenu_page( 'woocommerce', $this->shortName, $this->shortName, 'manage_woocommerce', $this->slug, array($this, 'init') );
-		}
 
 		public function Links($links){
 			$mylinks=array();
