@@ -1,4 +1,10 @@
 <?php
+/**
+ * Advanced WooCommerce Product Sales Reporting - Statistics & Forecast - OrderProcessorHelp Class
+ *
+ * @author  WPFactory
+ */
+
 defined( 'ABSPATH' ) || exit;
 
 use Automattic\WooCommerce\Utilities\OrderUtil;

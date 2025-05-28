@@ -1,3 +1,9 @@
+/**
+ * Advanced WooCommerce Product Sales Reporting - Statistics & Forecast - Backend JS
+ *
+ * @author  WPFactory
+ */
+
 (function( $ ) {
 
 		$("#webdWoocommerceReportingStatisticsModal .close").click(function(e){

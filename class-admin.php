@@ -1,6 +1,11 @@
 <?php
+/**
+ * Advanced WooCommerce Product Sales Reporting - Statistics & Forecast - webdWoocommerceReportingStatisticsAdmin Class
+ *
+ * @author  WPFactory
+ */
 
- defined( 'ABSPATH' ) || exit;
+defined( 'ABSPATH' ) || exit;
 
  class webdWoocommerceReportingStatisticsAdmin{
 
