@@ -159,6 +159,24 @@ final class WPFactory_WC_ARS {
 	}
 
 	/**
+	 * add_cross_selling_library.
+	 *
+	 * @version 4.0.0
+	 * @since   4.0.0
+	 */
+	function add_cross_selling_library() {
+
+		if ( ! class_exists( '\WPFactory\WPFactory_Cross_Selling\WPFactory_Cross_Selling' ) ) {
+			return;
+		}
+
+		$cross_selling = new \WPFactory\WPFactory_Cross_Selling\WPFactory_Cross_Selling();
+		$cross_selling->setup( array( 'plugin_file_path' => WPFACTORY_WC_ARS_FILE ) );
+		$cross_selling->init();
+
+	}
+
+	/**
 	 * add_settings.
 	 *
 	 * @version 4.0.0
@@ -192,24 +210,6 @@ final class WPFactory_WC_ARS {
 	 */
 	function output_settings() {
 		do_action( 'wpfactory_wc_ars_output_settings' );
-	}
-
-	/**
-	 * add_cross_selling_library.
-	 *
-	 * @version 4.0.0
-	 * @since   4.0.0
-	 */
-	function add_cross_selling_library() {
-
-		if ( ! class_exists( '\WPFactory\WPFactory_Cross_Selling\WPFactory_Cross_Selling' ) ) {
-			return;
-		}
-
-		$cross_selling = new \WPFactory\WPFactory_Cross_Selling\WPFactory_Cross_Selling();
-		$cross_selling->setup( array( 'plugin_file_path' => WPFACTORY_WC_ARS_FILE ) );
-		$cross_selling->init();
-
 	}
 
 	/**

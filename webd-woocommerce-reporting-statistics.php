@@ -54,15 +54,8 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 
 		public $plugin       = 'webdWoocommerceReportingStatistics';
 		public $name         = 'Webd Woocommerce Advanced Reporting & Statistics';
-		public $shortName    = 'Reporting & Statistics';
 		public $slug         = 'webd-woocommerce-reporting-statistics';
-		public $dashicon     = 'dashicons-editor-table';
 		public $proUrl       = 'https://extend-wp.com/product/woocommerce-advanced-reporting-statistics/';
-		public $menuPosition = '50';
-		public $description  = 'Advanced Reporting Analytics and Statistical Analysic to manage Woocommerce Eshop efficiently.';
-
-		public $localizeBackend;
-		public $localizeFrontend;
 
 		/**
 		 * Constructor.
@@ -199,24 +192,27 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 
 			$queryLimit = get_option( $this->plugin."queryLimit" , 500 );
 
-			$this->localizeBackend = array(
-				'thispluginpage'=> admin_url("/admin.php?page=".$this->slug),
-				'url' => admin_url( 'admin-ajax.php' ),
-				'plugin_url' => plugins_url( '', __FILE__ ),
-				'ajax_url' => admin_url( 'admin-ajax.php' ),
-				'siteUrl'	=>	site_url(),
-				'plugin_wrapper'=> "webd-woocommerce-reporting-statistics",
-				'select'	=>	esc_html__( 'Select...', $this->plugin ),
-				'orders_loading' => esc_html__ ( "Your orders are loading please wait...", $this->plugin ),
-				'orders_loaded' => esc_html__ ( "All orders are loaded!", $this->plugin ),
-				'no_orders' => esc_html__ ( "No orders found...", $this->plugin ),
-				'page' => $page,
-				'tab' => $tab,
-				'custom_fields'=> $custom_fields,
-				'currency'=> get_woocommerce_currency_symbol(),
-				'limit' => $queryLimit
+			wp_localize_script(
+				"webd-woocommerce-reporting-statistics"."adminJs",
+				"webdWoocommerceReportingStatistics",
+				array(
+					'thispluginpage' => admin_url("/admin.php?page=".$this->slug),
+					'url'            => admin_url( 'admin-ajax.php' ),
+					'plugin_url'     => plugins_url( '', __FILE__ ),
+					'ajax_url'       => admin_url( 'admin-ajax.php' ),
+					'siteUrl'        => site_url(),
+					'plugin_wrapper' => "webd-woocommerce-reporting-statistics",
+					'select'         => esc_html__( 'Select...', $this->plugin ),
+					'orders_loading' => esc_html__ ( "Your orders are loading please wait...", $this->plugin ),
+					'orders_loaded'  => esc_html__ ( "All orders are loaded!", $this->plugin ),
+					'no_orders'      => esc_html__ ( "No orders found...", $this->plugin ),
+					'page'           => $page,
+					'tab'            => $tab,
+					'custom_fields'  => $custom_fields,
+					'currency'       => get_woocommerce_currency_symbol(),
+					'limit'          => $queryLimit,
+				)
 			);
-			wp_localize_script("webd-woocommerce-reporting-statistics"."adminJs", "webdWoocommerceReportingStatistics" , $this->localizeBackend );
 			wp_enqueue_script( "webd-woocommerce-reporting-statistics"."adminJs");
 		}
 
