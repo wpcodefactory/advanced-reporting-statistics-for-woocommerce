@@ -27,7 +27,6 @@ class OrderProcessorHelp {
 
 	public function __construct() {
 
-
 		add_action( 'wp_ajax_getOrders', array( $this,'getOrders' ) );
 		add_action( 'wp_ajax_nopriv_getOrders', array( $this,'getOrders' ) );
 
@@ -56,7 +55,6 @@ class OrderProcessorHelp {
 		add_action( 'wp_ajax_nopriv_display_orders_by_period', array( $this,'display_orders_by_period' ) );
 
 	}
-
 
 	public function periodFilter( $period ){
 
@@ -88,19 +86,15 @@ class OrderProcessorHelp {
 
 			// POST VARIABLES FROM FILTER FORM
 
-
 			$customer_id = (empty($_POST['customer'])) ? null : sanitize_text_field( $_POST['customer'] );
 			$order_status = (empty($_POST['order_status'])) ?  $status :  [ $_POST['order_status'] ];
 
 			$period = ( isset( $_POST['tab'] ) && $_POST['tab'] =='months'  ) ? '%Y-%m' : '%Y' ;
 
-
-
 			// Query completed orders with order date and total sales.
 			if( OrderUtil::custom_orders_table_usage_is_enabled() ) {
 
 				$query = "SELECT DATE_FORMAT( date_created_gmt, '{$period}' ) AS period, ";
-
 
 					$query .= "
 						SUM(orders.total_amount ) AS total,
@@ -111,15 +105,12 @@ class OrderProcessorHelp {
 						SUM(operational_data.shipping_total_amount) AS shipping,
 						SUM(operational_data.discount_total_amount) AS discount 	";
 
-
 				$query .= "
 					FROM {$wpdb->prefix}wc_orders AS orders
 					LEFT JOIN {$wpdb->prefix}wc_orders_meta AS meta_refunds ON ( orders.id = meta_refunds.order_id OR orders.parent_order_id = meta_refunds.order_id ) AND meta_refunds.meta_key = '_refund_amount'
 					LEFT JOIN {$wpdb->prefix}wc_order_operational_data AS operational_data ON orders.id = operational_data.order_id ";
 
-
 				$query .= " WHERE orders.type IN( 'shop_order','shop_order_refund' ) AND  orders.status IN ('" . implode("','", $order_status) . "') ";
-
 
 				// Add the customer ID filter if provided
 				if ($customer_id) {
@@ -141,15 +132,12 @@ class OrderProcessorHelp {
 						   FROM {$wpdb->prefix}posts
 						   ";
 
-
 					$query .= "
 						LEFT JOIN {$wpdb->prefix}postmeta AS meta_total ON {$wpdb->prefix}posts.ID = meta_total.post_id AND meta_total.meta_key = '_order_total'
 						LEFT JOIN {$wpdb->prefix}postmeta AS meta_tax ON {$wpdb->prefix}posts.ID = meta_tax.post_id AND meta_tax.meta_key = '_order_tax'
 						LEFT JOIN {$wpdb->prefix}postmeta AS meta_shipping ON {$wpdb->prefix}posts.ID = meta_shipping.post_id AND meta_shipping.meta_key = '_order_shipping'
 						LEFT JOIN {$wpdb->prefix}postmeta AS meta_refunds ON ( {$wpdb->prefix}posts.ID = meta_refunds.post_id OR {$wpdb->prefix}posts.post_parent = meta_refunds.post_id ) AND {$wpdb->prefix}posts.post_type = 'shop_order_refund' AND meta_refunds.meta_key = '_refund_amount'
 						LEFT JOIN {$wpdb->prefix}postmeta AS meta_discount ON {$wpdb->prefix}posts.ID = meta_discount.post_id AND meta_discount.meta_key = '_cart_discount' ";
-
-
 
 				if ( $customer_id ) {
 					$query .= " LEFT JOIN {$wpdb->prefix}postmeta AS meta_customer ON ( {$wpdb->prefix}posts.ID = meta_customer.post_id OR {$wpdb->prefix}posts.post_parent = meta_customer.post_id ) AND meta_customer.meta_key = '_customer_user'  ";
@@ -206,8 +194,6 @@ class OrderProcessorHelp {
 					$message .= "<h3> for ". esc_html( $user->first_name ) . " " . esc_html( $user->last_name ) . " </h3>";
 				}
 
-
-
 				foreach( $results as $row ) {
 
 					$tax_amount += $row->tax;
@@ -216,12 +202,10 @@ class OrderProcessorHelp {
 					$shipping += $row->shipping;
 					$discount += $row->discount;
 
-
 					$net += $row->total - $row->tax - $row->shipping + $row->discount;
 					$total_sales += $row->total;
 					$topush = $row->total + $row->refund - $row->tax - $row->shipping;
 					if( $topush == 0 ) $topush = 0.1;
-
 
 					array_push( $totals , $topush );
 
@@ -231,7 +215,6 @@ class OrderProcessorHelp {
 
 						$thegross = $row->total + $row->tax + $row->shipping;
 						$thenet  = $row->total;
-
 
 					}else{
 
@@ -252,7 +235,6 @@ class OrderProcessorHelp {
 				$response['totals'] .= '<td>TOTALS</td><td>' . esc_html( $num_orders ). '</td><td class="tax" >' . wc_price( $tax_amount ). '</td><td class="shipping">' . wc_price( $shipping ). '</td><td class="discount">' . wc_price( $discount ). '</td><td class="refund">' . wc_price( $refunds ). '</td><td class="gross">' . wc_price( $total_sales ). '</td><td class="net">' . wc_price( $net ). '</td>';
 
 				$average = $total_sales / count( $results );
-
 
 				if( array_sum ($totals ) != '' && count(  $totals ) >1 ){
 					$forecast  = ( $period =='month'  ) ? $this->forecastHoltWinters( array_reverse( $totals ) , 2, 4 )[0] : $this->forecastHoltWinters( array_reverse( $totals ) , 1, 1 )[0] ;
@@ -278,7 +260,6 @@ class OrderProcessorHelp {
 					$nomessage .= "<h3> ". esc_html( ' for customer: ' . $user->first_name." " .$user->last_name ) . "</h3>" ;
 				}
 
-
 				$response['message'] = $nomessage;
 				$response['results'] = 0 ;
 
@@ -290,7 +271,6 @@ class OrderProcessorHelp {
 
 		}
 	}
-
 
 	public function filter_orders(){
 
@@ -318,10 +298,8 @@ class OrderProcessorHelp {
 			$default_status = ['wc-completed', 'wc-processing', 'wc-on-hold', 'wc-refunded' ];
 			$status = get_option( $this->plugin.'_status' , $default_status );
 
-
 			$customer = (empty( $_POST['customer'] ) ) ? '' : $_POST['customer'];
 			$order_status = ( empty( $_POST['order_status'] ) ) ?  $status : $_POST['order_status'];
-
 
 			$filters = [
 
@@ -336,14 +314,11 @@ class OrderProcessorHelp {
 
 	}
 
-
-
 	public function getOrders() {
 
 		if( $_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] == 'getOrders'   ){
 
 			global $woocommerce;
-
 
 			$args = array(
 				'type' => 'shop_order',
@@ -382,7 +357,6 @@ class OrderProcessorHelp {
 				$datediff =   strtotime( $to ) - $from ;
 
 			}
-
 
 			$resultss = wc_get_orders( $args );
 
@@ -426,7 +400,6 @@ class OrderProcessorHelp {
 			if(isset($_POST['billing_city']) && !empty($_POST['billing_city'])){
 				$message .= "<h3> for ".esc_html( $_POST['city'] )." </h3>";
 			}
-
 
 			if( $resultss ){
 
@@ -484,7 +457,6 @@ class OrderProcessorHelp {
 								$categories[] = array( 'discount'=> $order->get_total_discount(), 'refund'=> $order->get_total_refunded(), "name"=>$term->name,"quantity"=>$item->get_quantity(),"total"=>$item->get_subtotal()  );
 							}
 
-
 						}
 						$order_data['quantity'] = $quantity;
 						$order_data['products'] = $products;
@@ -516,18 +488,14 @@ class OrderProcessorHelp {
 
 						$nomessage .= "<h3> ".esc_html__( ' for ',$this->plugin).date( 'd/m/Y',strtotime( esc_attr( $_POST['selected'] ) ) )." ".esc_html__( 'to', $this->plugin ) ." ". esc_html( $todayDisplay ) . "</h3>" ;
 
-
 					}else $nomessage .="<h3> ".esc_html__( ' for ',$this->plugin) . date('F'). "</h3>" ;
 
 				}
-
-
 
 				if( isset( $_POST['customer'] ) && !empty( $_POST['customer'] ) ){
 					$user = get_user_by( 'id', $_POST['customer'] );
 					$nomessage .= "<h3> ". esc_html( ' for customer: ' . $user->first_name." " .$user->last_name ) . "</h3>" ;
 				}
-
 
 				$nodata['message'] = $nomessage;
 				$nodata['total_orders'] = 0;
@@ -547,12 +515,10 @@ class OrderProcessorHelp {
 
 		if( is_admin() && isset( $_POST['action'] ) &&  $_POST['action'] =='get_orders' ){
 
-
 			if( isset( $_POST['page'] ) ) $page = $_POST['page'];
 			if( isset( $_POST['ids'] ) ) $ids = $_POST['ids'];
 
 			$ids = array_map( 'sanitize_text_field', $ids );
-
 
 			$args = array(
 					'paginate' => true,
@@ -563,10 +529,7 @@ class OrderProcessorHelp {
 					'order' => 'DESC',
 			);
 
-
 			$orders = wc_get_orders( $args );
-
-
 
 			$query = $orders->orders;
 			$response = array(
@@ -574,11 +537,9 @@ class OrderProcessorHelp {
 				'orders' => '',
 			);
 
-
 			if( !empty( $orders ) ) {
 
 				foreach( $query as $order ) {
-
 
 							 $response['orders'] .= "<tr>";
 
@@ -601,10 +562,8 @@ class OrderProcessorHelp {
 				}
 			}
 
-
 			echo json_encode( $response );
 			wp_die();
-
 
 		}
 	}
@@ -709,7 +668,6 @@ class OrderProcessorHelp {
 			echo json_encode( $response );
 			wp_die();
 
-
 		}
 	}
 
@@ -758,7 +716,6 @@ class OrderProcessorHelp {
 			";
 			$data = $wpdb->get_results( $query );
 
-
 			$response = array(
 				'name' => array(),
 				'total' => array(),
@@ -779,14 +736,11 @@ class OrderProcessorHelp {
 				}
 			}
 
-
 			echo json_encode( $response );
 			wp_die();
 
-
 		}
 	}
-
 
 	public function get_payments() {
 
@@ -826,14 +780,12 @@ class OrderProcessorHelp {
 						payment_method.meta_key = '_payment_method_title'
 					";
 
-
 			}
 			$query .= "
 				GROUP BY payment
 				ORDER BY total DESC
 			";
 			$data = $wpdb->get_results( $query );
-
 
 			$response = array(
 				'name' => array(),
@@ -855,10 +807,8 @@ class OrderProcessorHelp {
 				}
 			}
 
-
 			echo json_encode( $response );
 			wp_die();
-
 
 		}
 	}
@@ -897,7 +847,6 @@ class OrderProcessorHelp {
 			";
 			$data = $wpdb->get_results( $query );
 
-
 			$response = array(
 				'name' => array(),
 				'total' => array(),
@@ -919,10 +868,8 @@ class OrderProcessorHelp {
 				}
 			}
 
-
 			echo json_encode( $response );
 			wp_die();
-
 
 		}
 	}
@@ -999,13 +946,11 @@ class OrderProcessorHelp {
 
 			if( $cat != null ) 	 $query .= " AND terms.term_id = ".$cat;
 
-
 			$query .= "
 				GROUP BY product, variation
 				ORDER BY total DESC
 			";
 			$data = $wpdb->get_results( $query );
-
 
 			$response = array(
 				'name' => array(),
@@ -1027,14 +972,11 @@ class OrderProcessorHelp {
 				}
 			}
 
-
 			echo json_encode( $response );
 			wp_die();
 
-
 		}
 	}
-
 
 	public function get_categories() {
 
@@ -1081,13 +1023,11 @@ class OrderProcessorHelp {
 			}
 			if( $cat != null )	$query .= " AND terms.term_id = ".$cat;
 
-
 			$query .= "
 				GROUP BY term
 				ORDER BY total DESC
 			";
 			$data = $wpdb->get_results( $query );
-
 
 			$response = array(
 				'name' => array(),
@@ -1108,10 +1048,8 @@ class OrderProcessorHelp {
 				}
 			}
 
-
 			echo json_encode( $response );
 			wp_die();
-
 
 		}
 	}
@@ -1229,7 +1167,6 @@ class OrderProcessorHelp {
 		return $anForecast;
 	}
 
-
 	public function divide($a, $b){
 		try {
 			if(@($a / $b) === false) return INF; // covers PHP5
@@ -1294,7 +1231,6 @@ class OrderProcessorHelp {
 	public function getRandomColor() {
 		return "#".$this->random_color_part() . $this->random_color_part() . $this->random_color_part();
 	}
-
 
 }
 
