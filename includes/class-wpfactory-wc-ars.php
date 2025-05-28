@@ -61,11 +61,28 @@ final class WPFactory_WC_ARS {
 			return;
 		}
 
+		// Set up localisation
+		add_action( 'init', array( $this, 'localize' ) );
+
 		// Admin
 		if ( is_admin() ) {
 			$this->admin();
 		}
 
+	}
+
+	/**
+	 * localize.
+	 *
+	 * @version 4.0.0
+	 * @since   4.0.0
+	 */
+	function localize() {
+		load_plugin_textdomain(
+			'webd-woocommerce-reporting-statistics',
+			false,
+			dirname( plugin_basename( WPFACTORY_WC_ARS_FILE ) ) . '/lang/'
+		);
 	}
 
 	/**

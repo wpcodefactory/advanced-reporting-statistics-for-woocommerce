@@ -81,7 +81,6 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 			register_activation_hook( __FILE__,  array($this, 'onActivation') );
 			register_deactivation_hook( __FILE__,  array($this, 'onDeactivation') );
 
-			add_action('plugins_loaded', 'translate');
 			add_action("admin_init", array($this, 'settingsSection') );
 
 			if( isset( $_GET['page'] ) && $_GET['page'] == 'webd-woocommerce-reporting-statistics' ) {
@@ -160,10 +159,6 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 		}
 		public function notification_hook() {
 			set_transient( $this->plugin ."_notification", true );
-		}
-
-		public function translate() {
-			load_plugin_textdomain( $this->slug, false, dirname( plugin_basename(__FILE__) ) . '/lang/' );
 		}
 
 		public function onActivation(){
