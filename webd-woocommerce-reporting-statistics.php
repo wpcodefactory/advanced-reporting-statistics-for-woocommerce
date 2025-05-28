@@ -92,12 +92,6 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 			add_action( 'wp_ajax_nopriv_stat_extensions', array( $this,'extensions' ) );
 			add_action( 'wp_ajax_stat_extensions', array( $this,'extensions' ) );
 
-			add_action( 'before_woocommerce_init', function() {
-				if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
-					\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
-				}
-			} );
-
 			// deactivation survey
 
 			include( plugin_dir_path(__FILE__) .'/lib/codecabin/plugin-deactivation-survey/deactivate-feedback-form.php');
