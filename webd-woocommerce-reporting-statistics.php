@@ -50,9 +50,11 @@ include_once( plugin_dir_path(__FILE__) ."/class-admin.php");
  *
  * @version 4.0.0
  *
+ * @todo    (v4.0.0) fix "Deprecated: Creation of dynamic property"
+ * @todo    (v4.0.0) test
  * @todo    (v4.0.0) Plugin Check (PCP)
- * @todo    (v4.0.0) cleanup
  * @todo    (v4.0.0) remove `public $name`, `public $slug`, `public $proUrl`?
+ * @todo    (v4.0.0) cleanup
  */
 class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatisticsAdmin {
 
