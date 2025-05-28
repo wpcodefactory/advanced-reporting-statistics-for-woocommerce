@@ -82,21 +82,18 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 		// Deactivation survey
 		include( plugin_dir_path(__FILE__) .'/lib/codecabin/plugin-deactivation-survey/deactivate-feedback-form.php');
 		add_filter( 'codecabin_deactivate_feedback_form_plugins', function( $plugins ) {
-
 			$plugins[] = (object) array(
 				'slug'    => 'webd-woocommerce-advanced-reporting-statistics',
 				'version' => '3.1',
 			);
-
 			return $plugins;
-
 		});
 
 		register_activation_hook( __FILE__, array( $this, 'notification_hook' ) );
 
 		add_action( 'admin_notices', array( $this,'notification' ) );
 		add_action( 'wp_ajax_nopriv_push_not',array( $this, 'push_not' ) );
-		add_action( 'wp_ajax_push_not', array( $this, 'push_not' ) );
+		add_action( 'wp_ajax_push_not',       array( $this, 'push_not' ) );
 
 	}
 
@@ -108,8 +105,9 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 	public function notification() {
 
 		$screen = get_current_screen();
-		if ( 'wpfactory_page_webd-woocommerce-reporting-statistics'  !== $screen->base )
-		return;
+		if ( 'wpfactory_page_webd-woocommerce-reporting-statistics' !== $screen->base ) {
+			return;
+		}
 
 		/* Check transient, if available display notice */
 		if( get_transient( $this->plugin ."_notification" ) ){
@@ -143,6 +141,7 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 	public function notification_hook() {
 		set_transient( $this->plugin ."_notification", true );
 	}
+
 	/**
 	 * onActivation.
 	 */
@@ -167,8 +166,9 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 	public function BackEndScripts() {
 
 		$screen = get_current_screen();
-		if ( 'wpfactory_page_webd-woocommerce-reporting-statistics'  !== $screen->base )
-		return;
+		if ( 'wpfactory_page_webd-woocommerce-reporting-statistics' !== $screen->base ) {
+			return;
+		}
 
 		wp_enqueue_style( "webd-woocommerce-reporting-statistics"."adminCss", plugins_url( "/css/backend.css?v=bvc", __FILE__ ) );
 		wp_enqueue_style( "webd-woocommerce-reporting-statistics"."adminCss");
