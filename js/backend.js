@@ -130,11 +130,11 @@
 
 
 	/*DATEPICKER*/
-    $('.webdWoocommerceReportingStatistics .datepicker').datepicker({
-       //dateFormat: 'yy-mm-dd', //maybe you want something like this
+	$('.webdWoocommerceReportingStatistics .datepicker').datepicker({
+	   //dateFormat: 'yy-mm-dd', //maybe you want something like this
 	   dateFormat: 'dd-mm-yy',
-        showButtonPanel: true
-    });
+		showButtonPanel: true
+	});
 	$('.webdWoocommerceReportingStatistics .datepicker').change(function(){
 		$(this).val('PRO Version Only');
 	});
@@ -172,7 +172,7 @@
 	}
 
 
- 		$("#webdWoocommerceReportingStatistics_signup").on('submit',function(e){
+		$("#webdWoocommerceReportingStatistics_signup").on('submit',function(e){
 			e.preventDefault();
 			var dat = $(this).serialize();
 			$.ajax({
@@ -251,7 +251,7 @@
 	var ordersTable = $('#orders table tbody');
 	var customersTable = $('#customers table tbody');
 	var productsTable = $('#products table tbody');
-    var countriesTable = $('#countries table tbody');
+	var countriesTable = $('#countries table tbody');
 	var paymentsTable = $('#payment table tbody');
 	var couponsTable = $('#coupons table tbody');
 	var categoriesTable = $('#categories table tbody');
@@ -309,7 +309,7 @@
 
 	var orderids =[];
 
-    function getOrders( ) {
+	function getOrders( ) {
 
 				if ( ordersLength !=0 && ( totalOrders=='' || sumOrders < totalOrders )  ) {
 
@@ -319,27 +319,27 @@
 					var customer = $("#customer").val();
 
 
-                    $.ajax({
-                        type: 'POST',
-                        url: webdWoocommerceReportingStatistics.ajax_url,
-                        data: {
-                            'action': 'getOrders',
+					$.ajax({
+						type: 'POST',
+						url: webdWoocommerceReportingStatistics.ajax_url,
+						data: {
+							'action': 'getOrders',
 							'tab': $.urlParam('tab'),
 							'action': 'getOrders',
-                            'offset': offset,
+							'offset': offset,
 							'selected': selected,
 							'order_status': order_status,
 							'customer': customer,
 							'_wpnonce': 'webdWoocommerceReportingStatistics',
-                        },
-    					beforeSend: function()  {
+						},
+						beforeSend: function()  {
 
-    						 $(".progress").html( webdWoocommerceReportingStatistics.orders_loading );
-    					},
-                        success: function ( result ) {
+							 $(".progress").html( webdWoocommerceReportingStatistics.orders_loading );
+						},
+						success: function ( result ) {
 
-                            var obj = JSON.parse(result);
-                            sumOrders += obj.length << 0; // here with add the number of elements in object to check if all orders are displayed and STOP the ajax!!
+							var obj = JSON.parse(result);
+							sumOrders += obj.length << 0; // here with add the number of elements in object to check if all orders are displayed and STOP the ajax!!
 
 							$(".webdWoocommerceReportingStatistics .results_found").html( "<h3>" + obj[0]['message'] + "</h3>" );
 
@@ -417,14 +417,14 @@
 									$(".webdWoocommerceReportingStatistics .no_orders").hide();
 							}
 
-    					},complete: function(result){
+						},complete: function(result){
 
 								getOrders();
-    					}
-                    });
+						}
+					});
 
 
-                }else{
+				}else{
 
 					if( totalOrders != 0 && totalOrders != ''  ){
 
@@ -448,33 +448,33 @@
 
 
 				}
-            }
+			}
 
 	var paged = 1; // Start from the first page
 
-    function load_orders() {
+	function load_orders() {
 
 
-        $.ajax({
-            url: webdWoocommerceReportingStatistics.ajax_url,
-            type: 'post',
-            data: {
-                action: 'get_orders',
-                page: paged,
+		$.ajax({
+			url: webdWoocommerceReportingStatistics.ajax_url,
+			type: 'post',
+			data: {
+				action: 'get_orders',
+				page: paged,
 				ids: orderids
-            },
-            success: function(response) {
-                var data = JSON.parse(response);
+			},
+			success: function(response) {
+				var data = JSON.parse(response);
 
-                if(data.orders.trim().length == 0){
-                    // If there are no orders, hide the pagination
-                    $('.orders-pagination').hide();
-                } else {
+				if(data.orders.trim().length == 0){
+					// If there are no orders, hide the pagination
+					$('.orders-pagination').hide();
+				} else {
 
 					$('#orders table tbody').html(data.orders);
 
-                    // Update the pagination
-                    $('.orders-pagination').html('');
+					// Update the pagination
+					$('.orders-pagination').html('');
 					if( data.max_num_pages >1 ){
 						for( var i = 1; i <= data.max_num_pages; i++ ) {
 							if( i == paged ) {
@@ -484,42 +484,42 @@
 							}
 						}
 					}
-                }
+				}
 
-            }
-        });
-    }
+			}
+		});
+	}
 
-    function load_customers() {
+	function load_customers() {
 
-        $.ajax({
-            url: webdWoocommerceReportingStatistics.ajax_url,
-            type: 'post',
-            data: {
-                action: 'get_customers',
+		$.ajax({
+			url: webdWoocommerceReportingStatistics.ajax_url,
+			type: 'post',
+			data: {
+				action: 'get_customers',
 				ids: orderids
-            },
-            success: function(response) {
+			},
+			success: function(response) {
 
-                var data = JSON.parse(response);
+				var data = JSON.parse(response);
 
 				$('#customers table tbody').html(data.customers);
 
-            }
-        });
-    }
-    function load_countries() {
+			}
+		});
+	}
+	function load_countries() {
 
-        $.ajax({
-            url: webdWoocommerceReportingStatistics.ajax_url,
-            type: 'post',
-            data: {
-                action: 'get_countries',
+		$.ajax({
+			url: webdWoocommerceReportingStatistics.ajax_url,
+			type: 'post',
+			data: {
+				action: 'get_countries',
 				ids: orderids
-            },
-            success: function(response) {
+			},
+			success: function(response) {
 
-                var data = JSON.parse(response);
+				var data = JSON.parse(response);
 
 				countries_colors=[];
 				countriesChartLabels=[];
@@ -536,22 +536,22 @@
 
 				if (countriesChartTotals.length !== 0)chart( 'bar', 'Countries', 'byCountry', countriesChartLabels,  countriesChartTotals, countries_colors );
 
-            }
-        });
-    }
+			}
+		});
+	}
 
-    function load_payments() {
+	function load_payments() {
 
-        $.ajax({
-            url: webdWoocommerceReportingStatistics.ajax_url,
-            type: 'post',
-            data: {
-                action: 'get_payments',
+		$.ajax({
+			url: webdWoocommerceReportingStatistics.ajax_url,
+			type: 'post',
+			data: {
+				action: 'get_payments',
 				ids: orderids
-            },
-            success: function(response) {
+			},
+			success: function(response) {
 
-                var data = JSON.parse(response);
+				var data = JSON.parse(response);
 
 				payments_colors=[];
 				paymentsChartLabels=[];
@@ -568,22 +568,22 @@
 
 				if (paymentsChartTotals.length !== 0)chart( 'bar', 'Payments', 'byPayment', paymentsChartLabels,  paymentsChartTotals, payments_colors );
 
-            }
-        });
-    }
+			}
+		});
+	}
 
-    function load_coupons() {
+	function load_coupons() {
 
-        $.ajax({
-            url: webdWoocommerceReportingStatistics.ajax_url,
-            type: 'post',
-            data: {
-                action: 'get_coupons',
+		$.ajax({
+			url: webdWoocommerceReportingStatistics.ajax_url,
+			type: 'post',
+			data: {
+				action: 'get_coupons',
 				ids: orderids
-            },
-            success: function(response) {
+			},
+			success: function(response) {
 
-                var data = JSON.parse(response);
+				var data = JSON.parse(response);
 				coupons_colors=[];
 				couponsChartLabels	=[];
 				couponsChartTotals	=[];
@@ -600,27 +600,27 @@
 				if (couponsChartTotals.length !== 0)chart( 'pie', 'Coupons', 'couponCharts', couponsChartLabels,  couponsChartTotals, coupons_colors );
 
 
-            }
-        });
-    }
+			}
+		});
+	}
 
-    function load_products() {
+	function load_products() {
 
 		var product = $("#product").val();
 		var cat = $("#cat").val();
 
-        $.ajax({
-            url: webdWoocommerceReportingStatistics.ajax_url,
-            type: 'post',
-            data: {
-                action: 'get_products',
+		$.ajax({
+			url: webdWoocommerceReportingStatistics.ajax_url,
+			type: 'post',
+			data: {
+				action: 'get_products',
 				ids: orderids,
 				product: product,
 				cat: cat
-            },
-            success: function(response) {
+			},
+			success: function(response) {
 
-                var data = JSON.parse(response);
+				var data = JSON.parse(response);
 
 				products_colors=[];
 				productsChartLabels	=[];
@@ -638,27 +638,27 @@
 				if (productsChartTotals.length !== 0)chart( 'bar','Products', 'productChart', productsChartLabels,  productsChartTotals, products_colors );
 
 
-            }
-        });
-    }
+			}
+		});
+	}
 
-    function load_categories() {
+	function load_categories() {
 
 		var cat = $("#cat").val();
 		var product = $("#product").val();
 
-        $.ajax({
-            url: webdWoocommerceReportingStatistics.ajax_url,
-            type: 'post',
-            data: {
-                action: 'get_categories',
+		$.ajax({
+			url: webdWoocommerceReportingStatistics.ajax_url,
+			type: 'post',
+			data: {
+				action: 'get_categories',
 				ids: orderids,
 				cat: cat,
 				product: product
-            },
-            success: function(response) {
+			},
+			success: function(response) {
 
-                var data = JSON.parse(response);
+				var data = JSON.parse(response);
 
 				categories_colors=[];
 				categoriesChartLabels	=[];
@@ -676,11 +676,11 @@
 				if (categoriesChartTotals.length !== 0)chart( 'pie','Categories', 'categoriesChart', categoriesChartLabels,  categoriesChartTotals, categories_colors );
 
 
-            }
-        });
-    }
+			}
+		});
+	}
 
-    function display_orders_by_period() {
+	function display_orders_by_period() {
 
 		var cat = $("#cat").val();
 		var product = $("#product").val();
@@ -690,23 +690,23 @@
 		var billing_city = $("#billing_city").val();
 		var payment = $("#payment_method").val();
 
-        $.ajax({
-            url: webdWoocommerceReportingStatistics.ajax_url,
-            type: 'post',
-            data: {
-                action: 'display_orders_by_period',
+		$.ajax({
+			url: webdWoocommerceReportingStatistics.ajax_url,
+			type: 'post',
+			data: {
+				action: 'display_orders_by_period',
 				tab: $.urlParam('tab'),
 				order_status: order_status,
 				customer: customer
-            },
-    		beforeSend: function()  {
+			},
+			beforeSend: function()  {
 
-    			$(".progress").html( webdWoocommerceReportingStatistics.orders_loading );
+				$(".progress").html( webdWoocommerceReportingStatistics.orders_loading );
 				$('.periods table , .columns2' ).hide();
-    		},
-            success: function(response) {
+			},
+			success: function(response) {
 
-                var data = JSON.parse(response);
+				var data = JSON.parse(response);
 
 				if( data.results != 0 ){
 
@@ -754,19 +754,19 @@
 						$(".progress").fadeOut();
 						$(".progressBar").fadeOut();
 					},3000);
-            }
-        });
-    }
+			}
+		});
+	}
 
 
 
-    $(document).on('click', '.orders-pagination .page-numbers', function( e) {
+	$(document).on('click', '.orders-pagination .page-numbers', function( e) {
 		e.preventDefault();
 		//console.log('Load More button clicked'); // Debugging line
-        paged = parseInt($(this).text()); // Set the page number to the number clicked
-        $('#orders table tbody').html(''); // Clear the orders container
-        load_orders(); // Load the orders for the clicked page number
-    });
+		paged = parseInt($(this).text()); // Set the page number to the number clicked
+		$('#orders table tbody').html(''); // Clear the orders container
+		load_orders(); // Load the orders for the clicked page number
+	});
 
 
 
@@ -783,7 +783,7 @@
 
 
 	// Run getOrders only if url parameter specific
-    if ( ( $.urlParam('page') == page && !$.urlParam('tab') ) || ( $.urlParam('page') == page && $.inArray( $.urlParam('tab') , tabs ) !== -1 ) ){
+	if ( ( $.urlParam('page') == page && !$.urlParam('tab') ) || ( $.urlParam('page') == page && $.inArray( $.urlParam('tab') , tabs ) !== -1 ) ){
 		getOrders();
 	}
 	if( $.urlParam('page') == page && ( $.urlParam('tab') =='months'  || $.urlParam('tab') =='years' ) ){
@@ -794,7 +794,7 @@
 
 
 	// On form filters submission , rerun the getOrders function
-    $('.reportCalendar form input[type=submit] ').click(function(e){
+	$('.reportCalendar form input[type=submit] ').click(function(e){
 
 		e.preventDefault();
 		totalOrders = '';
@@ -824,7 +824,7 @@
 		orderids =[];
 
 
-        $( ".subtotal, .total , .tax, .discount, .shipping, .num_orders, .num_products, .sum_products, .refund, .avg, .salesEvery , .avg_period, .shipping , .results_found ").html( '' );
+		$( ".subtotal, .total , .tax, .discount, .shipping, .num_orders, .num_products, .sum_products, .refund, .avg, .salesEvery , .avg_period, .shipping , .results_found ").html( '' );
 		$( ".chart-container canvas").remove();
 
 

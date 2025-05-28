@@ -12,18 +12,18 @@ use Automattic\WooCommerce\Utilities\OrderUtil;
 class OrderProcessorHelp{
 
 	public $plugin = 'webdWoocommerceReportingStatistics';
-    public $orders_info = array(  "_id","_transaction_id", "_date_created", "_date_modified", "_date_completed" , "_date_paid" ,  "_status", "_products", "_currency" , "_discount_tax" , "_discount_total" , "_shipping_tax" , "_shipping_total" , "_total_discount" , "_total_tax" , "_total_refunded" , "_total_tax_refunded" , "_total_shipping_refunded" , "_total_fees","_subtotal" , "_total" , "_item_count_refunded" , "_total_qty_refunded" , "_item_count" ,  "_payment_method" , "_payment_method_title","_coupon_codes"  , "_billing_first_name" , "_billing_last_name" , "_billing_company" , "_billing_address_1" , "_billing_address_2" , "_billing_city" , "_billing_state" , "_billing_postcode" , "_billing_country" , "_billing_email" , "_billing_phone" , "_shipping_first_name" , "_shipping_last_name" , "_shipping_company" , "_shipping_address_1" , "_shipping_address_2" , "_shipping_city" , "_shipping_state" , "_shipping_postcode" , "_shipping_country" , "_shipping_method" , "_customer_id" , "_customer_ip_address"  );
+	public $orders_info = array(  "_id","_transaction_id", "_date_created", "_date_modified", "_date_completed" , "_date_paid" ,  "_status", "_products", "_currency" , "_discount_tax" , "_discount_total" , "_shipping_tax" , "_shipping_total" , "_total_discount" , "_total_tax" , "_total_refunded" , "_total_tax_refunded" , "_total_shipping_refunded" , "_total_fees","_subtotal" , "_total" , "_item_count_refunded" , "_total_qty_refunded" , "_item_count" ,  "_payment_method" , "_payment_method_title","_coupon_codes"  , "_billing_first_name" , "_billing_last_name" , "_billing_company" , "_billing_address_1" , "_billing_address_2" , "_billing_city" , "_billing_state" , "_billing_postcode" , "_billing_country" , "_billing_email" , "_billing_phone" , "_shipping_first_name" , "_shipping_last_name" , "_shipping_company" , "_shipping_address_1" , "_shipping_address_2" , "_shipping_city" , "_shipping_state" , "_shipping_postcode" , "_shipping_country" , "_shipping_method" , "_customer_id" , "_customer_ip_address"  );
 	private $products = [];
 
-    protected static $instance = NULL;
+	protected static $instance = NULL;
 	private $datediff = '';
-    public static function get_instance()
-    {
-        if ( NULL === self::$instance )
-            self::$instance = new self;
+	public static function get_instance()
+	{
+		if ( NULL === self::$instance )
+			self::$instance = new self;
 
-        return self::$instance;
-    }
+		return self::$instance;
+	}
 
 	public function __construct() {
 
@@ -323,12 +323,12 @@ class OrderProcessorHelp{
 			$order_status = ( empty( $_POST['order_status'] ) ) ?  $status : $_POST['order_status'];
 
 
-            $filters = [
+			$filters = [
 
-                'customer_id' => sanitize_text_field( $customer ),
-                'status' =>  $order_status ,
+				'customer_id' => sanitize_text_field( $customer ),
+				'status' =>  $order_status ,
 
-            ];
+			];
 
 			 $filters = array_merge(  $dayfilter , $filters );
 
@@ -338,7 +338,7 @@ class OrderProcessorHelp{
 
 
 
-    public function getOrders() {
+	public function getOrders() {
 
 		if( $_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] == 'getOrders'   ){
 
@@ -541,7 +541,7 @@ class OrderProcessorHelp{
 
 		}
 
-    }
+	}
 
 	public function get_orders() {
 
@@ -648,36 +648,36 @@ class OrderProcessorHelp{
 			}else{
 
 				$query="
-                    SELECT
-                        billing_email.meta_value AS billing_email,
-                        billing_first_name.meta_value AS first_name,
-                        billing_last_name.meta_value AS last_name,
-                        billing_country.meta_value AS country,
-                        billing_city.meta_value AS city,
-                        billing_phone.meta_value AS phone,
-                        billing_state.meta_value AS state,
-                        billing_company.meta_value AS company,
-                        SUM(order_total.meta_value) AS total,
-                        SUM(order_tax.meta_value) AS tax,
-                        COUNT( p.ID ) AS num_orders
-                    FROM
-                        ". $wpdb->prefix."posts AS p
-                    LEFT JOIN  ". $wpdb->prefix."postmeta AS billing_email ON p.ID = billing_email.post_id AND billing_email.meta_key = '_billing_email'
-                    LEFT JOIN  ". $wpdb->prefix."postmeta AS billing_first_name ON p.ID = billing_first_name.post_id AND billing_first_name.meta_key = '_billing_first_name'
-                    LEFT JOIN ". $wpdb->prefix."postmeta AS billing_last_name ON p.ID = billing_last_name.post_id AND billing_last_name.meta_key = '_billing_last_name'
-                    LEFT JOIN ". $wpdb->prefix."postmeta AS billing_country ON p.ID = billing_country.post_id AND billing_country.meta_key = '_billing_country'
-                    LEFT JOIN ". $wpdb->prefix."postmeta AS billing_city ON p.ID = billing_city.post_id AND billing_city.meta_key = '_billing_city'
-                    LEFT JOIN ". $wpdb->prefix."postmeta AS billing_phone ON p.ID = billing_phone.post_id AND billing_phone.meta_key = '_billing_phone'
-                    LEFT JOIN ". $wpdb->prefix."postmeta AS billing_state ON p.ID = billing_state.post_id AND billing_state.meta_key = '_billing_state'
-                    LEFT JOIN ". $wpdb->prefix."postmeta AS billing_company ON p.ID = billing_company.post_id AND billing_company.meta_key = '_billing_company'
-                    LEFT JOIN ". $wpdb->prefix."postmeta AS order_total ON p.ID = order_total.post_id AND order_total.meta_key = '_order_total'
-                    LEFT JOIN ". $wpdb->prefix."postmeta AS order_tax ON p.ID = order_tax.post_id AND order_tax.meta_key = '_order_tax'
-                    WHERE p.ID  IN ('" . implode("','", $ids ) . "')
+					SELECT
+						billing_email.meta_value AS billing_email,
+						billing_first_name.meta_value AS first_name,
+						billing_last_name.meta_value AS last_name,
+						billing_country.meta_value AS country,
+						billing_city.meta_value AS city,
+						billing_phone.meta_value AS phone,
+						billing_state.meta_value AS state,
+						billing_company.meta_value AS company,
+						SUM(order_total.meta_value) AS total,
+						SUM(order_tax.meta_value) AS tax,
+						COUNT( p.ID ) AS num_orders
+					FROM
+						". $wpdb->prefix."posts AS p
+					LEFT JOIN  ". $wpdb->prefix."postmeta AS billing_email ON p.ID = billing_email.post_id AND billing_email.meta_key = '_billing_email'
+					LEFT JOIN  ". $wpdb->prefix."postmeta AS billing_first_name ON p.ID = billing_first_name.post_id AND billing_first_name.meta_key = '_billing_first_name'
+					LEFT JOIN ". $wpdb->prefix."postmeta AS billing_last_name ON p.ID = billing_last_name.post_id AND billing_last_name.meta_key = '_billing_last_name'
+					LEFT JOIN ". $wpdb->prefix."postmeta AS billing_country ON p.ID = billing_country.post_id AND billing_country.meta_key = '_billing_country'
+					LEFT JOIN ". $wpdb->prefix."postmeta AS billing_city ON p.ID = billing_city.post_id AND billing_city.meta_key = '_billing_city'
+					LEFT JOIN ". $wpdb->prefix."postmeta AS billing_phone ON p.ID = billing_phone.post_id AND billing_phone.meta_key = '_billing_phone'
+					LEFT JOIN ". $wpdb->prefix."postmeta AS billing_state ON p.ID = billing_state.post_id AND billing_state.meta_key = '_billing_state'
+					LEFT JOIN ". $wpdb->prefix."postmeta AS billing_company ON p.ID = billing_company.post_id AND billing_company.meta_key = '_billing_company'
+					LEFT JOIN ". $wpdb->prefix."postmeta AS order_total ON p.ID = order_total.post_id AND order_total.meta_key = '_order_total'
+					LEFT JOIN ". $wpdb->prefix."postmeta AS order_tax ON p.ID = order_tax.post_id AND order_tax.meta_key = '_order_tax'
+					WHERE p.ID  IN ('" . implode("','", $ids ) . "')
 				";
-    			$query .= "
-    				GROUP BY billing_email.meta_value
-    				ORDER BY total DESC
-    			";
+				$query .= "
+					GROUP BY billing_email.meta_value
+					ORDER BY total DESC
+				";
 			}
 
 			$data = $wpdb->get_results( $query );
@@ -1116,7 +1116,7 @@ class OrderProcessorHelp{
 		}
 	}
 
-    public function product_cat( $categories, $post ) {
+	public function product_cat( $categories, $post ) {
 			$subcats = get_term_children( $categories, 'product_cat' );
 			foreach($subcats as $cat){
 
@@ -1125,9 +1125,9 @@ class OrderProcessorHelp{
 					}
 			}
 
-    }
+	}
 
-    private function get_coupon_used( $order_id ) {
+	private function get_coupon_used( $order_id ) {
 
 		if ( wc_coupons_enabled() ) {
 
@@ -1145,7 +1145,7 @@ class OrderProcessorHelp{
 			}
 
 		}else return  '';
-    }
+	}
 
 	public function forecastHoltWinters($anData, $nForecast = 2, $nSeasonLength = 4, $nAlpha = 0.2, $nBeta = 0.01, $nGamma = 0.01, $nDevGamma = 0.1) {
 		$search = '0';
@@ -1161,7 +1161,7 @@ class OrderProcessorHelp{
 		$nTrend1 = '';
 		for($i = 0; $i < $nSeasonLength; $i++) {
 			$anData[$i] = isset($anData[1]) ? $anData[1] : null;
-		    //$nTrend1 += $anData[$i];
+			//$nTrend1 += $anData[$i];
 		}
 		$nTrend1 = $nSeasonLength;
 

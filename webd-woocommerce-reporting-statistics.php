@@ -177,8 +177,8 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 			wp_enqueue_style( "webd-woocommerce-reporting-statistics"."adminCss");
 
 			wp_enqueue_script('jquery');
-            wp_enqueue_script( 'jquery-ui-datepicker' );
-		    wp_enqueue_style( 'jquery-ui-style', plugins_url( "/css/jquery-ui.css", __FILE__ ), true);
+			wp_enqueue_script( 'jquery-ui-datepicker' );
+			wp_enqueue_style( 'jquery-ui-style', plugins_url( "/css/jquery-ui.css", __FILE__ ), true);
 			wp_enqueue_script('jquery-ui-accordion');
 			wp_enqueue_script("jquery-ui-tabs");
 			wp_enqueue_script( "webd-woocommerce-reporting-statistics"."charts", plugins_url( "/js/chart.js", __FILE__ ), null, true);

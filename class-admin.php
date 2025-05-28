@@ -10,92 +10,92 @@ defined( 'ABSPATH' ) || exit;
  class webdWoocommerceReportingStatisticsAdmin{
 
 	public $allowed_html = array(
-            'a' => array(
-                'style' => array(),
-                'href' => array(),
-                'title' => array(),
-                'class' => array(),
-                'id'=>array(),
+			'a' => array(
+				'style' => array(),
+				'href' => array(),
+				'title' => array(),
+				'class' => array(),
+				'id'=>array(),
 				'target'=>array(),
-            ),
+			),
 			'i' => array('style' => array(),'class' => array(),'id'=>array() ),
-            'br' => array('style' => array(),'class' => array(),'id'=>array() ),
-            'em' => array('style' => array(),'class' => array(),'id'=>array() ),
-            'strong' => array('style' => array(),'class' => array(),'id'=>array() ),
-            'h1' => array('style' => array(),'class' => array(),'id'=>array() ),
-            'h2' => array('style' => array(),'class' => array(),'id'=>array() ),
-            'h3' => array('style' => array(),'class' => array(),'id'=>array() ),
-            'h4' => array('style' => array(),'class' => array(),'id'=>array() ),
-            'h5' => array('style' => array(),'class' => array(),'id'=>array() ),
-            'h6' => array('style' => array(),'class' => array(),'id'=>array() ),
-            'img' => array('style' => array(),'class' => array(),'id'=>array() ),
-            'p' => array('style' => array(),'class' => array(),'id'=>array() ),
-            'div' => array('style' => array(),'class' => array(),'id'=>array() ),
-            'section' => array('style' => array(),'class' => array(),'id'=>array() ),
-            'ul' => array('style' => array(),'class' => array(),'id'=>array() ),
-            'li' => array('style' => array(),'class' => array(),'id'=>array() ),
-            'ol' => array('style' => array(),'class' => array(),'id'=>array() ),
-            'video' => array('style' => array(),'class' => array(),'id'=>array() ),
-            'blockquote' => array('style' => array(),'class' => array(),'id'=>array() ),
-            'figure' => array('style' => array(),'class' => array(),'id'=>array() ),
-            'figcaption' => array('style' => array(),'class' => array(),'id'=>array() ),
-            'style' => array(),
-            'button' => array(
-                'class' => array(),
-            ),
+			'br' => array('style' => array(),'class' => array(),'id'=>array() ),
+			'em' => array('style' => array(),'class' => array(),'id'=>array() ),
+			'strong' => array('style' => array(),'class' => array(),'id'=>array() ),
+			'h1' => array('style' => array(),'class' => array(),'id'=>array() ),
+			'h2' => array('style' => array(),'class' => array(),'id'=>array() ),
+			'h3' => array('style' => array(),'class' => array(),'id'=>array() ),
+			'h4' => array('style' => array(),'class' => array(),'id'=>array() ),
+			'h5' => array('style' => array(),'class' => array(),'id'=>array() ),
+			'h6' => array('style' => array(),'class' => array(),'id'=>array() ),
+			'img' => array('style' => array(),'class' => array(),'id'=>array() ),
+			'p' => array('style' => array(),'class' => array(),'id'=>array() ),
+			'div' => array('style' => array(),'class' => array(),'id'=>array() ),
+			'section' => array('style' => array(),'class' => array(),'id'=>array() ),
+			'ul' => array('style' => array(),'class' => array(),'id'=>array() ),
+			'li' => array('style' => array(),'class' => array(),'id'=>array() ),
+			'ol' => array('style' => array(),'class' => array(),'id'=>array() ),
+			'video' => array('style' => array(),'class' => array(),'id'=>array() ),
+			'blockquote' => array('style' => array(),'class' => array(),'id'=>array() ),
+			'figure' => array('style' => array(),'class' => array(),'id'=>array() ),
+			'figcaption' => array('style' => array(),'class' => array(),'id'=>array() ),
+			'style' => array(),
+			'button' => array(
+				'class' => array(),
+			),
 
-            'input' => array(
-                'type' => array(),
+			'input' => array(
+				'type' => array(),
 				'class' => array(),
 				'placeholder' => array(),
 				'disabled' => array(),
-            ),
-            'option' => array(
-                'value' => array(),
-                'stock' => array(),
-                'quantity' => array(),
-                'price' => array(),
-                'id' => array(),
-            ),
-            'iframe' => array(
-                'height' => array(),
-                'src' => array(),
-                'width' => array(),
-                'allowfullscreen' => array(),
-                'style' => array(),
-                'class' => array(),
-                'id'=>array()
-            ),
-            'img' => array(
-                'alt' => array(),
-                'src' => array(),
-                'title' => array(),
-                'style' => array(),
-                'class' => array(),
+			),
+			'option' => array(
+				'value' => array(),
+				'stock' => array(),
+				'quantity' => array(),
+				'price' => array(),
+				'id' => array(),
+			),
+			'iframe' => array(
+				'height' => array(),
+				'src' => array(),
+				'width' => array(),
+				'allowfullscreen' => array(),
+				'style' => array(),
+				'class' => array(),
+				'id'=>array()
+			),
+			'img' => array(
+				'alt' => array(),
+				'src' => array(),
+				'title' => array(),
+				'style' => array(),
+				'class' => array(),
 				'width' => array(),
 				'height' => array(),
-                'id'=>array()
-            ),
-            'video' => array(
-                'width' => array(),
-                'height' => array(),
-                'controls'=>array(),
-                'class' => array(),
-                'id'=>array()
-            ),
-            'source' => array(
-                'src' => array(),
-                'type' => array(),
-                'class' => array(),
-                'id'=>array()
-            ),
-        );
+				'id'=>array()
+			),
+			'video' => array(
+				'width' => array(),
+				'height' => array(),
+				'controls'=>array(),
+				'class' => array(),
+				'id'=>array()
+			),
+			'source' => array(
+				'src' => array(),
+				'type' => array(),
+				'class' => array(),
+				'id'=>array()
+			),
+		);
 
-    private $orders = [];
-    private $theproducts = [];
+	private $orders = [];
+	private $theproducts = [];
 	private $orderMonths = [];
 	private $orderYears = [];
-    private $chunkSize = 1000;
+	private $chunkSize = 1000;
 	private $countries = [];
 	private $cities = [];
 	private $payments = [];
@@ -155,7 +155,7 @@ defined( 'ABSPATH' ) || exit;
 
 
 	public function adminSettings(){
-		        global $product;
+				global $product;
 
 				$this->tab = array( 'all' => esc_html__('GENERAL',"webd-woocommerce-reporting-statistics"),'years' => esc_html__('PER YEAR',"webd-woocommerce-reporting-statistics"),'months' => esc_html__('PER MONTH',"webd-woocommerce-reporting-statistics"),'top' => esc_html__('TOP 5 PRODUCTS',"webd-woocommerce-reporting-statistics"));
 				if(isset($_GET['tab']) || (isset($_GET['tab']) && $_GET['tab']=='all' ) ){
@@ -358,8 +358,8 @@ defined( 'ABSPATH' ) || exit;
 			</center>
 		</div>
 
-        <?php
-    }
+		<?php
+	}
 
 	public function progress(){
 		?>
@@ -418,9 +418,9 @@ defined( 'ABSPATH' ) || exit;
 				</select>
 
 			<?php if( empty( $_REQUEST['tab'] ) || ( isset( $_REQUEST['tab'] ) &&  $_REQUEST['tab'] ==='all' ) ){ ?>
-			    <?php $date = current_time( 'mysql' ) ;
-			    $today = date("Y-m-d", strtotime( $date ) );
-			    ?>
+				<?php $date = current_time( 'mysql' ) ;
+				$today = date("Y-m-d", strtotime( $date ) );
+				?>
 
 				<select name="selected" class='dateFilter ' id='selected' >
 					<option value=""><?php  esc_html_e('Preselected Period',"webd-woocommerce-reporting-statistics");?></option>
@@ -500,7 +500,7 @@ defined( 'ABSPATH' ) || exit;
 			<?php
 	}
 
-    public function displayOrders() {
+	public function displayOrders() {
 
 		$this->overview();
 		?>
@@ -529,7 +529,7 @@ defined( 'ABSPATH' ) || exit;
 
 		<?php
 
-    }
+	}
 
 
 	public function orders( ){?>
@@ -760,75 +760,75 @@ defined( 'ABSPATH' ) || exit;
 
 	public function topSellers(){
 			global $woocommerce;
-            include_once(WC()->plugin_path().'/includes/admin/reports/class-wc-admin-report.php');
-                $wc_report = new WC_Admin_Report();
+			include_once(WC()->plugin_path().'/includes/admin/reports/class-wc-admin-report.php');
+				$wc_report = new WC_Admin_Report();
 
-                $data = $wc_report->get_order_report_data( array(
-                    'data' => array(
-                        '_qty' => array(
-                            'type' => 'order_item_meta',
-                            'order_item_type' => 'line_item',
-                            'function' => 'SUM',
-                            'name' => 'quantity'
-                        ),
-                        '_line_subtotal' => array(
-                            'type' => 'order_item_meta',
-                            'order_item_type' => 'line_item',
-                            'function' => 'SUM',
-                            'name' => 'gross'
-                        ),
-                        '_product_id' => array(
-                            'type' => 'order_item_meta',
-                            'order_item_type' => 'line_item',
-                            'function' => '',
-                            'name' => 'product_id'
-                        ),
-                        'order_item_name' => array(
-                            'type'     => 'order_item',
-                            'function' => '',
-                            'name'     => 'order_item_name',
-                        ),
-                    ),
-                    'group_by'     => 'product_id',
-                    'order_by'     => 'quantity DESC',
-                    'query_type' => 'get_results',
+				$data = $wc_report->get_order_report_data( array(
+					'data' => array(
+						'_qty' => array(
+							'type' => 'order_item_meta',
+							'order_item_type' => 'line_item',
+							'function' => 'SUM',
+							'name' => 'quantity'
+						),
+						'_line_subtotal' => array(
+							'type' => 'order_item_meta',
+							'order_item_type' => 'line_item',
+							'function' => 'SUM',
+							'name' => 'gross'
+						),
+						'_product_id' => array(
+							'type' => 'order_item_meta',
+							'order_item_type' => 'line_item',
+							'function' => '',
+							'name' => 'product_id'
+						),
+						'order_item_name' => array(
+							'type'     => 'order_item',
+							'function' => '',
+							'name'     => 'order_item_name',
+						),
+					),
+					'group_by'     => 'product_id',
+					'order_by'     => 'quantity DESC',
+					'query_type' => 'get_results',
 
-                    'limit' => 5,
-                    'order_types' => wc_get_order_types( 'order_count' ),
-                    'order_status' => array( 'completed','processing','onhold','refunded'),
-                ) );
+					'limit' => 5,
+					'order_types' => wc_get_order_types( 'order_count' ),
+					'order_status' => array( 'completed','processing','onhold','refunded'),
+				) );
 
 				if(!empty($data)){
-                ?><br/><hr/>
+				?><br/><hr/>
 				<h3 class='text-center'><i class='fa fa-tag' ></i> <?php  esc_html_e('ALL TIMES TOP 5 SELLING PRODUCTS',"webd-woocommerce-reporting-statistics");?></h3>
-                <table class='widefat striped'>
-                    <thead>
-                        <th class="manage-column column-count" scope="col"><?php  esc_html_e('Category',"webd-woocommerce-reporting-statistics");?></th>
-                        <th class="manage-column column-count" scope="col"><?php  esc_html_e('Product',"webd-woocommerce-reporting-statistics");?></th>
-                        <th class="manage-column column-count" scope="col"><?php  esc_html_e('Quantity',"webd-woocommerce-reporting-statistics");?></th>
-                        <th class="manage-column column-count" scope="col"><?php  esc_html_e('Sales',"webd-woocommerce-reporting-statistics");?></th>
-                    </thead>
+				<table class='widefat striped'>
+					<thead>
+						<th class="manage-column column-count" scope="col"><?php  esc_html_e('Category',"webd-woocommerce-reporting-statistics");?></th>
+						<th class="manage-column column-count" scope="col"><?php  esc_html_e('Product',"webd-woocommerce-reporting-statistics");?></th>
+						<th class="manage-column column-count" scope="col"><?php  esc_html_e('Quantity',"webd-woocommerce-reporting-statistics");?></th>
+						<th class="manage-column column-count" scope="col"><?php  esc_html_e('Sales',"webd-woocommerce-reporting-statistics");?></th>
+					</thead>
 
-                    <tbody>
+					<tbody>
 
-                    <?php
-                    foreach($data as $d){
-                        $terms = wp_get_post_terms( $d->product_id, 'product_cat' );
-                        print "<tr><td>";
-                        foreach ( $terms as $term ) {
-                             $cat_id = $term->name;
-                             print $term->name ."<br/>";
+					<?php
+					foreach($data as $d){
+						$terms = wp_get_post_terms( $d->product_id, 'product_cat' );
+						print "<tr><td>";
+						foreach ( $terms as $term ) {
+							 $cat_id = $term->name;
+							 print $term->name ."<br/>";
 
-                        }
-                        //$d->product_id
-                        print "</td>";
-                        print "<td>".esc_attr($d->order_item_name) . "</td><td>".esc_attr($d->quantity)."</td><td>" .wc_price(esc_attr($d->gross)) ."</td>" ;
-                        print "</tr>";
-                    }
-                    ?>
-                    </tbody>
-                 </table>
-                <?php
+						}
+						//$d->product_id
+						print "</td>";
+						print "<td>".esc_attr($d->order_item_name) . "</td><td>".esc_attr($d->quantity)."</td><td>" .wc_price(esc_attr($d->gross)) ."</td>" ;
+						print "</tr>";
+					}
+					?>
+					</tbody>
+				 </table>
+				<?php
 				}else print esc_html__("There is no sale yet!","webd-woocommerce-reporting-statistics");
 	}
 
@@ -855,7 +855,7 @@ defined( 'ABSPATH' ) || exit;
 	<?php
 	}
 
-    private function get_coupon_used( $order_id ) {
+	private function get_coupon_used( $order_id ) {
 
 		if ( wc_coupons_enabled() ) {
 
@@ -873,7 +873,7 @@ defined( 'ABSPATH' ) || exit;
 			}
 
 		}else return  '';
-    }
+	}
 
 	public function divide($a, $b){
 		try {
@@ -905,7 +905,7 @@ defined( 'ABSPATH' ) || exit;
 				<tbody>
 					<tr><td rowspan="8"><h1 class='proVersion '><a href='#'><?php  esc_html_e('PRO VERSION ONLY- get it Here!',"webd-woocommerce-reporting-statistics");?></a></h1></td></tr>
 			   </tbody>
-			    <button class='proVersion'><i class='fa fa-file-excel-o '></i> <?php  esc_html_e('Export / PRO',"webd-woocommerce-reporting-statistics");?></button><input type="text" class="search proVersion" readonly placeholder="<?php  esc_html_e('Search / PRO.',"webd-woocommerce-reporting-statistics");?>"></input>
+				<button class='proVersion'><i class='fa fa-file-excel-o '></i> <?php  esc_html_e('Export / PRO',"webd-woocommerce-reporting-statistics");?></button><input type="text" class="search proVersion" readonly placeholder="<?php  esc_html_e('Search / PRO.',"webd-woocommerce-reporting-statistics");?>"></input>
 			</table>
 			</div>
 		</div>

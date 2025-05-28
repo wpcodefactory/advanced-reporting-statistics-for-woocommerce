@@ -7,35 +7,35 @@
 /* ANIMATION RIGHT TO LEFT*/
 @-webkit-keyframes rightToLeft{
 	0% {
-	    opacity: 0;
-	    -webkit-transform: translateX(300px);
-	    -moz-transform: translateX(300px);
-	    transform: translateX(300px) ;
+		opacity: 0;
+		-webkit-transform: translateX(300px);
+		-moz-transform: translateX(300px);
+		transform: translateX(300px) ;
 
 	}
 	30% {
-	    opacity: 1;
-	    -webkit-transform: translateX(0px) ;
-	    -moz-transform: translateX(0px) ;
-	    transform: translateX(0px) ;
+		opacity: 1;
+		-webkit-transform: translateX(0px) ;
+		-moz-transform: translateX(0px) ;
+		transform: translateX(0px) ;
 
 	}
 	100% {
-	    opacity: 1;
-	    -webkit-transform: scale(1) ;
-	    -moz-transform:  scale(1) ;
-	    transform:  scale(1) ;
+		opacity: 1;
+		-webkit-transform: scale(1) ;
+		-moz-transform:  scale(1) ;
+		transform:  scale(1) ;
 
 	}
 }
 
 
 .rightToLeft{
-    -webkit-animation: rightToLeft 2s ease-in-out;
-    -moz-animation: rightToLeft 2s ease-in-out;
-    -o-animation: rightToLeft 2s ease-in-out;
-    -ms-animation: rightToLeft 2s ease-in-out;
-    animation: rightToLeft 2s ease-in-out;
+	-webkit-animation: rightToLeft 2s ease-in-out;
+	-moz-animation: rightToLeft 2s ease-in-out;
+	-o-animation: rightToLeft 2s ease-in-out;
+	-ms-animation: rightToLeft 2s ease-in-out;
+	animation: rightToLeft 2s ease-in-out;
 
 }
 
@@ -43,7 +43,7 @@
 		float:right;
 }
 .web_logo img{
-    width: 150px;
+	width: 150px;
 }
 
 .webdWoocommerceReportingStatistics .rating i.fa-star{
@@ -51,22 +51,22 @@
 }
 /* === ajaxify === */
 .webdWoocommerceReportingStatistics.loading > * {
-    opacity:0.2;
+	opacity:0.2;
 }
 
 .webdWoocommerceReportingStatistics.loading:before {
-    position:fixed;
-    content: "Loading...";
-    font-size:2em;
-    padding: 22px;
-    background: #000;
-    background: url(../images/loading.gif) no-repeat center center;
-    color: #777;
-    width: 50%;
-    height:50%;
-    margin-left:15%;
-    box-sizing: border-box;
-    text-align:center;
+	position:fixed;
+	content: "Loading...";
+	font-size:2em;
+	padding: 22px;
+	background: #000;
+	background: url(../images/loading.gif) no-repeat center center;
+	color: #777;
+	width: 50%;
+	height:50%;
+	margin-left:15%;
+	box-sizing: border-box;
+	text-align:center;
 }
 
 /* =============== RESPONSES  ================== */
@@ -121,7 +121,7 @@
   display: flex;
   align-items: center;
   margin: 0 auto;
-    margin-bottom: 0px;
+	margin-bottom: 0px;
   margin-bottom: 10px;
   box-shadow: 0 0 2px #ccc;
 }
@@ -198,40 +198,40 @@
 
 /*  PRO VERSION MODAL */
 #webdWoocommerceReportingStatisticsModal, #extendwp_extensions_popup {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0,0,0); /* Fallback color */
+	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
 /* Modal Content/Box */
 #webdWoocommerceReportingStatisticsModal .modal-content, .extendwp_extensions_content {
-    background-color: #fefefe;
-    margin: 10% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 50%; /* Could be more or less, depending on screen size */
+	background-color: #fefefe;
+	margin: 10% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 50%; /* Could be more or less, depending on screen size */
 }
 
 /* The Close Button */
 #webdWoocommerceReportingStatisticsModal .close, .extendwp_close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
+	color: #aaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
 }
 
 #webdWoocommerceReportingStatisticsModal .close:hover,
 #webdWoocommerceReportingStatisticsModal .close:focus , .extendwp_close:hover, .extendwp_close:focus{
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
 }
 
 .verticalAlign{
