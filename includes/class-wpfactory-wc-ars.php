@@ -76,6 +76,8 @@ final class WPFactory_WC_ARS {
 	 *
 	 * @version 4.0.0
 	 * @since   4.0.0
+	 *
+	 * @todo    (v4.0.0) text domain should be `webd-woocommerce-advanced-reporting-statistics`
 	 */
 	function localize() {
 		load_plugin_textdomain(
