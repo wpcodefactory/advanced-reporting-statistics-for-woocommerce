@@ -9,7 +9,7 @@ defined( 'ABSPATH' ) || exit;
 
 use Automattic\WooCommerce\Utilities\OrderUtil;
 
-class OrderProcessorHelp{
+class OrderProcessorHelp {
 
 	public $plugin = 'webdWoocommerceReportingStatistics';
 	public $orders_info = array(  "_id","_transaction_id", "_date_created", "_date_modified", "_date_completed" , "_date_paid" ,  "_status", "_products", "_currency" , "_discount_tax" , "_discount_total" , "_shipping_tax" , "_shipping_total" , "_total_discount" , "_total_tax" , "_total_refunded" , "_total_tax_refunded" , "_total_shipping_refunded" , "_total_fees","_subtotal" , "_total" , "_item_count_refunded" , "_total_qty_refunded" , "_item_count" ,  "_payment_method" , "_payment_method_title","_coupon_codes"  , "_billing_first_name" , "_billing_last_name" , "_billing_company" , "_billing_address_1" , "_billing_address_2" , "_billing_city" , "_billing_state" , "_billing_postcode" , "_billing_country" , "_billing_email" , "_billing_phone" , "_shipping_first_name" , "_shipping_last_name" , "_shipping_company" , "_shipping_address_1" , "_shipping_address_2" , "_shipping_city" , "_shipping_state" , "_shipping_postcode" , "_shipping_country" , "_shipping_method" , "_customer_id" , "_customer_ip_address"  );
@@ -1298,4 +1298,4 @@ class OrderProcessorHelp{
 
 }
 
-$OrderProcessorHelp = OrderProcessorHelp::get_instance();;
+$OrderProcessorHelp = OrderProcessorHelp::get_instance();

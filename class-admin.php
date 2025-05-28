@@ -7,7 +7,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
- class webdWoocommerceReportingStatisticsAdmin{
+class webdWoocommerceReportingStatisticsAdmin {
 
 	public $allowed_html = array(
 			'a' => array(
@@ -958,4 +958,4 @@ defined( 'ABSPATH' ) || exit;
 
 		}
 	}
- }
+}
