@@ -253,14 +253,17 @@ class webdWoocommerceReportingStatisticsAdmin {
 				<?php }
 	}
 
+	/**
+	 * adminFooter.
+	 *
+	 * @version 4.0.0
+	 */
 	public function adminFooter(){ ?>
 		<div class='clearfix'>
 		<hr>
 		<div></div>
 		<?php $this->rating(); ?>
-		<a target='_blank' class='web_logo' href='https://extend-wp.com/wordpress-premium-plugins/'>
-			<img  src='<?php echo plugins_url( 'images/extendwp.png', __FILE__ ); ?>' alt='Get more plugins by extend-wp.com' title='Get more plugins by extend-wp.com' />
-		</a><div class='get_ajax'></div>
+		<div class='get_ajax'></div>
 		</div>
 		<?php
 	}
