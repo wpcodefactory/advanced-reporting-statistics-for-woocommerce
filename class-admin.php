@@ -2,12 +2,30 @@
 /**
  * Advanced WooCommerce Product Sales Reporting - Statistics & Forecast - webdWoocommerceReportingStatisticsAdmin Class
  *
+ * @version 4.0.0
+ *
  * @author  WPFactory
  */
 
 defined( 'ABSPATH' ) || exit;
 
 class webdWoocommerceReportingStatisticsAdmin {
+
+	/**
+	 * tab.
+	 *
+	 * @version 4.0.0
+	 * @since   4.0.0
+	 */
+	public $tab;
+
+	/**
+	 * activeTab.
+	 *
+	 * @version 4.0.0
+	 * @since   4.0.0
+	 */
+	public $activeTab;
 
 	public $allowed_html = array(
 			'a' => array(

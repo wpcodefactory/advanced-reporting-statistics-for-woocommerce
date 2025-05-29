@@ -83,8 +83,9 @@ Check that wp-cron is active . You can install WP Cron control plugin . check th
 
 == Changelog ==
 
-= 4.0.0 - 28/05/2025 =
+= 4.0.0 - 29/05/2025 =
 * Fix - Translation loading fixed.
+* Dev - PHP v8.2 compatibility (dynamic properties).
 * Dev - Plugin settings moved to the "WPFactory" menu.
 * Dev - "Recommendations" added.
 * Dev - Code refactoring and cleanup.

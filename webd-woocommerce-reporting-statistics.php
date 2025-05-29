@@ -19,7 +19,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-defined( 'WPFACTORY_WC_ARS_VERSION' ) || define( 'WPFACTORY_WC_ARS_VERSION', '4.0.0-dev-20250528-1547' );
+defined( 'WPFACTORY_WC_ARS_VERSION' ) || define( 'WPFACTORY_WC_ARS_VERSION', '4.0.0-dev-20250529-1234' );
 
 defined( 'WPFACTORY_WC_ARS_FILE' ) || define( 'WPFACTORY_WC_ARS_FILE', __FILE__ );
 
@@ -50,7 +50,6 @@ include_once( plugin_dir_path(__FILE__) ."/class-admin.php");
  *
  * @version 4.0.0
  *
- * @todo    (v4.0.0) fix "Deprecated: Creation of dynamic property"
  * @todo    (v4.0.0) test
  * @todo    (v4.0.0) Plugin Check (PCP)
  * @todo    (v4.0.0) remove `public $name`, `public $slug`, `public $proUrl`?
