@@ -165,10 +165,13 @@ class webdWoocommerceReportingStatisticsAdmin {
 		<?php
 	}
 
+	/**
+	 * adminHeader.
+	 *
+	 * @version 4.0.0
+	 */
 	public function adminHeader(){
-		?>
-		<img src='<?php echo plugins_url( 'images/'.$this->slug.'.png', __FILE__ ); ?>' style='width:100%' />
-		<?php
+		?><h1><?php esc_html_e( 'Advanced WooCommerce Product Sales Reporting - Statistics & Forecast', 'webd-woocommerce-reporting-statistics' ); ?></h1><?php
 	}
 
 	public function adminSettings(){
