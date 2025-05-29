@@ -51,6 +51,9 @@ include_once( plugin_dir_path(__FILE__) ."/class-admin.php");
  * @version 4.0.0
  *
  * @todo    (v4.0.0) test
+ * @todo    (v4.0.0) cleanup notification (e.g., `push_not` AJAX action)
+ * @todo    (v4.0.0) remove the "More extensions" tab?
+ * @todo    (v4.0.0) remove the "GO PRO" tab?
  * @todo    (v4.0.0) Plugin Check (PCP)
  * @todo    (v4.0.0) remove `public $name`, `public $slug`, `public $proUrl`?
  * @todo    (v4.0.0) cleanup
@@ -94,56 +97,6 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 			return $plugins;
 		});
 
-		register_activation_hook( __FILE__, array( $this, 'notification_hook' ) );
-
-		add_action( 'admin_notices', array( $this,'notification' ) );
-		add_action( 'wp_ajax_nopriv_push_not',array( $this, 'push_not' ) );
-		add_action( 'wp_ajax_push_not',       array( $this, 'push_not' ) );
-
-	}
-
-	/**
-	 * notification.
-	 *
-	 * @version 4.0.0
-	 */
-	public function notification() {
-		$screen = get_current_screen();
-		if ( 'wpfactory_page_webd-woocommerce-reporting-statistics' !== $screen->base ) {
-			return;
-		}
-
-		/* Check transient, if available display notice */
-		if( get_transient( $this->plugin ."_notification" ) ){
-			?>
-			<div class="updated notice  webdWoocommerceReportingStatistics_notification">
-				<a href="#" class='dismiss' style='float:right;padding:4px' >close</a>
-				<h4><i><?php esc_attr( print $this->name );?> | <?php esc_html_e( "Add your Email below & get ", 'imue' ); ?><strong><?php esc_html_e( "discounts", 'webd-woocommerce-reporting-statistics' ); ?></strong><?php esc_html_e( " in our pro plugins at", 'webd-woocommerce-reporting-statistics' ); ?> <a href='https://extend-wp.com' target='_blank' >extend-wp.com!</a></i></h4>
-
-				<form method='post' id='webdWoocommerceReportingStatistics_signup'>
-					<p>
-					<input required type='email' name='woopei_email' />
-					<input required type='hidden' name='product' value='2071' />
-					<input type='submit' class='button button-primary' name='submit' value='<?php esc_html_e("Sign up", "webd-woocommerce-reporting-statistics" ); ?>' />
-					</p>
-				</form>
-			</div>
-			<?php
-		}
-	}
-
-	/**
-	 * push_not.
-	 */
-	public function push_not() {
-		delete_transient( $this->plugin ."_notification" );
-	}
-
-	/**
-	 * notification_hook.
-	 */
-	public function notification_hook() {
-		set_transient( $this->plugin ."_notification", true );
 	}
 
 	/**
