@@ -1,10 +1,10 @@
 === Advanced WooCommerce Product Sales Reporting - Statistics & Forecast  ===
-Contributors: wpcodefactory, algoritmika, anbinder, karzin, omardabbas
+Contributors: wpcodefactory, anbinder, karzin, omardabbas
 Tags: reporting, woocommerce statistics, sales report, analytics, woocommerce sales
 Requires at least: 3.0.1
 Requires PHP: 5.2.4
 Tested up to: 6.8
-Stable tag: 4.0.2
+Stable tag: 4.0.3
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -82,6 +82,9 @@ Check that wp-cron is active . You can install WP Cron control plugin . check th
 3. Advanced WooCommerce Reporting - Statistics & Forecast | Analysis Grouped by Month and next Month's Forecast
 
 == Changelog ==
+
+= 4.0.3 - 22/09/2025 =
+* WC tested up to: 10.1.
 
 = 4.0.2 - 10/06/2025 =
 * Fix - Fix plugin icon.
