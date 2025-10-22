@@ -2,6 +2,8 @@
 /**
  * Advanced WooCommerce Product Sales Reporting - Statistics & Forecast - OrderProcessorHelp Class
  *
+ * @version 4.1.0
+ *
  * @author  WPFactory
  */
 
@@ -171,6 +173,8 @@ class OrderProcessorHelp {
 
 	/**
 	 * display_orders_by_period.
+	 *
+	 * @version 4.1.0
 	 */
 	public function display_orders_by_period() {
 
@@ -184,7 +188,7 @@ class OrderProcessorHelp {
 			// POST VARIABLES FROM FILTER FORM
 
 			$customer_id = (empty($_POST['customer'])) ? null : sanitize_text_field( $_POST['customer'] );
-			$order_status = (empty($_POST['order_status'])) ?  $status :  [ $_POST['order_status'] ];
+			$order_status = (empty($_POST['order_status'])) ?  $status : [ sanitize_text_field( $_POST['order_status'] ) ];
 
 			$period = ( isset( $_POST['tab'] ) && $_POST['tab'] =='months'  ) ? '%Y-%m' : '%Y' ;
 
