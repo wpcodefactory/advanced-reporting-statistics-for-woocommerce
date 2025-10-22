@@ -11,16 +11,34 @@ use Automattic\WooCommerce\Utilities\OrderUtil;
 
 class OrderProcessorHelp {
 
+	/**
+	 * plugin.
+	 */
 	public $plugin = 'webdWoocommerceReportingStatistics';
 
+	/**
+	 * orders_info.
+	 */
 	public $orders_info = array(  "_id","_transaction_id", "_date_created", "_date_modified", "_date_completed" , "_date_paid" ,  "_status", "_products", "_currency" , "_discount_tax" , "_discount_total" , "_shipping_tax" , "_shipping_total" , "_total_discount" , "_total_tax" , "_total_refunded" , "_total_tax_refunded" , "_total_shipping_refunded" , "_total_fees","_subtotal" , "_total" , "_item_count_refunded" , "_total_qty_refunded" , "_item_count" ,  "_payment_method" , "_payment_method_title","_coupon_codes"  , "_billing_first_name" , "_billing_last_name" , "_billing_company" , "_billing_address_1" , "_billing_address_2" , "_billing_city" , "_billing_state" , "_billing_postcode" , "_billing_country" , "_billing_email" , "_billing_phone" , "_shipping_first_name" , "_shipping_last_name" , "_shipping_company" , "_shipping_address_1" , "_shipping_address_2" , "_shipping_city" , "_shipping_state" , "_shipping_postcode" , "_shipping_country" , "_shipping_method" , "_customer_id" , "_customer_ip_address"  );
 
+	/**
+	 * products.
+	 */
 	private $products = [];
 
+	/**
+	 * instance.
+	 */
 	protected static $instance = NULL;
 
+	/**
+	 * datediff.
+	 */
 	private $datediff = '';
 
+	/**
+	 * get_instance.
+	 */
 	public static function get_instance() {
 		if ( NULL === self::$instance )
 			self::$instance = new self;
@@ -28,6 +46,9 @@ class OrderProcessorHelp {
 		return self::$instance;
 	}
 
+	/**
+	 * Constructor.
+	 */
 	public function __construct() {
 
 		add_action( 'wp_ajax_getOrders', array( $this,'getOrders' ) );
@@ -59,6 +80,9 @@ class OrderProcessorHelp {
 
 	}
 
+	/**
+	 * periodFilter.
+	 */
 	public function periodFilter( $period ) {
 
 		global $wpdb;
@@ -78,6 +102,9 @@ class OrderProcessorHelp {
 
 	}
 
+	/**
+	 * display_orders_by_period.
+	 */
 	public function display_orders_by_period() {
 
 		if( $_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] == 'display_orders_by_period' ){
@@ -275,6 +302,9 @@ class OrderProcessorHelp {
 		}
 	}
 
+	/**
+	 * filter_orders.
+	 */
 	public function filter_orders() {
 
 		$filters = array();
@@ -317,6 +347,9 @@ class OrderProcessorHelp {
 
 	}
 
+	/**
+	 * getOrders.
+	 */
 	public function getOrders() {
 
 		if( $_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] == 'getOrders'   ){
@@ -514,6 +547,9 @@ class OrderProcessorHelp {
 
 	}
 
+	/**
+	 * get_orders.
+	 */
 	public function get_orders() {
 
 		if( is_admin() && isset( $_POST['action'] ) &&  $_POST['action'] =='get_orders' ){
@@ -571,6 +607,9 @@ class OrderProcessorHelp {
 		}
 	}
 
+	/**
+	 * get_customers.
+	 */
 	public function get_customers() {
 
 		if( is_admin() && isset( $_POST['action'] ) &&  $_POST['action'] =='get_customers'  ){
@@ -674,6 +713,9 @@ class OrderProcessorHelp {
 		}
 	}
 
+	/**
+	 * get_countries.
+	 */
 	public function get_countries() {
 
 		if( is_admin() && isset( $_POST['action'] ) &&  $_POST['action'] =='get_countries' ){
@@ -745,6 +787,9 @@ class OrderProcessorHelp {
 		}
 	}
 
+	/**
+	 * get_payments.
+	 */
 	public function get_payments() {
 
 		if( is_admin() && isset( $_POST['action'] ) &&  $_POST['action'] =='get_payments' ){
@@ -816,6 +861,9 @@ class OrderProcessorHelp {
 		}
 	}
 
+	/**
+	 * get_coupons.
+	 */
 	public function get_coupons() {
 
 		if( is_admin() && isset( $_POST['action'] ) &&  $_POST['action'] =='get_coupons'  ){
@@ -877,6 +925,9 @@ class OrderProcessorHelp {
 		}
 	}
 
+	/**
+	 * get_products.
+	 */
 	public function get_products() {
 
 		if( is_admin() && isset( $_POST['action'] ) &&  $_POST['action'] =='get_products'  ){
@@ -981,6 +1032,9 @@ class OrderProcessorHelp {
 		}
 	}
 
+	/**
+	 * get_categories.
+	 */
 	public function get_categories() {
 
 		if( is_admin() &&  isset( $_POST['action'] ) &&  $_POST['action'] =='get_categories'   ){
@@ -1057,6 +1111,9 @@ class OrderProcessorHelp {
 		}
 	}
 
+	/**
+	 * product_cat.
+	 */
 	public function product_cat( $categories, $post ) {
 		$subcats = get_term_children( $categories, 'product_cat' );
 		foreach ( $subcats as $cat ) {
@@ -1066,6 +1123,9 @@ class OrderProcessorHelp {
 		}
 	}
 
+	/**
+	 * get_coupon_used.
+	 */
 	private function get_coupon_used( $order_id ) {
 
 		if ( wc_coupons_enabled() ) {
@@ -1089,6 +1149,9 @@ class OrderProcessorHelp {
 
 	}
 
+	/**
+	 * forecastHoltWinters.
+	 */
 	public function forecastHoltWinters( $anData, $nForecast = 2, $nSeasonLength = 4, $nAlpha = 0.2, $nBeta = 0.01, $nGamma = 0.01, $nDevGamma = 0.1 ) {
 		$search = '0';
 		$replace = '1';
@@ -1171,6 +1234,9 @@ class OrderProcessorHelp {
 		return $anForecast;
 	}
 
+	/**
+	 * divide.
+	 */
 	public function divide( $a, $b ) {
 		try {
 			if(@($a / $b) === false) return INF; // covers PHP5
@@ -1180,22 +1246,37 @@ class OrderProcessorHelp {
 		}
 	}
 
+	/**
+	 * Median.
+	 */
 	public function Median($Array) {
 		return Quartile_50($Array);
 	}
 
+	/**
+	 * Quartile_25.
+	 */
 	public function Quartile_25($Array) {
 		return Quartile($Array, 0.25);
 	}
 
+	/**
+	 * Quartile_50.
+	 */
 	public function Quartile_50($Array) {
 		return Quartile($Array, 0.5);
 	}
 
+	/**
+	 * Quartile_75.
+	 */
 	public function Quartile_75($Array) {
 		return Quartile($Array, 0.75);
 	}
 
+	/**
+	 * Quartile.
+	 */
 	public function Quartile( $Array, $Quartile ) {
 		$pos = (count($Array) - 1) * $Quartile;
 
@@ -1209,10 +1290,16 @@ class OrderProcessorHelp {
 		}
 	}
 
+	/**
+	 * Average.
+	 */
 	public function Average( $Array ) {
 	  return array_sum($Array) / count($Array);
 	}
 
+	/**
+	 * StdDev.
+	 */
 	public function StdDev( $Array ) {
 		if( count($Array) < 2 ) {
 			return;
@@ -1228,10 +1315,16 @@ class OrderProcessorHelp {
 		return sqrt((1 / (count($Array) - 1)) * $sum);
 	}
 
+	/**
+	 * random_color_part.
+	 */
 	public function random_color_part() {
 		return str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT);
 	}
 
+	/**
+	 * getRandomColor.
+	 */
 	public function getRandomColor() {
 		return "#".$this->random_color_part() . $this->random_color_part() . $this->random_color_part();
 	}
