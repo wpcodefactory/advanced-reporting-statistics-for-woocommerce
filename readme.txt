@@ -83,6 +83,10 @@ Check that wp-cron is active . You can install WP Cron control plugin . check th
 
 == Changelog ==
 
+= 4.1.0 - 22/10/2025 =
+* Dev - Coding standards improved.
+* WC tested up to: 10.2.
+
 = 4.0.3 - 22/09/2025 =
 * WC tested up to: 10.1.
 

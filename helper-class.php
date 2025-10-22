@@ -12,13 +12,16 @@ use Automattic\WooCommerce\Utilities\OrderUtil;
 class OrderProcessorHelp {
 
 	public $plugin = 'webdWoocommerceReportingStatistics';
+
 	public $orders_info = array(  "_id","_transaction_id", "_date_created", "_date_modified", "_date_completed" , "_date_paid" ,  "_status", "_products", "_currency" , "_discount_tax" , "_discount_total" , "_shipping_tax" , "_shipping_total" , "_total_discount" , "_total_tax" , "_total_refunded" , "_total_tax_refunded" , "_total_shipping_refunded" , "_total_fees","_subtotal" , "_total" , "_item_count_refunded" , "_total_qty_refunded" , "_item_count" ,  "_payment_method" , "_payment_method_title","_coupon_codes"  , "_billing_first_name" , "_billing_last_name" , "_billing_company" , "_billing_address_1" , "_billing_address_2" , "_billing_city" , "_billing_state" , "_billing_postcode" , "_billing_country" , "_billing_email" , "_billing_phone" , "_shipping_first_name" , "_shipping_last_name" , "_shipping_company" , "_shipping_address_1" , "_shipping_address_2" , "_shipping_city" , "_shipping_state" , "_shipping_postcode" , "_shipping_country" , "_shipping_method" , "_customer_id" , "_customer_ip_address"  );
+
 	private $products = [];
 
 	protected static $instance = NULL;
+
 	private $datediff = '';
-	public static function get_instance()
-	{
+
+	public static function get_instance() {
 		if ( NULL === self::$instance )
 			self::$instance = new self;
 
@@ -56,7 +59,7 @@ class OrderProcessorHelp {
 
 	}
 
-	public function periodFilter( $period ){
+	public function periodFilter( $period ) {
 
 		global $wpdb;
 		$theperiod = ( isset( $period ) && $period =='month'  ) ? '%Y-%m' : '%Y' ;
@@ -272,7 +275,7 @@ class OrderProcessorHelp {
 		}
 	}
 
-	public function filter_orders(){
+	public function filter_orders() {
 
 		$filters = array();
 
@@ -1055,14 +1058,12 @@ class OrderProcessorHelp {
 	}
 
 	public function product_cat( $categories, $post ) {
-			$subcats = get_term_children( $categories, 'product_cat' );
-			foreach($subcats as $cat){
-
-				 if ( has_term( $cat, 'product_cat', $post ) ) {
-						return "1";
-					}
+		$subcats = get_term_children( $categories, 'product_cat' );
+		foreach ( $subcats as $cat ) {
+			if ( has_term( $cat, 'product_cat', $post ) ) {
+				return "1";
 			}
-
+		}
 	}
 
 	private function get_coupon_used( $order_id ) {
@@ -1082,10 +1083,13 @@ class OrderProcessorHelp {
 				return '';
 			}
 
-		}else return  '';
+		} else {
+			return  '';
+		}
+
 	}
 
-	public function forecastHoltWinters($anData, $nForecast = 2, $nSeasonLength = 4, $nAlpha = 0.2, $nBeta = 0.01, $nGamma = 0.01, $nDevGamma = 0.1) {
+	public function forecastHoltWinters( $anData, $nForecast = 2, $nSeasonLength = 4, $nAlpha = 0.2, $nBeta = 0.01, $nGamma = 0.01, $nDevGamma = 0.1 ) {
 		$search = '0';
 		$replace = '1';
 		array_walk($anData,
@@ -1106,7 +1110,7 @@ class OrderProcessorHelp {
 		$nTrend2 = 1;
 		for($i = $nSeasonLength; $i < 2*$nSeasonLength; $i++) {
 			$anData[$i] = isset($anData[1]) ? $anData[1] : null;
-		  $nTrend2 += $anData[$i];
+			$nTrend2 += $anData[$i];
 		}
 		$nTrend2 /= $nSeasonLength;
 
@@ -1124,7 +1128,7 @@ class OrderProcessorHelp {
 		// Build season buffer
 		$anSeason = array_fill(0, count($anData), 0);
 		for($i = 0; $i < $nSeasonLength; $i++) {
-		  $anSeason[$i] = ($anIndex[$i] + $anIndex[$i+$nSeasonLength]) / 2;
+			$anSeason[$i] = ($anIndex[$i] + $anIndex[$i+$nSeasonLength]) / 2;
 		}
 
 		// Normalise season
@@ -1133,7 +1137,7 @@ class OrderProcessorHelp {
 
 		$nSeasonFactor = $nSeasonLength / $Total;
 		foreach($anSeason as $nKey => $nVal) {
-		  $anSeason[$nKey] *= $nSeasonFactor;
+			$anSeason[$nKey] *= $nSeasonFactor;
 		}
 
 		$anHoltWinters = array();
@@ -1157,17 +1161,17 @@ class OrderProcessorHelp {
 		$anForecast = array();
 		$nLast = end($anData);
 		for($i = 1; $i <= $nForecast; $i++) {
-		   $nComputed = round($nAlphaLevel + $nBetaTrend * $anSeason[$nKey + $i]);
-		   if ($nComputed < 0) { // wildly off due to outliers
-			 $nComputed = $nLast;
-		   }
-		   $anForecast[] = $nComputed;
+			$nComputed = round($nAlphaLevel + $nBetaTrend * $anSeason[$nKey + $i]);
+			if ($nComputed < 0) { // wildly off due to outliers
+				$nComputed = $nLast;
+			}
+			$anForecast[] = $nComputed;
 		}
 
 		return $anForecast;
 	}
 
-	public function divide($a, $b){
+	public function divide( $a, $b ) {
 		try {
 			if(@($a / $b) === false) return INF; // covers PHP5
 			return @($a / $b); // covers PHP7
@@ -1177,51 +1181,51 @@ class OrderProcessorHelp {
 	}
 
 	public function Median($Array) {
-	  return Quartile_50($Array);
+		return Quartile_50($Array);
 	}
 
 	public function Quartile_25($Array) {
-	  return Quartile($Array, 0.25);
+		return Quartile($Array, 0.25);
 	}
 
 	public function Quartile_50($Array) {
-	  return Quartile($Array, 0.5);
+		return Quartile($Array, 0.5);
 	}
 
 	public function Quartile_75($Array) {
-	  return Quartile($Array, 0.75);
+		return Quartile($Array, 0.75);
 	}
 
-	public function Quartile($Array, $Quartile) {
-	  $pos = (count($Array) - 1) * $Quartile;
+	public function Quartile( $Array, $Quartile ) {
+		$pos = (count($Array) - 1) * $Quartile;
 
-	  $base = floor($pos);
-	  $rest = $pos - $base;
+		$base = floor($pos);
+		$rest = $pos - $base;
 
-	  if( isset($Array[$base+1]) ) {
-		return $Array[$base] + $rest * ($Array[$base+1] - $Array[$base]);
-	  } else {
-		return $Array[$base];
-	  }
+		if( isset($Array[$base+1]) ) {
+			return $Array[$base] + $rest * ($Array[$base+1] - $Array[$base]);
+		} else {
+			return $Array[$base];
+		}
 	}
 
-	public function Average($Array) {
+	public function Average( $Array ) {
 	  return array_sum($Array) / count($Array);
 	}
 
-	public function StdDev($Array) {
-	  if( count($Array) < 2 ) {
-		return;
-	  }
+	public function StdDev( $Array ) {
+		if( count($Array) < 2 ) {
+			return;
+		}
 
-	  $avg = Average($Array);
+		$avg = Average($Array);
 
-	  $sum = 0;
-	  foreach($Array as $value) {
-		$sum += pow($value - $avg, 2);
-	  }
+		$sum = 0;
+		foreach($Array as $value) {
+			$sum += pow($value - $avg, 2);
+		}
 
-	  return sqrt((1 / (count($Array) - 1)) * $sum);
+		return sqrt((1 / (count($Array) - 1)) * $sum);
 	}
 
 	public function random_color_part() {
