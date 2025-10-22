@@ -137,18 +137,34 @@ class OrderProcessorHelp {
 	public function periodFilter( $period ) {
 
 		global $wpdb;
-		$theperiod = ( isset( $period ) && $period =='month'  ) ? '%Y-%m' : '%Y' ;
-		if( OrderUtil::custom_orders_table_usage_is_enabled() ) {
 
-			$query = "SELECT DISTINCT DATE_FORMAT(date_created_gmt, '{$theperiod}' ) AS period FROM ".$wpdb->prefix."wc_orders where type='shop_order' GROUP BY period ORDER BY period DESC";
+		$theperiod = ( ( isset( $period ) && $period =='month' ) ? '%Y-%m' : '%Y' );
 
-		}else{
+		if ( OrderUtil::custom_orders_table_usage_is_enabled() ) {
 
-			$query = "SELECT DISTINCT DATE_FORMAT(post_date, '{$theperiod}' ) AS period FROM ".$wpdb->prefix."posts where post_type='shop_order' GROUP BY period ORDER BY period DESC";
+			$query = "
+				SELECT DISTINCT DATE_FORMAT(date_created_gmt, '{$theperiod}' ) AS period
+				FROM {$wpdb->prefix}wc_orders
+				WHERE type='shop_order'
+				GROUP BY period
+				ORDER BY period DESC
+			";
+
+		} else {
+
+			$query = "
+				SELECT DISTINCT DATE_FORMAT(post_date, '{$theperiod}' ) AS period
+				FROM {$wpdb->prefix}posts
+				WHERE post_type='shop_order'
+				GROUP BY period
+				ORDER BY period DESC
+			";
 		}
+
 		$periods = $wpdb->get_results( $query );
-		if( $periods ) {
-			return $periods ;
+
+		if ( $periods ) {
+			return $periods;
 		}
 
 	}
