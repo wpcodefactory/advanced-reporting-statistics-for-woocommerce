@@ -19,7 +19,58 @@ class OrderProcessorHelp {
 	/**
 	 * orders_info.
 	 */
-	public $orders_info = array(  "_id","_transaction_id", "_date_created", "_date_modified", "_date_completed" , "_date_paid" ,  "_status", "_products", "_currency" , "_discount_tax" , "_discount_total" , "_shipping_tax" , "_shipping_total" , "_total_discount" , "_total_tax" , "_total_refunded" , "_total_tax_refunded" , "_total_shipping_refunded" , "_total_fees","_subtotal" , "_total" , "_item_count_refunded" , "_total_qty_refunded" , "_item_count" ,  "_payment_method" , "_payment_method_title","_coupon_codes"  , "_billing_first_name" , "_billing_last_name" , "_billing_company" , "_billing_address_1" , "_billing_address_2" , "_billing_city" , "_billing_state" , "_billing_postcode" , "_billing_country" , "_billing_email" , "_billing_phone" , "_shipping_first_name" , "_shipping_last_name" , "_shipping_company" , "_shipping_address_1" , "_shipping_address_2" , "_shipping_city" , "_shipping_state" , "_shipping_postcode" , "_shipping_country" , "_shipping_method" , "_customer_id" , "_customer_ip_address"  );
+	public $orders_info = array(
+		'_id',
+		'_transaction_id',
+		'_date_created',
+		'_date_modified',
+		'_date_completed',
+		'_date_paid',
+		'_status',
+		'_products',
+		'_currency',
+		'_discount_tax',
+		'_discount_total',
+		'_shipping_tax',
+		'_shipping_total',
+		'_total_discount',
+		'_total_tax',
+		'_total_refunded',
+		'_total_tax_refunded',
+		'_total_shipping_refunded',
+		'_total_fees',
+		'_subtotal',
+		'_total',
+		'_item_count_refunded',
+		'_total_qty_refunded',
+		'_item_count',
+		'_payment_method',
+		'_payment_method_title',
+		'_coupon_codes',
+		'_billing_first_name',
+		'_billing_last_name',
+		'_billing_company',
+		'_billing_address_1',
+		'_billing_address_2',
+		'_billing_city',
+		'_billing_state',
+		'_billing_postcode',
+		'_billing_country',
+		'_billing_email',
+		'_billing_phone',
+		'_shipping_first_name',
+		'_shipping_last_name',
+		'_shipping_company',
+		'_shipping_address_1',
+		'_shipping_address_2',
+		'_shipping_city',
+		'_shipping_state',
+		'_shipping_postcode',
+		'_shipping_country',
+		'_shipping_method',
+		'_customer_id',
+		'_customer_ip_address',
+	);
 
 	/**
 	 * products.
@@ -40,9 +91,9 @@ class OrderProcessorHelp {
 	 * get_instance.
 	 */
 	public static function get_instance() {
-		if ( NULL === self::$instance )
+		if ( NULL === self::$instance ) {
 			self::$instance = new self;
-
+		}
 		return self::$instance;
 	}
 
@@ -51,31 +102,31 @@ class OrderProcessorHelp {
 	 */
 	public function __construct() {
 
-		add_action( 'wp_ajax_getOrders', array( $this,'getOrders' ) );
+		add_action( 'wp_ajax_getOrders',        array( $this,'getOrders' ) );
 		add_action( 'wp_ajax_nopriv_getOrders', array( $this,'getOrders' ) );
 
-		add_action( 'wp_ajax_get_orders', array( $this,'get_orders' ) );
+		add_action( 'wp_ajax_get_orders',        array( $this,'get_orders' ) );
 		add_action( 'wp_ajax_nopriv_get_orders', array( $this,'get_orders' ) );
 
-		add_action( 'wp_ajax_get_customers', array( $this,'get_customers' ) );
+		add_action( 'wp_ajax_get_customers',        array( $this,'get_customers' ) );
 		add_action( 'wp_ajax_nopriv_get_customers', array( $this,'get_customers' ) );
 
-		add_action( 'wp_ajax_get_countries', array( $this,'get_countries' ) );
+		add_action( 'wp_ajax_get_countries',        array( $this,'get_countries' ) );
 		add_action( 'wp_ajax_nopriv_get_countries', array( $this,'get_countries' ) );
 
-		add_action( 'wp_ajax_get_payments', array( $this,'get_payments' ) );
+		add_action( 'wp_ajax_get_payments',        array( $this,'get_payments' ) );
 		add_action( 'wp_ajax_nopriv_get_payments', array( $this,'get_payments' ) );
 
-		add_action( 'wp_ajax_get_coupons', array( $this,'get_coupons' ) );
+		add_action( 'wp_ajax_get_coupons',        array( $this,'get_coupons' ) );
 		add_action( 'wp_ajax_nopriv_get_coupons', array( $this,'get_coupons' ) );
 
-		add_action( 'wp_ajax_get_products', array( $this,'get_products' ) );
+		add_action( 'wp_ajax_get_products',        array( $this,'get_products' ) );
 		add_action( 'wp_ajax_nopriv_get_products', array( $this,'get_products' ) );
 
-		add_action( 'wp_ajax_get_categories', array( $this,'get_categories' ) );
+		add_action( 'wp_ajax_get_categories',        array( $this,'get_categories' ) );
 		add_action( 'wp_ajax_nopriv_get_categories', array( $this,'get_categories' ) );
 
-		add_action( 'wp_ajax_display_orders_by_period', array( $this,'display_orders_by_period' ) );
+		add_action( 'wp_ajax_display_orders_by_period',        array( $this,'display_orders_by_period' ) );
 		add_action( 'wp_ajax_nopriv_display_orders_by_period', array( $this,'display_orders_by_period' ) );
 
 	}
