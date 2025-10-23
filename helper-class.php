@@ -940,30 +940,31 @@ class OrderProcessorHelp {
 			if ( $data ) {
 				foreach ( $data as $d ) {
 
-						$name       = $d->first_name . " " . $d->last_name;
-						$state      = $d->state;
-						$city       = $d->city;
-						$company    = $d->company;
-						$country    = ( $d->country != '' ) ? WC()->countries->countries[ $d->country ] : '' ;
-						$phone      = $d->phone;
-						$email      = $d->email;
-						$tax        = $d->state;
-						$total      = $d->total;
-						$tax        = $d->tax;
-						$num_orders = $d->num_orders;
+					$name       = $d->first_name . " " . $d->last_name;
+					$state      = $d->state;
+					$city       = $d->city;
+					$company    = $d->company;
+					$country    = ( $d->country != '' ) ? WC()->countries->countries[ $d->country ] : '' ;
+					$phone      = $d->phone;
+					$email      = $d->email;
+					$tax        = $d->state;
+					$total      = $d->total;
+					$tax        = $d->tax;
+					$num_orders = $d->num_orders;
 
-						$response['customers'] .= "<tr>" .
-							"<td>" . esc_html( $name ) . "</td>" .
-							"<td>" . esc_html( $phone ) . "</td>" .
-							"<td>" . esc_html( $email ) . "</td>" .
-							"<td>" . esc_html( $country ) . "</td>" .
-							"<td>" . esc_html( $state ) . "</td>" .
-							"<td>" . esc_html( $city ) . "</td>" .
-							"<td>" . esc_html( $company ) . "</td>" .
-							"<td>" . esc_html( $num_orders ) . "</td>" .
-							"<td>" . esc_html( round( $tax, 2 ) ) . "</td>" .
-							"<td>" . esc_html( round( $total, 2 ) ) . "</td>" .
-						"</tr>";
+					$response['customers'] .= "<tr>" .
+						"<td>" . esc_html( $name ) . "</td>" .
+						"<td>" . esc_html( $phone ) . "</td>" .
+						"<td>" . esc_html( $email ) . "</td>" .
+						"<td>" . esc_html( $country ) . "</td>" .
+						"<td>" . esc_html( $state ) . "</td>" .
+						"<td>" . esc_html( $city ) . "</td>" .
+						"<td>" . esc_html( $company ) . "</td>" .
+						"<td>" . esc_html( $num_orders ) . "</td>" .
+						"<td>" . esc_html( round( $tax, 2 ) ) . "</td>" .
+						"<td>" . esc_html( round( $total, 2 ) ) . "</td>" .
+					"</tr>";
+
 				}
 			}
 
@@ -977,76 +978,95 @@ class OrderProcessorHelp {
 
 	/**
 	 * get_countries.
+	 *
+	 * @version 4.1.0
 	 */
 	public function get_countries() {
 
-		if( is_admin() && isset( $_POST['action'] ) &&  $_POST['action'] =='get_countries' ){
+		if (
+			is_admin() &&
+			(
+				isset( $_POST['action'] ) &&
+				'get_countries' === $_POST['action']
+			)
+		) {
 
 			global $wpdb;
 
-			if( isset( $_POST['ids'] ) ) $ids = $_POST['ids'];
-			$ids = array_map( 'sanitize_text_field', $ids );
+			if ( isset( $_POST['ids'] ) ) {
+				$ids = array_map( 'sanitize_text_field', wp_unslash( $_POST['ids'] ) );
+			}
 
 			// Query completed orders with order date and total sales.
-			if( OrderUtil::custom_orders_table_usage_is_enabled() ) {
+			if ( OrderUtil::custom_orders_table_usage_is_enabled() ) {
 				$parameter = 'country';
-				$query = "SELECT DISTINCT address.".$parameter." AS country,
-						   SUM(orders.total_amount ) AS total,
-						   SUM( orders.tax_amount ) AS tax,
-						   COUNT(orders.id) AS num_orders,
-						   address.country as country
-						   FROM ". $wpdb->prefix."wc_order_addresses as address
-						   LEFT JOIN " . $wpdb->prefix ."wc_orders as orders ON orders.id = address.order_id
-						WHERE address.address_type='billing' AND orders.id  IN ('" . implode("','", $ids ) . "') ";
-
-			}else{
-				$parameter = 'country';
-
 				$query = "
-					SELECT billing_country.meta_value AS ".$parameter." ,
+					SELECT DISTINCT address." . $parameter . " AS country,
+					SUM(orders.total_amount ) AS total,
+					SUM( orders.tax_amount ) AS tax,
+					COUNT(orders.id) AS num_orders,
+					address.country as country
+					FROM " . $wpdb->prefix . "wc_order_addresses as address
+					LEFT JOIN " . $wpdb->prefix . "wc_orders as orders ON orders.id = address.order_id
+					WHERE address.address_type='billing' AND orders.id  IN ('" . implode( "','", $ids ) . "')
+				";
+			} else {
+				$parameter = 'country';
+				$query = "
+					SELECT billing_country.meta_value AS " . $parameter . " ,
 					SUM(order_total.meta_value) AS total,
 					SUM(order_tax.meta_value) AS tax,
 					COUNT( order_total.post_id ) AS num_orders
 					FROM {$wpdb->prefix}postmeta AS order_total
 					LEFT JOIN {$wpdb->prefix}postmeta AS order_tax ON order_total.post_id = order_tax.post_id
 					LEFT JOIN {$wpdb->prefix}postmeta AS billing_country ON order_total.post_id = billing_country.post_id
-					WHERE order_total.post_id  IN ('" . implode("','", $ids ) . "') AND
+					WHERE order_total.post_id  IN ('" . implode( "','", $ids ) . "') AND
 						order_total.meta_key = '_order_total' AND
 						order_tax.meta_key = '_order_tax' AND
 						billing_country.meta_key = '_billing_country'
-					";
-
+				";
 			}
+
 			$query .= "
 				GROUP BY country
 				ORDER BY total DESC
 			";
+
 			$data = $wpdb->get_results( $query );
 
 			$response = array(
-				'name' => array(),
-				'total' => array(),
+				'name'      => array(),
+				'total'     => array(),
 				'countries' => '',
 			);
 
-			if( $data ){
+			if ( $data ) {
+				foreach ( $data as $d ) {
 
-				foreach( $data as $d ){
+					$country     = ( $d->country != '' ) ? WC()->countries->countries[ $d->country ] : '' ;
+					$total       = $d->total;
+					$tax         = $d->tax;
+					$num_orders  = $d->num_orders;
 
-						$country  = ( $d->country != '' ) ? WC()->countries->countries[ $d->country ] : '' ;
-						$total  = $d->total;
-						$tax  = $d->tax;
-						$num_orders  = $d->num_orders;
-						$response['countries'] .= "<tr><td>". esc_html( $country ) . "</td><td>". esc_html( $num_orders ) . "</td><td>".  esc_html( round( $tax , 2 ) ) . "</td><td>".  esc_html( round( $total , 2 ) ) . "</td></tr>";
-						array_push( $response['name'] , esc_html( $country ) );
-						array_push( $response['total'] , round( $total , 2 ) );
+					$response['countries'] .= "<tr>" .
+						"<td>" . esc_html( $country ) . "</td>" .
+						"<td>" . esc_html( $num_orders ) . "</td>" .
+						"<td>" . esc_html( round( $tax, 2 ) ) . "</td>" .
+						"<td>" . esc_html( round( $total, 2 ) ) . "</td>" .
+					"</tr>";
+
+					array_push( $response['name'], esc_html( $country ) );
+					array_push( $response['total'], round( $total, 2 ) );
+
 				}
 			}
 
 			echo json_encode( $response );
+
 			wp_die();
 
 		}
+
 	}
 
 	/**
