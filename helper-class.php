@@ -180,6 +180,7 @@ class OrderProcessorHelp {
 	 * @todo    (v4.1.0) `$topush = 0.1`?
 	 * @todo    (v4.1.0) `$total_sales < 0`?
 	 * @todo    (v4.1.0) `$net < 0`?
+	 * @todo    (v4.1.0) `forecastHoltWinters()`?
 	 */
 	public function display_orders_by_period() {
 
@@ -442,44 +443,53 @@ class OrderProcessorHelp {
 
 	/**
 	 * filter_orders.
+	 *
+	 * @version 4.1.0
 	 */
 	public function filter_orders() {
 
 		$filters = array();
 
-			$date = current_time( 'mysql' ) ;
-			$today = date('Y-m-d', strtotime( $date ) );
+		$date  = current_time( 'mysql' ) ;
+		$today = date( 'Y-m-d', strtotime( $date ) );
 
-			if( isset( $_POST['tab'] ) && ( $_POST['tab'] == 'months' || $_POST['tab'] == 'years' ) ){
-				$default = date( 'Y-m-d' , strtotime( $date . "- 20 years" ) );
+		if (
+			isset( $_POST['tab'] ) &&
+			( 'months' === $_POST['tab'] || 'years' === $_POST['tab'] )
+		) {
+			$default = date( 'Y-m-d', strtotime( $date . "- 20 years" ) );
+		} else {
+			$default = date( 'Y-m-d', strtotime( "first day of this month" ) );
+		}
 
-			}else{
-				$default = date( 'Y-m-d' , strtotime( "first day of this month" ) );
-			}
+		if ( ! empty( $_POST['selected'] ) ) {
+			$dayfilter = array( 'date_created' => sanitize_text_field( wp_unslash( $_POST['selected'] ) ) . "..." . $today );
+		} else{
+			$dayfilter = array( 'date_created' => ">=" . $default );
+		}
 
-			if( !empty( $_POST['selected'] ) ){
+		$status = array();
 
-				$dayfilter = array( 'date_created' =>  sanitize_text_field( $_POST['selected'] ) . "..." . $today ); //'date_created' =>  $from . "..." . $to
-			}else{
-				$dayfilter = array( 'date_created' =>  ">=" . $default ); //'date_created' =>  $from . "..." . $to
-			}
+		$default_status = array( 'wc-completed', 'wc-processing', 'wc-on-hold', 'wc-refunded' );
+		$status         = get_option( $this->plugin . '_status', $default_status );
 
-			$status = array();
+		$customer     = (
+			empty( $_POST['customer'] ) ?
+			'' :
+			sanitize_text_field( wp_unslash( $_POST['customer'] ) )
+		);
+		$order_status = (
+			empty( $_POST['order_status'] ) ?
+			$status :
+			sanitize_text_field( wp_unslash( $_POST['order_status'] ) )
+		);
 
-			$default_status = ['wc-completed', 'wc-processing', 'wc-on-hold', 'wc-refunded' ];
-			$status = get_option( $this->plugin.'_status' , $default_status );
+		$filters = array(
+			'customer_id' => sanitize_text_field( $customer ),
+			'status'      => $order_status,
+		);
 
-			$customer = (empty( $_POST['customer'] ) ) ? '' : $_POST['customer'];
-			$order_status = ( empty( $_POST['order_status'] ) ) ?  $status : $_POST['order_status'];
-
-			$filters = [
-
-				'customer_id' => sanitize_text_field( $customer ),
-				'status' =>  $order_status ,
-
-			];
-
-			 $filters = array_merge(  $dayfilter , $filters );
+		$filters = array_merge( $dayfilter , $filters );
 
 		return $filters;
 
