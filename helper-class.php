@@ -1163,35 +1163,45 @@ class OrderProcessorHelp {
 
 	/**
 	 * get_coupons.
+	 *
+	 * @version 4.1.0
 	 */
 	public function get_coupons() {
 
-		if( is_admin() && isset( $_POST['action'] ) &&  $_POST['action'] =='get_coupons'  ){
+		if (
+			is_admin() &&
+			(
+				isset( $_POST['action'] ) &&
+				'get_coupons' === $_POST['action']
+			)
+		) {
 
 			global $wpdb;
 
-			if( isset( $_POST['ids'] ) ) $ids = $_POST['ids'];
-			$ids = array_map( 'sanitize_text_field', $ids );
+			if ( isset( $_POST['ids'] ) ) {
+				$ids = array_map( 'sanitize_text_field', wp_unslash( $_POST['ids'] ) );
+			}
 
 			// Query completed orders with order date and total sales.
-			if( OrderUtil::custom_orders_table_usage_is_enabled() ) {
+			if ( OrderUtil::custom_orders_table_usage_is_enabled() ) {
 				$parameter = 'coupon_id';
-				$query = "SELECT DISTINCT coupons.".$parameter." AS coupon,
-						   SUM(coupons.discount_amount ) AS total
-						   FROM ". $wpdb->prefix."wc_order_coupon_lookup as coupons
-						WHERE coupons.order_id  IN ('" . implode("','", $ids ) . "') ";
-
-			}else{
+				$query = "
+					SELECT DISTINCT coupons." . $parameter . " AS coupon,
+					SUM(coupons.discount_amount ) AS total
+					FROM " . $wpdb->prefix . "wc_order_coupon_lookup as coupons
+					WHERE coupons.order_id  IN ('" . implode( "','", $ids ) . "')
+				";
+			} else {
 				$parameter = 'coupon';
 				$query = "
-					SELECT oi.order_item_name AS ".$parameter." ,
+					SELECT oi.order_item_name AS " . $parameter . " ,
 					SUM(im.meta_value) AS total
 					FROM {$wpdb->prefix}woocommerce_order_itemmeta AS im
 					JOIN {$wpdb->prefix}woocommerce_order_items AS oi ON im.order_item_id = oi.order_item_id
-					WHERE im.meta_key = 'discount_amount' AND oi.order_item_type = 'coupon' AND oi.order_id  IN ('" . implode("','", $ids ) . "')
+					WHERE im.meta_key = 'discount_amount' AND oi.order_item_type = 'coupon' AND oi.order_id  IN ('" . implode( "','", $ids ) . "')
 				";
-
 			}
+
 			$query .= "
 				GROUP BY coupon
 				ORDER BY total DESC
@@ -1199,30 +1209,36 @@ class OrderProcessorHelp {
 			$data = $wpdb->get_results( $query );
 
 			$response = array(
-				'name' => array(),
-				'total' => array(),
+				'name'    => array(),
+				'total'   => array(),
 				'coupons' => '',
 			);
 
-			if( $data ){
+			if ( $data ) {
+				foreach ( $data as $d ) {
 
-				foreach( $data as $d ){
+					$coupon = $d->coupon;
+					$coupon = new WC_Coupon( $coupon );
+					$coupon = $coupon->get_code();
+					$total  = $d->total;
 
-						$coupon  = $d->coupon;
-						global $woocommerce;
-						$coupon = new WC_Coupon( $coupon );
-						$coupon = $coupon->get_code();
-						$total  = $d->total;
-						$response['coupons'] .= "<tr><td>".  esc_html( $coupon ) . "</td><td>".   esc_html(  round( $total , 2 ) ) . "</td></tr>";
-						array_push( $response['name'] ,  esc_html( $coupon ) );
-						array_push( $response['total'] , round( $total , 2 ) );
+					$response['coupons'] .= "<tr>" .
+						"<td>" . esc_html( $coupon ) . "</td>" .
+						"<td>" . esc_html( round( $total, 2 ) ) . "</td>" .
+					"</tr>";
+
+					array_push( $response['name'], esc_html( $coupon ) );
+					array_push( $response['total'], round( $total, 2 ) );
+
 				}
 			}
 
 			echo json_encode( $response );
+
 			wp_die();
 
 		}
+
 	}
 
 	/**
