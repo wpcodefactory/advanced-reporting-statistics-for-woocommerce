@@ -1376,81 +1376,110 @@ class OrderProcessorHelp {
 
 	/**
 	 * get_categories.
+	 *
+	 * @version 4.1.0
 	 */
 	public function get_categories() {
 
-		if( is_admin() &&  isset( $_POST['action'] ) &&  $_POST['action'] =='get_categories'   ){
+		if (
+			is_admin() &&
+			(
+				isset( $_POST['action'] ) &&
+				'get_categories' === $_POST['action']
+			)
+		) {
 
 			global $wpdb;
 
-			if( isset( $_POST['ids'] ) ) $ids = $_POST['ids'];
-			$ids = array_map( 'sanitize_text_field', $ids );
-
-			$cat = ( !empty( $_POST['cat'] ) ) ? sanitize_text_field( $_POST['cat'] ) : null;
-			$prod = ( !empty( $_POST['product'] ) ) ? sanitize_text_field( $_POST['product'] ) : null;
-
-			if( OrderUtil::custom_orders_table_usage_is_enabled() ) {
-
-				$query = "
-						SELECT DISTINCT terms.name as term ,
-						 SUM(products.product_net_revenue ) AS total,
-						 SUM(products.product_qty ) AS num_products
-						 FROM {$wpdb->prefix}wc_order_product_lookup	AS products
-						LEFT JOIN {$wpdb->prefix}term_relationships AS rel ON  ( products.product_id = rel.object_id || products.variation_id = rel.object_id )
-						LEFT JOIN {$wpdb->prefix}term_taxonomy AS tax ON rel.term_taxonomy_id = tax.term_taxonomy_id AND  tax.taxonomy = 'product_cat'
-						LEFT JOIN {$wpdb->prefix}terms AS terms ON tax.term_id = terms.term_id
-						WHERE products.order_id  IN ('" . implode("','", $ids ) . "')  AND terms.name IS NOT NULL  ";
-
-				if( $prod != null )	$query .= " AND ( products.product_id = ". $prod  ." OR products.variation_id = ". $prod  ." ) ";
-
-			}else{
-				$query = "
-						SELECT DISTINCT terms.name as term ,
-						SUM( total.meta_value  )  AS total,
-						SUM( qty.meta_value )  AS num_products
-						FROM {$wpdb->prefix}woocommerce_order_items as order_items
-						LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS total ON order_items.order_item_id = total.order_item_id  AND total.meta_key = '_line_total'
-						LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS qty ON order_items.order_item_id = qty.order_item_id  AND qty.meta_key = '_qty'
-						LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS product ON order_items.order_item_id = product.order_item_id  AND product.meta_key = '_product_id'
-						LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS variation ON order_items.order_item_id = variation.order_item_id  AND variation.meta_key = '_variation_id'
-						LEFT JOIN {$wpdb->prefix}term_relationships AS rel ON  ( product.meta_value = rel.object_id || variation.meta_value = rel.object_id )
-						LEFT JOIN {$wpdb->prefix}term_taxonomy AS tax ON rel.term_taxonomy_id = tax.term_taxonomy_id AND  tax.taxonomy = 'product_cat'
-						LEFT JOIN {$wpdb->prefix}terms AS terms ON tax.term_id = terms.term_id
-						WHERE  order_items.order_id  IN ('" . implode("','", $ids ) . "')  AND terms.name IS NOT NULL ";
-
-				if( $prod != null )	$query .= " AND ( variation.meta_value = ". $prod  ." OR product.meta_value = ". $prod  ." ) ";
+			if ( isset( $_POST['ids'] ) ) {
+				$ids = array_map( 'sanitize_text_field', wp_unslash( $_POST['ids'] ) );
 			}
-			if( $cat != null )	$query .= " AND terms.term_id = ".$cat;
+
+			$cat  = ( ! empty( $_POST['cat'] ) ) ? sanitize_text_field( wp_unslash( $_POST['cat'] ) ) : null;
+			$prod = ( ! empty( $_POST['product'] ) ) ? sanitize_text_field( wp_unslash( $_POST['product'] ) ) : null;
+
+			if ( OrderUtil::custom_orders_table_usage_is_enabled() ) {
+
+				$query = "
+					SELECT DISTINCT terms.name as term,
+					SUM(products.product_net_revenue ) AS total,
+					SUM(products.product_qty ) AS num_products
+					FROM {$wpdb->prefix}wc_order_product_lookup AS products
+					LEFT JOIN {$wpdb->prefix}term_relationships AS rel ON ( products.product_id = rel.object_id || products.variation_id = rel.object_id )
+					LEFT JOIN {$wpdb->prefix}term_taxonomy AS tax ON rel.term_taxonomy_id = tax.term_taxonomy_id AND tax.taxonomy = 'product_cat'
+					LEFT JOIN {$wpdb->prefix}terms AS terms ON tax.term_id = terms.term_id
+					WHERE products.order_id IN ('" . implode( "','", $ids ) . "') AND terms.name IS NOT NULL
+				";
+
+				if ( null != $prod ) {
+					$query .= " AND ( products.product_id = " . $prod . " OR products.variation_id = " . $prod . " ) ";
+				}
+
+			} else {
+
+				$query = "
+					SELECT DISTINCT terms.name as term ,
+					SUM( total.meta_value ) AS total,
+					SUM( qty.meta_value ) AS num_products
+					FROM {$wpdb->prefix}woocommerce_order_items as order_items
+					LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS total ON order_items.order_item_id = total.order_item_id AND total.meta_key = '_line_total'
+					LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS qty ON order_items.order_item_id = qty.order_item_id AND qty.meta_key = '_qty'
+					LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS product ON order_items.order_item_id = product.order_item_id AND product.meta_key = '_product_id'
+					LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS variation ON order_items.order_item_id = variation.order_item_id AND variation.meta_key = '_variation_id'
+					LEFT JOIN {$wpdb->prefix}term_relationships AS rel ON ( product.meta_value = rel.object_id || variation.meta_value = rel.object_id )
+					LEFT JOIN {$wpdb->prefix}term_taxonomy AS tax ON rel.term_taxonomy_id = tax.term_taxonomy_id AND tax.taxonomy = 'product_cat'
+					LEFT JOIN {$wpdb->prefix}terms AS terms ON tax.term_id = terms.term_id
+					WHERE order_items.order_id  IN ('" . implode( "','", $ids ) . "') AND terms.name IS NOT NULL
+				";
+
+				if ( null != $prod ) {
+					$query .= " AND ( variation.meta_value = " . $prod . " OR product.meta_value = " . $prod . " ) ";
+				}
+
+			}
+
+			if ( null != $cat ) {
+				$query .= " AND terms.term_id = " . $cat;
+			}
 
 			$query .= "
 				GROUP BY term
 				ORDER BY total DESC
 			";
+
 			$data = $wpdb->get_results( $query );
 
 			$response = array(
-				'name' => array(),
-				'total' => array(),
+				'name'       => array(),
+				'total'      => array(),
 				'categories' => '',
 			);
 
-			if( $data ){
+			if ( $data ) {
+				foreach ( $data as $d ) {
 
-				foreach( $data as $d ){
+					$category     = $d->term;
+					$total        = $d->total;
+					$num_products = $d->num_products;
 
-						$category  = $d->term ;
-						$total  = $d->total;
-						$num_products  = $d->num_products;
-						$response['categories'] .= "<tr><td>". esc_html( $category ) . "</td><td>". esc_html( $num_products ) . "</td><td>".  esc_html( round( $total , 2 ) ) . "</td></tr>";
-						array_push( $response['name'] , esc_html( $category ) );
-						array_push( $response['total'] , round( $total , 2 ) );
+					$response['categories'] .= "<tr>" .
+						"<td>" . esc_html( $category ) . "</td>" .
+						"<td>" . esc_html( $num_products ) . "</td>" .
+						"<td>" . esc_html( round( $total, 2 ) ) . "</td>" .
+					"</tr>";
+
+					array_push( $response['name'], esc_html( $category ) );
+					array_push( $response['total'], round( $total, 2 ) );
+
 				}
 			}
 
 			echo json_encode( $response );
+
 			wp_die();
 
 		}
+
 	}
 
 	/**
