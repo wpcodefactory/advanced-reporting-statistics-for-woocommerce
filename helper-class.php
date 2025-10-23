@@ -176,6 +176,7 @@ class OrderProcessorHelp {
 	 *
 	 * @version 4.1.0
 	 *
+	 * @todo    (v4.1.0) `( $order->get_total() - $order->get_total_refunded() == 0 )`?
 	 * @todo    (v4.1.0) `$topush = 0.1`?
 	 * @todo    (v4.1.0) `$total_sales < 0`?
 	 * @todo    (v4.1.0) `$net < 0`?

@@ -7,7 +7,7 @@
  * Author: WPFactory
  * Author URI: https://wpfactory.com
  * WC requires at least: 2.2
- * WC tested up to: 10.2
+ * WC tested up to: 10.3
  * Requires Plugins: woocommerce
  * Text Domain: webd-woocommerce-reporting-statistics
  * Domain Path: /langs
@@ -19,7 +19,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-defined( 'WPFACTORY_WC_ARS_VERSION' ) || define( 'WPFACTORY_WC_ARS_VERSION', '4.1.0-dev-20251023-0541' );
+defined( 'WPFACTORY_WC_ARS_VERSION' ) || define( 'WPFACTORY_WC_ARS_VERSION', '4.1.0-dev-20251023-2103' );
 
 defined( 'WPFACTORY_WC_ARS_FILE' ) || define( 'WPFACTORY_WC_ARS_FILE', __FILE__ );
 
