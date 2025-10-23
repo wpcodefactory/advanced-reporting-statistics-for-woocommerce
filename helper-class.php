@@ -175,190 +175,256 @@ class OrderProcessorHelp {
 	 * display_orders_by_period.
 	 *
 	 * @version 4.1.0
+	 *
+	 * @todo    (v4.1.0) `$product_id`?
+	 * @todo    (v4.1.0) `$topush = 0.1`?
+	 * @todo    (v4.1.0) `$total_sales < 0`?
+	 * @todo    (v4.1.0) `$net < 0`?
 	 */
 	public function display_orders_by_period() {
 
-		if( $_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] == 'display_orders_by_period' ){
+		if (
+			'POST' === $_SERVER['REQUEST_METHOD'] &&
+			'display_orders_by_period' === $_POST['action']
+		) {
 
 			global $wpdb;
 
-			$default_status = ['wc-completed', 'wc-processing', 'wc-on-hold', 'wc-refunded' ];
-			$status = get_option( $this->plugin.'_status' , $default_status );
+			$default_status = array( 'wc-completed', 'wc-processing', 'wc-on-hold', 'wc-refunded' );
+			$status         = get_option( $this->plugin . '_status', $default_status );
 
-			// POST VARIABLES FROM FILTER FORM
-
-			$customer_id = (empty($_POST['customer'])) ? null : sanitize_text_field( $_POST['customer'] );
-			$order_status = (empty($_POST['order_status'])) ?  $status : [ sanitize_text_field( $_POST['order_status'] ) ];
-
-			$period = ( isset( $_POST['tab'] ) && $_POST['tab'] =='months'  ) ? '%Y-%m' : '%Y' ;
+			// Post variables from filter form
+			$customer_id  = (
+				empty( $_POST['customer'] ) ?
+				null :
+				sanitize_text_field( wp_unslash( $_POST['customer'] ) )
+			);
+			$order_status = (
+				empty( $_POST['order_status'] ) ?
+				$status :
+				array( sanitize_text_field( wp_unslash(  $_POST['order_status'] ) ) )
+			);
+			$period       = (
+				( isset( $_POST['tab'] ) && 'months' === $_POST['tab'] ) ?
+				'%Y-%m' :
+				'%Y'
+			);
 
 			// Query completed orders with order date and total sales.
-			if( OrderUtil::custom_orders_table_usage_is_enabled() ) {
+			if ( OrderUtil::custom_orders_table_usage_is_enabled() ) {
 
 				$query = "SELECT DATE_FORMAT( date_created_gmt, '{$period}' ) AS period, ";
 
-					$query .= "
-						SUM(orders.total_amount ) AS total,
-						COUNT(orders.id) AS num_orders,
-						SUM(orders.tax_amount) AS tax,
-						COUNT(meta_refunds.meta_value) AS refund_count,
-						SUM(meta_refunds.meta_value) AS refund ,
-						SUM(operational_data.shipping_total_amount) AS shipping,
-						SUM(operational_data.discount_total_amount) AS discount 	";
+				$query .= "
+					SUM(orders.total_amount ) AS total,
+					COUNT(orders.id) AS num_orders,
+					SUM(orders.tax_amount) AS tax,
+					COUNT(meta_refunds.meta_value) AS refund_count,
+					SUM(meta_refunds.meta_value) AS refund,
+					SUM(operational_data.shipping_total_amount) AS shipping,
+					SUM(operational_data.discount_total_amount) AS discount ";
 
 				$query .= "
 					FROM {$wpdb->prefix}wc_orders AS orders
 					LEFT JOIN {$wpdb->prefix}wc_orders_meta AS meta_refunds ON ( orders.id = meta_refunds.order_id OR orders.parent_order_id = meta_refunds.order_id ) AND meta_refunds.meta_key = '_refund_amount'
 					LEFT JOIN {$wpdb->prefix}wc_order_operational_data AS operational_data ON orders.id = operational_data.order_id ";
 
-				$query .= " WHERE orders.type IN( 'shop_order','shop_order_refund' ) AND  orders.status IN ('" . implode("','", $order_status) . "') ";
+				$query .= " WHERE orders.type IN( 'shop_order','shop_order_refund' ) AND  orders.status IN ('" . implode( "','", $order_status ) . "') ";
 
 				// Add the customer ID filter if provided
-				if ($customer_id) {
+				if ( $customer_id ) {
 					$query .= " AND orders.customer_id = '{$customer_id}' ";
 				}
 
-			}else{
+			} else {
 
 				$query = "SELECT DATE_FORMAT( post_date, '{$period}' ) AS period,
 
-						   SUM( meta_total.meta_value )  AS total,
-						   SUM( meta_shipping.meta_value) AS shipping,
-						   SUM( meta_tax.meta_value) AS tax,
-						   SUM( meta_discount.meta_value) AS discount,
-						   count(ID) AS num_orders,
-						   SUM(  meta_refunds.meta_value) AS refund,
-						   COUNT(meta_refunds.meta_value) AS refund_count
+					SUM( meta_total.meta_value )  AS total,
+					SUM( meta_shipping.meta_value) AS shipping,
+					SUM( meta_tax.meta_value) AS tax,
+					SUM( meta_discount.meta_value) AS discount,
+					count(ID) AS num_orders,
+					SUM(  meta_refunds.meta_value) AS refund,
+					COUNT(meta_refunds.meta_value) AS refund_count
 
-						   FROM {$wpdb->prefix}posts
-						   ";
+					FROM {$wpdb->prefix}posts
+				";
 
-					$query .= "
-						LEFT JOIN {$wpdb->prefix}postmeta AS meta_total ON {$wpdb->prefix}posts.ID = meta_total.post_id AND meta_total.meta_key = '_order_total'
-						LEFT JOIN {$wpdb->prefix}postmeta AS meta_tax ON {$wpdb->prefix}posts.ID = meta_tax.post_id AND meta_tax.meta_key = '_order_tax'
-						LEFT JOIN {$wpdb->prefix}postmeta AS meta_shipping ON {$wpdb->prefix}posts.ID = meta_shipping.post_id AND meta_shipping.meta_key = '_order_shipping'
-						LEFT JOIN {$wpdb->prefix}postmeta AS meta_refunds ON ( {$wpdb->prefix}posts.ID = meta_refunds.post_id OR {$wpdb->prefix}posts.post_parent = meta_refunds.post_id ) AND {$wpdb->prefix}posts.post_type = 'shop_order_refund' AND meta_refunds.meta_key = '_refund_amount'
-						LEFT JOIN {$wpdb->prefix}postmeta AS meta_discount ON {$wpdb->prefix}posts.ID = meta_discount.post_id AND meta_discount.meta_key = '_cart_discount' ";
+				$query .= "
+					LEFT JOIN {$wpdb->prefix}postmeta AS meta_total ON {$wpdb->prefix}posts.ID = meta_total.post_id AND meta_total.meta_key = '_order_total'
+					LEFT JOIN {$wpdb->prefix}postmeta AS meta_tax ON {$wpdb->prefix}posts.ID = meta_tax.post_id AND meta_tax.meta_key = '_order_tax'
+					LEFT JOIN {$wpdb->prefix}postmeta AS meta_shipping ON {$wpdb->prefix}posts.ID = meta_shipping.post_id AND meta_shipping.meta_key = '_order_shipping'
+					LEFT JOIN {$wpdb->prefix}postmeta AS meta_refunds ON ( {$wpdb->prefix}posts.ID = meta_refunds.post_id OR {$wpdb->prefix}posts.post_parent = meta_refunds.post_id ) AND {$wpdb->prefix}posts.post_type = 'shop_order_refund' AND meta_refunds.meta_key = '_refund_amount'
+					LEFT JOIN {$wpdb->prefix}postmeta AS meta_discount ON {$wpdb->prefix}posts.ID = meta_discount.post_id AND meta_discount.meta_key = '_cart_discount' ";
 
 				if ( $customer_id ) {
-					$query .= " LEFT JOIN {$wpdb->prefix}postmeta AS meta_customer ON ( {$wpdb->prefix}posts.ID = meta_customer.post_id OR {$wpdb->prefix}posts.post_parent = meta_customer.post_id ) AND meta_customer.meta_key = '_customer_user'  ";
+					$query .= " LEFT JOIN {$wpdb->prefix}postmeta AS meta_customer ON ( {$wpdb->prefix}posts.ID = meta_customer.post_id OR {$wpdb->prefix}posts.post_parent = meta_customer.post_id ) AND meta_customer.meta_key = '_customer_user' ";
 				}
+
 				$query .= "
-					WHERE post_type IN(  'shop_order','shop_order_refund' ) AND {$wpdb->prefix}posts.post_status IN ('" . implode("','", $order_status) . "')";
+					WHERE post_type IN( 'shop_order','shop_order_refund' ) AND {$wpdb->prefix}posts.post_status IN ('" . implode( "','", $order_status ) . "')";
 
 				// Add the product_id filter if provided
 				if ( $product_id ) {
-					$query .= "  AND product.meta_value = '{$product_id}' OR variation.meta_value = '{$product_id}' ";
+					$query .= " AND product.meta_value = '{$product_id}' OR variation.meta_value = '{$product_id}' ";
 				}
 
 				// Add the customer ID filter if provided
-				if ($customer_id) {
+				if ( $customer_id ) {
 					$query .= " AND meta_customer.meta_value = '{$customer_id}'";
 				}
 
 			}
+
 			$query .= " GROUP BY period ORDER BY period DESC ";
 
 			$results = $wpdb->get_results( $query );
 
 			$message = '';
 			$response = array(
-				'name' => array(),
-				'total' => array(),
-				'totals' => '',
-				'results' => '',
+				'name'     => array(),
+				'total'    => array(),
+				'totals'   => '',
+				'results'  => '',
 				'forecast' => '',
-				'average' => '',
-				'periods' => '',
-				'message' => '',
+				'average'  => '',
+				'periods'  => '',
+				'message'  => '',
 			);
 
 			// Display the results in a table.
-			if( $results ){
+			if ( $results ) {
 
-				$tax_amount=0;
-				$total_sales=0;
-				$num_orders=0;
-				$refunds=0;
-				$shipping=0;
-				$discount=0;
-				$net = 0;
-				$totals = array();
+				$tax_amount  = 0;
+				$total_sales = 0;
+				$num_orders  = 0;
+				$refunds     = 0;
+				$shipping    = 0;
+				$discount    = 0;
+				$net         = 0;
+				$totals      = array();
 
-				if(isset($_POST['order_status']) && !empty($_POST['order_status'])){
-					$order_status =  [ $_POST['order_status'] ] ;
-					$message = "<h3> ". esc_html__('Orders with Status',$this->plugin) ." ".esc_html( implode("','", $order_status) )." </h3>";
+				if ( ! empty( $_POST['order_status'] ) ) {
+					$order_status = array( sanitize_text_field( wp_unslash( $_POST['order_status'] ) ) );
+					$message = "<h3> " .
+						esc_html__( 'Orders with Status', 'webd-woocommerce-reporting-statistics' ) .
+						" " .
+						esc_html( implode( "','", $order_status ) ) .
+					" </h3>";
 				}
 
-				if(isset($_POST['customer']) && !empty($_POST['customer'])){
-					$user = get_user_by( 'id', $_POST['customer'] );
-					$message .= "<h3> for ". esc_html( $user->first_name ) . " " . esc_html( $user->last_name ) . " </h3>";
+				if ( ! empty( $_POST['customer'] ) ) {
+					$user = get_user_by( 'id', (int) $_POST['customer'] );
+					$message .= "<h3> for " .
+						esc_html( $user->first_name ) .
+						" " .
+						esc_html( $user->last_name ) .
+					" </h3>";
 				}
 
-				foreach( $results as $row ) {
+				foreach ( $results as $row ) {
 
-					$tax_amount += $row->tax;
-					$num_orders += $row->num_orders ;
-					$refunds += $row->refund;
-					$shipping += $row->shipping;
-					$discount += $row->discount;
-
-					$net += $row->total - $row->tax - $row->shipping + $row->discount;
+					$tax_amount  += $row->tax;
+					$num_orders  += $row->num_orders;
+					$refunds     += $row->refund;
+					$shipping    += $row->shipping;
+					$discount    += $row->discount;
+					$net         += $row->total - $row->tax - $row->shipping + $row->discount;
 					$total_sales += $row->total;
+
 					$topush = $row->total + $row->refund - $row->tax - $row->shipping;
-					if( $topush == 0 ) $topush = 0.1;
+					if ( $topush == 0 ) {
+						$topush = 0.1;
+					}
 
-					array_push( $totals , $topush );
+					array_push( $totals, $topush );
 
-					$number_orders =  (  $row->num_orders =='1' ) ?  $row->num_orders : $row->num_orders;
+					$number_orders = $row->num_orders;
 
 					if ( $product_id || $product_category ) {
 
 						$thegross = $row->total + $row->tax + $row->shipping;
-						$thenet  = $row->total;
+						$thenet   = $row->total;
 
-					}else{
+					} else {
 
 						$thegross = $row->total + $row->refund;
-						$thenet  = $row->total + $row->refund - $row->tax - $row->shipping;
+						$thenet   = $row->total + $row->refund - $row->tax - $row->shipping;
 
 					}
 
-					$response['periods'] .= "<tr><td>". esc_html( $row->period )  . "</td><td>". esc_html( $number_orders )  . "</td><td>". wc_price( $row->tax ) . "</td><td>".  wc_price( $row->shipping )  . "</td><td>".   wc_price( $row->discount )  . "</td><td>". wc_price( $row->refund ) . "</td><td>". wc_price( $thegross ) . "</td><td>". wc_price( $thenet ) . "</td></tr>";
+					$response['periods'] .= "<tr>" .
+						"<td>" . esc_html( $row->period ) . "</td>" .
+						"<td>" . esc_html( $number_orders ) . "</td>" .
+						"<td>" . wc_price( $row->tax ) . "</td>" .
+						"<td>" . wc_price( $row->shipping ) . "</td>" .
+						"<td>" . wc_price( $row->discount ) . "</td>" .
+						"<td>" . wc_price( $row->refund ) . "</td>" .
+						"<td>" . wc_price( $thegross ) . "</td>" .
+						"<td>" . wc_price( $thenet ) . "</td>" .
+					"</tr>";
 
-					array_push( $response['name'] , esc_html( $row->period ) );
+					array_push( $response['name'], esc_html( $row->period ) );
 
 				}
 
-				$total_sales = ( $total_sales <0 ) ? $total_sales = 0 :  $total_sales;
-				$net = ( $net <0 ) ? $net = 0 :  $net;
+				$total_sales = ( $total_sales < 0 ) ? $total_sales = 0 : $total_sales;
+				$net         = ( $net < 0 ) ? $net = 0 :  $net;
 
-				$response['totals'] .= '<td>TOTALS</td><td>' . esc_html( $num_orders ). '</td><td class="tax" >' . wc_price( $tax_amount ). '</td><td class="shipping">' . wc_price( $shipping ). '</td><td class="discount">' . wc_price( $discount ). '</td><td class="refund">' . wc_price( $refunds ). '</td><td class="gross">' . wc_price( $total_sales ). '</td><td class="net">' . wc_price( $net ). '</td>';
+				$response['totals'] .= (
+					'<td>TOTALS</td>' .
+					'<td>' . esc_html( $num_orders ). '</td>' .
+					'<td class="tax" >' . wc_price( $tax_amount ). '</td>' .
+					'<td class="shipping">' . wc_price( $shipping ) . '</td>' .
+					'<td class="discount">' . wc_price( $discount ) . '</td>' .
+					'<td class="refund">' . wc_price( $refunds ) . '</td>' .
+					'<td class="gross">' . wc_price( $total_sales ) . '</td>' .
+					'<td class="net">' . wc_price( $net ) . '</td>'
+				);
 
 				$average = $total_sales / count( $results );
 
-				if( array_sum ($totals ) != '' && count(  $totals ) >1 ){
-					$forecast  = ( $period =='month'  ) ? $this->forecastHoltWinters( array_reverse( $totals ) , 2, 4 )[0] : $this->forecastHoltWinters( array_reverse( $totals ) , 1, 1 )[0] ;
-				}else $forecast = $average;
-
-				$response['average'] =  wc_price( $average ) ;
-				$response['forecast'] =  wc_price( $forecast ) ;
-				$response['total'] = $totals ;
-				$response['message'] = $message ;
-				$response['results'] = count( $results ) ;
-
-			}else{
-
-				$nomessage = "<h3> ". esc_html__( 'No Orders ',$this->plugin) . "</h3>" ;
-
-				if(isset($_POST['order_status']) && !empty($_POST['order_status'])){
-					$order_status = sanitize_text_field( $_POST['order_status'] );
-					$nomessage .= "<h3> ". esc_html__(' with Status: ',$this->plugin)  . esc_html( $order_status ). "</h3>" ;
+				if ( array_sum( $totals ) != '' && count( $totals ) > 1 ) {
+					$forecast = (
+						( $period =='month' ) ?
+						$this->forecastHoltWinters( array_reverse( $totals ) , 2, 4 )[0] :
+						$this->forecastHoltWinters( array_reverse( $totals ) , 1, 1 )[0]
+					);
+				} else {
+					$forecast = $average;
 				}
 
-				if( isset( $_POST['customer'] ) && !empty( $_POST['customer'] ) ){
-					$user = get_user_by( 'id', $_POST['customer'] );
-					$nomessage .= "<h3> ". esc_html( ' for customer: ' . $user->first_name." " .$user->last_name ) . "</h3>" ;
+				$response['average']  = wc_price( $average );
+				$response['forecast'] = wc_price( $forecast );
+				$response['total']    = $totals;
+				$response['message']  = $message;
+				$response['results']  = count( $results );
+
+			} else {
+
+				$nomessage = "<h3> ".
+					esc_html__( 'No Orders ', 'webd-woocommerce-reporting-statistics' ) .
+				"</h3>" ;
+
+				if ( ! empty( $_POST['order_status'] ) ) {
+					$order_status = sanitize_text_field( wp_unslash( $_POST['order_status'] ) );
+					$nomessage .= "<h3> " .
+						esc_html__( ' with Status: ', 'webd-woocommerce-reporting-statistics' ) .
+						esc_html( $order_status ) .
+					"</h3>" ;
+				}
+
+				if ( ! empty( $_POST['customer'] ) ) {
+					$user = get_user_by( 'id', (int) $_POST['customer'] );
+					$nomessage .= "<h3> " .
+						esc_html(
+							' for customer: ' .
+							$user->first_name .
+							" " .
+							$user->last_name
+						) .
+					"</h3>" ;
 				}
 
 				$response['message'] = $nomessage;
@@ -371,6 +437,7 @@ class OrderProcessorHelp {
 			wp_die();
 
 		}
+
 	}
 
 	/**
