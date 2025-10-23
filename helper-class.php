@@ -761,62 +761,86 @@ class OrderProcessorHelp {
 
 	/**
 	 * get_orders.
+	 *
+	 * @version 4.1.0
 	 */
 	public function get_orders() {
 
-		if( is_admin() && isset( $_POST['action'] ) &&  $_POST['action'] =='get_orders' ){
+		if (
+			is_admin() &&
+			(
+				isset( $_POST['action'] ) &&
+				'get_orders' === $_POST['action']
+			)
+		) {
 
-			if( isset( $_POST['page'] ) ) $page = $_POST['page'];
-			if( isset( $_POST['ids'] ) ) $ids = $_POST['ids'];
+			if ( isset( $_POST['page'] ) ) {
+				$page = sanitize_text_field( wp_unslash( $_POST['page'] ) );
+			}
 
-			$ids = array_map( 'sanitize_text_field', $ids );
+			if ( isset( $_POST['ids'] ) ) {
+				$ids = array_map( 'sanitize_text_field', wp_unslash( $_POST['ids'] ) );
+			}
 
 			$args = array(
-					'paginate' => true,
-					'limit' =>100,
-					'page' => $page,
-					'post__in' => $ids,
-					'orderby' => 'date',
-					'order' => 'DESC',
+				'paginate' => true,
+				'limit'    => 100,
+				'page'     => $page,
+				'post__in' => $ids,
+				'orderby'  => 'date',
+				'order'    => 'DESC',
 			);
 
 			$orders = wc_get_orders( $args );
 
 			$query = $orders->orders;
+
 			$response = array(
 				'max_num_pages' => $orders->max_num_pages,
-				'orders' => '',
+				'orders'        => '',
 			);
 
-			if( !empty( $orders ) ) {
+			if ( ! empty( $orders ) ) {
+				foreach ( $query as $order ) {
 
-				foreach( $query as $order ) {
+					$id         = $order->get_id();
+					$date       = date( "d-m-Y", strtotime( $order->get_date_created() ) );
+					$payment    = ( method_exists( $order, 'get_payment_method_title' ) ) ? $order->get_payment_method_title() : '';
+					$coupons    = $this->get_coupon_used( $order->get_id() );
+					$first_name = ( method_exists( $order, 'get_billing_first_name' ) ) ? $order->get_billing_first_name() : '';
+					$last_name  = ( method_exists( $order, 'get_billing_first_name' ) ) ? $order->get_billing_last_name() : '';
+					$country    = ( method_exists( $order, 'get_billing_country' ) ) ? WC()->countries->countries[ $order->get_billing_country() ] : '' ;
+					$discount   = ( method_exists( $order, 'get_total_discount' ) ) ? $order->get_total_discount() : '';
+					$shipping   = ( method_exists( $order, 'get_shipping_total' ) ) ? $order->get_shipping_total()  : '';
+					$tax        = ( method_exists( $order, 'get_total_tax' ) ) ? $order->get_total_tax() : '';
+					$total      = ( method_exists( $order, 'get_total' ) ) ? $order->get_total() : '';
+					$refunds    = ( method_exists( $order, 'get_total_refunded' ) ) ? $order->get_total_refunded() : '';
+					$net        = ( method_exists( $order, 'get_subtotal' ) ) ? $order->get_subtotal() : '';
 
-							 $response['orders'] .= "<tr>";
-
-								$id  = $order->get_id();
-								$date  = date( "d-m-Y", strtotime( $order->get_date_created() ) );
-								$payment  = ( method_exists( $order, 'get_payment_method_title' ) ) ? $order->get_payment_method_title() : '';
-								$coupons  = $this->get_coupon_used( $order->get_id() );
-								$first_name  = ( method_exists( $order, 'get_billing_first_name' ) ) ? $order->get_billing_first_name() : '';
-								$last_name  = ( method_exists( $order, 'get_billing_first_name' ) ) ? $order->get_billing_last_name() : '';
-								$country  = ( method_exists( $order, 'get_billing_country' ) ) ? WC()->countries->countries[ $order->get_billing_country() ] : '' ;
-								$discount  = ( method_exists( $order, 'get_total_discount' ) ) ? $order->get_total_discount() : '';
-								$shipping  = ( method_exists( $order, 'get_shipping_total' ) ) ? $order->get_shipping_total()  : '';
-								$tax  = ( method_exists( $order, 'get_total_tax' ) ) ? $order->get_total_tax() : '';
-								$total  = ( method_exists( $order, 'get_total' ) ) ? $order->get_total()  : '';
-								$refunds  = ( method_exists( $order, 'get_total_refunded' ) ) ? $order->get_total_refunded() : '';
-								$net  = ( method_exists( $order, 'get_subtotal' ) ) ? $order->get_subtotal()  : '';
-
-							$response['orders'] .= "<tr><td>". $id  . "</td><td>". esc_html( $date ) . "</td><td>". esc_html( $payment )  . "</td><td>". esc_html( $coupons ) . "</td><td>". esc_html( $first_name  . "  ". $last_name ) . "</td><td>". esc_html( $country ) . "</td><td>". wc_price( $discount ) . "</td><td>". wc_price( $shipping )  . "</td><td>".  wc_price( $tax ) . "</td><td>".  wc_price( $total ) . "</td><td>".  wc_price( $refunds ) . "</td><td>".  wc_price( $net )  . "</td></tr>";
+					$response['orders'] .= "<tr>" .
+						"<td>" . $id . "</td>" .
+						"<td>" . esc_html( $date ) . "</td>" .
+						"<td>" . esc_html( $payment ) . "</td>" .
+						"<td>" . esc_html( $coupons ) . "</td>" .
+						"<td>" . esc_html( $first_name . "  " . $last_name ) . "</td>" .
+						"<td>" . esc_html( $country ) . "</td>" .
+						"<td>" . wc_price( $discount ) . "</td>" .
+						"<td>" . wc_price( $shipping ) . "</td>" .
+						"<td>" . wc_price( $tax ) . "</td>" .
+						"<td>" . wc_price( $total ) . "</td>" .
+						"<td>" . wc_price( $refunds ) . "</td>" .
+						"<td>" . wc_price( $net ) . "</td>" .
+					"</tr>";
 
 				}
 			}
 
 			echo json_encode( $response );
+
 			wp_die();
 
 		}
+
 	}
 
 	/**
