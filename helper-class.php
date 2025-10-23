@@ -485,11 +485,11 @@ class OrderProcessorHelp {
 		);
 
 		$filters = array(
-			'customer_id' => sanitize_text_field( $customer ),
+			'customer_id' => $customer,
 			'status'      => $order_status,
 		);
 
-		$filters = array_merge( $dayfilter , $filters );
+		$filters = array_merge( $dayfilter, $filters );
 
 		return $filters;
 
@@ -497,65 +497,72 @@ class OrderProcessorHelp {
 
 	/**
 	 * getOrders.
+	 *
+	 * @version 4.1.0
 	 */
 	public function getOrders() {
 
-		if( $_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] == 'getOrders'   ){
+		if (
+			'POST' === $_SERVER['REQUEST_METHOD'] &&
+			'getOrders' === $_POST['action']
+		) {
 
 			global $woocommerce;
 
 			$args = array(
-				'type' => 'shop_order',
+				'type'     => 'shop_order',
 				'paginate' => true,
 			);
-			$args = array_merge( $args , $this->filter_orders() );
+			$args = array_merge( $args, $this->filter_orders() );
 
 			$results = wc_get_orders( $args );
 
-			if( isset( $_POST['offset'] ) ){
-			   $offset = $_POST['offset'];
-			}else $offset = 0;
-			$limit = get_option( $this->plugin."queryLimit" , 500 );
+			if ( isset( $_POST['offset'] ) ) {
+				$offset = sanitize_text_field( wp_unslash( $_POST['offset'] ) );
+			} else {
+				$offset = 0;
+			}
+			$limit = get_option( $this->plugin . 'queryLimit', 500 );
 
 			$args = array(
-				'limit' => sanitize_text_field( $limit ),
-				'offset' => sanitize_text_field( $offset ),
-				'orderby' => 'date', //has no effect as its a meta field
-				'order' => 'DESC',
-				'type' => 'shop_order',
+				'limit'   => sanitize_text_field( $limit ),
+				'offset'  => $offset,
+				'orderby' => 'date', // has no effect as it's a meta field
+				'order'   => 'DESC',
+				'type'    => 'shop_order',
 			);
 
-			$args = array_merge( $args , $this->filter_orders() );
+			$args = array_merge( $args, $this->filter_orders() );
 
-			error_log( serialize( $args ) );
-
-			if( strstr( $args['date_created'], "..." ) ){
-
-				$dates = explode( "..." , $args['date_created'] );
+			if ( strstr( $args['date_created'], "..." ) ) {
+				$dates    = explode( "...", $args['date_created'] );
 				$datediff = strtotime( $dates[1] ) - strtotime( $dates[0] );
-			}else{
-				$dates = explode( ">=" , $args['date_created'] );
-				$from  = strtotime( $dates[1] );
-				$date = current_time( 'mysql' ) ;
-				$to = date('Y-m-d', strtotime( $date ) );
-				$datediff =   strtotime( $to ) - $from ;
-
+			} else {
+				$dates    = explode( ">=", $args['date_created'] );
+				$from     = strtotime( $dates[1] );
+				$date     = current_time( 'mysql' );
+				$to       = date( 'Y-m-d', strtotime( $date ) );
+				$datediff = strtotime( $to ) - $from;
 			}
 
-			$resultss = wc_get_orders( $args );
+			$result_orders = wc_get_orders( $args );
 
-			$orders = array();
-			$orderIds = array();
+			$orders     = array();
+			$orderIds   = array();
 			$order_data = array();
 
-			$date = current_time( 'mysql' ) ;
-			$today = date('Y-m-d', strtotime( $date ) );
+			$date  = current_time( 'mysql' ) ;
+			$today = date( 'Y-m-d', strtotime( $date ) );
 
-			$message ='';
+			$message = '';
 
-			if(isset($_POST['order_status']) && !empty($_POST['order_status'])){
-				$order_status =  [ $_POST['order_status'] ] ;
-				$message = "<h3> ". esc_html__('Orders with Status',$this->plugin) ." ".esc_html( implode("','", $order_status) )." </h3>";
+			if ( ! empty( $_POST['order_status'] ) ) {
+				$order_status = array( sanitize_text_field( wp_unslash( $_POST['order_status'] ) ) );
+				$message = "<h3> " .
+					esc_html__('Orders with Status', 'webd-woocommerce-reporting-statistics' ) .
+					" " .
+					esc_html( implode( "','", $order_status ) ) .
+				" </h3>";
 			}
 
 			if( isset( $_POST['tab'] ) && $_POST['tab'] == 'all' || !isset( $_POST['tab'] ) ){
@@ -574,7 +581,6 @@ class OrderProcessorHelp {
 				}
 
 			}
-			error_log($this->datediff );
 
 			if(isset($_POST['customer']) && !empty($_POST['customer'])){
 				$user = get_user_by( 'id', $_POST['customer'] );
@@ -585,9 +591,9 @@ class OrderProcessorHelp {
 				$message .= "<h3> for ".esc_html( $_POST['city'] )." </h3>";
 			}
 
-			if( $resultss ){
+			if( $result_orders ){
 
-				foreach( $resultss as $order ){
+				foreach( $result_orders as $order ){
 
 					if( isset($_POST['cat']) && !empty($_POST['cat']) || isset($_POST['product']) && !empty($_POST['product'])  ){
 
@@ -661,7 +667,7 @@ class OrderProcessorHelp {
 
 				$nomessage = "<h3> ". esc_html__( 'No Orders ',$this->plugin) . "</h3>" ;
 
-				if(isset($_POST['order_status']) && !empty($_POST['order_status'])){
+				if ( ! empty( $_POST['order_status'] ) ) {
 					$order_status = sanitize_text_field( $_POST['order_status'] );
 					$nomessage .= "<h3> ". esc_html__(' with Status: ',$this->plugin)  . esc_html( $order_status ). "</h3>" ;
 				}
