@@ -559,99 +559,133 @@ class OrderProcessorHelp {
 			if ( ! empty( $_POST['order_status'] ) ) {
 				$order_status = array( sanitize_text_field( wp_unslash( $_POST['order_status'] ) ) );
 				$message = "<h3> " .
-					esc_html__('Orders with Status', 'webd-woocommerce-reporting-statistics' ) .
+					esc_html__( 'Orders with Status', 'webd-woocommerce-reporting-statistics' ) .
 					" " .
 					esc_html( implode( "','", $order_status ) ) .
 				" </h3>";
 			}
 
-			if( isset( $_POST['tab'] ) && $_POST['tab'] == 'all' || !isset( $_POST['tab'] ) ){
+			if (
+				( isset( $_POST['tab'] ) && 'all' === $_POST['tab'] ) ||
+				! isset( $_POST['tab'] )
+			) {
 
-				if( isset($_POST['selected']) && !empty($_POST['selected'])){
-					$message .= "<h3>". esc_html__('Analysis for period',$this->plugin)." ".date('d/m/Y',strtotime(esc_attr($_POST['selected'])))." to ".date('d/m/Y')."</h3>";
-
-					$this->datediff = strtotime(date('Y-m-d')) - strtotime($_POST['selected']);
-					$this->datediff = abs(round( $this->datediff / (60 * 60 * 24)));
-
-				}else{
-				   $message .= "<h3>". esc_html__( 'This Month Analysis',$this->plugin)."</h3>";
-					$this->datediff = strtotime( $today ) - strtotime(date('Y-m-01'));
-					$this->datediff = round( $this->datediff / (60 * 60 * 24));
-
+				if ( ! empty( $_POST['selected'] ) ) {
+					$selected = sanitize_text_field( wp_unslash( $_POST['selected'] ) );
+					$message .= "<h3>" .
+						esc_html__( 'Analysis for period', 'webd-woocommerce-reporting-statistics' ) .
+						" " .
+						date( 'd/m/Y', strtotime( $selected ) ) .
+						" to " .
+						date( 'd/m/Y' ) .
+					"</h3>";
+					$this->datediff = strtotime( date( 'Y-m-d' ) ) - strtotime( $selected );
+					$this->datediff = abs( round( $this->datediff / DAY_IN_SECONDS ) );
+				} else {
+					$message .= "<h3>" .
+						esc_html__( 'This Month Analysis', 'webd-woocommerce-reporting-statistics' ) .
+					"</h3>";
+					$this->datediff = strtotime( $today ) - strtotime( date( 'Y-m-01' ) );
+					$this->datediff = round( $this->datediff / DAY_IN_SECONDS );
 				}
 
 			}
 
-			if(isset($_POST['customer']) && !empty($_POST['customer'])){
-				$user = get_user_by( 'id', $_POST['customer'] );
-				$message .= "<h3> for ". esc_html( $user->first_name ) . " " . esc_html( $user->last_name ) . " </h3>";
+			if ( ! empty( $_POST['customer'] ) ) {
+				$user = get_user_by( 'id', (int) $_POST['customer'] );
+				$message .= "<h3> for " .
+					esc_html( $user->first_name ) .
+					" " .
+					esc_html( $user->last_name ) .
+				" </h3>";
 			}
 
-			if(isset($_POST['billing_city']) && !empty($_POST['billing_city'])){
-				$message .= "<h3> for ".esc_html( $_POST['city'] )." </h3>";
+			if ( ! empty( $_POST['billing_city'] ) ) {
+				$message .= "<h3> for " .
+					esc_html( sanitize_text_field( wp_unslash( $_POST['city'] ) ) ) .
+				" </h3>";
 			}
 
-			if( $result_orders ){
+			if ( $result_orders ) {
 
-				foreach( $result_orders as $order ){
+				foreach ( $result_orders as $order ) {
 
-					if( isset($_POST['cat']) && !empty($_POST['cat']) || isset($_POST['product']) && !empty($_POST['product'])  ){
-
+					if (
+						! empty( $_POST['cat'] ) ||
+						! empty( $_POST['product'] )
+					) {
 						array_push( $orderIds, $order->get_id() );
 					}
 
-					if(  !empty( $orderIds )){
+					if ( ! empty( $orderIds ) ) {
 						$order_data['total_orders'] = count( $orderIds );
-					}else $order_data['total_orders'] = $results->total;
+					} else {
+						$order_data['total_orders'] = $results->total;
+					}
 
-					if( ( !empty( $orderIds ) && in_array( $order->get_id(), $orderIds ) ) || empty( $orderIds ) ){
+					if (
+						(
+							! empty( $orderIds ) &&
+							in_array( $order->get_id(), $orderIds )
+						) ||
+						empty( $orderIds )
+					) {
 
 						$order_data['message'] = sanitize_text_field( $message ) ;
-						$order_data['days'] = round($datediff / (60 * 60 * 24));
-
-						//$order_data['days'] = $this->datediff;
+						$order_data['days']    = round( $datediff / DAY_IN_SECONDS );
 
 						$order_data['order_id'] = $order->get_id();
 
-						$order_data['date_created'] = ( method_exists( $order, 'get_date_created' ) ) ? date( "Y-m-d", strtotime( $order->get_date_created() ) ): '';
-
-						$order_data['subtotal'] = ( method_exists( $order, 'get_subtotal' ) ) ? $order->get_subtotal()  : '';
-						$order_data['total'] = ( method_exists( $order, 'get_total' ) ) ? $order->get_total()  : '';
-						$order_data['total_tax'] = ( method_exists( $order, 'get_total_tax' ) ) ? $order->get_total_tax() : '';
+						$order_data['date_created']   = ( method_exists( $order, 'get_date_created' ) ) ? date( "Y-m-d", strtotime( $order->get_date_created() ) ) : '';
+						$order_data['subtotal']       = ( method_exists( $order, 'get_subtotal' ) ) ? $order->get_subtotal() : '';
+						$order_data['total']          = ( method_exists( $order, 'get_total' ) ) ? $order->get_total() : '';
+						$order_data['total_tax']      = ( method_exists( $order, 'get_total_tax' ) ) ? $order->get_total_tax() : '';
 						$order_data['total_refunded'] = ( method_exists( $order, 'get_total_refunded' ) ) ? $order->get_total_refunded() : '';
 						$order_data['total_discount'] = ( method_exists( $order, 'get_total_discount' ) ) ? $order->get_total_discount() : '';
-						$order_data['shipping_total'] = ( method_exists( $order, 'get_shipping_total' ) ) ? $order->get_shipping_total()  : '';
+						$order_data['shipping_total'] = ( method_exists( $order, 'get_shipping_total' ) ) ? $order->get_shipping_total() : '';
 
-						if( $order->get_total() - $order->get_total_refunded() == 0 ){
-							$order_data['subtotal'] = 0;
-							$order_data['total'] = 0;
-							$order_data['total_tax']  = 0;
-							$order_data['total_discount']  = 0;
-							$order_data['shipping_total']  = 0;
+						if ( $order->get_total() - $order->get_total_refunded() == 0 ) {
+							$order_data['subtotal']       = 0;
+							$order_data['total']          = 0;
+							$order_data['total_tax']      = 0;
+							$order_data['total_discount'] = 0;
+							$order_data['shipping_total'] = 0;
 						}
 
-						$quantity = array();
-						$products = array();
+						$quantity   = array();
+						$products   = array();
 						$categories = array();
 
 						foreach ( $order->get_items() as $item_id => $item ) {
 
-							$product_id = ( $item->get_variation_id() !=0 ) ? $item->get_variation_id() : $item->get_product_id();
+							$product_id = ( 0 != $item->get_variation_id() ) ? $item->get_variation_id() : $item->get_product_id();
 
-							array_push( $quantity , $item->get_quantity() );
+							array_push( $quantity, $item->get_quantity() );
 
-							$products[] = array( 'name'=> get_the_title( $product_id ), 'quantity'=>$item->get_quantity(), 'total'=>$item->get_subtotal() , 'sku'=> get_post_meta( $product_id ,'_sku', true ) );
+							$products[] = array(
+								'name'     => get_the_title( $product_id ),
+								'quantity' => $item->get_quantity(),
+								'total'    => $item->get_subtotal(),
+								'sku'      => get_post_meta( $product_id, '_sku', true ),
+							);
 
-							$terms = wp_get_post_terms( $product_id,'product_cat');
+							$terms = wp_get_post_terms( $product_id, 'product_cat' );
 							foreach ( $terms as $term ) {
-								$categories[] = array( 'discount'=> $order->get_total_discount(), 'refund'=> $order->get_total_refunded(), "name"=>$term->name,"quantity"=>$item->get_quantity(),"total"=>$item->get_subtotal()  );
+								$categories[] = array(
+									'discount' => $order->get_total_discount(),
+									'refund'   => $order->get_total_refunded(),
+									'name'     => $term->name,
+									'quantity' => $item->get_quantity(),
+									'total'    => $item->get_subtotal(),
+								);
 							}
 
 						}
+
 						$order_data['quantity'] = $quantity;
 						$order_data['products'] = $products;
 
-						array_push( $orders , $order_data );
+						array_push( $orders, $order_data );
 
 					}
 
@@ -659,37 +693,61 @@ class OrderProcessorHelp {
 
 				echo json_encode( $orders );
 
-			}else{
+			} else {
 
 				$nodata = array();
 
-				$todayDisplay = date('d/m/Y', strtotime( $date ) );
+				$todayDisplay = date( 'd/m/Y', strtotime( $date ) );
 
-				$nomessage = "<h3> ". esc_html__( 'No Orders ',$this->plugin) . "</h3>" ;
+				$nomessage = "<h3> " .
+					esc_html__( 'No Orders ', 'webd-woocommerce-reporting-statistics' ) .
+				"</h3>" ;
 
 				if ( ! empty( $_POST['order_status'] ) ) {
-					$order_status = sanitize_text_field( $_POST['order_status'] );
-					$nomessage .= "<h3> ". esc_html__(' with Status: ',$this->plugin)  . esc_html( $order_status ). "</h3>" ;
+					$order_status = sanitize_text_field( wp_unslash( $_POST['order_status'] ) );
+					$nomessage .= "<h3> " .
+						esc_html__( ' with Status: ', 'webd-woocommerce-reporting-statistics' ) .
+						esc_html( $order_status ) .
+					"</h3>" ;
 				}
 
-				if( isset( $_POST['tab'] ) && $_POST['tab'] == 'all' || !isset( $_POST['tab'] ) ){
-
-					if( isset($_POST['selected']) && !empty($_POST['selected'])){
-
-						$nomessage .= "<h3> ".esc_html__( ' for ',$this->plugin).date( 'd/m/Y',strtotime( esc_attr( $_POST['selected'] ) ) )." ".esc_html__( 'to', $this->plugin ) ." ". esc_html( $todayDisplay ) . "</h3>" ;
-
-					}else $nomessage .="<h3> ".esc_html__( ' for ',$this->plugin) . date('F'). "</h3>" ;
-
+				if (
+					( isset( $_POST['tab'] ) && 'all' === $_POST['tab'] ) ||
+					! isset( $_POST['tab'] )
+				) {
+					if ( ! empty( $_POST['selected'] ) ) {
+						$nomessage .= "<h3> " .
+							esc_html__( ' for ', 'webd-woocommerce-reporting-statistics' ) .
+							esc_html( date( 'd/m/Y', strtotime( sanitize_text_field( wp_unslash( $_POST['selected'] ) ) ) ) ) .
+							" " .
+							esc_html__( 'to', 'webd-woocommerce-reporting-statistics' ) .
+							" " .
+							esc_html( $todayDisplay ) .
+						"</h3>";
+					} else {
+						$nomessage .= "<h3> " .
+							esc_html__( ' for ', 'webd-woocommerce-reporting-statistics' ) .
+							date( 'F' ) .
+						"</h3>";
+					}
 				}
 
-				if( isset( $_POST['customer'] ) && !empty( $_POST['customer'] ) ){
-					$user = get_user_by( 'id', $_POST['customer'] );
-					$nomessage .= "<h3> ". esc_html( ' for customer: ' . $user->first_name." " .$user->last_name ) . "</h3>" ;
+				if ( ! empty( $_POST['customer'] ) ) {
+					$user = get_user_by( 'id', (int) $_POST['customer'] );
+					$nomessage .= "<h3> " .
+						esc_html(
+							' for customer: ' .
+							$user->first_name .
+							" " .
+							$user->last_name
+						) .
+					"</h3>";
 				}
 
-				$nodata['message'] = $nomessage;
+				$nodata['message']      = $nomessage;
 				$nodata['total_orders'] = 0;
-				array_push( $orders , $nodata );
+
+				array_push( $orders, $nodata );
 
 				echo json_encode( $orders );
 
