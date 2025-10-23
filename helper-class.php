@@ -845,46 +845,58 @@ class OrderProcessorHelp {
 
 	/**
 	 * get_customers.
+	 *
+	 * @version 4.1.0
 	 */
 	public function get_customers() {
 
-		if( is_admin() && isset( $_POST['action'] ) &&  $_POST['action'] =='get_customers'  ){
+		if (
+			is_admin() &&
+			(
+				isset( $_POST['action'] ) &&
+				'get_customers' === $_POST['action']
+			)
+		) {
 
 			global $wpdb;
 
-			if( isset( $_POST['ids'] ) ) $ids = $_POST['ids'];
-			$ids = array_map( 'sanitize_text_field', $ids );
+			if ( isset( $_POST['ids'] ) ) {
+				$ids = array_map( 'sanitize_text_field', wp_unslash( $_POST['ids'] ) );
+			}
 
 			// Query completed orders with order date and total sales.
 
-			if( OrderUtil::custom_orders_table_usage_is_enabled() ) {
+			if ( OrderUtil::custom_orders_table_usage_is_enabled() ) {
 
 				$parameter = 'billing_email';
 
-				$query = "SELECT orders.".$parameter." AS data,
-						   SUM(orders.total_amount ) AS total,
-						   SUM( orders.tax_amount ) AS tax,
-						   COUNT(orders.id) AS num_orders,
-						   address.first_name as first_name,
-						   address.last_name as last_name,
-						   address.company as company,
-						   address.city as city,
-						   address.state as state,
-						   address.email as email,
-						   address.phone as phone,
-						   address.country as country
-						   FROM ". $wpdb->prefix."wc_orders as orders
-						   LEFT JOIN " . $wpdb->prefix ."wc_order_addresses as address ON orders.id = address.order_id AND orders.".$parameter." = address.email
-						WHERE address.address_type='billing' AND orders.id  IN ('" . implode("','", $ids ) . "') ";
+				$query = "
+					SELECT
+						orders." . $parameter . " AS data,
+						SUM(orders.total_amount ) AS total,
+						SUM( orders.tax_amount ) AS tax,
+						COUNT(orders.id) AS num_orders,
+						address.first_name as first_name,
+						address.last_name as last_name,
+						address.company as company,
+						address.city as city,
+						address.state as state,
+						address.email as email,
+						address.phone as phone,
+						address.country as country
+					FROM " . $wpdb->prefix . "wc_orders as orders
+					LEFT JOIN " . $wpdb->prefix . "wc_order_addresses as address ON orders.id = address.order_id AND orders." . $parameter . " = address.email
+					WHERE address.address_type='billing' AND orders.id  IN ('" . implode( "','", $ids ) . "')
+				";
 
-			$query .= "
-				GROUP BY email
-				ORDER BY total DESC
-			";
+				$query .= "
+					GROUP BY email
+					ORDER BY total DESC
+				";
 
-			}else{
+			} else {
 
-				$query="
+				$query = "
 					SELECT
 						billing_email.meta_value AS billing_email,
 						billing_first_name.meta_value AS first_name,
@@ -898,23 +910,25 @@ class OrderProcessorHelp {
 						SUM(order_tax.meta_value) AS tax,
 						COUNT( p.ID ) AS num_orders
 					FROM
-						". $wpdb->prefix."posts AS p
-					LEFT JOIN  ". $wpdb->prefix."postmeta AS billing_email ON p.ID = billing_email.post_id AND billing_email.meta_key = '_billing_email'
-					LEFT JOIN  ". $wpdb->prefix."postmeta AS billing_first_name ON p.ID = billing_first_name.post_id AND billing_first_name.meta_key = '_billing_first_name'
-					LEFT JOIN ". $wpdb->prefix."postmeta AS billing_last_name ON p.ID = billing_last_name.post_id AND billing_last_name.meta_key = '_billing_last_name'
-					LEFT JOIN ". $wpdb->prefix."postmeta AS billing_country ON p.ID = billing_country.post_id AND billing_country.meta_key = '_billing_country'
-					LEFT JOIN ". $wpdb->prefix."postmeta AS billing_city ON p.ID = billing_city.post_id AND billing_city.meta_key = '_billing_city'
-					LEFT JOIN ". $wpdb->prefix."postmeta AS billing_phone ON p.ID = billing_phone.post_id AND billing_phone.meta_key = '_billing_phone'
-					LEFT JOIN ". $wpdb->prefix."postmeta AS billing_state ON p.ID = billing_state.post_id AND billing_state.meta_key = '_billing_state'
-					LEFT JOIN ". $wpdb->prefix."postmeta AS billing_company ON p.ID = billing_company.post_id AND billing_company.meta_key = '_billing_company'
-					LEFT JOIN ". $wpdb->prefix."postmeta AS order_total ON p.ID = order_total.post_id AND order_total.meta_key = '_order_total'
-					LEFT JOIN ". $wpdb->prefix."postmeta AS order_tax ON p.ID = order_tax.post_id AND order_tax.meta_key = '_order_tax'
-					WHERE p.ID  IN ('" . implode("','", $ids ) . "')
+						" . $wpdb->prefix . "posts AS p
+					LEFT JOIN " . $wpdb->prefix . "postmeta AS billing_email ON p.ID = billing_email.post_id AND billing_email.meta_key = '_billing_email'
+					LEFT JOIN " . $wpdb->prefix . "postmeta AS billing_first_name ON p.ID = billing_first_name.post_id AND billing_first_name.meta_key = '_billing_first_name'
+					LEFT JOIN " . $wpdb->prefix . "postmeta AS billing_last_name ON p.ID = billing_last_name.post_id AND billing_last_name.meta_key = '_billing_last_name'
+					LEFT JOIN " . $wpdb->prefix . "postmeta AS billing_country ON p.ID = billing_country.post_id AND billing_country.meta_key = '_billing_country'
+					LEFT JOIN " . $wpdb->prefix . "postmeta AS billing_city ON p.ID = billing_city.post_id AND billing_city.meta_key = '_billing_city'
+					LEFT JOIN " . $wpdb->prefix . "postmeta AS billing_phone ON p.ID = billing_phone.post_id AND billing_phone.meta_key = '_billing_phone'
+					LEFT JOIN " . $wpdb->prefix . "postmeta AS billing_state ON p.ID = billing_state.post_id AND billing_state.meta_key = '_billing_state'
+					LEFT JOIN " . $wpdb->prefix . "postmeta AS billing_company ON p.ID = billing_company.post_id AND billing_company.meta_key = '_billing_company'
+					LEFT JOIN " . $wpdb->prefix . "postmeta AS order_total ON p.ID = order_total.post_id AND order_total.meta_key = '_order_total'
+					LEFT JOIN " . $wpdb->prefix . "postmeta AS order_tax ON p.ID = order_tax.post_id AND order_tax.meta_key = '_order_tax'
+					WHERE p.ID  IN ('" . implode( "','", $ids ) . "')
 				";
+
 				$query .= "
 					GROUP BY billing_email.meta_value
 					ORDER BY total DESC
 				";
+
 			}
 
 			$data = $wpdb->get_results( $query );
@@ -923,30 +937,42 @@ class OrderProcessorHelp {
 				'customers' => '',
 			);
 
-			if( $data ){
+			if ( $data ) {
+				foreach ( $data as $d ) {
 
-				foreach( $data as $d ){
+						$name       = $d->first_name . " " . $d->last_name;
+						$state      = $d->state;
+						$city       = $d->city;
+						$company    = $d->company;
+						$country    = ( $d->country != '' ) ? WC()->countries->countries[ $d->country ] : '' ;
+						$phone      = $d->phone;
+						$email      = $d->email;
+						$tax        = $d->state;
+						$total      = $d->total;
+						$tax        = $d->tax;
+						$num_orders = $d->num_orders;
 
-						$name  = $d->first_name . " " . $d->last_name;
-						$state  = $d->state;
-						$city  = $d->city;
-						$company  = $d->company;
-						$country  = ( $d->country != '' ) ? WC()->countries->countries[ $d->country ] : '' ;
-						$phone  = $d->phone;
-						$email  = $d->email;
-						$tax  = $d->state;
-						$total  = $d->total;
-						$tax  = $d->tax;
-						$num_orders  = $d->num_orders;
-
-						$response['customers'] .= "<tr><td>". esc_html( $name ) . "</td><td>". esc_html( $phone ) . "</td><td>". esc_html( $email ) . "</td><td>". esc_html( $country ) . "</td><td>". esc_html( $state ) . "</td><td>". esc_html( $city ). "</td><td>". esc_html( $company ) . "</td><td>". esc_html( $num_orders ) . "</td><td>".  esc_html( round( $tax , 2 ) ) . "</td><td>". esc_html(  round( $total , 2 ) ) . "</td></tr>";
+						$response['customers'] .= "<tr>" .
+							"<td>" . esc_html( $name ) . "</td>" .
+							"<td>" . esc_html( $phone ) . "</td>" .
+							"<td>" . esc_html( $email ) . "</td>" .
+							"<td>" . esc_html( $country ) . "</td>" .
+							"<td>" . esc_html( $state ) . "</td>" .
+							"<td>" . esc_html( $city ) . "</td>" .
+							"<td>" . esc_html( $company ) . "</td>" .
+							"<td>" . esc_html( $num_orders ) . "</td>" .
+							"<td>" . esc_html( round( $tax, 2 ) ) . "</td>" .
+							"<td>" . esc_html( round( $total, 2 ) ) . "</td>" .
+						"</tr>";
 				}
 			}
 
 			echo json_encode( $response );
+
 			wp_die();
 
 		}
+
 	}
 
 	/**
