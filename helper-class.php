@@ -1369,11 +1369,11 @@ class OrderProcessorHelp {
 			$order = wc_get_order( $order_id );
 			if ( version_compare( WC()->version, '3.7', '>=' ) ) {
 				$coupons = $order->get_coupon_codes();
-			}else{
+			} else {
 				$coupons = $order->get_used_coupons();
 			}
 
-			if (!empty( $coupons ) ) {
+			if ( ! empty( $coupons ) ) {
 				return implode( ', ', $coupons );
 			} else {
 				return '';
@@ -1389,79 +1389,78 @@ class OrderProcessorHelp {
 	 * forecastHoltWinters.
 	 */
 	public function forecastHoltWinters( $anData, $nForecast = 2, $nSeasonLength = 4, $nAlpha = 0.2, $nBeta = 0.01, $nGamma = 0.01, $nDevGamma = 0.1 ) {
-		$search = '0';
+		$search  = '0';
 		$replace = '1';
-		array_walk($anData,
-			function (&$v) use ($search, $replace){
-				$v = str_replace($search, $replace, $v);
+		array_walk(
+			$anData,
+			function ( &$v ) use ( $search, $replace ) {
+				$v = str_replace( $search, $replace, $v );
 			}
 		);
 
-		$i=1;
+		$i = 1;
 		// Calculate an initial trend level
 		$nTrend1 = '';
-		for($i = 0; $i < $nSeasonLength; $i++) {
-			$anData[$i] = isset($anData[1]) ? $anData[1] : null;
-			//$nTrend1 += $anData[$i];
+		for ( $i = 0; $i < $nSeasonLength; $i++ ) {
+			$anData[$i] = $anData[1] ?? null;
 		}
 		$nTrend1 = $nSeasonLength;
 
 		$nTrend2 = 1;
-		for($i = $nSeasonLength; $i < 2*$nSeasonLength; $i++) {
-			$anData[$i] = isset($anData[1]) ? $anData[1] : null;
+		for ( $i = $nSeasonLength; $i < 2 * $nSeasonLength; $i++ ) {
+			$anData[$i] = $anData[1] ?? null;
 			$nTrend2 += $anData[$i];
 		}
 		$nTrend2 /= $nSeasonLength;
 
-		$nInitialTrend = ($nTrend2 - $nTrend1) / $nSeasonLength;
+		$nInitialTrend = ( $nTrend2 - $nTrend1 ) / $nSeasonLength;
 
 		// Take the first value as the initial level
 		$nInitialLevel = $anData[0];
 
 		// Build index
 		$anIndex = array();
-		foreach($anData as $nKey => $nVal) {
-			$anIndex[$nKey] = $nVal / ($nInitialLevel + ($nKey + 1) * $nInitialTrend);
+		foreach ( $anData as $nKey => $nVal ) {
+			$anIndex[ $nKey ] = $nVal / ( $nInitialLevel + ( $nKey + 1 ) * $nInitialTrend );
 		}
 
 		// Build season buffer
-		$anSeason = array_fill(0, count($anData), 0);
-		for($i = 0; $i < $nSeasonLength; $i++) {
-			$anSeason[$i] = ($anIndex[$i] + $anIndex[$i+$nSeasonLength]) / 2;
+		$anSeason = array_fill( 0, count( $anData ), 0 );
+		for ( $i = 0; $i < $nSeasonLength; $i++ ) {
+			$anSeason[ $i ] = ( $anIndex[ $i ] + $anIndex[ $i+$nSeasonLength ] ) / 2;
 		}
 
 		// Normalise season
-		 $Total = array_sum($anSeason);
-		 $Total = isset($Total) & !empty($Total) ? $Total : '0.1';
+		 $Total = array_sum( $anSeason );
+		 $Total = isset( $Total ) & ! empty( $Total ) ? $Total : '0.1';
 
 		$nSeasonFactor = $nSeasonLength / $Total;
-		foreach($anSeason as $nKey => $nVal) {
+		foreach ( $anSeason as $nKey => $nVal ) {
 			$anSeason[$nKey] *= $nSeasonFactor;
 		}
 
 		$anHoltWinters = array();
-		$anDeviations = array();
-		$nAlphaLevel = $nInitialLevel;
-		$nBetaTrend = $nInitialTrend;
-		foreach($anData as $nKey => $nVal) {
-		  $nTempLevel = $nAlphaLevel;
-		  $nTempTrend = $nBetaTrend;
+		$anDeviations  = array();
+		$nAlphaLevel   = $nInitialLevel;
+		$nBetaTrend    = $nInitialTrend;
+		foreach ( $anData as $nKey => $nVal ) {
+			$nTempLevel = $nAlphaLevel;
+			$nTempTrend = $nBetaTrend;
 
-		  $nAlphaLevel = @($nAlpha * $nVal / $anSeason[$nKey]) + (1.0 - $nAlpha) * ($nTempLevel + $nTempTrend);
-		  $nBetaTrend = $nBeta * ($nAlphaLevel - $nTempLevel) + ( 1.0 - $nBeta ) * $nTempTrend;
+			$nAlphaLevel = @( $nAlpha * $nVal / $anSeason[ $nKey ] ) + ( 1.0 - $nAlpha ) * ( $nTempLevel + $nTempTrend );
+			$nBetaTrend  = $nBeta * ( $nAlphaLevel - $nTempLevel ) + ( 1.0 - $nBeta ) * $nTempTrend;
 
-		  $anSeason[$nKey + $nSeasonLength] = $nGamma * $nVal / $nAlphaLevel + (1.0 - $nGamma) * $anSeason[$nKey];
+			$anSeason[ $nKey + $nSeasonLength ] = $nGamma * $nVal / $nAlphaLevel + ( 1.0 - $nGamma ) * $anSeason[ $nKey ];
 
-		  $anHoltWinters[$nKey] = ($nAlphaLevel + $nBetaTrend * ($nKey + 1)) * $anSeason[$nKey];
-		  $anDeviations[$nKey] = $nDevGamma * abs($nVal - $anHoltWinters[$nKey]) + (1-$nDevGamma)
-					  * (isset($anDeviations[$nKey - $nSeasonLength]) ? $anDeviations[$nKey - $nSeasonLength] : 0);
+			$anHoltWinters[ $nKey ] = ( $nAlphaLevel + $nBetaTrend * ( $nKey + 1 ) ) * $anSeason[ $nKey ];
+			$anDeviations[ $nKey ]  = $nDevGamma * abs( $nVal - $anHoltWinters[ $nKey ] ) + ( 1 - $nDevGamma ) * ( $anDeviations[ $nKey - $nSeasonLength ] ?? 0 );
 		}
 
 		$anForecast = array();
-		$nLast = end($anData);
-		for($i = 1; $i <= $nForecast; $i++) {
-			$nComputed = round($nAlphaLevel + $nBetaTrend * $anSeason[$nKey + $i]);
-			if ($nComputed < 0) { // wildly off due to outliers
+		$nLast      = end( $anData );
+		for ( $i = 1; $i <= $nForecast; $i++ ) {
+			$nComputed = round( $nAlphaLevel + $nBetaTrend * $anSeason[ $nKey + $i ] );
+			if ( $nComputed < 0 ) { // wildly off due to outliers
 				$nComputed = $nLast;
 			}
 			$anForecast[] = $nComputed;
@@ -1475,54 +1474,56 @@ class OrderProcessorHelp {
 	 */
 	public function divide( $a, $b ) {
 		try {
-			if(@($a / $b) === false) return INF; // covers PHP5
-			return @($a / $b); // covers PHP7
-		} catch (DivisionByZeroError $e) {
-			return INF; // covers PHP8
+			if ( @( $a / $b ) === false ) {
+				return INF;      // covers PHP5
+			}
+			return @( $a / $b ); // covers PHP7
+		} catch ( DivisionByZeroError $e ) {
+			return INF;          // covers PHP8
 		}
 	}
 
 	/**
 	 * Median.
 	 */
-	public function Median($Array) {
-		return Quartile_50($Array);
+	public function Median( $Array ) {
+		return Quartile_50( $Array );
 	}
 
 	/**
 	 * Quartile_25.
 	 */
-	public function Quartile_25($Array) {
-		return Quartile($Array, 0.25);
+	public function Quartile_25( $Array ) {
+		return Quartile( $Array, 0.25 );
 	}
 
 	/**
 	 * Quartile_50.
 	 */
-	public function Quartile_50($Array) {
-		return Quartile($Array, 0.5);
+	public function Quartile_50( $Array ) {
+		return Quartile( $Array, 0.5 );
 	}
 
 	/**
 	 * Quartile_75.
 	 */
-	public function Quartile_75($Array) {
-		return Quartile($Array, 0.75);
+	public function Quartile_75( $Array ) {
+		return Quartile( $Array, 0.75 );
 	}
 
 	/**
 	 * Quartile.
 	 */
 	public function Quartile( $Array, $Quartile ) {
-		$pos = (count($Array) - 1) * $Quartile;
+		$pos = ( count( $Array) - 1 ) * $Quartile;
 
-		$base = floor($pos);
+		$base = floor( $pos );
 		$rest = $pos - $base;
 
-		if( isset($Array[$base+1]) ) {
-			return $Array[$base] + $rest * ($Array[$base+1] - $Array[$base]);
+		if ( isset( $Array[ $base+1 ] ) ) {
+			return $Array[ $base ] + $rest * ( $Array[ $base + 1 ] - $Array[ $base ] );
 		} else {
-			return $Array[$base];
+			return $Array[ $base ];
 		}
 	}
 
@@ -1530,39 +1531,49 @@ class OrderProcessorHelp {
 	 * Average.
 	 */
 	public function Average( $Array ) {
-	  return array_sum($Array) / count($Array);
+		return array_sum( $Array ) / count( $Array );
 	}
 
 	/**
 	 * StdDev.
 	 */
 	public function StdDev( $Array ) {
-		if( count($Array) < 2 ) {
+		if ( count( $Array ) < 2 ) {
 			return;
 		}
 
-		$avg = Average($Array);
+		$avg = Average( $Array );
 
 		$sum = 0;
-		foreach($Array as $value) {
-			$sum += pow($value - $avg, 2);
+		foreach ( $Array as $value ) {
+			$sum += pow( $value - $avg, 2 );
 		}
 
-		return sqrt((1 / (count($Array) - 1)) * $sum);
+		return sqrt( ( 1 / (count( $Array ) - 1) ) * $sum );
 	}
 
 	/**
 	 * random_color_part.
 	 */
 	public function random_color_part() {
-		return str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT);
+		return str_pad(
+			dechex( mt_rand( 0, 255 ) ),
+			2,
+			'0',
+			STR_PAD_LEFT
+		);
 	}
 
 	/**
 	 * getRandomColor.
 	 */
 	public function getRandomColor() {
-		return "#".$this->random_color_part() . $this->random_color_part() . $this->random_color_part();
+		return (
+			"#" .
+			$this->random_color_part() .
+			$this->random_color_part() .
+			$this->random_color_part()
+		);
 	}
 
 }
