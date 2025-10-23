@@ -176,7 +176,6 @@ class OrderProcessorHelp {
 	 *
 	 * @version 4.1.0
 	 *
-	 * @todo    (v4.1.0) `$product_id`?
 	 * @todo    (v4.1.0) `$topush = 0.1`?
 	 * @todo    (v4.1.0) `$total_sales < 0`?
 	 * @todo    (v4.1.0) `$net < 0`?
@@ -266,11 +265,6 @@ class OrderProcessorHelp {
 				$query .= "
 					WHERE post_type IN( 'shop_order','shop_order_refund' ) AND {$wpdb->prefix}posts.post_status IN ('" . implode( "','", $order_status ) . "')";
 
-				// Add the product_id filter if provided
-				if ( $product_id ) {
-					$query .= " AND product.meta_value = '{$product_id}' OR variation.meta_value = '{$product_id}' ";
-				}
-
 				// Add the customer ID filter if provided
 				if ( $customer_id ) {
 					$query .= " AND meta_customer.meta_value = '{$customer_id}'";
@@ -343,17 +337,8 @@ class OrderProcessorHelp {
 
 					$number_orders = $row->num_orders;
 
-					if ( $product_id || $product_category ) {
-
-						$thegross = $row->total + $row->tax + $row->shipping;
-						$thenet   = $row->total;
-
-					} else {
-
-						$thegross = $row->total + $row->refund;
-						$thenet   = $row->total + $row->refund - $row->tax - $row->shipping;
-
-					}
+					$thegross = $row->total + $row->refund;
+					$thenet   = $row->total + $row->refund - $row->tax - $row->shipping;
 
 					$response['periods'] .= "<tr>" .
 						"<td>" . esc_html( $row->period ) . "</td>" .
