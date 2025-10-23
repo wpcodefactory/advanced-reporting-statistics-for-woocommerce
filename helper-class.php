@@ -1387,6 +1387,8 @@ class OrderProcessorHelp {
 
 	/**
 	 * forecastHoltWinters.
+	 *
+	 * @version 4.1.0
 	 */
 	public function forecastHoltWinters( $anData, $nForecast = 2, $nSeasonLength = 4, $nAlpha = 0.2, $nBeta = 0.01, $nGamma = 0.01, $nDevGamma = 0.1 ) {
 		$search  = '0';
