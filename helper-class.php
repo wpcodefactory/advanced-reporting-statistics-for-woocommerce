@@ -1071,31 +1071,39 @@ class OrderProcessorHelp {
 
 	/**
 	 * get_payments.
+	 *
+	 * @version 4.1.0
 	 */
 	public function get_payments() {
 
-		if( is_admin() && isset( $_POST['action'] ) &&  $_POST['action'] =='get_payments' ){
+		if (
+			is_admin() &&
+			(
+				isset( $_POST['action'] ) &&
+				'get_payments' === $_POST['action']
+			)
+		) {
 
 			global $wpdb;
 
-			if( isset( $_POST['ids'] ) ) $ids = $_POST['ids'];
-			$ids = array_map( 'sanitize_text_field', $ids );
+			if ( isset( $_POST['ids'] ) ) {
+				$ids = array_map( 'sanitize_text_field', wp_unslash( $_POST['ids'] ) );
+			}
 
 			// Query completed orders with order date and total sales.
 
-			if( OrderUtil::custom_orders_table_usage_is_enabled() ) {
+			if ( OrderUtil::custom_orders_table_usage_is_enabled() ) {
 				$parameter = 'payment_method_title';
-				$query = "SELECT DISTINCT orders.".$parameter." AS payment,
-						   SUM(orders.total_amount ) AS total,
-						   SUM( orders.tax_amount ) AS tax,
-						   COUNT(orders.id) AS num_orders
-						   FROM ". $wpdb->prefix."wc_orders as orders
-						WHERE orders.id  IN ('" . implode("','", $ids ) . "') ";
-
-			}else{
-
+				$query = "
+					SELECT DISTINCT orders." . $parameter . " AS payment,
+					SUM(orders.total_amount ) AS total,
+					SUM( orders.tax_amount ) AS tax,
+					COUNT(orders.id) AS num_orders
+					FROM " . $wpdb->prefix . "wc_orders as orders
+					WHERE orders.id  IN ('" . implode( "','", $ids ) . "')
+				";
+			} else {
 				$parameter = '_payment_method_title';
-
 				$query = "
 					SELECT payment_method.meta_value AS payment,
 					SUM(order_total.meta_value) AS total,
@@ -1104,43 +1112,53 @@ class OrderProcessorHelp {
 					FROM {$wpdb->prefix}postmeta AS order_total
 					LEFT JOIN {$wpdb->prefix}postmeta AS order_tax ON order_total.post_id = order_tax.post_id
 					LEFT JOIN {$wpdb->prefix}postmeta AS payment_method ON order_total.post_id = payment_method.post_id
-					WHERE order_total.post_id  IN ('" . implode("','", $ids ) . "') AND
+					WHERE order_total.post_id  IN ('" . implode( "','", $ids ) . "') AND
 						order_total.meta_key = '_order_total' AND
 						order_tax.meta_key = '_order_tax' AND
 						payment_method.meta_key = '_payment_method_title'
 					";
-
 			}
+
 			$query .= "
 				GROUP BY payment
 				ORDER BY total DESC
 			";
+
 			$data = $wpdb->get_results( $query );
 
 			$response = array(
-				'name' => array(),
-				'total' => array(),
+				'name'     => array(),
+				'total'    => array(),
 				'payments' => '',
 			);
 
-			if( $data ){
+			if ( $data ) {
+				foreach ( $data as $d ) {
 
-				foreach( $data as $d ){
+					$payment    = $d->payment;
+					$total      = $d->total;
+					$tax        = $d->tax;
+					$num_orders = $d->num_orders;
 
-						$payment  = $d->payment;
-						$total  = $d->total;
-						$tax  = $d->tax;
-						$num_orders  = $d->num_orders;
-						$response['payments'] .= "<tr><td>". esc_html( $payment ) . "</td><td>". esc_html( $num_orders ) . "</td><td>".  esc_html( round( $tax , 2 ) ) . "</td><td>". esc_html( round( $total , 2 ) ) . "</td></tr>";
-						array_push( $response['name'] , esc_html( $payment ) );
-						array_push( $response['total'] , round( $total , 2 ) );
+					$response['payments'] .= "<tr>" .
+						"<td>" . esc_html( $payment ) . "</td>" .
+						"<td>" . esc_html( $num_orders ) . "</td>" .
+						"<td>" . esc_html( round( $tax, 2 ) ) . "</td>" .
+						"<td>" . esc_html( round( $total, 2 ) ) . "</td>" .
+					"</tr>";
+
+					array_push( $response['name'], esc_html( $payment ) );
+					array_push( $response['total'], round( $total, 2 ) );
+
 				}
 			}
 
 			echo json_encode( $response );
+
 			wp_die();
 
 		}
+
 	}
 
 	/**
