@@ -357,8 +357,8 @@ class OrderProcessorHelp {
 
 				$response['totals'] .= (
 					'<td>TOTALS</td>' .
-					'<td>' . esc_html( $num_orders ). '</td>' .
-					'<td class="tax" >' . wc_price( $tax_amount ). '</td>' .
+					'<td>' . esc_html( $num_orders ) . '</td>' .
+					'<td class="tax" >' . wc_price( $tax_amount ) . '</td>' .
 					'<td class="shipping">' . wc_price( $shipping ) . '</td>' .
 					'<td class="discount">' . wc_price( $discount ) . '</td>' .
 					'<td class="refund">' . wc_price( $refunds ) . '</td>' .
@@ -386,7 +386,7 @@ class OrderProcessorHelp {
 
 			} else {
 
-				$nomessage = "<h3> ".
+				$nomessage = "<h3> " .
 					esc_html__( 'No Orders ', 'webd-woocommerce-reporting-statistics' ) .
 				"</h3>";
 
