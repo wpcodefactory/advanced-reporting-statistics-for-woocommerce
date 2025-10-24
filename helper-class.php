@@ -388,14 +388,14 @@ class OrderProcessorHelp {
 
 				$nomessage = "<h3> ".
 					esc_html__( 'No Orders ', 'webd-woocommerce-reporting-statistics' ) .
-				"</h3>" ;
+				"</h3>";
 
 				if ( ! empty( $_POST['order_status'] ) ) {
 					$order_status = sanitize_text_field( wp_unslash( $_POST['order_status'] ) );
 					$nomessage .= "<h3> " .
 						esc_html__( ' with Status: ', 'webd-woocommerce-reporting-statistics' ) .
 						esc_html( $order_status ) .
-					"</h3>" ;
+					"</h3>";
 				}
 
 				if ( ! empty( $_POST['customer'] ) ) {
@@ -407,11 +407,11 @@ class OrderProcessorHelp {
 							" " .
 							$user->last_name
 						) .
-					"</h3>" ;
+					"</h3>";
 				}
 
 				$response['message'] = $nomessage;
-				$response['results'] = 0 ;
+				$response['results'] = 0;
 
 			}
 
@@ -432,7 +432,7 @@ class OrderProcessorHelp {
 
 		$filters = array();
 
-		$date  = current_time( 'mysql' ) ;
+		$date  = current_time( 'mysql' );
 		$today = date( 'Y-m-d', strtotime( $date ) );
 
 		if (
@@ -532,7 +532,7 @@ class OrderProcessorHelp {
 			$orderIds   = array();
 			$order_data = array();
 
-			$date  = current_time( 'mysql' ) ;
+			$date  = current_time( 'mysql' );
 			$today = date( 'Y-m-d', strtotime( $date ) );
 
 			$message = '';
@@ -612,7 +612,7 @@ class OrderProcessorHelp {
 						empty( $orderIds )
 					) {
 
-						$order_data['message'] = sanitize_text_field( $message ) ;
+						$order_data['message'] = sanitize_text_field( $message );
 						$order_data['days']    = round( $datediff / DAY_IN_SECONDS );
 
 						$order_data['order_id'] = $order->get_id();
@@ -685,14 +685,14 @@ class OrderProcessorHelp {
 
 				$nomessage = "<h3> " .
 					esc_html__( 'No Orders ', 'webd-woocommerce-reporting-statistics' ) .
-				"</h3>" ;
+				"</h3>";
 
 				if ( ! empty( $_POST['order_status'] ) ) {
 					$order_status = sanitize_text_field( wp_unslash( $_POST['order_status'] ) );
 					$nomessage .= "<h3> " .
 						esc_html__( ' with Status: ', 'webd-woocommerce-reporting-statistics' ) .
 						esc_html( $order_status ) .
-					"</h3>" ;
+					"</h3>";
 				}
 
 				if (
@@ -793,7 +793,7 @@ class OrderProcessorHelp {
 					$coupons    = $this->get_coupon_used( $order->get_id() );
 					$first_name = ( method_exists( $order, 'get_billing_first_name' ) ) ? $order->get_billing_first_name() : '';
 					$last_name  = ( method_exists( $order, 'get_billing_first_name' ) ) ? $order->get_billing_last_name() : '';
-					$country    = ( method_exists( $order, 'get_billing_country' ) ) ? WC()->countries->countries[ $order->get_billing_country() ] : '' ;
+					$country    = ( method_exists( $order, 'get_billing_country' ) ) ? WC()->countries->countries[ $order->get_billing_country() ] : '';
 					$discount   = ( method_exists( $order, 'get_total_discount' ) ) ? $order->get_total_discount() : '';
 					$shipping   = ( method_exists( $order, 'get_shipping_total' ) ) ? $order->get_shipping_total()  : '';
 					$tax        = ( method_exists( $order, 'get_total_tax' ) ) ? $order->get_total_tax() : '';
@@ -928,7 +928,7 @@ class OrderProcessorHelp {
 					$state      = $d->state;
 					$city       = $d->city;
 					$company    = $d->company;
-					$country    = ( $d->country != '' ) ? WC()->countries->countries[ $d->country ] : '' ;
+					$country    = ( $d->country != '' ) ? WC()->countries->countries[ $d->country ] : '';
 					$phone      = $d->phone;
 					$email      = $d->email;
 					$tax        = $d->state;
@@ -1033,7 +1033,7 @@ class OrderProcessorHelp {
 			if ( $data ) {
 				foreach ( $data as $d ) {
 
-					$country     = ( $d->country != '' ) ? WC()->countries->countries[ $d->country ] : '' ;
+					$country     = ( $d->country != '' ) ? WC()->countries->countries[ $d->country ] : '';
 					$total       = $d->total;
 					$tax         = $d->tax;
 					$num_orders  = $d->num_orders;
