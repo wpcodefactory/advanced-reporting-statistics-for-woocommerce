@@ -858,16 +858,16 @@ class OrderProcessorHelp {
 						SUM(orders.total_amount ) AS total,
 						SUM( orders.tax_amount ) AS tax,
 						COUNT(orders.id) AS num_orders,
-						address.first_name as first_name,
-						address.last_name as last_name,
-						address.company as company,
-						address.city as city,
-						address.state as state,
-						address.email as email,
-						address.phone as phone,
-						address.country as country
-					FROM " . $wpdb->prefix . "wc_orders as orders
-					LEFT JOIN " . $wpdb->prefix . "wc_order_addresses as address ON orders.id = address.order_id AND orders." . $parameter . " = address.email
+						address.first_name AS first_name,
+						address.last_name AS last_name,
+						address.company AS company,
+						address.city AS city,
+						address.state AS state,
+						address.email AS email,
+						address.phone AS phone,
+						address.country AS country
+					FROM " . $wpdb->prefix . "wc_orders AS orders
+					LEFT JOIN " . $wpdb->prefix . "wc_order_addresses AS address ON orders.id = address.order_id AND orders." . $parameter . " = address.email
 					WHERE address.address_type='billing' AND orders.id IN ('" . implode( "','", $ids ) . "')
 				";
 
@@ -989,9 +989,9 @@ class OrderProcessorHelp {
 					SUM(orders.total_amount ) AS total,
 					SUM( orders.tax_amount ) AS tax,
 					COUNT(orders.id) AS num_orders,
-					address.country as country
-					FROM " . $wpdb->prefix . "wc_order_addresses as address
-					LEFT JOIN " . $wpdb->prefix . "wc_orders as orders ON orders.id = address.order_id
+					address.country AS country
+					FROM " . $wpdb->prefix . "wc_order_addresses AS address
+					LEFT JOIN " . $wpdb->prefix . "wc_orders AS orders ON orders.id = address.order_id
 					WHERE address.address_type='billing' AND orders.id IN ('" . implode( "','", $ids ) . "')
 				";
 
@@ -1089,7 +1089,7 @@ class OrderProcessorHelp {
 					SUM(orders.total_amount ) AS total,
 					SUM( orders.tax_amount ) AS tax,
 					COUNT(orders.id) AS num_orders
-					FROM " . $wpdb->prefix . "wc_orders as orders
+					FROM " . $wpdb->prefix . "wc_orders AS orders
 					WHERE orders.id IN ('" . implode( "','", $ids ) . "')
 				";
 
@@ -1184,7 +1184,7 @@ class OrderProcessorHelp {
 				$query = "
 					SELECT DISTINCT coupons." . $parameter . " AS coupon,
 					SUM(coupons.discount_amount ) AS total
-					FROM " . $wpdb->prefix . "wc_order_coupon_lookup as coupons
+					FROM " . $wpdb->prefix . "wc_order_coupon_lookup AS coupons
 					WHERE coupons.order_id IN ('" . implode( "','", $ids ) . "')
 				";
 
@@ -1270,10 +1270,10 @@ class OrderProcessorHelp {
 			if ( OrderUtil::custom_orders_table_usage_is_enabled() ) {
 
 				$query = "
-					SELECT DISTINCT product_id as product, variation_id as variation,
+					SELECT DISTINCT product_id AS product, variation_id AS variation,
 					SUM(products.product_net_revenue ) AS total,
 					SUM(products.product_qty ) AS num_products
-					FROM " . $wpdb->prefix . "wc_order_product_lookup as products
+					FROM " . $wpdb->prefix . "wc_order_product_lookup AS products
 				";
 
 				if ( null != $cat ) {
@@ -1294,23 +1294,23 @@ class OrderProcessorHelp {
 
 				$query = "
 					SELECT
-						products.meta_value as product,
-						variations.meta_value as variation,
-						SUM(order_itemmeta_line_subtotal.meta_value) as total,
-						SUM(order_itemmeta_line_tax.meta_value) as tax,
+						products.meta_value AS product,
+						variations.meta_value AS variation,
+						SUM(order_itemmeta_line_subtotal.meta_value) AS total,
+						SUM(order_itemmeta_line_tax.meta_value) AS tax,
 						SUM( qty.meta_value ) AS num_products
 					FROM
-						{$wpdb->prefix}woocommerce_order_items as items
+						{$wpdb->prefix}woocommerce_order_items AS items
 					JOIN
-						{$wpdb->prefix}woocommerce_order_itemmeta as products ON items.order_item_id = products.order_item_id AND products.meta_key = '_product_id'
+						{$wpdb->prefix}woocommerce_order_itemmeta AS products ON items.order_item_id = products.order_item_id AND products.meta_key = '_product_id'
 					LEFT JOIN
-						{$wpdb->prefix}woocommerce_order_itemmeta as variations ON items.order_item_id = variations.order_item_id AND variations.meta_key = '_variation_id'
+						{$wpdb->prefix}woocommerce_order_itemmeta AS variations ON items.order_item_id = variations.order_item_id AND variations.meta_key = '_variation_id'
 					JOIN
-						{$wpdb->prefix}woocommerce_order_itemmeta as order_itemmeta_line_subtotal ON items.order_item_id = order_itemmeta_line_subtotal.order_item_id AND order_itemmeta_line_subtotal.meta_key = '_line_subtotal'
+						{$wpdb->prefix}woocommerce_order_itemmeta AS order_itemmeta_line_subtotal ON items.order_item_id = order_itemmeta_line_subtotal.order_item_id AND order_itemmeta_line_subtotal.meta_key = '_line_subtotal'
 					JOIN
-						{$wpdb->prefix}woocommerce_order_itemmeta as order_itemmeta_line_tax ON items.order_item_id = order_itemmeta_line_tax.order_item_id AND order_itemmeta_line_tax.meta_key = '_line_tax'
+						{$wpdb->prefix}woocommerce_order_itemmeta AS order_itemmeta_line_tax ON items.order_item_id = order_itemmeta_line_tax.order_item_id AND order_itemmeta_line_tax.meta_key = '_line_tax'
 					JOIN
-						{$wpdb->prefix}woocommerce_order_itemmeta as qty ON items.order_item_id = qty.order_item_id AND qty.meta_key = '_qty'
+						{$wpdb->prefix}woocommerce_order_itemmeta AS qty ON items.order_item_id = qty.order_item_id AND qty.meta_key = '_qty'
 				";
 
 				if ( null != $cat ) {
@@ -1402,7 +1402,7 @@ class OrderProcessorHelp {
 			if ( OrderUtil::custom_orders_table_usage_is_enabled() ) {
 
 				$query = "
-					SELECT DISTINCT terms.name as term,
+					SELECT DISTINCT terms.name AS term,
 					SUM(products.product_net_revenue ) AS total,
 					SUM(products.product_qty ) AS num_products
 					FROM {$wpdb->prefix}wc_order_product_lookup AS products
@@ -1419,10 +1419,10 @@ class OrderProcessorHelp {
 			} else {
 
 				$query = "
-					SELECT DISTINCT terms.name as term ,
+					SELECT DISTINCT terms.name AS term,
 					SUM( total.meta_value ) AS total,
 					SUM( qty.meta_value ) AS num_products
-					FROM {$wpdb->prefix}woocommerce_order_items as order_items
+					FROM {$wpdb->prefix}woocommerce_order_items AS order_items
 					LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS total ON order_items.order_item_id = total.order_item_id AND total.meta_key = '_line_total'
 					LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS qty ON order_items.order_item_id = qty.order_item_id AND qty.meta_key = '_qty'
 					LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS product ON order_items.order_item_id = product.order_item_id AND product.meta_key = '_product_id'

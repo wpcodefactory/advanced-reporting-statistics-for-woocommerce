@@ -14,12 +14,12 @@
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * Created On: 23-01-2019
- * Updated On: 23-10-2025
+ * Updated On: 24-10-2025
  */
 
 defined( 'ABSPATH' ) || exit;
 
-defined( 'WPFACTORY_WC_ARS_VERSION' ) || define( 'WPFACTORY_WC_ARS_VERSION', '4.1.0-dev-20251023-2103' );
+defined( 'WPFACTORY_WC_ARS_VERSION' ) || define( 'WPFACTORY_WC_ARS_VERSION', '4.1.0-dev-20251024-1340' );
 
 defined( 'WPFACTORY_WC_ARS_FILE' ) || define( 'WPFACTORY_WC_ARS_FILE', __FILE__ );
 

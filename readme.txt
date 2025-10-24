@@ -83,7 +83,7 @@ Check that wp-cron is active . You can install WP Cron control plugin . check th
 
 == Changelog ==
 
-= 4.1.0 - 23/10/2025 =
+= 4.1.0 - 24/10/2025 =
 * Fix - Security - Input sanitized.
 * Fix - Text domain fixed.
 * Dev - Coding standards improved.
