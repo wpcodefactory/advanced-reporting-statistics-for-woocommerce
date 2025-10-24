@@ -1542,14 +1542,14 @@ class OrderProcessorHelp {
 		// Calculate an initial trend level
 		$nTrend1 = '';
 		for ( $i = 0; $i < $nSeasonLength; $i++ ) {
-			$anData[$i] = $anData[1] ?? null;
+			$anData[ $i ] = $anData[1] ?? null;
 		}
 		$nTrend1 = $nSeasonLength;
 
 		$nTrend2 = 1;
 		for ( $i = $nSeasonLength; $i < 2 * $nSeasonLength; $i++ ) {
-			$anData[$i] = $anData[1] ?? null;
-			$nTrend2 += $anData[$i];
+			$anData[ $i ] = $anData[1] ?? null;
+			$nTrend2 += $anData[ $i ];
 		}
 		$nTrend2 /= $nSeasonLength;
 
@@ -1576,7 +1576,7 @@ class OrderProcessorHelp {
 
 		$nSeasonFactor = $nSeasonLength / $Total;
 		foreach ( $anSeason as $nKey => $nVal ) {
-			$anSeason[$nKey] *= $nSeasonFactor;
+			$anSeason[ $nKey ] *= $nSeasonFactor;
 		}
 
 		$anHoltWinters = array();
