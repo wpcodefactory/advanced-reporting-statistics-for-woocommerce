@@ -51,7 +51,6 @@ include_once( plugin_dir_path(__FILE__) ."/class-admin.php");
  * @version 4.0.0
  *
  * @todo    (v4.0.0) cleanup notification (e.g., `push_not` AJAX action)
- * @todo    (v4.0.0) remove the "More extensions" tab?
  * @todo    (v4.0.0) remove the "GO PRO" tab?
  * @todo    (v4.0.0) Plugin Check (PCP)
  * @todo    (v4.0.0) remove `public $name`, `public $slug`, `public $proUrl`?

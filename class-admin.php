@@ -2,7 +2,7 @@
 /**
  * Advanced WooCommerce Product Sales Reporting - Statistics & Forecast - webdWoocommerceReportingStatisticsAdmin Class
  *
- * @version 4.0.0
+ * @version 4.1.0
  *
  * @author  WPFactory
  */
@@ -174,6 +174,13 @@ class webdWoocommerceReportingStatisticsAdmin {
 		?><h1><?php esc_html_e( 'Advanced WooCommerce Product Sales Reporting - Statistics & Forecast', 'webd-woocommerce-reporting-statistics' ); ?></h1><?php
 	}
 
+	/**
+	 * adminSettings.
+	 *
+	 * @version 4.1.0
+	 *
+	 * @todo    (v4.1.0) clean up "More extensions" tab (`extendwp_extensions`)
+	 */
 	public function adminSettings(){
 				global $product;
 
@@ -188,7 +195,6 @@ class webdWoocommerceReportingStatisticsAdmin {
 				}
 				?>
 				<a class='nav-tab  proVersion' href="#" style='background:#42b72a;color:#fff' ><?php  esc_html_e('GO PRO',"webd-woocommerce-reporting-statistics");?></a>
-				<a class='nav-tab  extendwp_extensions' href="#" style='background:#9B2E91;color:#fff' ><i class='fa fa-plug'></i> <?php  esc_html_e('More extensions',"webd-woocommerce-reporting-statistics");?></a>
 				<?php
 				echo "</h3>";
 

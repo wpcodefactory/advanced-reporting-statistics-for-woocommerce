@@ -86,6 +86,7 @@ Check that wp-cron is active . You can install WP Cron control plugin . check th
 = 4.1.0 - 24/10/2025 =
 * Fix - Security - Input sanitized.
 * Fix - Text domain fixed.
+* Dev - "More extensions" tab removed.
 * Dev - Code refactoring and cleanup.
 * Dev - Coding standards improved.
 * WC tested up to: 10.3.
