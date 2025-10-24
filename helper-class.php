@@ -176,7 +176,6 @@ class OrderProcessorHelp {
 	 *
 	 * @version 4.1.0
 	 *
-	 * @todo    (v4.1.0) `( $order->get_total() - $order->get_total_refunded() == 0 )`?
 	 * @todo    (v4.1.0) `$topush = 0.1`?
 	 * @todo    (v4.1.0) `forecastHoltWinters()`?
 	 */
@@ -447,7 +446,7 @@ class OrderProcessorHelp {
 
 		if ( ! empty( $_POST['selected'] ) ) {
 			$dayfilter = array( 'date_created' => sanitize_text_field( wp_unslash( $_POST['selected'] ) ) . "..." . $today );
-		} else{
+		} else {
 			$dayfilter = array( 'date_created' => ">=" . $default );
 		}
 
@@ -626,7 +625,10 @@ class OrderProcessorHelp {
 						$order_data['total_discount'] = ( method_exists( $order, 'get_total_discount' ) ) ? $order->get_total_discount() : '';
 						$order_data['shipping_total'] = ( method_exists( $order, 'get_shipping_total' ) ) ? $order->get_shipping_total() : '';
 
-						if ( $order->get_total() - $order->get_total_refunded() == 0 ) {
+						if (
+							0 != $order->get_total_refunded() &&
+							0 == ( $order->get_total() - $order->get_total_refunded() )
+						) {
 							$order_data['subtotal']       = 0;
 							$order_data['total']          = 0;
 							$order_data['total_tax']      = 0;
@@ -1605,113 +1607,6 @@ class OrderProcessorHelp {
 		}
 
 		return $anForecast;
-	}
-
-	/**
-	 * divide.
-	 */
-	public function divide( $a, $b ) {
-		try {
-			if ( @( $a / $b ) === false ) {
-				return INF;      // covers PHP5
-			}
-			return @( $a / $b ); // covers PHP7
-		} catch ( DivisionByZeroError $e ) {
-			return INF;          // covers PHP8
-		}
-	}
-
-	/**
-	 * Median.
-	 */
-	public function Median( $Array ) {
-		return Quartile_50( $Array );
-	}
-
-	/**
-	 * Quartile_25.
-	 */
-	public function Quartile_25( $Array ) {
-		return Quartile( $Array, 0.25 );
-	}
-
-	/**
-	 * Quartile_50.
-	 */
-	public function Quartile_50( $Array ) {
-		return Quartile( $Array, 0.5 );
-	}
-
-	/**
-	 * Quartile_75.
-	 */
-	public function Quartile_75( $Array ) {
-		return Quartile( $Array, 0.75 );
-	}
-
-	/**
-	 * Quartile.
-	 */
-	public function Quartile( $Array, $Quartile ) {
-		$pos = ( count( $Array) - 1 ) * $Quartile;
-
-		$base = floor( $pos );
-		$rest = $pos - $base;
-
-		if ( isset( $Array[ $base+1 ] ) ) {
-			return $Array[ $base ] + $rest * ( $Array[ $base + 1 ] - $Array[ $base ] );
-		} else {
-			return $Array[ $base ];
-		}
-	}
-
-	/**
-	 * Average.
-	 */
-	public function Average( $Array ) {
-		return array_sum( $Array ) / count( $Array );
-	}
-
-	/**
-	 * StdDev.
-	 */
-	public function StdDev( $Array ) {
-		if ( count( $Array ) < 2 ) {
-			return;
-		}
-
-		$avg = Average( $Array );
-
-		$sum = 0;
-		foreach ( $Array as $value ) {
-			$sum += pow( $value - $avg, 2 );
-		}
-
-		return sqrt( ( 1 / (count( $Array ) - 1) ) * $sum );
-	}
-
-	/**
-	 * random_color_part.
-	 */
-	public function random_color_part() {
-		return str_pad(
-			dechex( mt_rand( 0, 255 ) ),
-			2,
-			'0',
-			STR_PAD_LEFT
-		);
-	}
-
-	/**
-	 * getRandomColor.
-	 */
-	public function getRandomColor() {
-		return (
-			"#" .
-			$this->random_color_part() .
-			$this->random_color_part() .
-			$this->random_color_part()
-		);
 	}
 
 }
