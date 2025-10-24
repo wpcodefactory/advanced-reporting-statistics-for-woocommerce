@@ -178,8 +178,6 @@ class OrderProcessorHelp {
 	 *
 	 * @todo    (v4.1.0) `( $order->get_total() - $order->get_total_refunded() == 0 )`?
 	 * @todo    (v4.1.0) `$topush = 0.1`?
-	 * @todo    (v4.1.0) `$total_sales < 0`?
-	 * @todo    (v4.1.0) `$net < 0`?
 	 * @todo    (v4.1.0) `forecastHoltWinters()`?
 	 */
 	public function display_orders_by_period() {
@@ -203,7 +201,7 @@ class OrderProcessorHelp {
 			$order_status = (
 				empty( $_POST['order_status'] ) ?
 				$status :
-				array( sanitize_text_field( wp_unslash(  $_POST['order_status'] ) ) )
+				array( sanitize_text_field( wp_unslash( $_POST['order_status'] ) ) )
 			);
 			$period       = (
 				( isset( $_POST['tab'] ) && 'months' === $_POST['tab'] ) ?
@@ -223,14 +221,16 @@ class OrderProcessorHelp {
 					COUNT(meta_refunds.meta_value) AS refund_count,
 					SUM(meta_refunds.meta_value) AS refund,
 					SUM(operational_data.shipping_total_amount) AS shipping,
-					SUM(operational_data.discount_total_amount) AS discount ";
+					SUM(operational_data.discount_total_amount) AS discount
+				";
 
 				$query .= "
 					FROM {$wpdb->prefix}wc_orders AS orders
 					LEFT JOIN {$wpdb->prefix}wc_orders_meta AS meta_refunds ON ( orders.id = meta_refunds.order_id OR orders.parent_order_id = meta_refunds.order_id ) AND meta_refunds.meta_key = '_refund_amount'
-					LEFT JOIN {$wpdb->prefix}wc_order_operational_data AS operational_data ON orders.id = operational_data.order_id ";
+					LEFT JOIN {$wpdb->prefix}wc_order_operational_data AS operational_data ON orders.id = operational_data.order_id
+				";
 
-				$query .= " WHERE orders.type IN( 'shop_order','shop_order_refund' ) AND  orders.status IN ('" . implode( "','", $order_status ) . "') ";
+				$query .= " WHERE orders.type IN( 'shop_order','shop_order_refund' ) AND orders.status IN ('" . implode( "','", $order_status ) . "') ";
 
 				// Add the customer ID filter if provided
 				if ( $customer_id ) {
@@ -240,15 +240,13 @@ class OrderProcessorHelp {
 			} else {
 
 				$query = "SELECT DATE_FORMAT( post_date, '{$period}' ) AS period,
-
-					SUM( meta_total.meta_value )  AS total,
+					SUM( meta_total.meta_value ) AS total,
 					SUM( meta_shipping.meta_value) AS shipping,
 					SUM( meta_tax.meta_value) AS tax,
 					SUM( meta_discount.meta_value) AS discount,
 					count(ID) AS num_orders,
 					SUM(  meta_refunds.meta_value) AS refund,
 					COUNT(meta_refunds.meta_value) AS refund_count
-
 					FROM {$wpdb->prefix}posts
 				";
 
@@ -257,7 +255,8 @@ class OrderProcessorHelp {
 					LEFT JOIN {$wpdb->prefix}postmeta AS meta_tax ON {$wpdb->prefix}posts.ID = meta_tax.post_id AND meta_tax.meta_key = '_order_tax'
 					LEFT JOIN {$wpdb->prefix}postmeta AS meta_shipping ON {$wpdb->prefix}posts.ID = meta_shipping.post_id AND meta_shipping.meta_key = '_order_shipping'
 					LEFT JOIN {$wpdb->prefix}postmeta AS meta_refunds ON ( {$wpdb->prefix}posts.ID = meta_refunds.post_id OR {$wpdb->prefix}posts.post_parent = meta_refunds.post_id ) AND {$wpdb->prefix}posts.post_type = 'shop_order_refund' AND meta_refunds.meta_key = '_refund_amount'
-					LEFT JOIN {$wpdb->prefix}postmeta AS meta_discount ON {$wpdb->prefix}posts.ID = meta_discount.post_id AND meta_discount.meta_key = '_cart_discount' ";
+					LEFT JOIN {$wpdb->prefix}postmeta AS meta_discount ON {$wpdb->prefix}posts.ID = meta_discount.post_id AND meta_discount.meta_key = '_cart_discount'
+				";
 
 				if ( $customer_id ) {
 					$query .= " LEFT JOIN {$wpdb->prefix}postmeta AS meta_customer ON ( {$wpdb->prefix}posts.ID = meta_customer.post_id OR {$wpdb->prefix}posts.post_parent = meta_customer.post_id ) AND meta_customer.meta_key = '_customer_user' ";
@@ -278,6 +277,7 @@ class OrderProcessorHelp {
 			$results = $wpdb->get_results( $query );
 
 			$message = '';
+
 			$response = array(
 				'name'     => array(),
 				'total'    => array(),
@@ -355,9 +355,6 @@ class OrderProcessorHelp {
 					array_push( $response['name'], esc_html( $row->period ) );
 
 				}
-
-				$total_sales = ( $total_sales < 0 ) ? $total_sales = 0 : $total_sales;
-				$net         = ( $net < 0 ) ? $net = 0 :  $net;
 
 				$response['totals'] .= (
 					'<td>TOTALS</td>' .
@@ -493,8 +490,6 @@ class OrderProcessorHelp {
 			'getOrders' === $_POST['action']
 		) {
 
-			global $woocommerce;
-
 			$args = array(
 				'type'     => 'shop_order',
 				'paginate' => true,
@@ -508,6 +503,7 @@ class OrderProcessorHelp {
 			} else {
 				$offset = 0;
 			}
+
 			$limit = get_option( $this->plugin . 'queryLimit', 500 );
 
 			$args = array(
@@ -808,7 +804,7 @@ class OrderProcessorHelp {
 						"<td>" . esc_html( $date ) . "</td>" .
 						"<td>" . esc_html( $payment ) . "</td>" .
 						"<td>" . esc_html( $coupons ) . "</td>" .
-						"<td>" . esc_html( $first_name . "  " . $last_name ) . "</td>" .
+						"<td>" . esc_html( $first_name . " " . $last_name ) . "</td>" .
 						"<td>" . esc_html( $country ) . "</td>" .
 						"<td>" . wc_price( $discount ) . "</td>" .
 						"<td>" . wc_price( $shipping ) . "</td>" .
@@ -872,7 +868,7 @@ class OrderProcessorHelp {
 						address.country as country
 					FROM " . $wpdb->prefix . "wc_orders as orders
 					LEFT JOIN " . $wpdb->prefix . "wc_order_addresses as address ON orders.id = address.order_id AND orders." . $parameter . " = address.email
-					WHERE address.address_type='billing' AND orders.id  IN ('" . implode( "','", $ids ) . "')
+					WHERE address.address_type='billing' AND orders.id IN ('" . implode( "','", $ids ) . "')
 				";
 
 				$query .= "
@@ -907,7 +903,7 @@ class OrderProcessorHelp {
 					LEFT JOIN " . $wpdb->prefix . "postmeta AS billing_company ON p.ID = billing_company.post_id AND billing_company.meta_key = '_billing_company'
 					LEFT JOIN " . $wpdb->prefix . "postmeta AS order_total ON p.ID = order_total.post_id AND order_total.meta_key = '_order_total'
 					LEFT JOIN " . $wpdb->prefix . "postmeta AS order_tax ON p.ID = order_tax.post_id AND order_tax.meta_key = '_order_tax'
-					WHERE p.ID  IN ('" . implode( "','", $ids ) . "')
+					WHERE p.ID IN ('" . implode( "','", $ids ) . "')
 				";
 
 				$query .= "
@@ -985,7 +981,9 @@ class OrderProcessorHelp {
 
 			// Query completed orders with order date and total sales.
 			if ( OrderUtil::custom_orders_table_usage_is_enabled() ) {
+
 				$parameter = 'country';
+
 				$query = "
 					SELECT DISTINCT address." . $parameter . " AS country,
 					SUM(orders.total_amount ) AS total,
@@ -994,10 +992,13 @@ class OrderProcessorHelp {
 					address.country as country
 					FROM " . $wpdb->prefix . "wc_order_addresses as address
 					LEFT JOIN " . $wpdb->prefix . "wc_orders as orders ON orders.id = address.order_id
-					WHERE address.address_type='billing' AND orders.id  IN ('" . implode( "','", $ids ) . "')
+					WHERE address.address_type='billing' AND orders.id IN ('" . implode( "','", $ids ) . "')
 				";
+
 			} else {
+
 				$parameter = 'country';
+
 				$query = "
 					SELECT billing_country.meta_value AS " . $parameter . " ,
 					SUM(order_total.meta_value) AS total,
@@ -1006,11 +1007,12 @@ class OrderProcessorHelp {
 					FROM {$wpdb->prefix}postmeta AS order_total
 					LEFT JOIN {$wpdb->prefix}postmeta AS order_tax ON order_total.post_id = order_tax.post_id
 					LEFT JOIN {$wpdb->prefix}postmeta AS billing_country ON order_total.post_id = billing_country.post_id
-					WHERE order_total.post_id  IN ('" . implode( "','", $ids ) . "') AND
+					WHERE order_total.post_id IN ('" . implode( "','", $ids ) . "') AND
 						order_total.meta_key = '_order_total' AND
 						order_tax.meta_key = '_order_tax' AND
 						billing_country.meta_key = '_billing_country'
 				";
+
 			}
 
 			$query .= "
@@ -1079,17 +1081,22 @@ class OrderProcessorHelp {
 			// Query completed orders with order date and total sales.
 
 			if ( OrderUtil::custom_orders_table_usage_is_enabled() ) {
+
 				$parameter = 'payment_method_title';
+
 				$query = "
 					SELECT DISTINCT orders." . $parameter . " AS payment,
 					SUM(orders.total_amount ) AS total,
 					SUM( orders.tax_amount ) AS tax,
 					COUNT(orders.id) AS num_orders
 					FROM " . $wpdb->prefix . "wc_orders as orders
-					WHERE orders.id  IN ('" . implode( "','", $ids ) . "')
+					WHERE orders.id IN ('" . implode( "','", $ids ) . "')
 				";
+
 			} else {
+
 				$parameter = '_payment_method_title';
+
 				$query = "
 					SELECT payment_method.meta_value AS payment,
 					SUM(order_total.meta_value) AS total,
@@ -1098,11 +1105,12 @@ class OrderProcessorHelp {
 					FROM {$wpdb->prefix}postmeta AS order_total
 					LEFT JOIN {$wpdb->prefix}postmeta AS order_tax ON order_total.post_id = order_tax.post_id
 					LEFT JOIN {$wpdb->prefix}postmeta AS payment_method ON order_total.post_id = payment_method.post_id
-					WHERE order_total.post_id  IN ('" . implode( "','", $ids ) . "') AND
+					WHERE order_total.post_id IN ('" . implode( "','", $ids ) . "') AND
 						order_total.meta_key = '_order_total' AND
 						order_tax.meta_key = '_order_tax' AND
 						payment_method.meta_key = '_payment_method_title'
 					";
+
 			}
 
 			$query .= "
@@ -1170,28 +1178,35 @@ class OrderProcessorHelp {
 
 			// Query completed orders with order date and total sales.
 			if ( OrderUtil::custom_orders_table_usage_is_enabled() ) {
+
 				$parameter = 'coupon_id';
+
 				$query = "
 					SELECT DISTINCT coupons." . $parameter . " AS coupon,
 					SUM(coupons.discount_amount ) AS total
 					FROM " . $wpdb->prefix . "wc_order_coupon_lookup as coupons
-					WHERE coupons.order_id  IN ('" . implode( "','", $ids ) . "')
+					WHERE coupons.order_id IN ('" . implode( "','", $ids ) . "')
 				";
+
 			} else {
+
 				$parameter = 'coupon';
+
 				$query = "
 					SELECT oi.order_item_name AS " . $parameter . " ,
 					SUM(im.meta_value) AS total
 					FROM {$wpdb->prefix}woocommerce_order_itemmeta AS im
 					JOIN {$wpdb->prefix}woocommerce_order_items AS oi ON im.order_item_id = oi.order_item_id
-					WHERE im.meta_key = 'discount_amount' AND oi.order_item_type = 'coupon' AND oi.order_id  IN ('" . implode( "','", $ids ) . "')
+					WHERE im.meta_key = 'discount_amount' AND oi.order_item_type = 'coupon' AND oi.order_id IN ('" . implode( "','", $ids ) . "')
 				";
+
 			}
 
 			$query .= "
 				GROUP BY coupon
 				ORDER BY total DESC
 			";
+
 			$data = $wpdb->get_results( $query );
 
 			$response = array(
@@ -1263,8 +1278,8 @@ class OrderProcessorHelp {
 
 				if ( null != $cat ) {
 					$query .= "
-						LEFT JOIN {$wpdb->prefix}term_relationships AS rel ON  ( product_id = rel.object_id || variation_id = rel.object_id )
-						LEFT JOIN {$wpdb->prefix}term_taxonomy AS tax ON rel.term_taxonomy_id = tax.term_taxonomy_id AND  tax.taxonomy = 'product_cat'
+						LEFT JOIN {$wpdb->prefix}term_relationships AS rel ON ( product_id = rel.object_id || variation_id = rel.object_id )
+						LEFT JOIN {$wpdb->prefix}term_taxonomy AS tax ON rel.term_taxonomy_id = tax.term_taxonomy_id AND tax.taxonomy = 'product_cat'
 						LEFT JOIN {$wpdb->prefix}terms AS terms ON tax.term_id = terms.term_id
 					";
 				}
@@ -1272,7 +1287,7 @@ class OrderProcessorHelp {
 				$query .= " WHERE products.order_id IN ('" . implode( "','", $ids ) . "') ";
 
 				if ( null != $prod ) {
-					$query .= " AND ( product_id = " . $prod . " OR variation_id = " . $prod ." ) ";
+					$query .= " AND ( product_id = " . $prod . " OR variation_id = " . $prod . " ) ";
 				}
 
 			} else {
@@ -1283,7 +1298,7 @@ class OrderProcessorHelp {
 						variations.meta_value as variation,
 						SUM(order_itemmeta_line_subtotal.meta_value) as total,
 						SUM(order_itemmeta_line_tax.meta_value) as tax,
-						SUM( qty.meta_value )  AS num_products
+						SUM( qty.meta_value ) AS num_products
 					FROM
 						{$wpdb->prefix}woocommerce_order_items as items
 					JOIN
@@ -1301,12 +1316,12 @@ class OrderProcessorHelp {
 				if ( null != $cat ) {
 					$query .= "
 						LEFT JOIN {$wpdb->prefix}term_relationships AS rel ON  ( products.meta_value = rel.object_id || variations.meta_value = rel.object_id )
-						LEFT JOIN {$wpdb->prefix}term_taxonomy AS tax ON rel.term_taxonomy_id = tax.term_taxonomy_id AND  tax.taxonomy = 'product_cat'
+						LEFT JOIN {$wpdb->prefix}term_taxonomy AS tax ON rel.term_taxonomy_id = tax.term_taxonomy_id AND tax.taxonomy = 'product_cat'
 						LEFT JOIN {$wpdb->prefix}terms AS terms ON tax.term_id = terms.term_id
 					";
 				}
 
-				$query .= " WHERE items.order_id  IN ('" . implode( "','", $ids ) . "') ";
+				$query .= " WHERE items.order_id IN ('" . implode( "','", $ids ) . "') ";
 
 				if ( null != $prod ) {
 					$query .= " AND ( products.meta_value = " . $prod . " OR variations.meta_value = " . $prod . " ) ";
@@ -1415,7 +1430,7 @@ class OrderProcessorHelp {
 					LEFT JOIN {$wpdb->prefix}term_relationships AS rel ON ( product.meta_value = rel.object_id || variation.meta_value = rel.object_id )
 					LEFT JOIN {$wpdb->prefix}term_taxonomy AS tax ON rel.term_taxonomy_id = tax.term_taxonomy_id AND tax.taxonomy = 'product_cat'
 					LEFT JOIN {$wpdb->prefix}terms AS terms ON tax.term_id = terms.term_id
-					WHERE order_items.order_id  IN ('" . implode( "','", $ids ) . "') AND terms.name IS NOT NULL
+					WHERE order_items.order_id IN ('" . implode( "','", $ids ) . "') AND terms.name IS NOT NULL
 				";
 
 				if ( null != $prod ) {
@@ -1501,7 +1516,7 @@ class OrderProcessorHelp {
 			}
 
 		} else {
-			return  '';
+			return '';
 		}
 
 	}
