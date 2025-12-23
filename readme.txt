@@ -1,10 +1,10 @@
 === Advanced WooCommerce Product Sales Reporting - Statistics & Forecast  ===
-Contributors: wpcodefactory, anbinder, karzin, omardabbas
+Contributors: wpcodefactory
 Tags: reporting, woocommerce statistics, sales report, analytics, woocommerce sales
 Requires at least: 3.0.1
 Requires PHP: 5.2.4
-Tested up to: 6.8
-Stable tag: 4.1.0
+Tested up to: 6.9
+Stable tag: 4.1.1
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -75,6 +75,9 @@ Navigate to 'PER MONTH' tab and at the bottom of the table you will find a Next 
 = Orders are not loaded! what to do? =
 Check that wp-cron is active . You can install WP Cron control plugin . check the events . Check WP CRON events for fetchOrders_for_stats action and press run now . This will download yours orders to text file.
 
+= Where do I report security bugs found in this plugin? =
+Please report security bugs found in the source code of the plugin through the [Patchstack Vulnerability Disclosure Program](https://patchstack.com/database/vdp/9e5fc701-d85e-4678-a0b4-5d5f26c56bf8). The Patchstack team will assist you with verification, CVE assignment, and notify the developers of this plugin.
+
 == Screenshots ==
 
 1. Advanced WooCommerce Reporting - Statistics & Forecast | General Analysis - by date - here you find orders, customers, products, categories, coupons, countries, payment gateways report and tables.
@@ -82,6 +85,10 @@ Check that wp-cron is active . You can install WP Cron control plugin . check th
 3. Advanced WooCommerce Reporting - Statistics & Forecast | Analysis Grouped by Month and next Month's Forecast
 
 == Changelog ==
+
+= 4.1.1 - 23/12/2025 =
+* WC tested up to: 10.4.
+* Tested up to: 6.9.
 
 = 4.1.0 - 24/10/2025 =
 * Fix - Security - Input sanitized.
