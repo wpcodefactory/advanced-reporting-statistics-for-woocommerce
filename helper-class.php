@@ -1398,8 +1398,8 @@ class OrderProcessorHelp {
 				$ids = $this->get_posted_ids();
 			}
 
-			$cat  = $this->get_posted_product_cat_id();
 			$prod = $this->get_posted_product_id();
+			$cat  = $this->get_posted_product_cat_id();
 
 			if ( OrderUtil::custom_orders_table_usage_is_enabled() ) {
 
