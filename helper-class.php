@@ -2,7 +2,7 @@
 /**
  * Advanced WooCommerce Product Sales Reporting - Statistics & Forecast - OrderProcessorHelp Class
  *
- * @version 4.1.0
+ * @version 4.1.2
  *
  * @author  WPFactory
  */
@@ -746,7 +746,7 @@ class OrderProcessorHelp {
 	/**
 	 * get_orders.
 	 *
-	 * @version 4.1.0
+	 * @version 4.1.2
 	 */
 	public function get_orders() {
 
@@ -763,7 +763,7 @@ class OrderProcessorHelp {
 			}
 
 			if ( isset( $_POST['ids'] ) ) {
-				$ids = array_map( 'sanitize_text_field', wp_unslash( $_POST['ids'] ) );
+				$ids = $this->get_posted_ids();
 			}
 
 			$args = array(
@@ -830,7 +830,7 @@ class OrderProcessorHelp {
 	/**
 	 * get_customers.
 	 *
-	 * @version 4.1.0
+	 * @version 4.1.2
 	 */
 	public function get_customers() {
 
@@ -845,7 +845,7 @@ class OrderProcessorHelp {
 			global $wpdb;
 
 			if ( isset( $_POST['ids'] ) ) {
-				$ids = array_map( 'sanitize_text_field', wp_unslash( $_POST['ids'] ) );
+				$ids = $this->get_posted_ids();
 			}
 
 			// Query completed orders with order date and total sales.
@@ -963,7 +963,7 @@ class OrderProcessorHelp {
 	/**
 	 * get_countries.
 	 *
-	 * @version 4.1.0
+	 * @version 4.1.2
 	 */
 	public function get_countries() {
 
@@ -978,7 +978,7 @@ class OrderProcessorHelp {
 			global $wpdb;
 
 			if ( isset( $_POST['ids'] ) ) {
-				$ids = array_map( 'sanitize_text_field', wp_unslash( $_POST['ids'] ) );
+				$ids = $this->get_posted_ids();
 			}
 
 			// Query completed orders with order date and total sales.
@@ -1062,7 +1062,7 @@ class OrderProcessorHelp {
 	/**
 	 * get_payments.
 	 *
-	 * @version 4.1.0
+	 * @version 4.1.2
 	 */
 	public function get_payments() {
 
@@ -1077,7 +1077,7 @@ class OrderProcessorHelp {
 			global $wpdb;
 
 			if ( isset( $_POST['ids'] ) ) {
-				$ids = array_map( 'sanitize_text_field', wp_unslash( $_POST['ids'] ) );
+				$ids = $this->get_posted_ids();
 			}
 
 			// Query completed orders with order date and total sales.
@@ -1160,7 +1160,7 @@ class OrderProcessorHelp {
 	/**
 	 * get_coupons.
 	 *
-	 * @version 4.1.0
+	 * @version 4.1.2
 	 */
 	public function get_coupons() {
 
@@ -1175,7 +1175,7 @@ class OrderProcessorHelp {
 			global $wpdb;
 
 			if ( isset( $_POST['ids'] ) ) {
-				$ids = array_map( 'sanitize_text_field', wp_unslash( $_POST['ids'] ) );
+				$ids = $this->get_posted_ids();
 			}
 
 			// Query completed orders with order date and total sales.
@@ -1247,7 +1247,7 @@ class OrderProcessorHelp {
 	/**
 	 * get_products.
 	 *
-	 * @version 4.1.0
+	 * @version 4.1.2
 	 */
 	public function get_products() {
 
@@ -1262,7 +1262,7 @@ class OrderProcessorHelp {
 			global $wpdb;
 
 			if ( isset( $_POST['ids'] ) ) {
-				$ids = array_map( 'sanitize_text_field', wp_unslash( $_POST['ids'] ) );
+				$ids = $this->get_posted_ids();
 			}
 
 			$prod = ( ! empty( $_POST['product'] ) ) ? sanitize_text_field( wp_unslash( $_POST['product'] ) ) : null;
@@ -1380,7 +1380,7 @@ class OrderProcessorHelp {
 	/**
 	 * get_categories.
 	 *
-	 * @version 4.1.0
+	 * @version 4.1.2
 	 */
 	public function get_categories() {
 
@@ -1395,7 +1395,7 @@ class OrderProcessorHelp {
 			global $wpdb;
 
 			if ( isset( $_POST['ids'] ) ) {
-				$ids = array_map( 'sanitize_text_field', wp_unslash( $_POST['ids'] ) );
+				$ids = $this->get_posted_ids();
 			}
 
 			$cat  = ( ! empty( $_POST['cat'] ) ) ? sanitize_text_field( wp_unslash( $_POST['cat'] ) ) : null;
@@ -1607,6 +1607,21 @@ class OrderProcessorHelp {
 		}
 
 		return $anForecast;
+	}
+
+	/**
+	 * get_posted_ids.
+	 *
+	 * @version 4.1.2
+	 * @since   4.1.2
+	 */
+	function get_posted_ids() {
+		return array_map(
+			'sanitize_text_field',
+			wp_unslash(
+				$_POST['ids']
+			)
+		);
 	}
 
 }

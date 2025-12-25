@@ -86,6 +86,9 @@ Please report security bugs found in the source code of the plugin through the [
 
 == Changelog ==
 
+= 4.1.2 - 25/12/2025 =
+* Dev - Code refactoring.
+
 = 4.1.1 - 23/12/2025 =
 * WC tested up to: 10.4.
 * Tested up to: 6.9.
