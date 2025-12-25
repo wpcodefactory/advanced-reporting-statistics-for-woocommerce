@@ -1265,8 +1265,8 @@ class OrderProcessorHelp {
 				$ids = $this->get_posted_ids();
 			}
 
-			$prod = ( ! empty( $_POST['product'] ) ) ? sanitize_text_field( wp_unslash( $_POST['product'] ) ) : null;
-			$cat  = ( ! empty( $_POST['cat'] ) ) ? sanitize_text_field( wp_unslash( $_POST['cat'] ) ) : null;
+			$prod = $this->get_posted_product_id();
+			$cat  = $this->get_posted_product_cat_id();
 
 			// Query completed orders with order date and total sales.
 			if ( OrderUtil::custom_orders_table_usage_is_enabled() ) {
@@ -1398,8 +1398,8 @@ class OrderProcessorHelp {
 				$ids = $this->get_posted_ids();
 			}
 
-			$cat  = ( ! empty( $_POST['cat'] ) ) ? sanitize_text_field( wp_unslash( $_POST['cat'] ) ) : null;
-			$prod = ( ! empty( $_POST['product'] ) ) ? sanitize_text_field( wp_unslash( $_POST['product'] ) ) : null;
+			$cat  = $this->get_posted_product_cat_id();
+			$prod = $this->get_posted_product_id();
 
 			if ( OrderUtil::custom_orders_table_usage_is_enabled() ) {
 
@@ -1621,6 +1621,42 @@ class OrderProcessorHelp {
 			wp_unslash(
 				$_POST['ids']
 			)
+		);
+	}
+
+	/**
+	 * get_posted_product_id.
+	 *
+	 * @version 4.1.2
+	 * @since   4.1.2
+	 */
+	function get_posted_product_id() {
+		return (
+			! empty( $_POST['product'] ) ?
+			sanitize_text_field(
+				wp_unslash(
+					$_POST['product']
+				)
+			) :
+			null
+		);
+	}
+
+	/**
+	 * get_posted_product_cat_id.
+	 *
+	 * @version 4.1.2
+	 * @since   4.1.2
+	 */
+	function get_posted_product_cat_id() {
+		return (
+			! empty( $_POST['cat'] ) ?
+			sanitize_text_field(
+				wp_unslash(
+					$_POST['cat']
+				)
+			) :
+			null
 		);
 	}
 
