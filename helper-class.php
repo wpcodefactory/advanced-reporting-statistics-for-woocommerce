@@ -1617,7 +1617,7 @@ class OrderProcessorHelp {
 	 */
 	function get_posted_ids() {
 		return array_map(
-			'sanitize_text_field',
+			'intval',
 			wp_unslash(
 				$_POST['ids']
 			)
@@ -1633,7 +1633,7 @@ class OrderProcessorHelp {
 	function get_posted_product_id() {
 		return (
 			! empty( $_POST['product'] ) ?
-			sanitize_text_field(
+			intval(
 				wp_unslash(
 					$_POST['product']
 				)
@@ -1651,7 +1651,7 @@ class OrderProcessorHelp {
 	function get_posted_product_cat_id() {
 		return (
 			! empty( $_POST['cat'] ) ?
-			sanitize_text_field(
+			intval(
 				wp_unslash(
 					$_POST['cat']
 				)
