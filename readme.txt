@@ -89,6 +89,8 @@ Please report security bugs found in the source code of the plugin through the [
 = 4.1.3 - 13/01/2026 =
 * Fix - Security - "SQL Injection" vulnerability fixed.
 * Fix - Security - "Sensitive Data Exposure" vulnerability fixed.
+* Dev - Code refactoring.
+* Dev - Coding standards improved.
 
 = 4.1.2 - 26/12/2025 =
 * Fix - Security - Input sanitized.

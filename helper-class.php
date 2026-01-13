@@ -1582,12 +1582,12 @@ class OrderProcessorHelp {
 	/**
 	 * get_posted_ids.
 	 *
-	 * @version 4.1.2
+	 * @version 4.1.3
 	 * @since   4.1.2
 	 */
 	function get_posted_ids() {
 		return array_map(
-			'intval',
+			'absint',
 			wp_unslash(
 				$_POST['ids']
 			)
@@ -1597,13 +1597,13 @@ class OrderProcessorHelp {
 	/**
 	 * get_posted_product_id.
 	 *
-	 * @version 4.1.2
+	 * @version 4.1.3
 	 * @since   4.1.2
 	 */
 	function get_posted_product_id() {
 		return (
 			! empty( $_POST['product'] ) ?
-			intval(
+			absint(
 				wp_unslash(
 					$_POST['product']
 				)
@@ -1615,13 +1615,13 @@ class OrderProcessorHelp {
 	/**
 	 * get_posted_product_cat_id.
 	 *
-	 * @version 4.1.2
+	 * @version 4.1.3
 	 * @since   4.1.2
 	 */
 	function get_posted_product_cat_id() {
 		return (
 			! empty( $_POST['cat'] ) ?
-			intval(
+			absint(
 				wp_unslash(
 					$_POST['cat']
 				)
