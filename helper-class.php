@@ -179,7 +179,7 @@ class OrderProcessorHelp {
 			$customer_id  = (
 				empty( $_POST['customer'] ) ?
 				null :
-				sanitize_text_field( wp_unslash( $_POST['customer'] ) )
+				absint( wp_unslash( $_POST['customer'] ) )
 			);
 			$order_status = (
 				empty( $_POST['order_status'] ) ?
@@ -294,7 +294,7 @@ class OrderProcessorHelp {
 				}
 
 				if ( ! empty( $_POST['customer'] ) ) {
-					$user = get_user_by( 'id', (int) $_POST['customer'] );
+					$user = get_user_by( 'id', absint( wp_unslash( $_POST['customer'] ) ) );
 					$message .= "<h3> for " .
 						esc_html( $user->first_name ) .
 						" " .
@@ -383,7 +383,7 @@ class OrderProcessorHelp {
 				}
 
 				if ( ! empty( $_POST['customer'] ) ) {
-					$user = get_user_by( 'id', (int) $_POST['customer'] );
+					$user = get_user_by( 'id', absint( wp_unslash( $_POST['customer'] ) ) );
 					$nomessage .= "<h3> " .
 						esc_html(
 							' for customer: ' .
@@ -410,7 +410,7 @@ class OrderProcessorHelp {
 	/**
 	 * filter_orders.
 	 *
-	 * @version 4.1.0
+	 * @version 4.1.3
 	 */
 	public function filter_orders() {
 
@@ -442,7 +442,7 @@ class OrderProcessorHelp {
 		$customer     = (
 			empty( $_POST['customer'] ) ?
 			'' :
-			sanitize_text_field( wp_unslash( $_POST['customer'] ) )
+			absint( wp_unslash( $_POST['customer'] ) )
 		);
 		$order_status = (
 			empty( $_POST['order_status'] ) ?
@@ -558,7 +558,7 @@ class OrderProcessorHelp {
 			}
 
 			if ( ! empty( $_POST['customer'] ) ) {
-				$user = get_user_by( 'id', (int) $_POST['customer'] );
+				$user = get_user_by( 'id', absint( wp_unslash( $_POST['customer'] ) ) );
 				$message .= "<h3> for " .
 					esc_html( $user->first_name ) .
 					" " .
@@ -702,7 +702,7 @@ class OrderProcessorHelp {
 				}
 
 				if ( ! empty( $_POST['customer'] ) ) {
-					$user = get_user_by( 'id', (int) $_POST['customer'] );
+					$user = get_user_by( 'id', absint( wp_unslash( $_POST['customer'] ) ) );
 					$nomessage .= "<h3> " .
 						esc_html(
 							' for customer: ' .
