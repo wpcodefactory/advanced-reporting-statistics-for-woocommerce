@@ -70,29 +70,32 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 	 */
 	public function __construct() {
 
-		add_action('admin_enqueue_scripts', array($this, 'BackEndScripts') );
+		add_action( 'admin_enqueue_scripts', array( $this, 'BackEndScripts' ) );
 
 		add_action( 'wpfactory_wc_ars_output_settings', array( $this, 'init' ) );
 
-		register_activation_hook( __FILE__,  array($this, 'onActivation') );
+		register_activation_hook( __FILE__, array( $this, 'onActivation' ) );
 
-		add_action("admin_init", array($this, 'settingsSection') );
+		add_action( 'admin_init', array( $this, 'settingsSection' ) );
 
-		if( isset( $_GET['page'] ) && $_GET['page'] == 'webd-woocommerce-reporting-statistics' ) {
-			add_action("admin_footer", array($this,"proModal" ) );
+		if (
+			isset( $_GET['page'] ) &&
+			'webd-woocommerce-reporting-statistics' === $_GET['page']
+		) {
+			add_action( 'admin_footer', array( $this, 'proModal' ) );
 		}
 
 		add_action( 'wp_ajax_stat_extensions', array( $this,'extensions' ) );
 
 		// Deactivation survey
-		include( plugin_dir_path(__FILE__) .'/lib/codecabin/plugin-deactivation-survey/deactivate-feedback-form.php');
-		add_filter( 'codecabin_deactivate_feedback_form_plugins', function( $plugins ) {
+		include( plugin_dir_path( __FILE__ ) . '/lib/codecabin/plugin-deactivation-survey/deactivate-feedback-form.php' );
+		add_filter( 'codecabin_deactivate_feedback_form_plugins', function ( $plugins ) {
 			$plugins[] = (object) array(
 				'slug'    => 'webd-woocommerce-advanced-reporting-statistics',
 				'version' => '3.1',
 			);
 			return $plugins;
-		});
+		} );
 
 	}
 

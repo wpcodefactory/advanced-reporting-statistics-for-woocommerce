@@ -105,25 +105,15 @@ class OrderProcessorHelp {
 	 * @version 4.1.3
 	 */
 	public function __construct() {
-
-		add_action( 'wp_ajax_getOrders',        array( $this,'getOrders' ) );
-
-		add_action( 'wp_ajax_get_orders',        array( $this,'get_orders' ) );
-
-		add_action( 'wp_ajax_get_customers',        array( $this,'get_customers' ) );
-
-		add_action( 'wp_ajax_get_countries',        array( $this,'get_countries' ) );
-
-		add_action( 'wp_ajax_get_payments',        array( $this,'get_payments' ) );
-
-		add_action( 'wp_ajax_get_coupons',        array( $this,'get_coupons' ) );
-
-		add_action( 'wp_ajax_get_products',        array( $this,'get_products' ) );
-
-		add_action( 'wp_ajax_get_categories',        array( $this,'get_categories' ) );
-
-		add_action( 'wp_ajax_display_orders_by_period',        array( $this,'display_orders_by_period' ) );
-
+		add_action( 'wp_ajax_getOrders', array( $this,'getOrders' ) );
+		add_action( 'wp_ajax_get_orders', array( $this,'get_orders' ) );
+		add_action( 'wp_ajax_get_customers', array( $this,'get_customers' ) );
+		add_action( 'wp_ajax_get_countries', array( $this,'get_countries' ) );
+		add_action( 'wp_ajax_get_payments', array( $this,'get_payments' ) );
+		add_action( 'wp_ajax_get_coupons', array( $this,'get_coupons' ) );
+		add_action( 'wp_ajax_get_products', array( $this,'get_products' ) );
+		add_action( 'wp_ajax_get_categories', array( $this,'get_categories' ) );
+		add_action( 'wp_ajax_display_orders_by_period', array( $this,'display_orders_by_period' ) );
 	}
 
 	/**
