@@ -176,11 +176,7 @@ class OrderProcessorHelp {
 			$status         = get_option( $this->plugin . '_status', $default_status );
 
 			// Post variables from filter form
-			$customer_id  = (
-				empty( $_POST['customer'] ) ?
-				null :
-				absint( wp_unslash( $_POST['customer'] ) )
-			);
+			$customer_id  = $this->get_posted_customer_id();
 			$order_status = (
 				empty( $_POST['order_status'] ) ?
 				$status :
@@ -294,7 +290,7 @@ class OrderProcessorHelp {
 				}
 
 				if ( ! empty( $_POST['customer'] ) ) {
-					$user = get_user_by( 'id', absint( wp_unslash( $_POST['customer'] ) ) );
+					$user = get_user_by( 'id', $this->get_posted_customer_id() );
 					$message .= "<h3> for " .
 						esc_html( $user->first_name ) .
 						" " .
@@ -383,7 +379,7 @@ class OrderProcessorHelp {
 				}
 
 				if ( ! empty( $_POST['customer'] ) ) {
-					$user = get_user_by( 'id', absint( wp_unslash( $_POST['customer'] ) ) );
+					$user = get_user_by( 'id', $this->get_posted_customer_id() );
 					$nomessage .= "<h3> " .
 						esc_html(
 							' for customer: ' .
@@ -439,11 +435,7 @@ class OrderProcessorHelp {
 		$default_status = array( 'wc-completed', 'wc-processing', 'wc-on-hold', 'wc-refunded' );
 		$status         = get_option( $this->plugin . '_status', $default_status );
 
-		$customer     = (
-			empty( $_POST['customer'] ) ?
-			'' :
-			absint( wp_unslash( $_POST['customer'] ) )
-		);
+		$customer     = $this->get_posted_customer_id();
 		$order_status = (
 			empty( $_POST['order_status'] ) ?
 			$status :
@@ -558,7 +550,7 @@ class OrderProcessorHelp {
 			}
 
 			if ( ! empty( $_POST['customer'] ) ) {
-				$user = get_user_by( 'id', absint( wp_unslash( $_POST['customer'] ) ) );
+				$user = get_user_by( 'id', $this->get_posted_customer_id() );
 				$message .= "<h3> for " .
 					esc_html( $user->first_name ) .
 					" " .
@@ -702,7 +694,7 @@ class OrderProcessorHelp {
 				}
 
 				if ( ! empty( $_POST['customer'] ) ) {
-					$user = get_user_by( 'id', absint( wp_unslash( $_POST['customer'] ) ) );
+					$user = get_user_by( 'id', $this->get_posted_customer_id() );
 					$nomessage .= "<h3> " .
 						esc_html(
 							' for customer: ' .
@@ -1632,6 +1624,24 @@ class OrderProcessorHelp {
 			intval(
 				wp_unslash(
 					$_POST['cat']
+				)
+			) :
+			null
+		);
+	}
+
+	/**
+	 * get_posted_customer_id.
+	 *
+	 * @version 4.1.3
+	 * @since   4.1.3
+	 */
+	function get_posted_customer_id() {
+		return (
+			! empty( $_POST['customer'] ) ?
+			absint(
+				wp_unslash(
+					$_POST['customer']
 				)
 			) :
 			null
