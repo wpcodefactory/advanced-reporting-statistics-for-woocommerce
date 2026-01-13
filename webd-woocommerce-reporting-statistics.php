@@ -3,7 +3,7 @@
  * Plugin Name: Advanced WooCommerce Product Sales Reporting - Statistics & Forecast
  * Plugin URI: https://extend-wp.com/advanced-reporting-statistics-plugin-for-woocommerce/
  * Description: A comprehensive WordPress Plugin for WooCommerce Reports, Statistics, Analytics & Forecasting Tool for Orders, Sales, Products, Countries, Payment Gateways Shipping, Tax, Refunds, Top Products.
- * Version: 4.1.2
+ * Version: 4.1.3-dev
  * Author: WPFactory
  * Author URI: https://wpfactory.com
  * WC requires at least: 2.2
@@ -19,7 +19,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-defined( 'WPFACTORY_WC_ARS_VERSION' ) || define( 'WPFACTORY_WC_ARS_VERSION', '4.1.2' );
+defined( 'WPFACTORY_WC_ARS_VERSION' ) || define( 'WPFACTORY_WC_ARS_VERSION', '4.1.3-dev-20260113-2201' );
 
 defined( 'WPFACTORY_WC_ARS_FILE' ) || define( 'WPFACTORY_WC_ARS_FILE', __FILE__ );
 
@@ -48,7 +48,7 @@ include_once( plugin_dir_path(__FILE__) ."/class-admin.php");
 /**
  * webdWoocommerceReportingStatistics class.
  *
- * @version 4.0.0
+ * @version 4.1.3
  *
  * @todo    (v4.0.0) cleanup notification (e.g., `push_not` AJAX action)
  * @todo    (v4.0.0) remove the "GO PRO" tab?
@@ -66,7 +66,7 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 	/**
 	 * Constructor.
 	 *
-	 * @version 4.0.0
+	 * @version 4.1.3
 	 */
 	public function __construct() {
 
@@ -82,7 +82,6 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 			add_action("admin_footer", array($this,"proModal" ) );
 		}
 
-		add_action( 'wp_ajax_nopriv_stat_extensions', array( $this,'extensions' ) );
 		add_action( 'wp_ajax_stat_extensions', array( $this,'extensions' ) );
 
 		// Deactivation survey

@@ -86,6 +86,9 @@ Please report security bugs found in the source code of the plugin through the [
 
 == Changelog ==
 
+= 4.1.3 - 13/01/2026 =
+* Fix - Security - "Sensitive Data Exposure" vulnerability fixed.
+
 = 4.1.2 - 26/12/2025 =
 * Fix - Security - Input sanitized.
 * Dev - Code refactoring.
