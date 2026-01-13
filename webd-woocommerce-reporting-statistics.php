@@ -19,7 +19,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-defined( 'WPFACTORY_WC_ARS_VERSION' ) || define( 'WPFACTORY_WC_ARS_VERSION', '4.1.3-dev-20260113-2201' );
+defined( 'WPFACTORY_WC_ARS_VERSION' ) || define( 'WPFACTORY_WC_ARS_VERSION', '4.1.3-dev-20260113-2210' );
 
 defined( 'WPFACTORY_WC_ARS_FILE' ) || define( 'WPFACTORY_WC_ARS_FILE', __FILE__ );
 

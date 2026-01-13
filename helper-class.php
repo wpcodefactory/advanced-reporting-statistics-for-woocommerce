@@ -157,7 +157,7 @@ class OrderProcessorHelp {
 	/**
 	 * display_orders_by_period.
 	 *
-	 * @version 4.1.0
+	 * @version 4.1.3
 	 *
 	 * @todo    (v4.1.0) `$topush = 0.1`?
 	 * @todo    (v4.1.0) `forecastHoltWinters()`?
@@ -166,7 +166,8 @@ class OrderProcessorHelp {
 
 		if (
 			'POST' === $_SERVER['REQUEST_METHOD'] &&
-			'display_orders_by_period' === $_POST['action']
+			'display_orders_by_period' === $_POST['action'] &&
+			current_user_can( 'manage_woocommerce' )
 		) {
 
 			global $wpdb;
@@ -463,13 +464,14 @@ class OrderProcessorHelp {
 	/**
 	 * getOrders.
 	 *
-	 * @version 4.1.0
+	 * @version 4.1.3
 	 */
 	public function getOrders() {
 
 		if (
 			'POST' === $_SERVER['REQUEST_METHOD'] &&
-			'getOrders' === $_POST['action']
+			'getOrders' === $_POST['action'] &&
+			current_user_can( 'manage_woocommerce' )
 		) {
 
 			$args = array(
@@ -729,16 +731,15 @@ class OrderProcessorHelp {
 	/**
 	 * get_orders.
 	 *
-	 * @version 4.1.2
+	 * @version 4.1.3
 	 */
 	public function get_orders() {
 
 		if (
 			is_admin() &&
-			(
-				isset( $_POST['action'] ) &&
-				'get_orders' === $_POST['action']
-			)
+			isset( $_POST['action'] ) &&
+			'get_orders' === $_POST['action'] &&
+			current_user_can( 'manage_woocommerce' )
 		) {
 
 			if ( isset( $_POST['page'] ) ) {
@@ -813,16 +814,15 @@ class OrderProcessorHelp {
 	/**
 	 * get_customers.
 	 *
-	 * @version 4.1.2
+	 * @version 4.1.3
 	 */
 	public function get_customers() {
 
 		if (
 			is_admin() &&
-			(
-				isset( $_POST['action'] ) &&
-				'get_customers' === $_POST['action']
-			)
+			isset( $_POST['action'] ) &&
+			'get_customers' === $_POST['action'] &&
+			current_user_can( 'manage_woocommerce' )
 		) {
 
 			global $wpdb;
@@ -946,16 +946,15 @@ class OrderProcessorHelp {
 	/**
 	 * get_countries.
 	 *
-	 * @version 4.1.2
+	 * @version 4.1.3
 	 */
 	public function get_countries() {
 
 		if (
 			is_admin() &&
-			(
-				isset( $_POST['action'] ) &&
-				'get_countries' === $_POST['action']
-			)
+			isset( $_POST['action'] ) &&
+			'get_countries' === $_POST['action'] &&
+			current_user_can( 'manage_woocommerce' )
 		) {
 
 			global $wpdb;
@@ -1045,16 +1044,15 @@ class OrderProcessorHelp {
 	/**
 	 * get_payments.
 	 *
-	 * @version 4.1.2
+	 * @version 4.1.3
 	 */
 	public function get_payments() {
 
 		if (
 			is_admin() &&
-			(
-				isset( $_POST['action'] ) &&
-				'get_payments' === $_POST['action']
-			)
+			isset( $_POST['action'] ) &&
+			'get_payments' === $_POST['action'] &&
+			current_user_can( 'manage_woocommerce' )
 		) {
 
 			global $wpdb;
@@ -1143,16 +1141,15 @@ class OrderProcessorHelp {
 	/**
 	 * get_coupons.
 	 *
-	 * @version 4.1.2
+	 * @version 4.1.3
 	 */
 	public function get_coupons() {
 
 		if (
 			is_admin() &&
-			(
-				isset( $_POST['action'] ) &&
-				'get_coupons' === $_POST['action']
-			)
+			isset( $_POST['action'] ) &&
+			'get_coupons' === $_POST['action'] &&
+			current_user_can( 'manage_woocommerce' )
 		) {
 
 			global $wpdb;
@@ -1230,16 +1227,15 @@ class OrderProcessorHelp {
 	/**
 	 * get_products.
 	 *
-	 * @version 4.1.2
+	 * @version 4.1.3
 	 */
 	public function get_products() {
 
 		if (
 			is_admin() &&
-			(
-				isset( $_POST['action'] ) &&
-				'get_products' === $_POST['action']
-			)
+			isset( $_POST['action'] ) &&
+			'get_products' === $_POST['action'] &&
+			current_user_can( 'manage_woocommerce' )
 		) {
 
 			global $wpdb;
@@ -1363,16 +1359,15 @@ class OrderProcessorHelp {
 	/**
 	 * get_categories.
 	 *
-	 * @version 4.1.2
+	 * @version 4.1.3
 	 */
 	public function get_categories() {
 
 		if (
 			is_admin() &&
-			(
-				isset( $_POST['action'] ) &&
-				'get_categories' === $_POST['action']
-			)
+			isset( $_POST['action'] ) &&
+			'get_categories' === $_POST['action'] &&
+			current_user_can( 'manage_woocommerce' )
 		) {
 
 			global $wpdb;
