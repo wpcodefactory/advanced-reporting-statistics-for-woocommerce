@@ -180,7 +180,7 @@ class OrderProcessorHelp {
 			$order_status = (
 				empty( $_POST['order_status'] ) ?
 				$status :
-				array( sanitize_text_field( wp_unslash( $_POST['order_status'] ) ) )
+				array( $this->get_posted_order_status() )
 			);
 			$period       = (
 				( isset( $_POST['tab'] ) && 'months' === $_POST['tab'] ) ?
@@ -281,7 +281,7 @@ class OrderProcessorHelp {
 				$totals      = array();
 
 				if ( ! empty( $_POST['order_status'] ) ) {
-					$order_status = array( sanitize_text_field( wp_unslash( $_POST['order_status'] ) ) );
+					$order_status = array( $this->get_posted_order_status() );
 					$message = "<h3> " .
 						esc_html__( 'Orders with Status', 'webd-woocommerce-reporting-statistics' ) .
 						" " .
@@ -371,7 +371,7 @@ class OrderProcessorHelp {
 				"</h3>";
 
 				if ( ! empty( $_POST['order_status'] ) ) {
-					$order_status = sanitize_text_field( wp_unslash( $_POST['order_status'] ) );
+					$order_status = $this->get_posted_order_status();
 					$nomessage .= "<h3> " .
 						esc_html__( ' with Status: ', 'webd-woocommerce-reporting-statistics' ) .
 						esc_html( $order_status ) .
@@ -439,7 +439,7 @@ class OrderProcessorHelp {
 		$order_status = (
 			empty( $_POST['order_status'] ) ?
 			$status :
-			sanitize_text_field( wp_unslash( $_POST['order_status'] ) )
+			$this->get_posted_order_status()
 		);
 
 		$filters = array(
@@ -515,7 +515,7 @@ class OrderProcessorHelp {
 			$message = '';
 
 			if ( ! empty( $_POST['order_status'] ) ) {
-				$order_status = array( sanitize_text_field( wp_unslash( $_POST['order_status'] ) ) );
+				$order_status = array( $this->get_posted_order_status() );
 				$message = "<h3> " .
 					esc_html__( 'Orders with Status', 'webd-woocommerce-reporting-statistics' ) .
 					" " .
@@ -665,7 +665,7 @@ class OrderProcessorHelp {
 				"</h3>";
 
 				if ( ! empty( $_POST['order_status'] ) ) {
-					$order_status = sanitize_text_field( wp_unslash( $_POST['order_status'] ) );
+					$order_status = $this->get_posted_order_status();
 					$nomessage .= "<h3> " .
 						esc_html__( ' with Status: ', 'webd-woocommerce-reporting-statistics' ) .
 						esc_html( $order_status ) .
@@ -1642,6 +1642,24 @@ class OrderProcessorHelp {
 			absint(
 				wp_unslash(
 					$_POST['customer']
+				)
+			) :
+			null
+		);
+	}
+
+	/**
+	 * get_posted_order_status.
+	 *
+	 * @version 4.1.3
+	 * @since   4.1.3
+	 */
+	function get_posted_order_status() {
+		return (
+			! empty( $_POST['order_status'] ) ?
+			sanitize_key(
+				wp_unslash(
+					$_POST['order_status']
 				)
 			) :
 			null
