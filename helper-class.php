@@ -2,7 +2,7 @@
 /**
  * Advanced WooCommerce Product Sales Reporting - Statistics & Forecast - OrderProcessorHelp Class
  *
- * @version 4.1.3
+ * @version 4.1.4
  *
  * @author  WPFactory
  */
@@ -118,6 +118,8 @@ class OrderProcessorHelp {
 
 	/**
 	 * periodFilter.
+	 *
+	 * @version 4.1.4
 	 */
 	public function periodFilter( $period ) {
 
@@ -146,7 +148,7 @@ class OrderProcessorHelp {
 			";
 		}
 
-		$periods = $wpdb->get_results( $query );
+		$periods = $wpdb->get_results( $wpdb->prepare( $query ) );
 
 		if ( $periods ) {
 			return $periods;
@@ -157,7 +159,7 @@ class OrderProcessorHelp {
 	/**
 	 * display_orders_by_period.
 	 *
-	 * @version 4.1.3
+	 * @version 4.1.4
 	 *
 	 * @todo    (v4.1.0) `$topush = 0.1`?
 	 * @todo    (v4.1.0) `forecastHoltWinters()`?
@@ -253,7 +255,7 @@ class OrderProcessorHelp {
 
 			$query .= " GROUP BY period ORDER BY period DESC ";
 
-			$results = $wpdb->get_results( $query );
+			$results = $wpdb->get_results( $wpdb->prepare( $query ) );
 
 			$message = '';
 
@@ -806,7 +808,7 @@ class OrderProcessorHelp {
 	/**
 	 * get_customers.
 	 *
-	 * @version 4.1.3
+	 * @version 4.1.4
 	 */
 	public function get_customers() {
 
@@ -890,7 +892,7 @@ class OrderProcessorHelp {
 
 			}
 
-			$data = $wpdb->get_results( $query );
+			$data = $wpdb->get_results( $wpdb->prepare( $query ) );
 
 			$response = array(
 				'customers' => '',
@@ -938,7 +940,7 @@ class OrderProcessorHelp {
 	/**
 	 * get_countries.
 	 *
-	 * @version 4.1.3
+	 * @version 4.1.4
 	 */
 	public function get_countries() {
 
@@ -996,7 +998,7 @@ class OrderProcessorHelp {
 				ORDER BY total DESC
 			";
 
-			$data = $wpdb->get_results( $query );
+			$data = $wpdb->get_results( $wpdb->prepare( $query ) );
 
 			$response = array(
 				'name'      => array(),
@@ -1036,7 +1038,7 @@ class OrderProcessorHelp {
 	/**
 	 * get_payments.
 	 *
-	 * @version 4.1.3
+	 * @version 4.1.4
 	 */
 	public function get_payments() {
 
@@ -1093,7 +1095,7 @@ class OrderProcessorHelp {
 				ORDER BY total DESC
 			";
 
-			$data = $wpdb->get_results( $query );
+			$data = $wpdb->get_results( $wpdb->prepare( $query ) );
 
 			$response = array(
 				'name'     => array(),
@@ -1133,7 +1135,7 @@ class OrderProcessorHelp {
 	/**
 	 * get_coupons.
 	 *
-	 * @version 4.1.3
+	 * @version 4.1.4
 	 */
 	public function get_coupons() {
 
@@ -1181,7 +1183,7 @@ class OrderProcessorHelp {
 				ORDER BY total DESC
 			";
 
-			$data = $wpdb->get_results( $query );
+			$data = $wpdb->get_results( $wpdb->prepare( $query ) );
 
 			$response = array(
 				'name'    => array(),
@@ -1219,7 +1221,7 @@ class OrderProcessorHelp {
 	/**
 	 * get_products.
 	 *
-	 * @version 4.1.3
+	 * @version 4.1.4
 	 */
 	public function get_products() {
 
@@ -1311,7 +1313,7 @@ class OrderProcessorHelp {
 				ORDER BY total DESC
 			";
 
-			$data = $wpdb->get_results( $query );
+			$data = $wpdb->get_results( $wpdb->prepare( $query ) );
 
 			$response = array(
 				'name'     => array(),
@@ -1351,7 +1353,7 @@ class OrderProcessorHelp {
 	/**
 	 * get_categories.
 	 *
-	 * @version 4.1.3
+	 * @version 4.1.4
 	 */
 	public function get_categories() {
 
@@ -1420,7 +1422,7 @@ class OrderProcessorHelp {
 				ORDER BY total DESC
 			";
 
-			$data = $wpdb->get_results( $query );
+			$data = $wpdb->get_results( $wpdb->prepare( $query ) );
 
 			$response = array(
 				'name'       => array(),

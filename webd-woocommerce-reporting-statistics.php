@@ -3,7 +3,7 @@
  * Plugin Name: Advanced WooCommerce Product Sales Reporting - Statistics & Forecast
  * Plugin URI: https://extend-wp.com/advanced-reporting-statistics-plugin-for-woocommerce/
  * Description: A comprehensive WordPress Plugin for WooCommerce Reports, Statistics, Analytics & Forecasting Tool for Orders, Sales, Products, Countries, Payment Gateways Shipping, Tax, Refunds, Top Products.
- * Version: 4.1.3
+ * Version: 4.1.4
  * Author: WPFactory
  * Author URI: https://wpfactory.com
  * WC requires at least: 2.2
@@ -14,12 +14,12 @@
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * Created On: 23-01-2019
- * Updated On: 14-01-2026
+ * Updated On: 19-01-2026
  */
 
 defined( 'ABSPATH' ) || exit;
 
-defined( 'WPFACTORY_WC_ARS_VERSION' ) || define( 'WPFACTORY_WC_ARS_VERSION', '4.1.3' );
+defined( 'WPFACTORY_WC_ARS_VERSION' ) || define( 'WPFACTORY_WC_ARS_VERSION', '4.1.4' );
 
 defined( 'WPFACTORY_WC_ARS_FILE' ) || define( 'WPFACTORY_WC_ARS_FILE', __FILE__ );
 

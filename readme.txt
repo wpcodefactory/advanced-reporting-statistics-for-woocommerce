@@ -4,7 +4,7 @@ Tags: reporting, woocommerce statistics, sales report, analytics, woocommerce sa
 Requires at least: 3.0.1
 Requires PHP: 5.2.4
 Tested up to: 6.9
-Stable tag: 4.1.3
+Stable tag: 4.1.4
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -85,6 +85,9 @@ Please report security bugs found in the source code of the plugin through the [
 3. Advanced WooCommerce Reporting - Statistics & Forecast | Analysis Grouped by Month and next Month's Forecast
 
 == Changelog ==
+
+= 4.1.4 - 19/01/2026 =
+* Fix - Security - "SQL Injection" vulnerability fixed (`wpdb::prepare()` applied).
 
 = 4.1.3 - 14/01/2026 =
 * Fix - Security - "SQL Injection" vulnerability fixed.
