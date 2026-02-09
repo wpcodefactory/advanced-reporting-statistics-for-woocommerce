@@ -1,4 +1,4 @@
-=== Advanced WooCommerce Product Sales Reporting - Statistics & Forecast  ===
+=== Advanced Reporting & Statistics for WooCommerce - Orders, Products & Customers Reporting  ===
 Contributors: wpcodefactory
 Tags: reporting, woocommerce statistics, sales report, analytics, woocommerce sales
 Requires at least: 3.0.1
