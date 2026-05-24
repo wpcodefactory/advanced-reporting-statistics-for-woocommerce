@@ -3,8 +3,8 @@ Contributors: wpcodefactory
 Tags: reporting, woocommerce statistics, sales report, analytics, woocommerce sales
 Requires at least: 3.0.1
 Requires PHP: 5.2.4
-Tested up to: 6.9
-Stable tag: 4.1.5
+Tested up to: 7.0
+Stable tag: 4.1.6
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -85,6 +85,10 @@ Please report security bugs found in the source code of the plugin through the [
 3. Advanced WooCommerce Reporting - Statistics & Forecast | Analysis Grouped by Month and next Month's Forecast
 
 == Changelog ==
+
+= 4.1.6 - 24/05/2026 =
+* Tested up to: 7.0.
+* WC tested up to: 10.7.
 
 = 4.1.5 - 09/02/2026 =
 * Plugin name updated.
