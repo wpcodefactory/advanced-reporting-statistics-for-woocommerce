@@ -1,0 +1,569 @@
+# Copyright (C) 2026 WPFactory
+# This file is distributed under the GNU General Public License v3.0.
+msgid ""
+msgstr ""
+"Project-Id-Version: Advanced WooCommerce Product Sales Reporting - Statistics & Forecast 4.1.5\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/advanced-reporting-statistics-for-woocommerce\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-02-09T17:42:02+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.11.0\n"
+"X-Domain: webd-woocommerce-advanced-reporting-statistics\n"
+
+#. Plugin Name of the plugin
+#: webd-woocommerce-reporting-statistics.php
+#: class-admin.php:174
+msgid "Advanced WooCommerce Product Sales Reporting - Statistics & Forecast"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: webd-woocommerce-reporting-statistics.php
+msgid "https://extend-wp.com/advanced-reporting-statistics-plugin-for-woocommerce/"
+msgstr ""
+
+#. Description of the plugin
+#: webd-woocommerce-reporting-statistics.php
+msgid "A comprehensive WordPress Plugin for WooCommerce Reports, Statistics, Analytics & Forecasting Tool for Orders, Sales, Products, Countries, Payment Gateways Shipping, Tax, Refunds, Top Products."
+msgstr ""
+
+#. Author of the plugin
+#: webd-woocommerce-reporting-statistics.php
+msgid "WPFactory"
+msgstr ""
+
+#. Author URI of the plugin
+#: webd-woocommerce-reporting-statistics.php
+msgid "https://wpfactory.com"
+msgstr ""
+
+#: class-admin.php:147
+msgid "Go PRO and get more important features!"
+msgstr ""
+
+#: class-admin.php:149
+msgid "Get Reports by Product"
+msgstr ""
+
+#: class-admin.php:150
+msgid "Get Reports by Product Category"
+msgstr ""
+
+#: class-admin.php:151
+msgid "Get Reports by City, Country, Payment Method"
+msgstr ""
+
+#: class-admin.php:152
+msgid "Next Months Forecast per Product / Category"
+msgstr ""
+
+#: class-admin.php:153
+msgid "Custom Report Builder including custom fields"
+msgstr ""
+
+#: class-admin.php:154
+msgid "Custom Set From - To date to Search"
+msgstr ""
+
+#: class-admin.php:155
+msgid "Get Reports by selecting Month or Year"
+msgstr ""
+
+#: class-admin.php:156
+msgid "Export reports in Excel"
+msgstr ""
+
+#: class-admin.php:157
+msgid "Current Selling Products Low Stock Products Reminder!"
+msgstr ""
+
+#: class-admin.php:158
+msgid "Low Stock Products Report"
+msgstr ""
+
+#: class-admin.php:159
+msgid "Email Report"
+msgstr ""
+
+#: class-admin.php:160
+msgid "GET IT HERE"
+msgstr ""
+
+#: class-admin.php:187
+msgid "GENERAL"
+msgstr ""
+
+#: class-admin.php:187
+msgid "PER YEAR"
+msgstr ""
+
+#: class-admin.php:187
+msgid "PER MONTH"
+msgstr ""
+
+#: class-admin.php:187
+msgid "TOP 5 PRODUCTS"
+msgstr ""
+
+#: class-admin.php:197
+msgid "GO PRO"
+msgstr ""
+
+#: class-admin.php:227
+#: class-admin.php:250
+msgid "Only available on PRO Version"
+msgstr ""
+
+#: class-admin.php:227
+#: class-admin.php:250
+msgid "Get it Here"
+msgstr ""
+
+#: class-admin.php:235
+msgid "Selling Products Low Stock Reminder"
+msgstr ""
+
+#: class-admin.php:236
+msgid "All Time Low Stock Products"
+msgstr ""
+
+#: class-admin.php:306
+msgid "Then please give us "
+msgstr ""
+
+#: class-admin.php:318
+#: class-admin.php:334
+msgid "Select..."
+msgstr ""
+
+#: class-admin.php:319
+msgid "yes"
+msgstr ""
+
+#: class-admin.php:320
+msgid "no"
+msgstr ""
+
+#: class-admin.php:335
+msgid "Daily"
+msgstr ""
+
+#: class-admin.php:336
+msgid "Weekly"
+msgstr ""
+
+#: class-admin.php:337
+msgid "Monthly"
+msgstr ""
+
+#: class-admin.php:357
+msgid "# Orders"
+msgstr ""
+
+#: class-admin.php:357
+#: class-admin.php:601
+#: class-admin.php:638
+#: class-admin.php:667
+msgid "Tax"
+msgstr ""
+
+#: class-admin.php:357
+msgid "Shipping"
+msgstr ""
+
+#: class-admin.php:357
+msgid "Discount"
+msgstr ""
+
+#: class-admin.php:357
+msgid "Refunds"
+msgstr ""
+
+#: class-admin.php:357
+msgid "Gross Total"
+msgstr ""
+
+#: class-admin.php:357
+msgid "Net Total"
+msgstr ""
+
+#: class-admin.php:369
+msgid "AVERAGE SALES"
+msgstr ""
+
+#: class-admin.php:370
+msgid "NEXT "
+msgstr ""
+
+#: class-admin.php:370
+msgid " SALES FORECAST"
+msgstr ""
+
+#: class-admin.php:379
+msgid "No Orders found..."
+msgstr ""
+
+#: class-admin.php:403
+msgid "Customer.."
+msgstr ""
+
+#: class-admin.php:422
+msgid "Query by..."
+msgstr ""
+
+#: class-admin.php:423
+msgid "Product - in PRO"
+msgstr ""
+
+#: class-admin.php:424
+msgid "Category - in PRO"
+msgstr ""
+
+#: class-admin.php:425
+msgid "City - in PRO"
+msgstr ""
+
+#: class-admin.php:426
+msgid "Country - in PRO"
+msgstr ""
+
+#: class-admin.php:427
+msgid "Payment Method - in PRO"
+msgstr ""
+
+#: class-admin.php:432
+msgid "Order Status"
+msgstr ""
+
+#: class-admin.php:448
+msgid "Preselected Period"
+msgstr ""
+
+#: class-admin.php:449
+msgid "Today"
+msgstr ""
+
+#: class-admin.php:450
+msgid "Yesterday"
+msgstr ""
+
+#: class-admin.php:451
+msgid "This Week"
+msgstr ""
+
+#: class-admin.php:452
+msgid "This Month"
+msgstr ""
+
+#: class-admin.php:453
+msgid "Last 2 Months"
+msgstr ""
+
+#: class-admin.php:454
+msgid "Last 3 Months"
+msgstr ""
+
+#: class-admin.php:455
+msgid "Last 6 Months"
+msgstr ""
+
+#: class-admin.php:460
+msgid "Select Month.."
+msgstr ""
+
+#: class-admin.php:469
+msgid "Select Year.."
+msgstr ""
+
+#: class-admin.php:525
+#: class-admin.php:600
+msgid "Orders"
+msgstr ""
+
+#: class-admin.php:526
+msgid "Customers"
+msgstr ""
+
+#: class-admin.php:527
+msgid "Products"
+msgstr ""
+
+#: class-admin.php:528
+msgid "Categories"
+msgstr ""
+
+#: class-admin.php:529
+msgid "Countries"
+msgstr ""
+
+#: class-admin.php:530
+msgid "Payment Methods"
+msgstr ""
+
+#: class-admin.php:531
+msgid "Coupons"
+msgstr ""
+
+#: class-admin.php:554
+msgid "ORDERS PLACED"
+msgstr ""
+
+#: class-admin.php:556
+msgid "Choose your custom fields - PRO "
+msgstr ""
+
+#: class-admin.php:557
+#: class-admin.php:594
+#: class-admin.php:625
+#: class-admin.php:660
+#: class-admin.php:691
+#: class-admin.php:862
+#: class-admin.php:918
+msgid "Export / PRO"
+msgstr ""
+
+#: class-admin.php:558
+#: class-admin.php:595
+#: class-admin.php:626
+#: class-admin.php:661
+#: class-admin.php:692
+#: class-admin.php:722
+#: class-admin.php:752
+msgid "Search..."
+msgstr ""
+
+#: class-admin.php:592
+msgid "PAYMENT METHODS"
+msgstr ""
+
+#: class-admin.php:599
+msgid "Payment Method"
+msgstr ""
+
+#: class-admin.php:602
+#: class-admin.php:639
+#: class-admin.php:668
+#: class-admin.php:699
+#: class-admin.php:728
+#: class-admin.php:820
+#: class-admin.php:856
+msgid "Sales"
+msgstr ""
+
+#: class-admin.php:604
+#: class-admin.php:670
+#: class-admin.php:701
+#: class-admin.php:730
+#: class-admin.php:759
+msgid "TOTALS"
+msgstr ""
+
+#: class-admin.php:623
+msgid "CUSTOMERS"
+msgstr ""
+
+#: class-admin.php:630
+msgid "Customer Name"
+msgstr ""
+
+#: class-admin.php:631
+msgid "Phone"
+msgstr ""
+
+#: class-admin.php:632
+msgid "Email"
+msgstr ""
+
+#: class-admin.php:633
+#: class-admin.php:665
+msgid "Country"
+msgstr ""
+
+#: class-admin.php:634
+msgid "State"
+msgstr ""
+
+#: class-admin.php:635
+msgid "City"
+msgstr ""
+
+#: class-admin.php:636
+msgid "Company"
+msgstr ""
+
+#: class-admin.php:637
+#: class-admin.php:666
+msgid "# of Orders"
+msgstr ""
+
+#: class-admin.php:658
+msgid "COUNTRIES"
+msgstr ""
+
+#: class-admin.php:687
+msgid "PRODUCTS"
+msgstr ""
+
+#: class-admin.php:690
+#: class-admin.php:721
+msgid "Amounts before tax and total discount"
+msgstr ""
+
+#: class-admin.php:696
+#: class-admin.php:818
+#: class-admin.php:905
+msgid "Product"
+msgstr ""
+
+#: class-admin.php:697
+msgid "SKU"
+msgstr ""
+
+#: class-admin.php:698
+#: class-admin.php:727
+#: class-admin.php:906
+msgid "Items Sold"
+msgstr ""
+
+#: class-admin.php:718
+msgid "CATEGORIES"
+msgstr ""
+
+#: class-admin.php:726
+#: class-admin.php:817
+msgid "Category"
+msgstr ""
+
+#: class-admin.php:750
+msgid "COUPONS"
+msgstr ""
+
+#: class-admin.php:756
+msgid "Coupon"
+msgstr ""
+
+#: class-admin.php:757
+msgid "Total"
+msgstr ""
+
+#: class-admin.php:814
+msgid "ALL TIMES TOP 5 SELLING PRODUCTS"
+msgstr ""
+
+#: class-admin.php:819
+msgid "Quantity"
+msgstr ""
+
+#: class-admin.php:843
+msgid "There is no sale yet!"
+msgstr ""
+
+#: class-admin.php:850
+msgid "All Time Low Stock Products( < 5 items )"
+msgstr ""
+
+#: class-admin.php:854
+msgid "Title"
+msgstr ""
+
+#: class-admin.php:855
+msgid "Stock"
+msgstr ""
+
+#: class-admin.php:860
+#: class-admin.php:916
+msgid "PRO VERSION ONLY- get it Here!"
+msgstr ""
+
+#: class-admin.php:862
+#: class-admin.php:918
+msgid "Search / PRO."
+msgstr ""
+
+#: class-admin.php:901
+msgid "Last 30 days Selling Products Stock Reminder"
+msgstr ""
+
+#: class-admin.php:907
+msgid "In Stock"
+msgstr ""
+
+#: class-admin.php:908
+msgid "Sales Amount"
+msgstr ""
+
+#: class-admin.php:909
+msgid "Sales Every (days)"
+msgstr ""
+
+#: class-admin.php:910
+msgid "Avg Quantity Sold / Order"
+msgstr ""
+
+#: class-admin.php:911
+msgid "Next Order Forecasted Quantity"
+msgstr ""
+
+#: class-admin.php:912
+msgid "Days Left to Out of Stock"
+msgstr ""
+
+#: class-admin.php:944
+msgid "More Plugins to Make your life easier by ExtendWP!"
+msgstr ""
+
+#: class-admin.php:957
+msgid "Get it here"
+msgstr ""
+
+#: helper-class.php:288
+#: helper-class.php:522
+msgid "Orders with Status"
+msgstr ""
+
+#: helper-class.php:372
+#: helper-class.php:666
+msgid "No Orders "
+msgstr ""
+
+#: helper-class.php:378
+#: helper-class.php:672
+msgid " with Status: "
+msgstr ""
+
+#: helper-class.php:536
+msgid "Analysis for period"
+msgstr ""
+
+#: helper-class.php:546
+msgid "This Month Analysis"
+msgstr ""
+
+#: helper-class.php:683
+#: helper-class.php:692
+msgid " for "
+msgstr ""
+
+#: helper-class.php:686
+msgid "to"
+msgstr ""
+
+#: includes/class-wpfactory-wc-ars.php:149
+msgid "Reports"
+msgstr ""
+
+#: includes/class-wpfactory-wc-ars.php:154
+msgid "Go Pro"
+msgstr ""
+
+#: includes/class-wpfactory-wc-ars.php:195
+#: includes/class-wpfactory-wc-ars.php:196
+msgid "Reporting & Statistics"
+msgstr ""
+
+#: webd-woocommerce-reporting-statistics.php:189
+msgid "Statistics"
+msgstr ""

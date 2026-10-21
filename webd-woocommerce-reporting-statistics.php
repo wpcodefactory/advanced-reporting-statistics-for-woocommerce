@@ -3,23 +3,23 @@
  * Plugin Name: Advanced WooCommerce Product Sales Reporting - Statistics & Forecast
  * Plugin URI: https://extend-wp.com/advanced-reporting-statistics-plugin-for-woocommerce/
  * Description: A comprehensive WordPress Plugin for WooCommerce Reports, Statistics, Analytics & Forecasting Tool for Orders, Sales, Products, Countries, Payment Gateways Shipping, Tax, Refunds, Top Products.
- * Version: 4.1.6
+ * Version: 4.1.7-dev
  * Author: WPFactory
  * Author URI: https://wpfactory.com
  * WC requires at least: 2.2
  * WC tested up to: 10.7
  * Requires Plugins: woocommerce
- * Text Domain: webd-woocommerce-reporting-statistics
+ * Text Domain: webd-woocommerce-advanced-reporting-statistics
  * Domain Path: /langs
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * Created On: 23-01-2019
- * Updated On: 24-05-2026
+ * Updated On: 21-10-2026
  */
 
 defined( 'ABSPATH' ) || exit;
 
-defined( 'WPFACTORY_WC_ARS_VERSION' ) || define( 'WPFACTORY_WC_ARS_VERSION', '4.1.6' );
+defined( 'WPFACTORY_WC_ARS_VERSION' ) || define( 'WPFACTORY_WC_ARS_VERSION', '4.1.7-dev-20261021-1717' );
 
 defined( 'WPFACTORY_WC_ARS_FILE' ) || define( 'WPFACTORY_WC_ARS_FILE', __FILE__ );
 
@@ -117,7 +117,7 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 	/**
 	 * BackEndScripts.
 	 *
-	 * @version 4.0.0
+	 * @version 4.1.7
 	 *
 	 * @todo    (v4.0.0) add `version`, etc.
 	 */
@@ -155,10 +155,10 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 				'ajax_url'       => admin_url( 'admin-ajax.php' ),
 				'siteUrl'        => site_url(),
 				'plugin_wrapper' => "webd-woocommerce-reporting-statistics",
-				'select'         => esc_html__( 'Select...', $this->plugin ),
-				'orders_loading' => esc_html__( "Your orders are loading please wait...", $this->plugin ),
-				'orders_loaded'  => esc_html__( "All orders are loaded!", $this->plugin ),
-				'no_orders'      => esc_html__( "No orders found...", $this->plugin ),
+				'select'         => esc_html__( 'Select...', 'webd-woocommerce-advanced-reporting-statistics' ),
+				'orders_loading' => esc_html__( "Your orders are loading please wait...", 'webd-woocommerce-advanced-reporting-statistics' ),
+				'orders_loaded'  => esc_html__( "All orders are loaded!", 'webd-woocommerce-advanced-reporting-statistics' ),
+				'no_orders'      => esc_html__( "No orders found...", 'webd-woocommerce-advanced-reporting-statistics' ),
 				'page'           => $this->slug,
 				'tab'            => array( 'all' ),
 				'custom_fields'  => get_option( $this->plugin."_custom_fields" ),
@@ -186,7 +186,7 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 	public function initStats() {
 		print "<div class='". $this->plugin ."'>";
 		$this->adminHeader();
-		echo "<h3>". esc_html__('Statistics',"webd-woocommerce-reporting-statistics") ."</h3>";
+		echo "<h3>". esc_html__('Statistics',"webd-woocommerce-advanced-reporting-statistics") ."</h3>";
 		echo do_shortcode( '[adStats]' );
 		$this->adminFooter();
 		print "</div>";

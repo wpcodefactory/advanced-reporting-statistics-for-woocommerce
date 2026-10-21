@@ -2,7 +2,7 @@
 /**
  * Advanced WooCommerce Product Sales Reporting - Statistics & Forecast - OrderProcessorHelp Class
  *
- * @version 4.1.4
+ * @version 4.1.7
  *
  * @author  WPFactory
  */
@@ -159,7 +159,7 @@ class OrderProcessorHelp {
 	/**
 	 * display_orders_by_period.
 	 *
-	 * @version 4.1.4
+	 * @version 4.1.7
 	 *
 	 * @todo    (v4.1.0) `$topush = 0.1`?
 	 * @todo    (v4.1.0) `forecastHoltWinters()`?
@@ -285,7 +285,7 @@ class OrderProcessorHelp {
 				if ( ! empty( $_POST['order_status'] ) ) {
 					$order_status = array( $this->get_posted_order_status() );
 					$message = "<h3> " .
-						esc_html__( 'Orders with Status', 'webd-woocommerce-reporting-statistics' ) .
+						esc_html__( 'Orders with Status', 'webd-woocommerce-advanced-reporting-statistics' ) .
 						" " .
 						esc_html( implode( "','", $order_status ) ) .
 					" </h3>";
@@ -369,13 +369,13 @@ class OrderProcessorHelp {
 			} else {
 
 				$nomessage = "<h3> " .
-					esc_html__( 'No Orders ', 'webd-woocommerce-reporting-statistics' ) .
+					esc_html__( 'No Orders ', 'webd-woocommerce-advanced-reporting-statistics' ) .
 				"</h3>";
 
 				if ( ! empty( $_POST['order_status'] ) ) {
 					$order_status = $this->get_posted_order_status();
 					$nomessage .= "<h3> " .
-						esc_html__( ' with Status: ', 'webd-woocommerce-reporting-statistics' ) .
+						esc_html__( ' with Status: ', 'webd-woocommerce-advanced-reporting-statistics' ) .
 						esc_html( $order_status ) .
 					"</h3>";
 				}
@@ -458,7 +458,7 @@ class OrderProcessorHelp {
 	/**
 	 * getOrders.
 	 *
-	 * @version 4.1.3
+	 * @version 4.1.7
 	 */
 	public function getOrders() {
 
@@ -519,7 +519,7 @@ class OrderProcessorHelp {
 			if ( ! empty( $_POST['order_status'] ) ) {
 				$order_status = array( $this->get_posted_order_status() );
 				$message = "<h3> " .
-					esc_html__( 'Orders with Status', 'webd-woocommerce-reporting-statistics' ) .
+					esc_html__( 'Orders with Status', 'webd-woocommerce-advanced-reporting-statistics' ) .
 					" " .
 					esc_html( implode( "','", $order_status ) ) .
 				" </h3>";
@@ -533,7 +533,7 @@ class OrderProcessorHelp {
 				if ( ! empty( $_POST['selected'] ) ) {
 					$selected = sanitize_text_field( wp_unslash( $_POST['selected'] ) );
 					$message .= "<h3>" .
-						esc_html__( 'Analysis for period', 'webd-woocommerce-reporting-statistics' ) .
+						esc_html__( 'Analysis for period', 'webd-woocommerce-advanced-reporting-statistics' ) .
 						" " .
 						date( 'd/m/Y', strtotime( $selected ) ) .
 						" to " .
@@ -543,7 +543,7 @@ class OrderProcessorHelp {
 					$this->datediff = abs( round( $this->datediff / DAY_IN_SECONDS ) );
 				} else {
 					$message .= "<h3>" .
-						esc_html__( 'This Month Analysis', 'webd-woocommerce-reporting-statistics' ) .
+						esc_html__( 'This Month Analysis', 'webd-woocommerce-advanced-reporting-statistics' ) .
 					"</h3>";
 					$this->datediff = strtotime( $today ) - strtotime( date( 'Y-m-01' ) );
 					$this->datediff = round( $this->datediff / DAY_IN_SECONDS );
@@ -663,13 +663,13 @@ class OrderProcessorHelp {
 				$todayDisplay = date( 'd/m/Y', strtotime( $date ) );
 
 				$nomessage = "<h3> " .
-					esc_html__( 'No Orders ', 'webd-woocommerce-reporting-statistics' ) .
+					esc_html__( 'No Orders ', 'webd-woocommerce-advanced-reporting-statistics' ) .
 				"</h3>";
 
 				if ( ! empty( $_POST['order_status'] ) ) {
 					$order_status = $this->get_posted_order_status();
 					$nomessage .= "<h3> " .
-						esc_html__( ' with Status: ', 'webd-woocommerce-reporting-statistics' ) .
+						esc_html__( ' with Status: ', 'webd-woocommerce-advanced-reporting-statistics' ) .
 						esc_html( $order_status ) .
 					"</h3>";
 				}
@@ -680,16 +680,16 @@ class OrderProcessorHelp {
 				) {
 					if ( ! empty( $_POST['selected'] ) ) {
 						$nomessage .= "<h3> " .
-							esc_html__( ' for ', 'webd-woocommerce-reporting-statistics' ) .
+							esc_html__( ' for ', 'webd-woocommerce-advanced-reporting-statistics' ) .
 							esc_html( date( 'd/m/Y', strtotime( sanitize_text_field( wp_unslash( $_POST['selected'] ) ) ) ) ) .
 							" " .
-							esc_html__( 'to', 'webd-woocommerce-reporting-statistics' ) .
+							esc_html__( 'to', 'webd-woocommerce-advanced-reporting-statistics' ) .
 							" " .
 							esc_html( $todayDisplay ) .
 						"</h3>";
 					} else {
 						$nomessage .= "<h3> " .
-							esc_html__( ' for ', 'webd-woocommerce-reporting-statistics' ) .
+							esc_html__( ' for ', 'webd-woocommerce-advanced-reporting-statistics' ) .
 							date( 'F' ) .
 						"</h3>";
 					}

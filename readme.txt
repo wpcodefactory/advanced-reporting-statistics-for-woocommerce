@@ -86,6 +86,10 @@ Please report security bugs found in the source code of the plugin through the [
 
 == Changelog ==
 
+= 4.1.7 - 21/10/2026 =
+* Fix - Text domain updated to match the WordPress.org plugin slug (`webd-woocommerce-advanced-reporting-statistics`).
+* Dev - Language files (POT/PO/MO) renamed to the new text domain.
+
 = 4.1.6 - 24/05/2026 =
 * Tested up to: 7.0.
 * WC tested up to: 10.7.

@@ -2,7 +2,7 @@
 /**
  * Advanced WooCommerce Product Sales Reporting - Statistics & Forecast - Main Class
  *
- * @version 4.0.0
+ * @version 4.1.7
  * @since   4.0.0
  *
  * @author  WPFactory
@@ -77,14 +77,12 @@ final class WPFactory_WC_ARS {
 	/**
 	 * localize.
 	 *
-	 * @version 4.0.0
+	 * @version 4.1.7
 	 * @since   4.0.0
-	 *
-	 * @todo    (v4.0.0) text domain should be `webd-woocommerce-advanced-reporting-statistics`
 	 */
 	function localize() {
 		load_plugin_textdomain(
-			'webd-woocommerce-reporting-statistics',
+			'webd-woocommerce-advanced-reporting-statistics',
 			false,
 			dirname( plugin_basename( WPFACTORY_WC_ARS_FILE ) ) . '/langs/'
 		);
@@ -136,7 +134,7 @@ final class WPFactory_WC_ARS {
 	/**
 	 * action_links.
 	 *
-	 * @version 4.0.0
+	 * @version 4.1.7
 	 * @since   4.0.0
 	 *
 	 * @param   mixed $links
@@ -146,12 +144,12 @@ final class WPFactory_WC_ARS {
 		$custom_links = array();
 
 		$custom_links[] = '<a href="' . admin_url( 'admin.php?page=webd-woocommerce-reporting-statistics' ) . '">' .
-			__( 'Reports', 'webd-woocommerce-reporting-statistics' ) .
+			__( 'Reports', 'webd-woocommerce-advanced-reporting-statistics' ) .
 		'</a>';
 
 		$pro_url = 'https://extend-wp.com/product/woocommerce-advanced-reporting-statistics/';
 		$custom_links[] = '<a target="_blank" style="font-weight: bold; color: green;" href="' . $pro_url . '">' .
-			__( 'Go Pro', 'webd-woocommerce-reporting-statistics' ) .
+			__( 'Go Pro', 'webd-woocommerce-advanced-reporting-statistics' ) .
 		'</a>';
 
 		return array_merge( $custom_links, $links );
@@ -179,7 +177,7 @@ final class WPFactory_WC_ARS {
 	/**
 	 * add_settings.
 	 *
-	 * @version 4.0.0
+	 * @version 4.1.7
 	 * @since   4.0.0
 	 */
 	function add_settings() {
@@ -192,8 +190,8 @@ final class WPFactory_WC_ARS {
 
 		add_submenu_page(
 			$admin_menu->get_menu_slug(),
-			__( 'Reporting & Statistics', 'webd-woocommerce-reporting-statistics' ),
-			__( 'Reporting & Statistics', 'webd-woocommerce-reporting-statistics' ),
+			__( 'Reporting & Statistics', 'webd-woocommerce-advanced-reporting-statistics' ),
+			__( 'Reporting & Statistics', 'webd-woocommerce-advanced-reporting-statistics' ),
 			'manage_woocommerce',
 			'webd-woocommerce-reporting-statistics',
 			array( $this, 'output_settings' ),

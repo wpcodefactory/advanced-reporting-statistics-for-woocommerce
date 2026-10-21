@@ -12,7 +12,7 @@ msgstr ""
 "POT-Creation-Date: 2026-02-09T17:42:02+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
-"X-Domain: webd-woocommerce-reporting-statistics\n"
+"X-Domain: webd-woocommerce-advanced-reporting-statistics\n"
 
 #. Plugin Name of the plugin
 #: webd-woocommerce-reporting-statistics.php
