@@ -1,13 +1,13 @@
 <?php
 /*
- * Plugin Name: Advanced WooCommerce Product Sales Reporting - Statistics & Forecast
+ * Plugin Name: Advanced Reporting and Statistics for WooCommerce
  * Plugin URI: https://extend-wp.com/advanced-reporting-statistics-plugin-for-woocommerce/
  * Description: A comprehensive WordPress Plugin for WooCommerce Reports, Statistics, Analytics & Forecasting Tool for Orders, Sales, Products, Countries, Payment Gateways Shipping, Tax, Refunds, Top Products.
  * Version: 4.1.7-dev
  * Author: WPFactory
  * Author URI: https://wpfactory.com
  * WC requires at least: 2.2
- * WC tested up to: 10.7
+ * WC tested up to: 11.2
  * Requires Plugins: woocommerce
  * Text Domain: webd-woocommerce-advanced-reporting-statistics
  * Domain Path: /langs
@@ -194,4 +194,4 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 
 }
 
-$initialize = new webdWoocommerceReportingStatistics();
+$webd_wc_ars_initialize = new webdWoocommerceReportingStatistics();

@@ -390,6 +390,11 @@ class webdWoocommerceReportingStatisticsAdmin {
 		<?php
 	}
 
+	/**
+	 * displayFilterForm.
+	 *
+	 * @version 4.1.7
+	 */
 	public function displayFilterForm() {
 
 		$this->progress();
@@ -399,7 +404,7 @@ class webdWoocommerceReportingStatisticsAdmin {
 
 		<form method='post'  id='selectDates' autocomplete="off" role="presentation" >
 
-				<select name='customer' class='dateFilter'>
+				<select name='customer' id='customer' class='dateFilter'>
 					<option value=''><?php esc_html_e( 'Customer..',"webd-woocommerce-advanced-reporting-statistics" );?></option>
 				<?php
 
@@ -411,9 +416,16 @@ class webdWoocommerceReportingStatisticsAdmin {
 				);
 				$custs = $customer_query->get_results();
 
-						foreach($custs as $res){
+						foreach ( $custs as $res ) {
 							$user_info = get_userdata( $res->ID );
-							echo "<option  value='".esc_attr( $res->ID )."'>" . esc_attr( $user_info->first_name . " " . $user_info->last_name ) . "</option>";
+							$name      = trim( $user_info->first_name . ' ' . $user_info->last_name );
+							if ( '' === $name ) {
+								$name = $user_info->display_name;
+							}
+							if ( '' === $name ) {
+								$name = $user_info->user_login;
+							}
+							echo "<option value='" . esc_attr( $res->ID ) . "'>" . esc_html( $name ) . "</option>";
 						}
 				?>
 				</select>

@@ -1,12 +1,15 @@
 .wordpress-org/ export-ignore
+.gitattributes export-ignore
+.distignore export-ignore
 .gitignore export-ignore
+.idea/ export-ignore
 .github export-ignore
 README.md export-ignore
 composer.lock export-ignore
 # GIT - Release version
-/git-tag.sh export-ignore
+git-tag.sh export-ignore
 # Composer
 composer.json
-composer.lock export ignore
+composer.lock export-ignore
 includes/pro/composer.lock export-ignore
 includes/pro/composer.json

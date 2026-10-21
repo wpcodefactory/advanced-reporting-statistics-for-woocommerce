@@ -1,6 +1,6 @@
 <?php
 /**
- * Advanced WooCommerce Product Sales Reporting - Statistics & Forecast - OrderProcessorHelp Class
+ * Advanced Reporting and Statistics for WooCommerce - OrderProcessorHelp Class
  *
  * @version 4.1.7
  *
@@ -190,6 +190,8 @@ class OrderProcessorHelp {
 				'%Y'
 			);
 
+			$prepare_args = $order_status;
+
 			// Query completed orders with order date and total sales.
 			if ( OrderUtil::custom_orders_table_usage_is_enabled() ) {
 
@@ -211,11 +213,20 @@ class OrderProcessorHelp {
 					LEFT JOIN {$wpdb->prefix}wc_order_operational_data AS operational_data ON orders.id = operational_data.order_id
 				";
 
-				$query .= " WHERE orders.type IN( 'shop_order','shop_order_refund' ) AND orders.status IN ('" . implode( "','", $order_status ) . "') ";
+				$query .= " WHERE orders.type IN( 'shop_order','shop_order_refund' ) AND orders.status IN (" . implode( ',', array_fill( 0, count( $order_status ), '%s' ) ) . ") ";
 
 				// Add the customer ID filter if provided
 				if ( $customer_id ) {
-					$query .= " AND orders.customer_id = '{$customer_id}' ";
+					$customer_emails = $this->get_customer_emails( $customer_id );
+					$query        .= " AND ( orders.customer_id = %d";
+					if ( $customer_emails ) {
+						$query .= " OR orders.billing_email IN (" . implode( ',', array_fill( 0, count( $customer_emails ), '%s' ) ) . ")";
+					}
+					$query        .= " ) ";
+					$prepare_args[] = $customer_id;
+					foreach ( $customer_emails as $customer_email ) {
+						$prepare_args[] = $customer_email;
+					}
 				}
 
 			} else {
@@ -241,21 +252,31 @@ class OrderProcessorHelp {
 
 				if ( $customer_id ) {
 					$query .= " LEFT JOIN {$wpdb->prefix}postmeta AS meta_customer ON ( {$wpdb->prefix}posts.ID = meta_customer.post_id OR {$wpdb->prefix}posts.post_parent = meta_customer.post_id ) AND meta_customer.meta_key = '_customer_user' ";
+					$query .= " LEFT JOIN {$wpdb->prefix}postmeta AS meta_billing_email ON ( {$wpdb->prefix}posts.ID = meta_billing_email.post_id OR {$wpdb->prefix}posts.post_parent = meta_billing_email.post_id ) AND meta_billing_email.meta_key = '_billing_email' ";
 				}
 
 				$query .= "
-					WHERE post_type IN( 'shop_order','shop_order_refund' ) AND {$wpdb->prefix}posts.post_status IN ('" . implode( "','", $order_status ) . "')";
+					WHERE post_type IN( 'shop_order','shop_order_refund' ) AND {$wpdb->prefix}posts.post_status IN (" . implode( ',', array_fill( 0, count( $order_status ), '%s' ) ) . ")";
 
 				// Add the customer ID filter if provided
 				if ( $customer_id ) {
-					$query .= " AND meta_customer.meta_value = '{$customer_id}'";
+					$customer_emails = $this->get_customer_emails( $customer_id );
+					$query        .= " AND ( meta_customer.meta_value = %d";
+					if ( $customer_emails ) {
+						$query .= " OR meta_billing_email.meta_value IN (" . implode( ',', array_fill( 0, count( $customer_emails ), '%s' ) ) . ")";
+					}
+					$query        .= " )";
+					$prepare_args[] = $customer_id;
+					foreach ( $customer_emails as $customer_email ) {
+						$prepare_args[] = $customer_email;
+					}
 				}
 
 			}
 
 			$query .= " GROUP BY period ORDER BY period DESC ";
 
-			$results = $wpdb->get_results( $wpdb->prepare( $query ) );
+			$results = $wpdb->get_results( $wpdb->prepare( $query, $prepare_args ) );
 
 			$message = '';
 
@@ -292,11 +313,8 @@ class OrderProcessorHelp {
 				}
 
 				if ( ! empty( $_POST['customer'] ) ) {
-					$user = get_user_by( 'id', $this->get_posted_customer_id() );
 					$message .= "<h3> for " .
-						esc_html( $user->first_name ) .
-						" " .
-						esc_html( $user->last_name ) .
+						esc_html( $this->get_customer_display_name( $this->get_posted_customer_id() ) ) .
 					" </h3>";
 				}
 
@@ -381,13 +399,10 @@ class OrderProcessorHelp {
 				}
 
 				if ( ! empty( $_POST['customer'] ) ) {
-					$user = get_user_by( 'id', $this->get_posted_customer_id() );
 					$nomessage .= "<h3> " .
 						esc_html(
 							' for customer: ' .
-							$user->first_name .
-							" " .
-							$user->last_name
+							$this->get_customer_display_name( $this->get_posted_customer_id() )
 						) .
 					"</h3>";
 				}
@@ -408,7 +423,7 @@ class OrderProcessorHelp {
 	/**
 	 * filter_orders.
 	 *
-	 * @version 4.1.3
+	 * @version 4.1.7
 	 */
 	public function filter_orders() {
 
@@ -445,9 +460,12 @@ class OrderProcessorHelp {
 		);
 
 		$filters = array(
-			'customer_id' => $customer,
-			'status'      => $order_status,
+			'status' => $order_status,
 		);
+
+		if ( $customer ) {
+			$filters['customer'] = array_merge( array( $customer ), $this->get_customer_emails( $customer ) );
+		}
 
 		$filters = array_merge( $dayfilter, $filters );
 
@@ -552,11 +570,8 @@ class OrderProcessorHelp {
 			}
 
 			if ( ! empty( $_POST['customer'] ) ) {
-				$user = get_user_by( 'id', $this->get_posted_customer_id() );
 				$message .= "<h3> for " .
-					esc_html( $user->first_name ) .
-					" " .
-					esc_html( $user->last_name ) .
+					esc_html( $this->get_customer_display_name( $this->get_posted_customer_id() ) ) .
 				" </h3>";
 			}
 
@@ -696,13 +711,10 @@ class OrderProcessorHelp {
 				}
 
 				if ( ! empty( $_POST['customer'] ) ) {
-					$user = get_user_by( 'id', $this->get_posted_customer_id() );
 					$nomessage .= "<h3> " .
 						esc_html(
 							' for customer: ' .
-							$user->first_name .
-							" " .
-							$user->last_name
+							$this->get_customer_display_name( $this->get_posted_customer_id() )
 						) .
 					"</h3>";
 				}
@@ -725,7 +737,7 @@ class OrderProcessorHelp {
 	/**
 	 * get_orders.
 	 *
-	 * @version 4.1.3
+	 * @version 4.1.7
 	 */
 	public function get_orders() {
 
@@ -770,7 +782,7 @@ class OrderProcessorHelp {
 					$payment    = ( method_exists( $order, 'get_payment_method_title' ) ) ? $order->get_payment_method_title() : '';
 					$coupons    = $this->get_coupon_used( $order->get_id() );
 					$first_name = ( method_exists( $order, 'get_billing_first_name' ) ) ? $order->get_billing_first_name() : '';
-					$last_name  = ( method_exists( $order, 'get_billing_first_name' ) ) ? $order->get_billing_last_name() : '';
+					$last_name  = ( method_exists( $order, 'get_billing_last_name' ) ) ? $order->get_billing_last_name() : '';
 					$country    = ( method_exists( $order, 'get_billing_country' ) ) ? WC()->countries->countries[ $order->get_billing_country() ] : '';
 					$discount   = ( method_exists( $order, 'get_total_discount' ) ) ? $order->get_total_discount() : '';
 					$shipping   = ( method_exists( $order, 'get_shipping_total' ) ) ? $order->get_shipping_total()  : '';
@@ -808,7 +820,7 @@ class OrderProcessorHelp {
 	/**
 	 * get_customers.
 	 *
-	 * @version 4.1.4
+	 * @version 4.1.7
 	 */
 	public function get_customers() {
 
@@ -847,7 +859,7 @@ class OrderProcessorHelp {
 						address.country AS country
 					FROM " . $wpdb->prefix . "wc_orders AS orders
 					LEFT JOIN " . $wpdb->prefix . "wc_order_addresses AS address ON orders.id = address.order_id AND orders." . $parameter . " = address.email
-					WHERE address.address_type='billing' AND orders.id IN ('" . implode( "','", $ids ) . "')
+					WHERE address.address_type='billing' AND orders.id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ")
 				";
 
 				$query .= "
@@ -882,7 +894,7 @@ class OrderProcessorHelp {
 					LEFT JOIN " . $wpdb->prefix . "postmeta AS billing_company ON p.ID = billing_company.post_id AND billing_company.meta_key = '_billing_company'
 					LEFT JOIN " . $wpdb->prefix . "postmeta AS order_total ON p.ID = order_total.post_id AND order_total.meta_key = '_order_total'
 					LEFT JOIN " . $wpdb->prefix . "postmeta AS order_tax ON p.ID = order_tax.post_id AND order_tax.meta_key = '_order_tax'
-					WHERE p.ID IN ('" . implode( "','", $ids ) . "')
+					WHERE p.ID IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ")
 				";
 
 				$query .= "
@@ -892,7 +904,7 @@ class OrderProcessorHelp {
 
 			}
 
-			$data = $wpdb->get_results( $wpdb->prepare( $query ) );
+			$data = $wpdb->get_results( $wpdb->prepare( $query, $ids ) );
 
 			$response = array(
 				'customers' => '',
@@ -901,7 +913,10 @@ class OrderProcessorHelp {
 			if ( $data ) {
 				foreach ( $data as $d ) {
 
-					$name       = $d->first_name . " " . $d->last_name;
+					$name = trim( $d->first_name . ' ' . $d->last_name );
+					if ( '' === $name ) {
+						$name = $d->email;
+					}
 					$state      = $d->state;
 					$city       = $d->city;
 					$company    = $d->company;
@@ -940,7 +955,7 @@ class OrderProcessorHelp {
 	/**
 	 * get_countries.
 	 *
-	 * @version 4.1.4
+	 * @version 4.1.7
 	 */
 	public function get_countries() {
 
@@ -970,7 +985,7 @@ class OrderProcessorHelp {
 					address.country AS country
 					FROM " . $wpdb->prefix . "wc_order_addresses AS address
 					LEFT JOIN " . $wpdb->prefix . "wc_orders AS orders ON orders.id = address.order_id
-					WHERE address.address_type='billing' AND orders.id IN ('" . implode( "','", $ids ) . "')
+					WHERE address.address_type='billing' AND orders.id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ")
 				";
 
 			} else {
@@ -985,7 +1000,7 @@ class OrderProcessorHelp {
 					FROM {$wpdb->prefix}postmeta AS order_total
 					LEFT JOIN {$wpdb->prefix}postmeta AS order_tax ON order_total.post_id = order_tax.post_id
 					LEFT JOIN {$wpdb->prefix}postmeta AS billing_country ON order_total.post_id = billing_country.post_id
-					WHERE order_total.post_id IN ('" . implode( "','", $ids ) . "') AND
+					WHERE order_total.post_id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ") AND
 						order_total.meta_key = '_order_total' AND
 						order_tax.meta_key = '_order_tax' AND
 						billing_country.meta_key = '_billing_country'
@@ -998,7 +1013,7 @@ class OrderProcessorHelp {
 				ORDER BY total DESC
 			";
 
-			$data = $wpdb->get_results( $wpdb->prepare( $query ) );
+			$data = $wpdb->get_results( $wpdb->prepare( $query, $ids ) );
 
 			$response = array(
 				'name'      => array(),
@@ -1038,7 +1053,7 @@ class OrderProcessorHelp {
 	/**
 	 * get_payments.
 	 *
-	 * @version 4.1.4
+	 * @version 4.1.7
 	 */
 	public function get_payments() {
 
@@ -1067,7 +1082,7 @@ class OrderProcessorHelp {
 					SUM( orders.tax_amount ) AS tax,
 					COUNT(orders.id) AS num_orders
 					FROM " . $wpdb->prefix . "wc_orders AS orders
-					WHERE orders.id IN ('" . implode( "','", $ids ) . "')
+					WHERE orders.id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ")
 				";
 
 			} else {
@@ -1082,7 +1097,7 @@ class OrderProcessorHelp {
 					FROM {$wpdb->prefix}postmeta AS order_total
 					LEFT JOIN {$wpdb->prefix}postmeta AS order_tax ON order_total.post_id = order_tax.post_id
 					LEFT JOIN {$wpdb->prefix}postmeta AS payment_method ON order_total.post_id = payment_method.post_id
-					WHERE order_total.post_id IN ('" . implode( "','", $ids ) . "') AND
+					WHERE order_total.post_id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ") AND
 						order_total.meta_key = '_order_total' AND
 						order_tax.meta_key = '_order_tax' AND
 						payment_method.meta_key = '_payment_method_title'
@@ -1095,7 +1110,7 @@ class OrderProcessorHelp {
 				ORDER BY total DESC
 			";
 
-			$data = $wpdb->get_results( $wpdb->prepare( $query ) );
+			$data = $wpdb->get_results( $wpdb->prepare( $query, $ids ) );
 
 			$response = array(
 				'name'     => array(),
@@ -1135,7 +1150,7 @@ class OrderProcessorHelp {
 	/**
 	 * get_coupons.
 	 *
-	 * @version 4.1.4
+	 * @version 4.1.7
 	 */
 	public function get_coupons() {
 
@@ -1161,7 +1176,7 @@ class OrderProcessorHelp {
 					SELECT DISTINCT coupons." . $parameter . " AS coupon,
 					SUM(coupons.discount_amount ) AS total
 					FROM " . $wpdb->prefix . "wc_order_coupon_lookup AS coupons
-					WHERE coupons.order_id IN ('" . implode( "','", $ids ) . "')
+					WHERE coupons.order_id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ")
 				";
 
 			} else {
@@ -1173,7 +1188,7 @@ class OrderProcessorHelp {
 					SUM(im.meta_value) AS total
 					FROM {$wpdb->prefix}woocommerce_order_itemmeta AS im
 					JOIN {$wpdb->prefix}woocommerce_order_items AS oi ON im.order_item_id = oi.order_item_id
-					WHERE im.meta_key = 'discount_amount' AND oi.order_item_type = 'coupon' AND oi.order_id IN ('" . implode( "','", $ids ) . "')
+					WHERE im.meta_key = 'discount_amount' AND oi.order_item_type = 'coupon' AND oi.order_id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ")
 				";
 
 			}
@@ -1183,7 +1198,7 @@ class OrderProcessorHelp {
 				ORDER BY total DESC
 			";
 
-			$data = $wpdb->get_results( $wpdb->prepare( $query ) );
+			$data = $wpdb->get_results( $wpdb->prepare( $query, $ids ) );
 
 			$response = array(
 				'name'    => array(),
@@ -1221,7 +1236,7 @@ class OrderProcessorHelp {
 	/**
 	 * get_products.
 	 *
-	 * @version 4.1.4
+	 * @version 4.1.7
 	 */
 	public function get_products() {
 
@@ -1241,6 +1256,8 @@ class OrderProcessorHelp {
 			$prod = $this->get_posted_product_id();
 			$cat  = $this->get_posted_product_cat_id();
 
+			$prepare_args = $ids;
+
 			// Query completed orders with order date and total sales.
 			if ( OrderUtil::custom_orders_table_usage_is_enabled() ) {
 
@@ -1259,10 +1276,12 @@ class OrderProcessorHelp {
 					";
 				}
 
-				$query .= " WHERE products.order_id IN ('" . implode( "','", $ids ) . "') ";
+				$query .= " WHERE products.order_id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ") ";
 
 				if ( null != $prod ) {
-					$query .= " AND ( product_id = " . $prod . " OR variation_id = " . $prod . " ) ";
+					$query        .= " AND ( product_id = %d OR variation_id = %d ) ";
+					$prepare_args[] = $prod;
+					$prepare_args[] = $prod;
 				}
 
 			} else {
@@ -1296,16 +1315,19 @@ class OrderProcessorHelp {
 					";
 				}
 
-				$query .= " WHERE items.order_id IN ('" . implode( "','", $ids ) . "') ";
+				$query .= " WHERE items.order_id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ") ";
 
 				if ( null != $prod ) {
-					$query .= " AND ( products.meta_value = " . $prod . " OR variations.meta_value = " . $prod . " ) ";
+					$query        .= " AND ( products.meta_value = %d OR variations.meta_value = %d ) ";
+					$prepare_args[] = $prod;
+					$prepare_args[] = $prod;
 				}
 
 			}
 
 			if ( null != $cat ) {
-				$query .= " AND terms.term_id = " . $cat;
+				$query        .= " AND terms.term_id = %d";
+				$prepare_args[] = $cat;
 			}
 
 			$query .= "
@@ -1313,7 +1335,7 @@ class OrderProcessorHelp {
 				ORDER BY total DESC
 			";
 
-			$data = $wpdb->get_results( $wpdb->prepare( $query ) );
+			$data = $wpdb->get_results( $wpdb->prepare( $query, $prepare_args ) );
 
 			$response = array(
 				'name'     => array(),
@@ -1353,7 +1375,7 @@ class OrderProcessorHelp {
 	/**
 	 * get_categories.
 	 *
-	 * @version 4.1.4
+	 * @version 4.1.7
 	 */
 	public function get_categories() {
 
@@ -1373,6 +1395,8 @@ class OrderProcessorHelp {
 			$prod = $this->get_posted_product_id();
 			$cat  = $this->get_posted_product_cat_id();
 
+			$prepare_args = $ids;
+
 			if ( OrderUtil::custom_orders_table_usage_is_enabled() ) {
 
 				$query = "
@@ -1383,11 +1407,13 @@ class OrderProcessorHelp {
 					LEFT JOIN {$wpdb->prefix}term_relationships AS rel ON ( products.product_id = rel.object_id || products.variation_id = rel.object_id )
 					LEFT JOIN {$wpdb->prefix}term_taxonomy AS tax ON rel.term_taxonomy_id = tax.term_taxonomy_id AND tax.taxonomy = 'product_cat'
 					LEFT JOIN {$wpdb->prefix}terms AS terms ON tax.term_id = terms.term_id
-					WHERE products.order_id IN ('" . implode( "','", $ids ) . "') AND terms.name IS NOT NULL
+					WHERE products.order_id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ") AND terms.name IS NOT NULL
 				";
 
 				if ( null != $prod ) {
-					$query .= " AND ( products.product_id = " . $prod . " OR products.variation_id = " . $prod . " ) ";
+					$query        .= " AND ( products.product_id = %d OR products.variation_id = %d ) ";
+					$prepare_args[] = $prod;
+					$prepare_args[] = $prod;
 				}
 
 			} else {
@@ -1404,17 +1430,20 @@ class OrderProcessorHelp {
 					LEFT JOIN {$wpdb->prefix}term_relationships AS rel ON ( product.meta_value = rel.object_id || variation.meta_value = rel.object_id )
 					LEFT JOIN {$wpdb->prefix}term_taxonomy AS tax ON rel.term_taxonomy_id = tax.term_taxonomy_id AND tax.taxonomy = 'product_cat'
 					LEFT JOIN {$wpdb->prefix}terms AS terms ON tax.term_id = terms.term_id
-					WHERE order_items.order_id IN ('" . implode( "','", $ids ) . "') AND terms.name IS NOT NULL
+					WHERE order_items.order_id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ") AND terms.name IS NOT NULL
 				";
 
 				if ( null != $prod ) {
-					$query .= " AND ( variation.meta_value = " . $prod . " OR product.meta_value = " . $prod . " ) ";
+					$query        .= " AND ( variation.meta_value = %d OR product.meta_value = %d ) ";
+					$prepare_args[] = $prod;
+					$prepare_args[] = $prod;
 				}
 
 			}
 
 			if ( null != $cat ) {
-				$query .= " AND terms.term_id = " . $cat;
+				$query        .= " AND terms.term_id = %d";
+				$prepare_args[] = $cat;
 			}
 
 			$query .= "
@@ -1422,7 +1451,7 @@ class OrderProcessorHelp {
 				ORDER BY total DESC
 			";
 
-			$data = $wpdb->get_results( $wpdb->prepare( $query ) );
+			$data = $wpdb->get_results( $wpdb->prepare( $query, $prepare_args ) );
 
 			$response = array(
 				'name'       => array(),
@@ -1582,6 +1611,47 @@ class OrderProcessorHelp {
 	}
 
 	/**
+	 * get_customer_emails.
+	 *
+	 * @version 4.1.7
+	 * @since   4.1.7
+	 */
+	function get_customer_emails( $customer_id ) {
+		$emails = array();
+		$user   = get_user_by( 'id', $customer_id );
+		if ( ! $user instanceof WP_User ) {
+			return $emails;
+		}
+		$emails[]      = $user->user_email;
+		$billing_email = get_user_meta( $customer_id, 'billing_email', true );
+		if ( $billing_email && ! in_array( $billing_email, $emails, true ) ) {
+			$emails[] = $billing_email;
+		}
+		return $emails;
+	}
+
+	/**
+	 * get_customer_display_name.
+	 *
+	 * @version 4.1.7
+	 * @since   4.1.7
+	 */
+	function get_customer_display_name( $customer_id ) {
+		$user = get_user_by( 'id', $customer_id );
+		if ( ! $user instanceof WP_User ) {
+			return '';
+		}
+		$name = trim( $user->first_name . ' ' . $user->last_name );
+		if ( '' === $name ) {
+			$name = $user->display_name;
+		}
+		if ( '' === $name ) {
+			$name = $user->user_login;
+		}
+		return $name;
+	}
+
+	/**
 	 * get_posted_ids.
 	 *
 	 * @version 4.1.3
@@ -1670,4 +1740,4 @@ class OrderProcessorHelp {
 
 }
 
-$OrderProcessorHelp = OrderProcessorHelp::get_instance();
+$webd_wc_ars_order_processor_help = OrderProcessorHelp::get_instance();

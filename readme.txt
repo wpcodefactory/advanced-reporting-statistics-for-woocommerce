@@ -1,14 +1,14 @@
-=== Advanced Reporting & Statistics for WooCommerce - Orders, Products & Customers Reporting  ===
+=== Advanced Reporting and Statistics for WooCommerce ===
 Contributors: wpcodefactory
 Tags: reporting, woocommerce statistics, sales report, analytics, woocommerce sales
-Requires at least: 3.0.1
+Requires at least: 3.6.0
 Requires PHP: 5.2.4
-Tested up to: 7.0
+Tested up to: 7.1
 Stable tag: 4.1.6
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-A comprehensive WordPress Plugin for Advanced WooCommerce Reporting, Product Sales Report, Statistics, Analytics & Forecasting Tool for Orders, Products, Countries, Payment Gateways Shipping, Tax, Refunds, Top Products
+Comprehensive WooCommerce reporting plugin: sales reports, statistics, analytics & forecasts for orders, products, customers, countries & more.
 
 == Description ==
 
@@ -88,7 +88,15 @@ Please report security bugs found in the source code of the plugin through the [
 
 = 4.1.7 - 21/10/2026 =
 * Fix - Text domain updated to match the WordPress.org plugin slug (`webd-woocommerce-advanced-reporting-statistics`).
+* Fix - Customer dropdown: blank labels fixed and the General tab customer filter now works.
+* Fix - Customer filter now also matches guest orders placed with the customer's email.
+* Fix - Customer names in reports fall back to display name or email.
 * Dev - Language files (POT/PO/MO) renamed to the new text domain.
+* Dev - Plugin renamed to "Advanced Reporting and Statistics for WooCommerce" for trademark compliance.
+* Dev - Report SQL queries now use `$wpdb->prepare()` with placeholders.
+* Dev - Minimum required WordPress version raised to 3.6.0.
+* Tested up to: 7.1.
+* WC tested up to: 11.2.
 
 = 4.1.6 - 24/05/2026 =
 * Tested up to: 7.0.
