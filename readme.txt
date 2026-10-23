@@ -4,7 +4,7 @@ Tags: reporting, woocommerce statistics, sales report, analytics, woocommerce sa
 Requires at least: 3.6.0
 Requires PHP: 5.2.4
 Tested up to: 7.1
-Stable tag: 4.1.6
+Stable tag: 4.1.7
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -86,7 +86,7 @@ Please report security bugs found in the source code of the plugin through the [
 
 == Changelog ==
 
-= 4.1.7 - 21/10/2026 =
+= 4.1.7 - 23/10/2026 =
 * Fix - Improved escaping.
 * Fix - AJAX requests now verify a nonce, and all request input is validated and sanitized.
 * Fix - `date()` replaced with `gmdate()` for timezone-safe date handling.
