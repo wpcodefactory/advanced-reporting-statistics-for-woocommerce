@@ -131,6 +131,11 @@ class webdWoocommerceReportingStatisticsAdmin {
 	private $uniqueDates = [];
 	private $avg;
 
+	/**
+	 * proModal.
+	 *
+	 * @version 4.1.7
+	 */
 	public function proModal(){ ?>
 		<div id="webdWoocommerceReportingStatisticsModal">
 		  <!-- Modal content -->
@@ -139,7 +144,7 @@ class webdWoocommerceReportingStatisticsAdmin {
 			<div class='clearfix verticalAlign'>
 				<div class='columns2'>
 					<center>
-						<img style='width:90%' src='<?php echo plugins_url( 'images/'.$this->slug.'-pro.png', __FILE__ ); ?>' style='width:100%' />
+						<img style='width:90%' src='<?php echo esc_url( plugins_url( 'images/'.$this->slug.'-pro.png', __FILE__ ) ); ?>' style='width:100%' />
 					</center>
 				</div>
 
@@ -157,7 +162,7 @@ class webdWoocommerceReportingStatisticsAdmin {
 					<p><i class='fa fa-check'></i> <?php  esc_html_e('Current Selling Products Low Stock Products Reminder!',"webd-woocommerce-advanced-reporting-statistics");?> </p>
 					<p><i class='fa fa-check'></i> <?php  esc_html_e('Low Stock Products Report',"webd-woocommerce-advanced-reporting-statistics");?> </p>
 					<p><i class='fa fa-check'></i> <?php  esc_html_e('Email Report',"webd-woocommerce-advanced-reporting-statistics");?></p>
-					<p class='bottomToUp'><center><a target='_blank' class='proUrl' href='<?php print $this->proUrl; ?>'><?php  esc_html_e('GET IT HERE',"webd-woocommerce-advanced-reporting-statistics");?></a></center></p>
+					<p class='bottomToUp'><center><a target='_blank' class='proUrl' href='<?php print esc_url( $this->proUrl ); ?>'><?php  esc_html_e('GET IT HERE',"webd-woocommerce-advanced-reporting-statistics");?></a></center></p>
 				</div>
 			</div>
 		  </div>
@@ -185,13 +190,12 @@ class webdWoocommerceReportingStatisticsAdmin {
 				global $product;
 
 				$this->tab = array( 'all' => esc_html__('GENERAL',"webd-woocommerce-advanced-reporting-statistics"),'years' => esc_html__('PER YEAR',"webd-woocommerce-advanced-reporting-statistics"),'months' => esc_html__('PER MONTH',"webd-woocommerce-advanced-reporting-statistics"),'top' => esc_html__('TOP 5 PRODUCTS',"webd-woocommerce-advanced-reporting-statistics"));
-				if(isset($_GET['tab']) || (isset($_GET['tab']) && $_GET['tab']=='all' ) ){
-					$this->activeTab = $_GET['tab'] ;
-				}else $this->activeTab = 'all';
+				// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only tab routing; no form data processed.
+				$this->activeTab = isset( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : 'all';
 				echo '<h3 class="nav-tab-wrapper" >';
 				foreach( $this->tab as $tab => $name ){
 					$class = ( $tab == $this->activeTab ) ? ' nav-tab-active' : '';
-					echo "<a class='nav-tab".$class." contant' href='?page=".$this->slug."&tab=".$tab."'>".$name."</a>";
+					echo '<a class="nav-tab ' . esc_attr( $class ) . ' contant" href="?page=' . esc_attr( $this->slug ) . '&tab=' . esc_attr( $tab ) . '">' . esc_html( $name ) . '</a>';
 				}
 				?>
 				<a class='nav-tab  proVersion' href="#" style='background:#42b72a;color:#fff' ><?php  esc_html_e('GO PRO',"webd-woocommerce-advanced-reporting-statistics");?></a>
@@ -203,28 +207,28 @@ class webdWoocommerceReportingStatisticsAdmin {
 				<?php
 				$selected = '';
 
-				if( ( isset( $_GET['tab'] ) && $_GET['tab'] =='all' ) || !isset( $_GET['tab'] ) ){
+				if( 'all' === $this->activeTab ){
 
-					$selected = date('Y-m-d', strtotime("first day of this month"));
+					$selected = gmdate('Y-m-d', strtotime("first day of this month"));
 
 					$this->displayFilterForm();
 					$this->displayOrders();
 
-				}elseif( isset($_GET['tab']) && ( $_GET['tab'] =='years' || $_GET['tab'] =='months' ) ){
+				}elseif( 'years' === $this->activeTab || 'months' === $this->activeTab ){
 
 					$this->displayFilterForm();
 					$this->displayOrdersBy( 'month');
 
-				}elseif( isset($_GET['tab']) && ( $_GET['tab'] =='years') ){
+				}elseif( 'years' === $this->activeTab ){
 
 					$this->displayFilterForm();
 					$this->displayOrdersBy( 'year' );
 
-				}elseif(isset($_GET['tab']) && $_GET['tab'] =='stock'){?>
+				}elseif( 'stock' === $this->activeTab ){?>
 				<div class='premium_msg'>
 				<p>
 					<strong>
-					<?php  esc_html_e('Only available on PRO Version',"webd-woocommerce-advanced-reporting-statistics");?> <a class='premium_button' target='_blank'  href='<?php print $this->proUrl;?>'><?php  esc_html_e('Get it Here',"webd-woocommerce-advanced-reporting-statistics");?></a>
+					<?php  esc_html_e('Only available on PRO Version',"webd-woocommerce-advanced-reporting-statistics");?> <a class='premium_button' target='_blank'  href='<?php print esc_url( $this->proUrl ); ?>'><?php  esc_html_e('Get it Here',"webd-woocommerce-advanced-reporting-statistics");?></a>
 					</strong>
 				</p>
 				</div>
@@ -239,20 +243,20 @@ class webdWoocommerceReportingStatisticsAdmin {
 						<?php $this->LowStock(); ?>
 					</div>
 				</div>
-				<?php }elseif( isset( $_GET['tab'] ) && $_GET['tab'] =='top' ){ ?>
+				<?php }elseif( 'top' === $this->activeTab ){ ?>
 						<div class='report_widge'>
 							<?php  $this->topSellers(); ?>
 						</div>
-				<?php }elseif(isset( $_GET['tab'] ) && $_GET['tab'] =='email' ){ ?>
+				<?php }elseif( 'email' === $this->activeTab ){ ?>
 				<div class='premium_msg'>
 				<p>
 					<strong>
-					<?php  esc_html_e('Only available on PRO Version',"webd-woocommerce-advanced-reporting-statistics");?> <a class='premium_button' target='_blank'  href='<?php print $this->proUrl;?>'><?php  esc_html_e('Get it Here',"webd-woocommerce-advanced-reporting-statistics");?></a>
+					<?php  esc_html_e('Only available on PRO Version',"webd-woocommerce-advanced-reporting-statistics");?> <a class='premium_button' target='_blank'  href='<?php print esc_url( $this->proUrl ); ?>'><?php  esc_html_e('Get it Here',"webd-woocommerce-advanced-reporting-statistics");?></a>
 					</strong>
 				</p>
 				</div>
 					<form method="post" id='<?php print "webd-woocommerce-reporting-statistics"; ?>Form'
-					action= "<?php echo admin_url( "admin.php?page=".$this->slug."&tab=email" ); ?>">
+					action= "<?php echo esc_url( admin_url( "admin.php?page=".$this->slug."&tab=email" ) ); ?>">
 					<?php
 						settings_fields( "webd-woocommerce-reporting-statistics"."general-options" );
 						do_settings_sections( "webd-woocommerce-reporting-statistics"."general-options" );
@@ -277,13 +281,18 @@ class webdWoocommerceReportingStatisticsAdmin {
 		<?php
 	}
 
+	/**
+	 * defaultStatus.
+	 *
+	 * @version 4.1.7
+	 */
 	public function defaultStatus(){
 
 			$default_status = get_option( $this->plugin.'_status' );
 
 			?>
 
-			<select multiple name="<?php print $this->plugin.'_status';?>[]" id='<?php print $this->plugin.'_status';?>'>
+			<select multiple name="<?php print esc_attr( $this->plugin . '_status' ); ?>[]" id='<?php print esc_attr( $this->plugin . '_status' ); ?>'>
 
 			<option value=''><?php esc_html_e( 'Choose Status...', 'webd-woocommerce-advanced-reporting-statistics' );?></option>
 			<?php
@@ -292,7 +301,7 @@ class webdWoocommerceReportingStatisticsAdmin {
 
 				$in = in_array( $key, $default_status ) ? "selected" : "";
 
-				print "<option value='".esc_attr(  $key  )."'  ".$in ." >".esc_attr( $value )."</option>";
+				print "<option value='" . esc_attr( $key ) . "'  " . esc_attr( $in ) . " >" . esc_attr( $value ) . "</option>";
 			}
 			?>
 			</select>
@@ -451,20 +460,23 @@ class webdWoocommerceReportingStatisticsAdmin {
 
 				</select>
 
-			<?php if( empty( $_REQUEST['tab'] ) || ( isset( $_REQUEST['tab'] ) &&  $_REQUEST['tab'] ==='all' ) ){ ?>
-				<?php $date = current_time( 'mysql' ) ;
-				$today = date("Y-m-d", strtotime( $date ) );
+			<?php
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only tab check; no form data processed.
+			$active_tab = isset( $_REQUEST['tab'] ) ? sanitize_key( wp_unslash( $_REQUEST['tab'] ) ) : 'all';
+			if ( 'all' === $active_tab ) {
+				$date = current_time( 'mysql' ) ;
+				$today = gmdate("Y-m-d", strtotime( $date ) );
 				?>
 
 				<select name="selected" class='dateFilter ' id='selected' >
 					<option value=""><?php  esc_html_e('Preselected Period',"webd-woocommerce-advanced-reporting-statistics");?></option>
 					<option value="<?php print esc_attr( $today ); ?>"><?php  esc_html_e( 'Today',"webd-woocommerce-advanced-reporting-statistics" );?></option>
-					<option value="<?php print date( 'Y-m-d', strtotime( $date . "- 1 day" ) ); ?>"><?php  esc_html_e( 'Yesterday',"webd-woocommerce-advanced-reporting-statistics" );?></option>
-					<option value="<?php print date( 'Y-m-d', strtotime( $date . "- 7 days" ) ); ?>"><?php  esc_html_e( 'This Week',"webd-woocommerce-advanced-reporting-statistics" );?></option>
-					<option value="<?php print date( 'Y-m-d', strtotime( "first day of this month" ) ); ?>"><?php  esc_html_e( 'This Month',"webd-woocommerce-advanced-reporting-statistics" );?></option>
-					<option value="<?php print date( 'Y-m-d', strtotime( $date . "- 2 months" ) ); ?>"><?php  esc_html_e( 'Last 2 Months',"webd-woocommerce-advanced-reporting-statistics" );?></option>
-					<option value="<?php print date( 'Y-m-d', strtotime( $date . "- 3 months" ) ); ?>"><?php  esc_html_e( 'Last 3 Months', "webd-woocommerce-advanced-reporting-statistics" );?></option>
-					<option value="<?php print date( 'Y-m-d', strtotime( $date . "- 6 months" ) ); ?>"><?php  esc_html_e( 'Last 6 Months', "webd-woocommerce-advanced-reporting-statistics" );?></option>
+					<option value="<?php print esc_attr( gmdate( 'Y-m-d', strtotime( $date . "- 1 day" ) ) ); ?>"><?php  esc_html_e( 'Yesterday',"webd-woocommerce-advanced-reporting-statistics" );?></option>
+					<option value="<?php print esc_attr( gmdate( 'Y-m-d', strtotime( $date . "- 7 days" ) ) ); ?>"><?php  esc_html_e( 'This Week',"webd-woocommerce-advanced-reporting-statistics" );?></option>
+					<option value="<?php print esc_attr( gmdate( 'Y-m-d', strtotime( "first day of this month" ) ) ); ?>"><?php  esc_html_e( 'This Month',"webd-woocommerce-advanced-reporting-statistics" );?></option>
+					<option value="<?php print esc_attr( gmdate( 'Y-m-d', strtotime( $date . "- 2 months" ) ) ); ?>"><?php  esc_html_e( 'Last 2 Months',"webd-woocommerce-advanced-reporting-statistics" );?></option>
+					<option value="<?php print esc_attr( gmdate( 'Y-m-d', strtotime( $date . "- 3 months" ) ) ); ?>"><?php  esc_html_e( 'Last 3 Months', "webd-woocommerce-advanced-reporting-statistics" );?></option>
+					<option value="<?php print esc_attr( gmdate( 'Y-m-d', strtotime( $date . "- 6 months" ) ) ); ?>"><?php  esc_html_e( 'Last 6 Months', "webd-woocommerce-advanced-reporting-statistics" );?></option>
 				</select>
 
 				<select name='month' class='dateFilter proVersionPreselect' style='background:#eee;' id="pt-filter-by-date">
@@ -781,6 +793,11 @@ class webdWoocommerceReportingStatisticsAdmin {
 
 	}
 
+	/**
+	 * topSellers.
+	 *
+	 * @version 4.1.7
+	 */
 	public function topSellers(){
 			global $woocommerce;
 			include_once(WC()->plugin_path().'/includes/admin/reports/class-wc-admin-report.php');
@@ -840,12 +857,12 @@ class webdWoocommerceReportingStatisticsAdmin {
 						print "<tr><td>";
 						foreach ( $terms as $term ) {
 							 $cat_id = $term->name;
-							 print $term->name ."<br/>";
+							 print esc_html( $term->name ) . "<br/>";
 
 						}
 						//$d->product_id
 						print "</td>";
-						print "<td>".esc_attr($d->order_item_name) . "</td><td>".esc_attr($d->quantity)."</td><td>" .wc_price(esc_attr($d->gross)) ."</td>" ;
+						print "<td>" . esc_attr( $d->order_item_name ) . "</td><td>" . esc_attr( $d->quantity ) . "</td><td>" . wp_kses_post( wc_price( esc_attr( $d->gross ) ) ) . "</td>";
 						print "</tr>";
 					}
 					?>

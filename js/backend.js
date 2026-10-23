@@ -313,7 +313,7 @@
 							'selected': selected,
 							'order_status': order_status,
 							'customer': customer,
-							'_wpnonce': 'webdWoocommerceReportingStatistics',
+							'nonce': webdWoocommerceReportingStatistics.nonce,
 						},
 						beforeSend: function()  {
 
@@ -435,7 +435,8 @@
 			data: {
 				action: 'get_orders',
 				page: paged,
-				ids: orderids
+				ids: orderids,
+				nonce: webdWoocommerceReportingStatistics.nonce
 			},
 			success: function(response) {
 				var data = JSON.parse(response);
@@ -471,7 +472,8 @@
 			type: 'post',
 			data: {
 				action: 'get_customers',
-				ids: orderids
+				ids: orderids,
+				nonce: webdWoocommerceReportingStatistics.nonce
 			},
 			success: function(response) {
 
@@ -489,7 +491,8 @@
 			type: 'post',
 			data: {
 				action: 'get_countries',
-				ids: orderids
+				ids: orderids,
+				nonce: webdWoocommerceReportingStatistics.nonce
 			},
 			success: function(response) {
 
@@ -521,7 +524,8 @@
 			type: 'post',
 			data: {
 				action: 'get_payments',
-				ids: orderids
+				ids: orderids,
+				nonce: webdWoocommerceReportingStatistics.nonce
 			},
 			success: function(response) {
 
@@ -553,7 +557,8 @@
 			type: 'post',
 			data: {
 				action: 'get_coupons',
-				ids: orderids
+				ids: orderids,
+				nonce: webdWoocommerceReportingStatistics.nonce
 			},
 			success: function(response) {
 
@@ -589,7 +594,8 @@
 				action: 'get_products',
 				ids: orderids,
 				product: product,
-				cat: cat
+				cat: cat,
+				nonce: webdWoocommerceReportingStatistics.nonce
 			},
 			success: function(response) {
 
@@ -626,7 +632,8 @@
 				action: 'get_categories',
 				ids: orderids,
 				cat: cat,
-				product: product
+				product: product,
+				nonce: webdWoocommerceReportingStatistics.nonce
 			},
 			success: function(response) {
 
@@ -668,7 +675,8 @@
 				action: 'display_orders_by_period',
 				tab: $.urlParam('tab'),
 				order_status: order_status,
-				customer: customer
+				customer: customer,
+				nonce: webdWoocommerceReportingStatistics.nonce
 			},
 			beforeSend: function()  {
 

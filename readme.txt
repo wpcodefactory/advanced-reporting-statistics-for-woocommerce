@@ -87,6 +87,10 @@ Please report security bugs found in the source code of the plugin through the [
 == Changelog ==
 
 = 4.1.7 - 21/10/2026 =
+* Fix - Improved escaping.
+* Fix - AJAX requests now verify a nonce, and all request input is validated and sanitized.
+* Fix - `date()` replaced with `gmdate()` for timezone-safe date handling.
+* Fix - Deactivation survey scripts/styles enqueued with explicit versions and in the footer.
 * Fix - Text domain updated to match the WordPress.org plugin slug (`webd-woocommerce-advanced-reporting-statistics`).
 * Fix - Customer dropdown: blank labels fixed and the General tab customer filter now works.
 * Fix - Customer filter now also matches guest orders placed with the customer's email.
@@ -95,6 +99,8 @@ Please report security bugs found in the source code of the plugin through the [
 * Dev - Plugin renamed to "Advanced Reporting and Statistics for WooCommerce" for trademark compliance.
 * Dev - Report SQL queries now use `$wpdb->prepare()` with placeholders.
 * Dev - Minimum required WordPress version raised to 3.6.0.
+* Dev - Removed the redundant `load_plugin_textdomain()` call (translations auto-load since WordPress 4.6).
+* Dev - PHPCS / Plugin Check (PCP) security and code-quality issues addressed.
 * Tested up to: 7.1.
 * WC tested up to: 11.2.
 

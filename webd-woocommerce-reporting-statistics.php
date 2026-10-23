@@ -78,10 +78,10 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 
 		add_action( 'admin_init', array( $this, 'settingsSection' ) );
 
-		if (
-			isset( $_GET['page'] ) &&
-			'webd-woocommerce-reporting-statistics' === $_GET['page']
-		) {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only admin page check; no form data processed.
+		$requested_page = isset( $_GET['page'] ) ? sanitize_key( wp_unslash( $_GET['page'] ) ) : '';
+
+		if ( 'webd-woocommerce-reporting-statistics' === $requested_page ) {
 			add_action( 'admin_footer', array( $this, 'proModal' ) );
 		}
 
@@ -127,23 +127,23 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 			return;
 		}
 
-		wp_enqueue_style( "webd-woocommerce-reporting-statistics"."adminCss", plugins_url( "/css/backend.css?v=bvc", __FILE__ ) );
+		wp_enqueue_style( "webd-woocommerce-reporting-statistics"."adminCss", plugins_url( "/css/backend.css", __FILE__ ), array(), WPFACTORY_WC_ARS_VERSION );
 
 		wp_enqueue_script('jquery');
 
 		wp_enqueue_script( 'jquery-ui-datepicker' );
 
-		wp_enqueue_style( 'jquery-ui-style', plugins_url( "/css/jquery-ui.css", __FILE__ ), true);
+		wp_enqueue_style( 'jquery-ui-style', plugins_url( "/css/jquery-ui.css", __FILE__ ), array(), WPFACTORY_WC_ARS_VERSION );
 
 		wp_enqueue_script('jquery-ui-accordion');
 
 		wp_enqueue_script("jquery-ui-tabs");
 
-		wp_enqueue_script( "webd-woocommerce-reporting-statistics"."charts", plugins_url( "/js/chart.js", __FILE__ ), null, true);
+		wp_enqueue_script( "webd-woocommerce-reporting-statistics"."charts", plugins_url( "/js/chart.js", __FILE__ ), array(), WPFACTORY_WC_ARS_VERSION, true );
 
-		wp_enqueue_script( "webd-woocommerce-reporting-statistics"."adminJs", plugins_url( "/js/backend.js?v=bvc", __FILE__ ) , array('jquery','jquery-ui-accordion','jquery-ui-tabs','jquery-ui-datepicker') , null, true);
+		wp_enqueue_script( "webd-woocommerce-reporting-statistics"."adminJs", plugins_url( "/js/backend.js", __FILE__ ), array( 'jquery', 'jquery-ui-accordion', 'jquery-ui-tabs', 'jquery-ui-datepicker' ), WPFACTORY_WC_ARS_VERSION, true );
 
-		wp_enqueue_style( "webd-woocommerce-reporting-statistics"."_fa", plugins_url( '/css/font-awesome.min.css', __FILE__ ));
+		wp_enqueue_style( "webd-woocommerce-reporting-statistics"."_fa", plugins_url( '/css/font-awesome.min.css', __FILE__ ), array(), WPFACTORY_WC_ARS_VERSION );
 
 		wp_localize_script(
 			"webd-woocommerce-reporting-statistics"."adminJs",
@@ -153,6 +153,7 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 				'url'            => admin_url( 'admin-ajax.php' ),
 				'plugin_url'     => plugins_url( '', __FILE__ ),
 				'ajax_url'       => admin_url( 'admin-ajax.php' ),
+				'nonce'          => wp_create_nonce( 'webd-woocommerce-reporting-statistics' ),
 				'siteUrl'        => site_url(),
 				'plugin_wrapper' => "webd-woocommerce-reporting-statistics",
 				'select'         => esc_html__( 'Select...', 'webd-woocommerce-advanced-reporting-statistics' ),
@@ -171,9 +172,11 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 
 	/**
 	 * init.
+	 *
+	 * @version 4.1.7
 	 */
 	public function init() {
-		print "<div class='". $this->plugin ."'>";
+		print '<div class="' . esc_attr( $this->plugin ) . '">';
 		$this->adminHeader();
 		$this->adminSettings();
 		$this->adminFooter();
@@ -182,9 +185,11 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 
 	/**
 	 * initStats.
+	 *
+	 * @version 4.1.7
 	 */
 	public function initStats() {
-		print "<div class='". $this->plugin ."'>";
+		print '<div class="' . esc_attr( $this->plugin ) . '">';
 		$this->adminHeader();
 		echo "<h3>". esc_html__('Statistics',"webd-woocommerce-advanced-reporting-statistics") ."</h3>";
 		echo do_shortcode( '[adStats]' );
@@ -194,4 +199,5 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 
 }
 
+// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- Legacy slug kept for backwards compatibility.
 $webd_wc_ars_initialize = new webdWoocommerceReportingStatistics();

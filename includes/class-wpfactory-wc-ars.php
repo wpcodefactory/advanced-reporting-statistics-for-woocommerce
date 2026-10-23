@@ -61,9 +61,6 @@ final class WPFactory_WC_ARS {
 			return;
 		}
 
-		// Set up localisation
-		add_action( 'init', array( $this, 'localize' ) );
-
 		// Declare compatibility with custom order tables for WooCommerce
 		add_action( 'before_woocommerce_init', array( $this, 'wc_declare_compatibility' ) );
 
@@ -72,20 +69,6 @@ final class WPFactory_WC_ARS {
 			$this->admin();
 		}
 
-	}
-
-	/**
-	 * localize.
-	 *
-	 * @version 4.1.7
-	 * @since   4.0.0
-	 */
-	function localize() {
-		load_plugin_textdomain(
-			'webd-woocommerce-advanced-reporting-statistics',
-			false,
-			dirname( plugin_basename( WPFACTORY_WC_ARS_FILE ) ) . '/langs/'
-		);
 	}
 
 	/**
