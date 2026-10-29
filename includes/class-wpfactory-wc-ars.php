@@ -2,7 +2,7 @@
 /**
  * Advanced WooCommerce Product Sales Reporting - Statistics & Forecast - Main Class
  *
- * @version 4.1.7
+ * @version 4.1.9
  * @since   4.0.0
  *
  * @author  WPFactory
@@ -49,7 +49,7 @@ final class WPFactory_WC_ARS {
 	/**
 	 * WPFactory_WC_ARS Constructor.
 	 *
-	 * @version 4.0.0
+	 * @version 4.1.9
 	 * @since   4.0.0
 	 *
 	 * @access  public
@@ -61,32 +61,11 @@ final class WPFactory_WC_ARS {
 			return;
 		}
 
-		// Declare compatibility with custom order tables for WooCommerce
-		add_action( 'before_woocommerce_init', array( $this, 'wc_declare_compatibility' ) );
-
 		// Admin
 		if ( is_admin() ) {
 			$this->admin();
 		}
 
-	}
-
-	/**
-	 * wc_declare_compatibility.
-	 *
-	 * @version 4.0.0
-	 * @since   4.0.0
-	 *
-	 * @see     https://developer.woocommerce.com/docs/hpos-extension-recipe-book/
-	 */
-	function wc_declare_compatibility() {
-		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
-			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility(
-				'custom_order_tables',
-				WPFACTORY_WC_ARS_FILE,
-				true
-			);
-		}
 	}
 
 	/**

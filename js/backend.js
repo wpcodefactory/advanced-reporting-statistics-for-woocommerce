@@ -1,6 +1,8 @@
 /**
  * Advanced WooCommerce Product Sales Reporting - Statistics & Forecast - Backend JS
  *
+ * @version 4.1.9
+ *
  * @author  WPFactory
  */
 
@@ -160,26 +162,6 @@
 			});
 		});
 	}
-
-		$("#webdWoocommerceReportingStatistics_signup").on('submit',function(e){
-			e.preventDefault();
-			var dat = $(this).serialize();
-			$.ajax({
-
-				url:	"https://extend-wp.com/wp-json/signups/v2/post",
-				data:  dat,
-				type: 'POST',
-				beforeSend: function(data) {
-						console.log(dat);
-				},
-				success: function(data){
-					alert(data);
-				},
-				complete: function(data){
-					dismiss();
-				}
-			});
-		});
 
 		function dismiss(){
 
@@ -822,11 +804,48 @@
 		return color;
 	}
 
-	// main chart function for charts in reports
+	/**
+	 * Inline Chart.js 4 plugin - draws the chart title (removed from Chart.js 4 core).
+	 *
+	 * @since   4.1.9
+	 * @version 4.1.9
+	 */
+	var webd_chart_title_plugin = {
+		id: 'webd-chart-title',
+		afterDraw: function( chart ) {
+			var title = chart.config.options.plugins.title;
+			if ( ! title || ! title.display || ! title.text ) {
+				return;
+			}
+			var ctx = chart.ctx;
+			ctx.save();
+			ctx.textAlign = 'center';
+			ctx.textBaseline = 'bottom';
+			ctx.font = "bold 14px 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif";
+			ctx.fillStyle = Chart.defaults.color;
+			ctx.fillText( title.text, chart.width / 2, chart.chartArea.top - 6 );
+			ctx.restore();
+		}
+	};
+
+	/**
+	 * Main chart function for charts in reports.
+	 *
+	 * @version 4.1.9
+	 */
 	function chart( type='bar', text, id , xValues, yValues, color ){
 
-		$( ".webdWoocommerceReportingStatistics ."+id ).append("<canvas id='"+id+"'></canvas>");
-		new Chart( id, {
+		var $container = $( ".webdWoocommerceReportingStatistics ." + id );
+		$container.find( 'canvas' ).each( function() {
+			var existing = Chart.getChart( this );
+			if ( existing ) {
+				existing.destroy();
+			}
+			$( this ).remove();
+		} );
+		$container.append( "<canvas id='"+id+"'></canvas>" );
+
+		new Chart( document.getElementById( id ), {
 		  type: type,
 		  data: {
 			labels: xValues,
@@ -836,12 +855,15 @@
 			}]
 		  },
 		  options: {
-			legend: {display: false},
-			title: {
-			  display: true,
-			  text: text
+			plugins: {
+				legend: { display: false },
+				title: {
+					display: true,
+					text: text
+				}
 			}
-		  }
+		  },
+		  plugins: [ webd_chart_title_plugin ]
 		});
 	}
 

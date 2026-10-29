@@ -2,8 +2,8 @@
 Contributors: wpcodefactory
 Tags: reporting, woocommerce statistics, sales report, analytics, woocommerce sales
 Stable tag: 4.1.9
-Requires at least: 4.6.0
-Requires PHP: 5.2.4
+Requires at least: 4.6
+Requires PHP: 7.0
 Tested up to: 7.1
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -78,6 +78,16 @@ Check that wp-cron is active . You can install WP Cron control plugin . check th
 = Where do I report security bugs found in this plugin? =
 Please report security bugs found in the source code of the plugin through the [Patchstack Vulnerability Disclosure Program](https://patchstack.com/database/vdp/9e5fc701-d85e-4678-a0b4-5d5f26c56bf8). The Patchstack team will assist you with verification, CVE assignment, and notify the developers of this plugin.
 
+== External services ==
+
+This plugin connects to services provided by ExtendWP (https://extend-wp.com), operated by WPFactory, for the following purposes:
+
+* Deactivation feedback: when you deactivate the plugin, the optional deactivation survey sends the reason you select and any comment you type to ExtendWP's feedback API (https://extend-wp.com/wp-json/feedback/v2/post). Nothing is sent unless you submit the survey.
+* Extensions popup: when an administrator views the plugin's admin pages, the plugin fetches a list of other ExtendWP plugins from ExtendWP's products API (https://extend-wp.com/wp-json/products/v2/product/category/excel) to show them in the "More plugins" popup. No personal data is sent with this request.
+
+ExtendWP's terms of service: https://wpfactory.com/terms-conditions/
+ExtendWP's privacy policy: https://wpfactory.com/privacy-policy/
+
 == Screenshots ==
 
 1. Advanced WooCommerce Reporting - Statistics & Forecast | General Analysis - by date - here you find orders, customers, products, categories, coupons, countries, payment gateways report and tables.
@@ -87,10 +97,16 @@ Please report security bugs found in the source code of the plugin through the [
 == Changelog ==
 
 = 4.1.9 - 29/10/2026 =
+* Fix - Out of date libraries upgraded: Chart.js 4.6.1, WPFactory Admin Menu 1.1.4 and WPFactory Cross-selling 1.1.7.
+* Dev - Documented the ExtendWP external services with terms and privacy links.
+* Dev - "Requires at least" WordPress version set to major-only format (4.6).
+* Dev - "Requires PHP" raised to 7.0 to match the actual code requirements.
 * Dev - Free/Pro separation: removed the PRO-only product and category report filtering implementation from the free `get_products` and `get_categories` AJAX handlers (the filter UI stays as a PRO-only upsell).
 * Dev - Added `wpfactory_wc_ars_report_sql_filter` filter for report query extensibility (default behavior unchanged).
 * Dev - Code refactoring.
 * Dev - `get_products`/`get_categories` now return an empty response when no order IDs are posted.
+* Fix - Activation no longer deactivates the Pro version automatically (not allowed by the WordPress.org plugin guidelines). While Pro is active, the free version now stays activated but dormant, with an explanatory notice on the Plugins screen.
+* Fix - WooCommerce HPOS compatibility is now declared from the main plugin file, so the plugin is not listed as incompatible with WooCommerce features while the Pro version is active.
 
 = 4.1.8 - 27/10/2026 =
 * Dev - Minimum required WordPress version raised to 4.6.0.

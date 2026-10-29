@@ -6,7 +6,8 @@
  * Version: 4.1.9-dev
  * Author: WPFactory
  * Author URI: https://wpfactory.com
- * Requires at least: 4.6.0
+ * Requires at least: 4.6
+ * Requires PHP: 7.0
  * WC requires at least: 2.2
  * WC tested up to: 11.2
  * Requires Plugins: woocommerce
@@ -19,6 +20,78 @@
  */
 
 defined( 'ABSPATH' ) || exit;
+
+/**
+ * Declares compatibility with WooCommerce's High-Performance Order Storage (HPOS).
+ *
+ * Hooked from the main plugin file and placed before the dormant check so the
+ * declaration still runs while the Pro version is active (in which case this plugin
+ * stays activated but doesn't run, so it wouldn't be able to declare compatibility later).
+ *
+ * @since   4.1.9
+ * @version 4.1.9
+ */
+add_action( 'before_woocommerce_init', 'wpfactory_wc_ars_declare_hpos_compatibility' );
+
+/**
+ * Declares compatibility with WooCommerce's High-Performance Order Storage (HPOS).
+ *
+ * @since   4.1.9
+ * @version 4.1.9
+ */
+function wpfactory_wc_ars_declare_hpos_compatibility() {
+	if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+	}
+}
+
+/**
+ * Stops this (free) plugin's code from running while the Pro version is active.
+ *
+ * Both versions register the same AJAX actions, admin pages and options, so they
+ * cannot run at the same time. Instead of deactivating the Pro version without the
+ * user's consent (which is not allowed by the WordPress.org plugin guidelines), this
+ * plugin stays activated but remains dormant until the Pro version is deactivated.
+ *
+ * @since   4.1.9
+ * @version 4.1.9
+ */
+if ( ! function_exists( 'is_plugin_active' ) ) {
+	require_once ABSPATH . 'wp-admin/includes/plugin.php';
+}
+
+$webd_wc_ars_pro_plugins = array(
+	'advanced-reporting-statistics-for-woocommerce-pro/woocommerce-reporting-statistics-pro.php',
+	'woocommerce-reporting-statistics-pro/woocommerce-reporting-statistics-pro.php',
+);
+
+foreach ( $webd_wc_ars_pro_plugins as $webd_wc_ars_pro_plugin ) {
+	if ( ! is_plugin_active( $webd_wc_ars_pro_plugin ) ) {
+		continue;
+	}
+
+	if ( ! function_exists( 'webd_wc_ars_pro_active_notice' ) ) {
+		/**
+		 * Tells the user why the free version is not running while the Pro version is active.
+		 *
+		 * @since   4.1.9
+		 * @version 4.1.9
+		 */
+		function webd_wc_ars_pro_active_notice() {
+			$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+			if ( ! $screen || 'plugins' !== $screen->id ) {
+				return;
+			}
+			printf(
+				'<div class="notice notice-info"><p>%s</p></div>',
+				esc_html__( 'Advanced Reporting and Statistics for WooCommerce (free version) is disabled while the Pro version is active. Deactivate the Pro version to use the free one.', 'webd-woocommerce-advanced-reporting-statistics' )
+			);
+		}
+	}
+	add_action( 'admin_notices', 'webd_wc_ars_pro_active_notice' );
+
+	return;
+}
 
 defined( 'WPFACTORY_WC_ARS_VERSION' ) || define( 'WPFACTORY_WC_ARS_VERSION', '4.1.9-dev-20261029-1650' );
 
@@ -106,10 +179,6 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 	 * @version 4.1.9
 	 */
 	public function onActivation() {
-		require_once(ABSPATH .'/wp-admin/includes/plugin.php');
-		$pro = "/woocommerce-reporting-statistics-pro/woocommerce-reporting-statistics-pro.php";
-		deactivate_plugins($pro);
-
 		$default_status = ['wc-completed', 'wc-processing', 'wc-on-hold', 'wc-refunded' ];
 		update_option( $this->plugin.'_status' , $default_status );
 	}
