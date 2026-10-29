@@ -1,10 +1,10 @@
 === Advanced Reporting and Statistics for WooCommerce ===
 Contributors: wpcodefactory
 Tags: reporting, woocommerce statistics, sales report, analytics, woocommerce sales
+Stable tag: 4.1.9
 Requires at least: 4.6.0
 Requires PHP: 5.2.4
 Tested up to: 7.1
-Stable tag: 4.1.8
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -85,6 +85,12 @@ Please report security bugs found in the source code of the plugin through the [
 3. Advanced WooCommerce Reporting - Statistics & Forecast | Analysis Grouped by Month and next Month's Forecast
 
 == Changelog ==
+
+= 4.1.9 - 29/10/2026 =
+* Dev - Free/Pro separation: removed the PRO-only product and category report filtering implementation from the free `get_products` and `get_categories` AJAX handlers (the filter UI stays as a PRO-only upsell).
+* Dev - Added `wpfactory_wc_ars_report_sql_filter` filter for report query extensibility (default behavior unchanged).
+* Dev - Code refactoring.
+* Dev - `get_products`/`get_categories` now return an empty response when no order IDs are posted.
 
 = 4.1.8 - 27/10/2026 =
 * Dev - Minimum required WordPress version raised to 4.6.0.

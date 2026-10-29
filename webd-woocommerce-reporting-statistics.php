@@ -3,7 +3,7 @@
  * Plugin Name: Advanced Reporting and Statistics for WooCommerce
  * Plugin URI: https://extend-wp.com/advanced-reporting-statistics-plugin-for-woocommerce/
  * Description: A comprehensive WordPress Plugin for WooCommerce Reports, Statistics, Analytics & Forecasting Tool for Orders, Sales, Products, Countries, Payment Gateways Shipping, Tax, Refunds, Top Products.
- * Version: 4.1.8
+ * Version: 4.1.9-dev
  * Author: WPFactory
  * Author URI: https://wpfactory.com
  * Requires at least: 4.6.0
@@ -15,12 +15,12 @@
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * Created On: 23-01-2019
- * Updated On: 27-10-2026
+ * Updated On: 29-10-2026
  */
 
 defined( 'ABSPATH' ) || exit;
 
-defined( 'WPFACTORY_WC_ARS_VERSION' ) || define( 'WPFACTORY_WC_ARS_VERSION', '4.1.8' );
+defined( 'WPFACTORY_WC_ARS_VERSION' ) || define( 'WPFACTORY_WC_ARS_VERSION', '4.1.9-dev-20261029-1650' );
 
 defined( 'WPFACTORY_WC_ARS_FILE' ) || define( 'WPFACTORY_WC_ARS_FILE', __FILE__ );
 
@@ -102,14 +102,13 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 
 	/**
 	 * onActivation.
+	 *
+	 * @version 4.1.9
 	 */
 	public function onActivation() {
 		require_once(ABSPATH .'/wp-admin/includes/plugin.php');
 		$pro = "/woocommerce-reporting-statistics-pro/woocommerce-reporting-statistics-pro.php";
 		deactivate_plugins($pro);
-
-		$order_fields = array(  "_id","_date_created", "_status",  "_payment_method_title","_coupon_codes" , "_billing_first_name" , "_billing_last_name" ,  "_billing_country", "_shipping_total" , "_total_discount" , "_total_tax" , "_total_refunded" ,"_subtotal" , "_total" );
-		update_option($this->plugin."_custom_fields", $order_fields );
 
 		$default_status = ['wc-completed', 'wc-processing', 'wc-on-hold', 'wc-refunded' ];
 		update_option( $this->plugin.'_status' , $default_status );
@@ -118,7 +117,7 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 	/**
 	 * BackEndScripts.
 	 *
-	 * @version 4.1.7
+	 * @version 4.1.9
 	 *
 	 * @todo    (v4.0.0) add `version`, etc.
 	 */
@@ -163,7 +162,6 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 				'no_orders'      => esc_html__( "No orders found...", 'webd-woocommerce-advanced-reporting-statistics' ),
 				'page'           => $this->slug,
 				'tab'            => array( 'all' ),
-				'custom_fields'  => get_option( $this->plugin."_custom_fields" ),
 				'currency'       => get_woocommerce_currency_symbol(),
 				'limit'          => get_option( $this->plugin."queryLimit" , 500 ),
 			)

@@ -2,7 +2,7 @@
 /**
  * Advanced Reporting and Statistics for WooCommerce - OrderProcessorHelp Class
  *
- * @version 4.1.7
+ * @version 4.1.9
  *
  * @author  WPFactory
  */
@@ -553,7 +553,7 @@ class OrderProcessorHelp {
 	/**
 	 * getOrders.
 	 *
-	 * @version 4.1.7
+	 * @version 4.1.9
 	 */
 	public function getOrders() {
 
@@ -606,7 +606,6 @@ class OrderProcessorHelp {
 			$result_orders = wc_get_orders( $args );
 
 			$orders     = array();
-			$orderIds   = array();
 			$order_data = array();
 
 			$date  = current_time( 'mysql' );
@@ -655,36 +654,11 @@ class OrderProcessorHelp {
 				" </h3>";
 			}
 
-			if ( isset( $_POST['city'] ) && ! empty( $_POST['billing_city'] ) ) {
-				$message .= "<h3> for " .
-					esc_html( sanitize_text_field( wp_unslash( $_POST['city'] ) ) ) .
-				" </h3>";
-			}
-
 			if ( $result_orders ) {
 
 				foreach ( $result_orders as $order ) {
 
-					if (
-						! empty( $_POST['cat'] ) ||
-						! empty( $_POST['product'] )
-					) {
-						array_push( $orderIds, $order->get_id() );
-					}
-
-					if ( ! empty( $orderIds ) ) {
-						$order_data['total_orders'] = count( $orderIds );
-					} else {
-						$order_data['total_orders'] = $results->total;
-					}
-
-					if (
-						(
-							! empty( $orderIds ) &&
-							in_array( $order->get_id(), $orderIds )
-						) ||
-						empty( $orderIds )
-					) {
+					$order_data['total_orders'] = $results->total;
 
 						$order_data['message'] = sanitize_text_field( $message );
 						$order_data['days']    = round( $datediff / DAY_IN_SECONDS );
@@ -744,8 +718,6 @@ class OrderProcessorHelp {
 						$order_data['products'] = $products;
 
 						array_push( $orders, $order_data );
-
-					}
 
 				}
 
@@ -1319,7 +1291,7 @@ class OrderProcessorHelp {
 	/**
 	 * get_products.
 	 *
-	 * @version 4.1.7
+	 * @version 4.1.9
 	 */
 	public function get_products() {
 
@@ -1334,222 +1306,96 @@ class OrderProcessorHelp {
 
 			global $wpdb;
 
+			$ids = array();
 			if ( isset( $_POST['ids'] ) ) {
 				$ids = $this->get_posted_ids();
 			}
 
-			$prod = $this->get_posted_product_id();
-			$cat  = $this->get_posted_product_cat_id();
+			if ( empty( $ids ) ) {
+				echo json_encode(
+					array(
+						'name'     => array(),
+						'total'    => array(),
+						'products' => '',
+					)
+				);
+				wp_die();
+			}
 
-			$prepare_args = $ids;
-			if ( null != $prod ) {
-				$prepare_args[] = $prod;
-				$prepare_args[] = $prod;
-			}
-			if ( null != $cat ) {
-				$prepare_args[] = $cat;
-			}
+			/**
+			 * wpfactory_wc_ars_report_sql_filter.
+			 *
+			 * Allows adding a SQL `where` fragment (with prepared placeholders
+			 * and matching args, ordered after the order IDs) to the report query.
+			 * Default is empty, i.e., no additional filtering.
+			 *
+			 * @version 4.1.9
+			 * @since   4.1.9
+			 *
+			 * @param   array  $filter Default: `array( 'where' => '', 'args' => array() )`.
+			 * @param   string $report `products` or `categories`.
+			 * @param   array  $ids    Order IDs.
+			 */
+			$report_filter = apply_filters(
+				'wpfactory_wc_ars_report_sql_filter',
+				array(
+					'where' => '',
+					'args'  => array(),
+				),
+				'products',
+				$ids
+			);
+
+			$prepare_args = array_merge( $ids, $report_filter['args'] );
 
 			// Query completed orders with order date and total sales.
 			if ( OrderUtil::custom_orders_table_usage_is_enabled() ) {
 
-				if ( null != $cat ) {
-
-					if ( null != $prod ) {
-
-						$data = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom reporting SQL; no WP API equivalent.
-							$wpdb->prepare(
-								"SELECT DISTINCT product_id AS product, variation_id AS variation,
-									SUM(products.product_net_revenue ) AS total,
-									SUM(products.product_qty ) AS num_products
-								FROM " . $wpdb->prefix . "wc_order_product_lookup AS products
-								LEFT JOIN {$wpdb->prefix}term_relationships AS rel ON ( product_id = rel.object_id || variation_id = rel.object_id )
-								LEFT JOIN {$wpdb->prefix}term_taxonomy AS tax ON rel.term_taxonomy_id = tax.term_taxonomy_id AND tax.taxonomy = 'product_cat'
-								LEFT JOIN {$wpdb->prefix}terms AS terms ON tax.term_id = terms.term_id
-								WHERE products.order_id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ") AND ( product_id = %d OR variation_id = %d ) AND terms.term_id = %d
-								GROUP BY product, variation
-								ORDER BY total DESC",
-								...$prepare_args
-							)
-						);
-
-					} else {
-
-						$data = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom reporting SQL; no WP API equivalent.
-							$wpdb->prepare(
-								"SELECT DISTINCT product_id AS product, variation_id AS variation,
-									SUM(products.product_net_revenue ) AS total,
-									SUM(products.product_qty ) AS num_products
-								FROM " . $wpdb->prefix . "wc_order_product_lookup AS products
-								LEFT JOIN {$wpdb->prefix}term_relationships AS rel ON ( product_id = rel.object_id || variation_id = rel.object_id )
-								LEFT JOIN {$wpdb->prefix}term_taxonomy AS tax ON rel.term_taxonomy_id = tax.term_taxonomy_id AND tax.taxonomy = 'product_cat'
-								LEFT JOIN {$wpdb->prefix}terms AS terms ON tax.term_id = terms.term_id
-								WHERE products.order_id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ") AND terms.term_id = %d
-								GROUP BY product, variation
-								ORDER BY total DESC",
-								...$prepare_args
-							)
-						);
-
-					}
-
-				} elseif ( null != $prod ) {
-
-						$data = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom reporting SQL; no WP API equivalent.
-							$wpdb->prepare(
-								"SELECT DISTINCT product_id AS product, variation_id AS variation,
-									SUM(products.product_net_revenue ) AS total,
-									SUM(products.product_qty ) AS num_products
-								FROM " . $wpdb->prefix . "wc_order_product_lookup AS products
-								WHERE products.order_id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ") AND ( product_id = %d OR variation_id = %d )
-								GROUP BY product, variation
-								ORDER BY total DESC",
-								...$prepare_args
-							)
-						);
-
-				} else {
-
-					$data = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom reporting SQL; no WP API equivalent.
-						$wpdb->prepare(
-							"SELECT DISTINCT product_id AS product, variation_id AS variation,
-									SUM(products.product_net_revenue ) AS total,
-									SUM(products.product_qty ) AS num_products
-								FROM " . $wpdb->prefix . "wc_order_product_lookup AS products
-								WHERE products.order_id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ")
-								GROUP BY product, variation
-								ORDER BY total DESC",
-							...$prepare_args
-						)
-					);
-
-				}
-
-			} elseif ( null != $cat ) {
-
-				if ( null != $prod ) {
-
-					$data = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom reporting SQL; no WP API equivalent.
-						$wpdb->prepare(
-							"SELECT
-									products.meta_value AS product,
-									variations.meta_value AS variation,
-									SUM(order_itemmeta_line_subtotal.meta_value) AS total,
-									SUM(order_itemmeta_line_tax.meta_value) AS tax,
-									SUM( qty.meta_value ) AS num_products
-								FROM
-									{$wpdb->prefix}woocommerce_order_items AS items
-								JOIN
-									{$wpdb->prefix}woocommerce_order_itemmeta AS products ON items.order_item_id = products.order_item_id AND products.meta_key = '_product_id'
-								LEFT JOIN
-									{$wpdb->prefix}woocommerce_order_itemmeta AS variations ON items.order_item_id = variations.order_item_id AND variations.meta_key = '_variation_id'
-								JOIN
-									{$wpdb->prefix}woocommerce_order_itemmeta AS order_itemmeta_line_subtotal ON items.order_item_id = order_itemmeta_line_subtotal.order_item_id AND order_itemmeta_line_subtotal.meta_key = '_line_subtotal'
-								JOIN
-									{$wpdb->prefix}woocommerce_order_itemmeta AS order_itemmeta_line_tax ON items.order_item_id = order_itemmeta_line_tax.order_item_id AND order_itemmeta_line_tax.meta_key = '_line_tax'
-								JOIN
-									{$wpdb->prefix}woocommerce_order_itemmeta AS qty ON items.order_item_id = qty.order_item_id AND qty.meta_key = '_qty'
-								LEFT JOIN {$wpdb->prefix}term_relationships AS rel ON  ( products.meta_value = rel.object_id || variations.meta_value = rel.object_id )
-								LEFT JOIN {$wpdb->prefix}term_taxonomy AS tax ON rel.term_taxonomy_id = tax.term_taxonomy_id AND tax.taxonomy = 'product_cat'
-								LEFT JOIN {$wpdb->prefix}terms AS terms ON tax.term_id = terms.term_id
-								WHERE items.order_id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ") AND ( products.meta_value = %d OR variations.meta_value = %d ) AND terms.term_id = %d
-								GROUP BY product, variation
-								ORDER BY total DESC",
-							...$prepare_args
-						)
-					);
-
-				} else {
-
-					$data = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom reporting SQL; no WP API equivalent.
-						$wpdb->prepare(
-							"SELECT
-									products.meta_value AS product,
-									variations.meta_value AS variation,
-									SUM(order_itemmeta_line_subtotal.meta_value) AS total,
-									SUM(order_itemmeta_line_tax.meta_value) AS tax,
-									SUM( qty.meta_value ) AS num_products
-								FROM
-									{$wpdb->prefix}woocommerce_order_items AS items
-								JOIN
-									{$wpdb->prefix}woocommerce_order_itemmeta AS products ON items.order_item_id = products.order_item_id AND products.meta_key = '_product_id'
-								LEFT JOIN
-									{$wpdb->prefix}woocommerce_order_itemmeta AS variations ON items.order_item_id = variations.order_item_id AND variations.meta_key = '_variation_id'
-								JOIN
-									{$wpdb->prefix}woocommerce_order_itemmeta AS order_itemmeta_line_subtotal ON items.order_item_id = order_itemmeta_line_subtotal.order_item_id AND order_itemmeta_line_subtotal.meta_key = '_line_subtotal'
-								JOIN
-									{$wpdb->prefix}woocommerce_order_itemmeta AS order_itemmeta_line_tax ON items.order_item_id = order_itemmeta_line_tax.order_item_id AND order_itemmeta_line_tax.meta_key = '_line_tax'
-								JOIN
-									{$wpdb->prefix}woocommerce_order_itemmeta AS qty ON items.order_item_id = qty.order_item_id AND qty.meta_key = '_qty'
-								LEFT JOIN {$wpdb->prefix}term_relationships AS rel ON  ( products.meta_value = rel.object_id || variations.meta_value = rel.object_id )
-								LEFT JOIN {$wpdb->prefix}term_taxonomy AS tax ON rel.term_taxonomy_id = tax.term_taxonomy_id AND tax.taxonomy = 'product_cat'
-								LEFT JOIN {$wpdb->prefix}terms AS terms ON tax.term_id = terms.term_id
-								WHERE items.order_id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ") AND terms.term_id = %d
-								GROUP BY product, variation
-								ORDER BY total DESC",
-							...$prepare_args
-						)
-					);
-
-				}
-
-			} elseif ( null != $prod ) {
-
-					$data = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom reporting SQL; no WP API equivalent.
-						$wpdb->prepare(
-							"SELECT
-									products.meta_value AS product,
-									variations.meta_value AS variation,
-									SUM(order_itemmeta_line_subtotal.meta_value) AS total,
-									SUM(order_itemmeta_line_tax.meta_value) AS tax,
-									SUM( qty.meta_value ) AS num_products
-								FROM
-									{$wpdb->prefix}woocommerce_order_items AS items
-								JOIN
-									{$wpdb->prefix}woocommerce_order_itemmeta AS products ON items.order_item_id = products.order_item_id AND products.meta_key = '_product_id'
-								LEFT JOIN
-									{$wpdb->prefix}woocommerce_order_itemmeta AS variations ON items.order_item_id = variations.order_item_id AND variations.meta_key = '_variation_id'
-								JOIN
-									{$wpdb->prefix}woocommerce_order_itemmeta AS order_itemmeta_line_subtotal ON items.order_item_id = order_itemmeta_line_subtotal.order_item_id AND order_itemmeta_line_subtotal.meta_key = '_line_subtotal'
-								JOIN
-									{$wpdb->prefix}woocommerce_order_itemmeta AS order_itemmeta_line_tax ON items.order_item_id = order_itemmeta_line_tax.order_item_id AND order_itemmeta_line_tax.meta_key = '_line_tax'
-								JOIN
-									{$wpdb->prefix}woocommerce_order_itemmeta AS qty ON items.order_item_id = qty.order_item_id AND qty.meta_key = '_qty'
-								WHERE items.order_id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ") AND ( products.meta_value = %d OR variations.meta_value = %d )
-								GROUP BY product, variation
-								ORDER BY total DESC",
-							...$prepare_args
-						)
-					);
-
-			} else {
-
+				// phpcs:disable WordPress.DB.PreparedSQL.NotPrepared -- `where` fragment is filterable (default empty) via `wpfactory_wc_ars_report_sql_filter`.
 				$data = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom reporting SQL; no WP API equivalent.
 					$wpdb->prepare(
-						"SELECT
-									products.meta_value AS product,
-									variations.meta_value AS variation,
-									SUM(order_itemmeta_line_subtotal.meta_value) AS total,
-									SUM(order_itemmeta_line_tax.meta_value) AS tax,
-									SUM( qty.meta_value ) AS num_products
-								FROM
-									{$wpdb->prefix}woocommerce_order_items AS items
-								JOIN
-									{$wpdb->prefix}woocommerce_order_itemmeta AS products ON items.order_item_id = products.order_item_id AND products.meta_key = '_product_id'
-								LEFT JOIN
-									{$wpdb->prefix}woocommerce_order_itemmeta AS variations ON items.order_item_id = variations.order_item_id AND variations.meta_key = '_variation_id'
-								JOIN
-									{$wpdb->prefix}woocommerce_order_itemmeta AS order_itemmeta_line_subtotal ON items.order_item_id = order_itemmeta_line_subtotal.order_item_id AND order_itemmeta_line_subtotal.meta_key = '_line_subtotal'
-								JOIN
-									{$wpdb->prefix}woocommerce_order_itemmeta AS order_itemmeta_line_tax ON items.order_item_id = order_itemmeta_line_tax.order_item_id AND order_itemmeta_line_tax.meta_key = '_line_tax'
-								JOIN
-									{$wpdb->prefix}woocommerce_order_itemmeta AS qty ON items.order_item_id = qty.order_item_id AND qty.meta_key = '_qty'
-								WHERE items.order_id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ")
-								GROUP BY product, variation
-								ORDER BY total DESC",
+						"SELECT DISTINCT product_id AS product, variation_id AS variation,
+							SUM(products.product_net_revenue ) AS total,
+							SUM(products.product_qty ) AS num_products
+						FROM " . $wpdb->prefix . "wc_order_product_lookup AS products
+						WHERE products.order_id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ")" . $report_filter['where'] . "
+						GROUP BY product, variation
+						ORDER BY total DESC",
 						...$prepare_args
 					)
 				);
+				// phpcs:enable WordPress.DB.PreparedSQL.NotPrepared
+
+			} else {
+
+				// phpcs:disable WordPress.DB.PreparedSQL.NotPrepared -- `where` fragment is filterable (default empty) via `wpfactory_wc_ars_report_sql_filter`.
+				$data = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom reporting SQL; no WP API equivalent.
+					$wpdb->prepare(
+						"SELECT
+								products.meta_value AS product,
+								variations.meta_value AS variation,
+								SUM(order_itemmeta_line_subtotal.meta_value) AS total,
+								SUM(order_itemmeta_line_tax.meta_value) AS tax,
+								SUM( qty.meta_value ) AS num_products
+							FROM
+								{$wpdb->prefix}woocommerce_order_items AS items
+							JOIN
+								{$wpdb->prefix}woocommerce_order_itemmeta AS products ON items.order_item_id = products.order_item_id AND products.meta_key = '_product_id'
+							LEFT JOIN
+								{$wpdb->prefix}woocommerce_order_itemmeta AS variations ON items.order_item_id = variations.order_item_id AND variations.meta_key = '_variation_id'
+							JOIN
+								{$wpdb->prefix}woocommerce_order_itemmeta AS order_itemmeta_line_subtotal ON items.order_item_id = order_itemmeta_line_subtotal.order_item_id AND order_itemmeta_line_subtotal.meta_key = '_line_subtotal'
+							JOIN
+								{$wpdb->prefix}woocommerce_order_itemmeta AS order_itemmeta_line_tax ON items.order_item_id = order_itemmeta_line_tax.order_item_id AND order_itemmeta_line_tax.meta_key = '_line_tax'
+							JOIN
+								{$wpdb->prefix}woocommerce_order_itemmeta AS qty ON items.order_item_id = qty.order_item_id AND qty.meta_key = '_qty'
+							WHERE items.order_id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ")" . $report_filter['where'] . "
+							GROUP BY product, variation
+							ORDER BY total DESC",
+						...$prepare_args
+					)
+				);
+				// phpcs:enable WordPress.DB.PreparedSQL.NotPrepared
 
 			}
 
@@ -1591,7 +1437,7 @@ class OrderProcessorHelp {
 	/**
 	 * get_categories.
 	 *
-	 * @version 4.1.7
+	 * @version 4.1.9
 	 */
 	public function get_categories() {
 
@@ -1606,193 +1452,91 @@ class OrderProcessorHelp {
 
 			global $wpdb;
 
+			$ids = array();
 			if ( isset( $_POST['ids'] ) ) {
 				$ids = $this->get_posted_ids();
 			}
 
-			$prod = $this->get_posted_product_id();
-			$cat  = $this->get_posted_product_cat_id();
+			if ( empty( $ids ) ) {
+				echo json_encode(
+					array(
+						'name'       => array(),
+						'total'      => array(),
+						'categories' => '',
+					)
+				);
+				wp_die();
+			}
 
-			$prepare_args = $ids;
-			if ( null != $prod ) {
-				$prepare_args[] = $prod;
-				$prepare_args[] = $prod;
-			}
-			if ( null != $cat ) {
-				$prepare_args[] = $cat;
-			}
+			/**
+			 * wpfactory_wc_ars_report_sql_filter.
+			 *
+			 * Allows adding a SQL `where` fragment (with prepared placeholders
+			 * and matching args, ordered after the order IDs) to the report query.
+			 * Default is empty, i.e., no additional filtering.
+			 *
+			 * @version 4.1.9
+			 * @since   4.1.9
+			 *
+			 * @param   array  $filter Default: `array( 'where' => '', 'args' => array() )`.
+			 * @param   string $report `products` or `categories`.
+			 * @param   array  $ids    Order IDs.
+			 */
+			$report_filter = apply_filters(
+				'wpfactory_wc_ars_report_sql_filter',
+				array(
+					'where' => '',
+					'args'  => array(),
+				),
+				'categories',
+				$ids
+			);
+
+			$prepare_args = array_merge( $ids, $report_filter['args'] );
 
 			if ( OrderUtil::custom_orders_table_usage_is_enabled() ) {
 
-				if ( null != $prod ) {
-
-					if ( null != $cat ) {
-
-						$data = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom reporting SQL; no WP API equivalent.
-							$wpdb->prepare(
-								"SELECT DISTINCT terms.name AS term,
-									SUM(products.product_net_revenue ) AS total,
-									SUM(products.product_qty ) AS num_products
-								FROM {$wpdb->prefix}wc_order_product_lookup AS products
-								LEFT JOIN {$wpdb->prefix}term_relationships AS rel ON ( products.product_id = rel.object_id || products.variation_id = rel.object_id )
-								LEFT JOIN {$wpdb->prefix}term_taxonomy AS tax ON rel.term_taxonomy_id = tax.term_taxonomy_id AND tax.taxonomy = 'product_cat'
-								LEFT JOIN {$wpdb->prefix}terms AS terms ON tax.term_id = terms.term_id
-								WHERE products.order_id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ") AND terms.name IS NOT NULL AND ( products.product_id = %d OR products.variation_id = %d ) AND terms.term_id = %d
-								GROUP BY term
-								ORDER BY total DESC",
-								...$prepare_args
-							)
-						);
-
-					} else {
-
-						$data = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom reporting SQL; no WP API equivalent.
-							$wpdb->prepare(
-								"SELECT DISTINCT terms.name AS term,
-									SUM(products.product_net_revenue ) AS total,
-									SUM(products.product_qty ) AS num_products
-								FROM {$wpdb->prefix}wc_order_product_lookup AS products
-								LEFT JOIN {$wpdb->prefix}term_relationships AS rel ON ( products.product_id = rel.object_id || products.variation_id = rel.object_id )
-								LEFT JOIN {$wpdb->prefix}term_taxonomy AS tax ON rel.term_taxonomy_id = tax.term_taxonomy_id AND tax.taxonomy = 'product_cat'
-								LEFT JOIN {$wpdb->prefix}terms AS terms ON tax.term_id = terms.term_id
-								WHERE products.order_id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ") AND terms.name IS NOT NULL AND ( products.product_id = %d OR products.variation_id = %d )
-								GROUP BY term
-								ORDER BY total DESC",
-								...$prepare_args
-							)
-						);
-
-					}
-
-				} elseif ( null != $cat ) {
-
-						$data = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom reporting SQL; no WP API equivalent.
-							$wpdb->prepare(
-								"SELECT DISTINCT terms.name AS term,
-									SUM(products.product_net_revenue ) AS total,
-									SUM(products.product_qty ) AS num_products
-								FROM {$wpdb->prefix}wc_order_product_lookup AS products
-								LEFT JOIN {$wpdb->prefix}term_relationships AS rel ON ( products.product_id = rel.object_id || products.variation_id = rel.object_id )
-								LEFT JOIN {$wpdb->prefix}term_taxonomy AS tax ON rel.term_taxonomy_id = tax.term_taxonomy_id AND tax.taxonomy = 'product_cat'
-								LEFT JOIN {$wpdb->prefix}terms AS terms ON tax.term_id = terms.term_id
-								WHERE products.order_id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ") AND terms.name IS NOT NULL AND terms.term_id = %d
-								GROUP BY term
-								ORDER BY total DESC",
-								...$prepare_args
-							)
-						);
-
-				} else {
-
-					$data = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom reporting SQL; no WP API equivalent.
-						$wpdb->prepare(
-							"SELECT DISTINCT terms.name AS term,
-									SUM(products.product_net_revenue ) AS total,
-									SUM(products.product_qty ) AS num_products
-								FROM {$wpdb->prefix}wc_order_product_lookup AS products
-								LEFT JOIN {$wpdb->prefix}term_relationships AS rel ON ( products.product_id = rel.object_id || products.variation_id = rel.object_id )
-								LEFT JOIN {$wpdb->prefix}term_taxonomy AS tax ON rel.term_taxonomy_id = tax.term_taxonomy_id AND tax.taxonomy = 'product_cat'
-								LEFT JOIN {$wpdb->prefix}terms AS terms ON tax.term_id = terms.term_id
-								WHERE products.order_id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ") AND terms.name IS NOT NULL
-								GROUP BY term
-								ORDER BY total DESC",
-							...$prepare_args
-						)
-					);
-
-				}
-
-			} elseif ( null != $prod ) {
-
-				if ( null != $cat ) {
-
-					$data = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom reporting SQL; no WP API equivalent.
-						$wpdb->prepare(
-							"SELECT DISTINCT terms.name AS term,
-									SUM( total.meta_value ) AS total,
-									SUM( qty.meta_value ) AS num_products
-								FROM {$wpdb->prefix}woocommerce_order_items AS order_items
-								LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS total ON order_items.order_item_id = total.order_item_id AND total.meta_key = '_line_total'
-								LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS qty ON order_items.order_item_id = qty.order_item_id AND qty.meta_key = '_qty'
-								LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS product ON order_items.order_item_id = product.order_item_id AND product.meta_key = '_product_id'
-								LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS variation ON order_items.order_item_id = variation.order_item_id AND variation.meta_key = '_variation_id'
-								LEFT JOIN {$wpdb->prefix}term_relationships AS rel ON ( product.meta_value = rel.object_id || variation.meta_value = rel.object_id )
-								LEFT JOIN {$wpdb->prefix}term_taxonomy AS tax ON rel.term_taxonomy_id = tax.term_taxonomy_id AND tax.taxonomy = 'product_cat'
-								LEFT JOIN {$wpdb->prefix}terms AS terms ON tax.term_id = terms.term_id
-								WHERE order_items.order_id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ") AND terms.name IS NOT NULL AND ( variation.meta_value = %d OR product.meta_value = %d ) AND terms.term_id = %d
-								GROUP BY term
-								ORDER BY total DESC",
-							...$prepare_args
-						)
-					);
-
-				} else {
-
-					$data = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom reporting SQL; no WP API equivalent.
-						$wpdb->prepare(
-							"SELECT DISTINCT terms.name AS term,
-									SUM( total.meta_value ) AS total,
-									SUM( qty.meta_value ) AS num_products
-								FROM {$wpdb->prefix}woocommerce_order_items AS order_items
-								LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS total ON order_items.order_item_id = total.order_item_id AND total.meta_key = '_line_total'
-								LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS qty ON order_items.order_item_id = qty.order_item_id AND qty.meta_key = '_qty'
-								LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS product ON order_items.order_item_id = product.order_item_id AND product.meta_key = '_product_id'
-								LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS variation ON order_items.order_item_id = variation.order_item_id AND variation.meta_key = '_variation_id'
-								LEFT JOIN {$wpdb->prefix}term_relationships AS rel ON ( product.meta_value = rel.object_id || variation.meta_value = rel.object_id )
-								LEFT JOIN {$wpdb->prefix}term_taxonomy AS tax ON rel.term_taxonomy_id = tax.term_taxonomy_id AND tax.taxonomy = 'product_cat'
-								LEFT JOIN {$wpdb->prefix}terms AS terms ON tax.term_id = terms.term_id
-								WHERE order_items.order_id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ") AND terms.name IS NOT NULL AND ( variation.meta_value = %d OR product.meta_value = %d )
-								GROUP BY term
-								ORDER BY total DESC",
-							...$prepare_args
-						)
-					);
-
-				}
-
-			} elseif ( null != $cat ) {
-
-					$data = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom reporting SQL; no WP API equivalent.
-						$wpdb->prepare(
-							"SELECT DISTINCT terms.name AS term,
-									SUM( total.meta_value ) AS total,
-									SUM( qty.meta_value ) AS num_products
-								FROM {$wpdb->prefix}woocommerce_order_items AS order_items
-								LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS total ON order_items.order_item_id = total.order_item_id AND total.meta_key = '_line_total'
-								LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS qty ON order_items.order_item_id = qty.order_item_id AND qty.meta_key = '_qty'
-								LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS product ON order_items.order_item_id = product.order_item_id AND product.meta_key = '_product_id'
-								LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS variation ON order_items.order_item_id = variation.order_item_id AND variation.meta_key = '_variation_id'
-								LEFT JOIN {$wpdb->prefix}term_relationships AS rel ON ( product.meta_value = rel.object_id || variation.meta_value = rel.object_id )
-								LEFT JOIN {$wpdb->prefix}term_taxonomy AS tax ON rel.term_taxonomy_id = tax.term_taxonomy_id AND tax.taxonomy = 'product_cat'
-								LEFT JOIN {$wpdb->prefix}terms AS terms ON tax.term_id = terms.term_id
-								WHERE order_items.order_id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ") AND terms.name IS NOT NULL AND terms.term_id = %d
-								GROUP BY term
-								ORDER BY total DESC",
-							...$prepare_args
-						)
-					);
-
-			} else {
-
+				// phpcs:disable WordPress.DB.PreparedSQL.NotPrepared -- `where` fragment is filterable (default empty) via `wpfactory_wc_ars_report_sql_filter`.
 				$data = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom reporting SQL; no WP API equivalent.
 					$wpdb->prepare(
 						"SELECT DISTINCT terms.name AS term,
-									SUM( total.meta_value ) AS total,
-									SUM( qty.meta_value ) AS num_products
-								FROM {$wpdb->prefix}woocommerce_order_items AS order_items
-								LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS total ON order_items.order_item_id = total.order_item_id AND total.meta_key = '_line_total'
-								LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS qty ON order_items.order_item_id = qty.order_item_id AND qty.meta_key = '_qty'
-								LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS product ON order_items.order_item_id = product.order_item_id AND product.meta_key = '_product_id'
-								LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS variation ON order_items.order_item_id = variation.order_item_id AND variation.meta_key = '_variation_id'
-								LEFT JOIN {$wpdb->prefix}term_relationships AS rel ON ( product.meta_value = rel.object_id || variation.meta_value = rel.object_id )
-								LEFT JOIN {$wpdb->prefix}term_taxonomy AS tax ON rel.term_taxonomy_id = tax.term_taxonomy_id AND tax.taxonomy = 'product_cat'
-								LEFT JOIN {$wpdb->prefix}terms AS terms ON tax.term_id = terms.term_id
-								WHERE order_items.order_id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ") AND terms.name IS NOT NULL
-								GROUP BY term
-								ORDER BY total DESC",
+							SUM(products.product_net_revenue ) AS total,
+							SUM(products.product_qty ) AS num_products
+						FROM {$wpdb->prefix}wc_order_product_lookup AS products
+						LEFT JOIN {$wpdb->prefix}term_relationships AS rel ON ( products.product_id = rel.object_id || products.variation_id = rel.object_id )
+						LEFT JOIN {$wpdb->prefix}term_taxonomy AS tax ON rel.term_taxonomy_id = tax.term_taxonomy_id AND tax.taxonomy = 'product_cat'
+						LEFT JOIN {$wpdb->prefix}terms AS terms ON tax.term_id = terms.term_id
+						WHERE products.order_id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ") AND terms.name IS NOT NULL" . $report_filter['where'] . "
+						GROUP BY term
+						ORDER BY total DESC",
 						...$prepare_args
 					)
 				);
+				// phpcs:enable WordPress.DB.PreparedSQL.NotPrepared
+
+			} else {
+
+				// phpcs:disable WordPress.DB.PreparedSQL.NotPrepared -- `where` fragment is filterable (default empty) via `wpfactory_wc_ars_report_sql_filter`.
+				$data = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom reporting SQL; no WP API equivalent.
+					$wpdb->prepare(
+						"SELECT DISTINCT terms.name AS term,
+								SUM( total.meta_value ) AS total,
+								SUM( qty.meta_value ) AS num_products
+							FROM {$wpdb->prefix}woocommerce_order_items AS order_items
+							LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS total ON order_items.order_item_id = total.order_item_id AND total.meta_key = '_line_total'
+							LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS qty ON order_items.order_item_id = qty.order_item_id AND qty.meta_key = '_qty'
+							LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS product ON order_items.order_item_id = product.order_item_id AND product.meta_key = '_product_id'
+							LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS variation ON order_items.order_item_id = variation.order_item_id AND variation.meta_key = '_variation_id'
+							LEFT JOIN {$wpdb->prefix}term_relationships AS rel ON ( product.meta_value = rel.object_id || variation.meta_value = rel.object_id )
+							LEFT JOIN {$wpdb->prefix}term_taxonomy AS tax ON rel.term_taxonomy_id = tax.term_taxonomy_id AND tax.taxonomy = 'product_cat'
+							LEFT JOIN {$wpdb->prefix}terms AS terms ON tax.term_id = terms.term_id
+							WHERE order_items.order_id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ") AND terms.name IS NOT NULL" . $report_filter['where'] . "
+							GROUP BY term
+							ORDER BY total DESC",
+						...$prepare_args
+					)
+				);
+				// phpcs:enable WordPress.DB.PreparedSQL.NotPrepared
 
 			}
 
@@ -2009,46 +1753,6 @@ class OrderProcessorHelp {
 		return array_map(
 			'absint',
 			wp_unslash( $_POST['ids'] )
-		);
-	}
-
-	/**
-	 * get_posted_product_id.
-	 *
-	 * @version 4.1.7
-	 * @since   4.1.2
-	 */
-	function get_posted_product_id() {
-		check_ajax_referer( 'webd-woocommerce-reporting-statistics', 'nonce' );
-
-		return (
-			! empty( $_POST['product'] ) ?
-			absint(
-				wp_unslash(
-					$_POST['product']
-				)
-			) :
-			null
-		);
-	}
-
-	/**
-	 * get_posted_product_cat_id.
-	 *
-	 * @version 4.1.7
-	 * @since   4.1.2
-	 */
-	function get_posted_product_cat_id() {
-		check_ajax_referer( 'webd-woocommerce-reporting-statistics', 'nonce' );
-
-		return (
-			! empty( $_POST['cat'] ) ?
-			absint(
-				wp_unslash(
-					$_POST['cat']
-				)
-			) :
-			null
 		);
 	}
 

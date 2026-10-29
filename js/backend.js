@@ -216,9 +216,7 @@
 	var totalOrders='';
 	const tabs = webdWoocommerceReportingStatistics.tab;
 	const page = webdWoocommerceReportingStatistics.page;
-	const custom_fields = webdWoocommerceReportingStatistics.custom_fields;
 	const limit = webdWoocommerceReportingStatistics.limit;
-	if( custom_fields ) custom_fields.unshift( "order_id" );
 	var days = '';
 	var unique_dates = [];
 	var total = 0;
@@ -253,8 +251,6 @@
 	var payments=[];
 	var couponstoGroup=[];
 	var coupons=[];
-	var customTable = $('#custom table tbody');
-	var customTableHead = $('#custom table thead');
 	var custom=[];
 	var order_id = 0;
 	var periodsTable = $('.periods_table table tbody');
@@ -584,17 +580,12 @@
 
 	function load_products() {
 
-		var product = $("#product").val();
-		var cat = $("#cat").val();
-
 		$.ajax({
 			url: webdWoocommerceReportingStatistics.ajax_url,
 			type: 'post',
 			data: {
 				action: 'get_products',
 				ids: orderids,
-				product: product,
-				cat: cat,
 				nonce: webdWoocommerceReportingStatistics.nonce
 			},
 			success: function(response) {
@@ -622,17 +613,12 @@
 
 	function load_categories() {
 
-		var cat = $("#cat").val();
-		var product = $("#product").val();
-
 		$.ajax({
 			url: webdWoocommerceReportingStatistics.ajax_url,
 			type: 'post',
 			data: {
 				action: 'get_categories',
 				ids: orderids,
-				cat: cat,
-				product: product,
 				nonce: webdWoocommerceReportingStatistics.nonce
 			},
 			success: function(response) {
@@ -803,7 +789,6 @@
 			type: 'POST',
 			beforeSend: function() {
 				//console.log( $(".reportCalendar form ").serialize() );
-					if( custom_fields) customTableHead.empty();
 					$(".webdWoocommerceReportingStatistics table tbody").empty();
 					//$(".webdWoocommerceReportingStatistics canvas").remove();
 					$(".webdWoocommerceReportingStatistics .tableexport-caption").remove();
