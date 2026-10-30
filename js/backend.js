@@ -69,7 +69,7 @@
 					}
 				}
 			}else{
-				var action = 'stat_extensions';
+				var action = 'webd_wc_ars_stat_extensions';
 				$.ajax({
 					type: 'POST',
 					url: webdWoocommerceReportingStatistics.ajax_url,
@@ -284,9 +284,9 @@
 						type: 'POST',
 						url: webdWoocommerceReportingStatistics.ajax_url,
 						data: {
-							'action': 'getOrders',
+							'action': 'webd_wc_ars_getOrders',
 							'tab': $.urlParam('tab'),
-							'action': 'getOrders',
+							'action': 'webd_wc_ars_getOrders',
 							'offset': offset,
 							'selected': selected,
 							'order_status': order_status,
@@ -411,7 +411,7 @@
 			url: webdWoocommerceReportingStatistics.ajax_url,
 			type: 'post',
 			data: {
-				action: 'get_orders',
+				action: 'webd_wc_ars_get_orders',
 				page: paged,
 				ids: orderids,
 				nonce: webdWoocommerceReportingStatistics.nonce
@@ -449,7 +449,7 @@
 			url: webdWoocommerceReportingStatistics.ajax_url,
 			type: 'post',
 			data: {
-				action: 'get_customers',
+				action: 'webd_wc_ars_get_customers',
 				ids: orderids,
 				nonce: webdWoocommerceReportingStatistics.nonce
 			},
@@ -468,7 +468,7 @@
 			url: webdWoocommerceReportingStatistics.ajax_url,
 			type: 'post',
 			data: {
-				action: 'get_countries',
+				action: 'webd_wc_ars_get_countries',
 				ids: orderids,
 				nonce: webdWoocommerceReportingStatistics.nonce
 			},
@@ -501,7 +501,7 @@
 			url: webdWoocommerceReportingStatistics.ajax_url,
 			type: 'post',
 			data: {
-				action: 'get_payments',
+				action: 'webd_wc_ars_get_payments',
 				ids: orderids,
 				nonce: webdWoocommerceReportingStatistics.nonce
 			},
@@ -534,7 +534,7 @@
 			url: webdWoocommerceReportingStatistics.ajax_url,
 			type: 'post',
 			data: {
-				action: 'get_coupons',
+				action: 'webd_wc_ars_get_coupons',
 				ids: orderids,
 				nonce: webdWoocommerceReportingStatistics.nonce
 			},
@@ -566,7 +566,7 @@
 			url: webdWoocommerceReportingStatistics.ajax_url,
 			type: 'post',
 			data: {
-				action: 'get_products',
+				action: 'webd_wc_ars_get_products',
 				ids: orderids,
 				nonce: webdWoocommerceReportingStatistics.nonce
 			},
@@ -599,7 +599,7 @@
 			url: webdWoocommerceReportingStatistics.ajax_url,
 			type: 'post',
 			data: {
-				action: 'get_categories',
+				action: 'webd_wc_ars_get_categories',
 				ids: orderids,
 				nonce: webdWoocommerceReportingStatistics.nonce
 			},
@@ -640,7 +640,7 @@
 			url: webdWoocommerceReportingStatistics.ajax_url,
 			type: 'post',
 			data: {
-				action: 'display_orders_by_period',
+				action: 'webd_wc_ars_display_orders_by_period',
 				tab: $.urlParam('tab'),
 				order_status: order_status,
 				customer: customer,

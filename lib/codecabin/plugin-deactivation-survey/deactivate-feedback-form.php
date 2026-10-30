@@ -30,19 +30,19 @@ add_action('admin_enqueue_scripts', function() {
 	
 	// Localized strings
 	wp_localize_script('codecabin-deactivate-feedback-form', 'codecabin_deactivate_feedback_form_strings', array(
-		'quick_feedback'			=> __('We are sorry to see you go...', 'codecabin'),
-		'foreword'					=> __('If you would be kind enough, please tell us why you\'re deactivating?', 'codecabin'),
-		'better_plugins_name'		=> __('Please tell us which plugin?', 'codecabin'),
-		'please_tell_us'			=> __('Please tell us the reason so we can improve the plugin', 'codecabin'),
-		'do_not_attach_email'		=> __('Do not send my e-mail address with this feedback', 'codecabin'),
+		'quick_feedback'			=> __('We are sorry to see you go...', 'webd-woocommerce-advanced-reporting-statistics'),
+		'foreword'					=> __('If you would be kind enough, please tell us why you\'re deactivating?', 'webd-woocommerce-advanced-reporting-statistics'),
+		'better_plugins_name'		=> __('Please tell us which plugin?', 'webd-woocommerce-advanced-reporting-statistics'),
+		'please_tell_us'			=> __('Please tell us the reason so we can improve the plugin', 'webd-woocommerce-advanced-reporting-statistics'),
+		'do_not_attach_email'		=> __('Do not send my e-mail address with this feedback', 'webd-woocommerce-advanced-reporting-statistics'),
 		
-		'brief_description'			=> __('Please give us any feedback that could help us improve', 'codecabin'),
+		'brief_description'			=> __('Please give us any feedback that could help us improve', 'webd-woocommerce-advanced-reporting-statistics'),
 		
-		'cancel'					=> __('Cancel', 'codecabin'),
-		'skip_and_deactivate'		=> __('Skip &amp; Deactivate', 'codecabin'),
-		'submit_and_deactivate'		=> __('Submit &amp; Deactivate', 'codecabin'),
-		'please_wait'				=> __('Please wait', 'codecabin'),
-		'thank_you'					=> __('Thank you!', 'codecabin')
+		'cancel'					=> __('Cancel', 'webd-woocommerce-advanced-reporting-statistics'),
+		'skip_and_deactivate'		=> __('Skip &amp; Deactivate', 'webd-woocommerce-advanced-reporting-statistics'),
+		'submit_and_deactivate'		=> __('Submit &amp; Deactivate', 'webd-woocommerce-advanced-reporting-statistics'),
+		'please_wait'				=> __('Please wait', 'webd-woocommerce-advanced-reporting-statistics'),
+		'thank_you'					=> __('Thank you!', 'webd-woocommerce-advanced-reporting-statistics')
 	));
 	
 	// Plugins
@@ -50,12 +50,12 @@ add_action('admin_enqueue_scripts', function() {
 	
 	// Reasons
 	$defaultReasons = array(
-		'suddenly-stopped-working'	=> __('The plugin suddenly stopped working', 'codecabin'),
-		'plugin-broke-site'			=> __('The plugin broke my site', 'codecabin'),
-		'no-longer-needed'			=> __('I don\'t need this plugin any more', 'codecabin'),
-		'found-better-plugin'		=> __('I found a better plugin', 'codecabin'),
-		'temporary-deactivation'	=> __('It\'s a temporary deactivation, I\'m troubleshooting', 'codecabin'),
-		'other'						=> __('Other', 'codecabin')
+		'suddenly-stopped-working'	=> __('The plugin suddenly stopped working', 'webd-woocommerce-advanced-reporting-statistics'),
+		'plugin-broke-site'			=> __('The plugin broke my site', 'webd-woocommerce-advanced-reporting-statistics'),
+		'no-longer-needed'			=> __('I don\'t need this plugin any more', 'webd-woocommerce-advanced-reporting-statistics'),
+		'found-better-plugin'		=> __('I found a better plugin', 'webd-woocommerce-advanced-reporting-statistics'),
+		'temporary-deactivation'	=> __('It\'s a temporary deactivation, I\'m troubleshooting', 'webd-woocommerce-advanced-reporting-statistics'),
+		'other'						=> __('Other', 'webd-woocommerce-advanced-reporting-statistics')
 	);
 	
 	foreach($plugins as $plugin)

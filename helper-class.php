@@ -1,6 +1,6 @@
 <?php
 /**
- * Advanced Reporting and Statistics for WooCommerce - OrderProcessorHelp Class
+ * Advanced Reporting and Statistics for WooCommerce - WPFactory_WC_ARS_OrderProcessorHelp Class
  *
  * @version 4.1.9
  *
@@ -11,7 +11,7 @@ defined( 'ABSPATH' ) || exit;
 
 use Automattic\WooCommerce\Utilities\OrderUtil;
 
-class OrderProcessorHelp {
+class WPFactory_WC_ARS_OrderProcessorHelp {
 
 	/**
 	 * plugin.
@@ -102,18 +102,18 @@ class OrderProcessorHelp {
 	/**
 	 * Constructor.
 	 *
-	 * @version 4.1.3
+	 * @version 4.1.9
 	 */
 	public function __construct() {
-		add_action( 'wp_ajax_getOrders', array( $this,'getOrders' ) );
-		add_action( 'wp_ajax_get_orders', array( $this,'get_orders' ) );
-		add_action( 'wp_ajax_get_customers', array( $this,'get_customers' ) );
-		add_action( 'wp_ajax_get_countries', array( $this,'get_countries' ) );
-		add_action( 'wp_ajax_get_payments', array( $this,'get_payments' ) );
-		add_action( 'wp_ajax_get_coupons', array( $this,'get_coupons' ) );
-		add_action( 'wp_ajax_get_products', array( $this,'get_products' ) );
-		add_action( 'wp_ajax_get_categories', array( $this,'get_categories' ) );
-		add_action( 'wp_ajax_display_orders_by_period', array( $this,'display_orders_by_period' ) );
+		add_action( 'wp_ajax_webd_wc_ars_getOrders', array( $this, 'getOrders' ) );
+		add_action( 'wp_ajax_webd_wc_ars_get_orders', array( $this, 'get_orders' ) );
+		add_action( 'wp_ajax_webd_wc_ars_get_customers', array( $this, 'get_customers' ) );
+		add_action( 'wp_ajax_webd_wc_ars_get_countries', array( $this, 'get_countries' ) );
+		add_action( 'wp_ajax_webd_wc_ars_get_payments', array( $this, 'get_payments' ) );
+		add_action( 'wp_ajax_webd_wc_ars_get_coupons', array( $this, 'get_coupons' ) );
+		add_action( 'wp_ajax_webd_wc_ars_get_products', array( $this, 'get_products' ) );
+		add_action( 'wp_ajax_webd_wc_ars_get_categories', array( $this, 'get_categories' ) );
+		add_action( 'wp_ajax_webd_wc_ars_display_orders_by_period', array( $this, 'display_orders_by_period' ) );
 	}
 
 	/**
@@ -163,7 +163,7 @@ class OrderProcessorHelp {
 	/**
 	 * display_orders_by_period.
 	 *
-	 * @version 4.1.7
+	 * @version 4.1.9
 	 *
 	 * @todo    (v4.1.0) `$topush = 0.1`?
 	 * @todo    (v4.1.0) `forecastHoltWinters()`?
@@ -173,7 +173,7 @@ class OrderProcessorHelp {
 		if (
 			'POST' === ( isset( $_SERVER['REQUEST_METHOD'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_METHOD'] ) ) : '' )
 			&& isset( $_POST['action'] )
-			&& 'display_orders_by_period' === sanitize_text_field( wp_unslash( $_POST['action'] ) )
+			&& 'webd_wc_ars_display_orders_by_period' === sanitize_text_field( wp_unslash( $_POST['action'] ) )
 			&& current_user_can( 'manage_woocommerce' )
 		) {
 
@@ -560,7 +560,7 @@ class OrderProcessorHelp {
 		if (
 			'POST' === ( isset( $_SERVER['REQUEST_METHOD'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_METHOD'] ) ) : '' )
 			&& isset( $_POST['action'] )
-			&& 'getOrders' === sanitize_text_field( wp_unslash( $_POST['action'] ) )
+			&& 'webd_wc_ars_getOrders' === sanitize_text_field( wp_unslash( $_POST['action'] ) )
 			&& current_user_can( 'manage_woocommerce' )
 		) {
 
@@ -789,14 +789,14 @@ class OrderProcessorHelp {
 	/**
 	 * get_orders.
 	 *
-	 * @version 4.1.7
+	 * @version 4.1.9
 	 */
 	public function get_orders() {
 
 		if (
 			is_admin() &&
 			isset( $_POST['action'] ) &&
-			'get_orders' === sanitize_text_field( wp_unslash( $_POST['action'] ) ) &&
+			'webd_wc_ars_get_orders' === sanitize_text_field( wp_unslash( $_POST['action'] ) ) &&
 			current_user_can( 'manage_woocommerce' )
 		) {
 
@@ -874,14 +874,14 @@ class OrderProcessorHelp {
 	/**
 	 * get_customers.
 	 *
-	 * @version 4.1.7
+	 * @version 4.1.9
 	 */
 	public function get_customers() {
 
 		if (
 			is_admin() &&
 			isset( $_POST['action'] ) &&
-			'get_customers' === sanitize_text_field( wp_unslash( $_POST['action'] ) ) &&
+			'webd_wc_ars_get_customers' === sanitize_text_field( wp_unslash( $_POST['action'] ) ) &&
 			current_user_can( 'manage_woocommerce' )
 		) {
 
@@ -1007,14 +1007,14 @@ class OrderProcessorHelp {
 	/**
 	 * get_countries.
 	 *
-	 * @version 4.1.7
+	 * @version 4.1.9
 	 */
 	public function get_countries() {
 
 		if (
 			is_admin() &&
 			isset( $_POST['action'] ) &&
-			'get_countries' === sanitize_text_field( wp_unslash( $_POST['action'] ) ) &&
+			'webd_wc_ars_get_countries' === sanitize_text_field( wp_unslash( $_POST['action'] ) ) &&
 			current_user_can( 'manage_woocommerce' )
 		) {
 
@@ -1106,14 +1106,14 @@ class OrderProcessorHelp {
 	/**
 	 * get_payments.
 	 *
-	 * @version 4.1.7
+	 * @version 4.1.9
 	 */
 	public function get_payments() {
 
 		if (
 			is_admin() &&
 			isset( $_POST['action'] ) &&
-			'get_payments' === sanitize_text_field( wp_unslash( $_POST['action'] ) ) &&
+			'webd_wc_ars_get_payments' === sanitize_text_field( wp_unslash( $_POST['action'] ) ) &&
 			current_user_can( 'manage_woocommerce' )
 		) {
 
@@ -1204,14 +1204,14 @@ class OrderProcessorHelp {
 	/**
 	 * get_coupons.
 	 *
-	 * @version 4.1.7
+	 * @version 4.1.9
 	 */
 	public function get_coupons() {
 
 		if (
 			is_admin() &&
 			isset( $_POST['action'] ) &&
-			'get_coupons' === sanitize_text_field( wp_unslash( $_POST['action'] ) ) &&
+			'webd_wc_ars_get_coupons' === sanitize_text_field( wp_unslash( $_POST['action'] ) ) &&
 			current_user_can( 'manage_woocommerce' )
 		) {
 
@@ -1298,7 +1298,7 @@ class OrderProcessorHelp {
 		if (
 			is_admin() &&
 			isset( $_POST['action'] ) &&
-			'get_products' === sanitize_text_field( wp_unslash( $_POST['action'] ) ) &&
+			'webd_wc_ars_get_products' === sanitize_text_field( wp_unslash( $_POST['action'] ) ) &&
 			current_user_can( 'manage_woocommerce' )
 		) {
 
@@ -1444,7 +1444,7 @@ class OrderProcessorHelp {
 		if (
 			is_admin() &&
 			isset( $_POST['action'] ) &&
-			'get_categories' === sanitize_text_field( wp_unslash( $_POST['action'] ) ) &&
+			'webd_wc_ars_get_categories' === sanitize_text_field( wp_unslash( $_POST['action'] ) ) &&
 			current_user_can( 'manage_woocommerce' )
 		) {
 
@@ -1799,4 +1799,4 @@ class OrderProcessorHelp {
 }
 
 // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- Legacy slug kept for backwards compatibility.
-$webd_wc_ars_order_processor_help = OrderProcessorHelp::get_instance();
+$webd_wc_ars_order_processor_help = WPFactory_WC_ARS_OrderProcessorHelp::get_instance();

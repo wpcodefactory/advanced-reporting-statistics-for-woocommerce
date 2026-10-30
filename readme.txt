@@ -107,6 +107,8 @@ ExtendWP's privacy policy: https://wpfactory.com/privacy-policy/
 * Dev - `get_products`/`get_categories` now return an empty response when no order IDs are posted.
 * Fix - Activation no longer deactivates the Pro version automatically (not allowed by the WordPress.org plugin guidelines). While Pro is active, the free version now stays activated but dormant, with an explanatory notice on the Plugins screen.
 * Fix - WooCommerce HPOS compatibility is now declared from the main plugin file, so the plugin is not listed as incompatible with WooCommerce features while the Pro version is active.
+* Fix - Deactivation survey strings now use the plugin's own text domain instead of the bundled library's `codecabin` domain (Plugin Check i18n requirement).
+* Dev - AJAX action names prefixed with `webd_wc_ars_` and the `OrderProcessorHelp` helper class renamed to `WPFactory_WC_ARS_OrderProcessorHelp` (Plugin Check prefix requirement).
 
 = 4.1.8 - 27/10/2026 =
 * Dev - Minimum required WordPress version raised to 4.6.0.

@@ -2,7 +2,7 @@
 /**
  * Advanced WooCommerce Product Sales Reporting - Statistics & Forecast - webdWoocommerceReportingStatisticsAdmin Class
  *
- * @version 4.1.7
+ * @version 4.1.9
  *
  * @author  WPFactory
  */
@@ -402,7 +402,7 @@ class webdWoocommerceReportingStatisticsAdmin {
 	/**
 	 * displayFilterForm.
 	 *
-	 * @version 4.1.7
+	 * @version 4.1.9
 	 */
 	public function displayFilterForm() {
 
@@ -483,7 +483,7 @@ class webdWoocommerceReportingStatisticsAdmin {
 
 					<option value=''><?php esc_html_e( 'Select Month..',"webd-woocommerce-advanced-reporting-statistics" );?></option>
 					<?php
-					foreach( OrderProcessorHelp::get_instance()->periodFilter( 'month') as $period ){
+					foreach( WPFactory_WC_ARS_OrderProcessorHelp::get_instance()->periodFilter( 'month') as $period ){
 						print "<option value='proVersionPreselected'>". esc_attr( $period->period ) ."</option>";
 					}
 					?>
@@ -492,7 +492,7 @@ class webdWoocommerceReportingStatisticsAdmin {
 
 					<option value=''><?php esc_html_e( 'Select Year..',"webd-woocommerce-advanced-reporting-statistics" );?></option>
 					<?php
-					foreach( OrderProcessorHelp::get_instance()->periodFilter( 'year') as $period ){
+					foreach( WPFactory_WC_ARS_OrderProcessorHelp::get_instance()->periodFilter( 'year') as $period ){
 						print "<option value='proVersionPreselected'>". esc_attr( $period->period ) ."</option>";
 					}
 					?>

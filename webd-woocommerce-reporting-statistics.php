@@ -48,9 +48,9 @@ function wpfactory_wc_ars_declare_hpos_compatibility() {
 /**
  * Stops this (free) plugin's code from running while the Pro version is active.
  *
- * Both versions register the same AJAX actions, admin pages and options, so they
- * cannot run at the same time. Instead of deactivating the Pro version without the
- * user's consent (which is not allowed by the WordPress.org plugin guidelines), this
+ * Both versions register the same admin pages and options, so they cannot run at
+ * the same time. Instead of deactivating the Pro version without the user's
+ * consent (which is not allowed by the WordPress.org plugin guidelines), this
  * plugin stays activated but remains dormant until the Pro version is deactivated.
  *
  * @since   4.1.9
@@ -140,7 +140,7 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 	/**
 	 * Constructor.
 	 *
-	 * @version 4.1.3
+	 * @version 4.1.9
 	 */
 	public function __construct() {
 
@@ -159,7 +159,7 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 			add_action( 'admin_footer', array( $this, 'proModal' ) );
 		}
 
-		add_action( 'wp_ajax_stat_extensions', array( $this,'extensions' ) );
+		add_action( 'wp_ajax_webd_wc_ars_stat_extensions', array( $this, 'extensions' ) );
 
 		// Deactivation survey
 		include( plugin_dir_path( __FILE__ ) . '/lib/codecabin/plugin-deactivation-survey/deactivate-feedback-form.php' );
