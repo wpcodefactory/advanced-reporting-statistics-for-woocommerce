@@ -1,7 +1,7 @@
 /**
  * Advanced WooCommerce Product Sales Reporting - Statistics & Forecast - Backend JS
  *
- * @version 4.1.9
+ * @version 4.1.8
  *
  * @author  WPFactory
  */
@@ -807,8 +807,8 @@
 	/**
 	 * Inline Chart.js 4 plugin - draws the chart title (removed from Chart.js 4 core).
 	 *
-	 * @since   4.1.9
-	 * @version 4.1.9
+	 * @since   4.1.8
+	 * @version 4.1.8
 	 */
 	var webd_chart_title_plugin = {
 		id: 'webd-chart-title',
@@ -831,7 +831,7 @@
 	/**
 	 * Main chart function for charts in reports.
 	 *
-	 * @version 4.1.9
+	 * @version 4.1.8
 	 */
 	function chart( type='bar', text, id , xValues, yValues, color ){
 

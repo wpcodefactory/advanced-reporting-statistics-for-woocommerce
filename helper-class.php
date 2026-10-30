@@ -2,7 +2,7 @@
 /**
  * Advanced Reporting and Statistics for WooCommerce - WPFactory_WC_ARS_OrderProcessorHelp Class
  *
- * @version 4.1.9
+ * @version 4.1.8
  *
  * @author  WPFactory
  */
@@ -102,7 +102,7 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 	/**
 	 * Constructor.
 	 *
-	 * @version 4.1.9
+	 * @version 4.1.8
 	 */
 	public function __construct() {
 		add_action( 'wp_ajax_webd_wc_ars_getOrders', array( $this, 'getOrders' ) );
@@ -163,7 +163,7 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 	/**
 	 * display_orders_by_period.
 	 *
-	 * @version 4.1.9
+	 * @version 4.1.8
 	 *
 	 * @todo    (v4.1.0) `$topush = 0.1`?
 	 * @todo    (v4.1.0) `forecastHoltWinters()`?
@@ -553,7 +553,7 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 	/**
 	 * getOrders.
 	 *
-	 * @version 4.1.9
+	 * @version 4.1.8
 	 */
 	public function getOrders() {
 
@@ -789,7 +789,7 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 	/**
 	 * get_orders.
 	 *
-	 * @version 4.1.9
+	 * @version 4.1.8
 	 */
 	public function get_orders() {
 
@@ -874,7 +874,7 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 	/**
 	 * get_customers.
 	 *
-	 * @version 4.1.9
+	 * @version 4.1.8
 	 */
 	public function get_customers() {
 
@@ -1007,7 +1007,7 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 	/**
 	 * get_countries.
 	 *
-	 * @version 4.1.9
+	 * @version 4.1.8
 	 */
 	public function get_countries() {
 
@@ -1106,7 +1106,7 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 	/**
 	 * get_payments.
 	 *
-	 * @version 4.1.9
+	 * @version 4.1.8
 	 */
 	public function get_payments() {
 
@@ -1204,7 +1204,7 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 	/**
 	 * get_coupons.
 	 *
-	 * @version 4.1.9
+	 * @version 4.1.8
 	 */
 	public function get_coupons() {
 
@@ -1291,7 +1291,7 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 	/**
 	 * get_products.
 	 *
-	 * @version 4.1.9
+	 * @version 4.1.8
 	 */
 	public function get_products() {
 
@@ -1329,8 +1329,8 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 			 * and matching args, ordered after the order IDs) to the report query.
 			 * Default is empty, i.e., no additional filtering.
 			 *
-			 * @version 4.1.9
-			 * @since   4.1.9
+			 * @version 4.1.8
+			 * @since   4.1.8
 			 *
 			 * @param   array  $filter Default: `array( 'where' => '', 'args' => array() )`.
 			 * @param   string $report `products` or `categories`.
@@ -1437,7 +1437,7 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 	/**
 	 * get_categories.
 	 *
-	 * @version 4.1.9
+	 * @version 4.1.8
 	 */
 	public function get_categories() {
 
@@ -1475,8 +1475,8 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 			 * and matching args, ordered after the order IDs) to the report query.
 			 * Default is empty, i.e., no additional filtering.
 			 *
-			 * @version 4.1.9
-			 * @since   4.1.9
+			 * @version 4.1.8
+			 * @since   4.1.8
 			 *
 			 * @param   array  $filter Default: `array( 'where' => '', 'args' => array() )`.
 			 * @param   string $report `products` or `categories`.

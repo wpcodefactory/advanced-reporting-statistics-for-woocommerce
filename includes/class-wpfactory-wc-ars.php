@@ -2,7 +2,7 @@
 /**
  * Advanced WooCommerce Product Sales Reporting - Statistics & Forecast - Main Class
  *
- * @version 4.1.9
+ * @version 4.1.8
  * @since   4.0.0
  *
  * @author  WPFactory
@@ -49,7 +49,7 @@ final class WPFactory_WC_ARS {
 	/**
 	 * WPFactory_WC_ARS Constructor.
 	 *
-	 * @version 4.1.9
+	 * @version 4.1.8
 	 * @since   4.0.0
 	 *
 	 * @access  public

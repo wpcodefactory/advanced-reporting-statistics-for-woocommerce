@@ -3,7 +3,7 @@
  * Plugin Name: Advanced Reporting and Statistics for WooCommerce
  * Plugin URI: https://extend-wp.com/advanced-reporting-statistics-plugin-for-woocommerce/
  * Description: A comprehensive WordPress Plugin for WooCommerce Reports, Statistics, Analytics & Forecasting Tool for Orders, Sales, Products, Countries, Payment Gateways Shipping, Tax, Refunds, Top Products.
- * Version: 4.1.9-dev
+ * Version: 4.1.8
  * Author: WPFactory
  * Author URI: https://wpfactory.com
  * Requires at least: 4.6
@@ -28,16 +28,16 @@ defined( 'ABSPATH' ) || exit;
  * declaration still runs while the Pro version is active (in which case this plugin
  * stays activated but doesn't run, so it wouldn't be able to declare compatibility later).
  *
- * @since   4.1.9
- * @version 4.1.9
+ * @since   4.1.8
+ * @version 4.1.8
  */
 add_action( 'before_woocommerce_init', 'wpfactory_wc_ars_declare_hpos_compatibility' );
 
 /**
  * Declares compatibility with WooCommerce's High-Performance Order Storage (HPOS).
  *
- * @since   4.1.9
- * @version 4.1.9
+ * @since   4.1.8
+ * @version 4.1.8
  */
 function wpfactory_wc_ars_declare_hpos_compatibility() {
 	if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
@@ -53,8 +53,8 @@ function wpfactory_wc_ars_declare_hpos_compatibility() {
  * consent (which is not allowed by the WordPress.org plugin guidelines), this
  * plugin stays activated but remains dormant until the Pro version is deactivated.
  *
- * @since   4.1.9
- * @version 4.1.9
+ * @since   4.1.8
+ * @version 4.1.8
  */
 if ( ! function_exists( 'is_plugin_active' ) ) {
 	require_once ABSPATH . 'wp-admin/includes/plugin.php';
@@ -74,8 +74,8 @@ foreach ( $webd_wc_ars_pro_plugins as $webd_wc_ars_pro_plugin ) {
 		/**
 		 * Tells the user why the free version is not running while the Pro version is active.
 		 *
-		 * @since   4.1.9
-		 * @version 4.1.9
+		 * @since   4.1.8
+		 * @version 4.1.8
 		 */
 		function webd_wc_ars_pro_active_notice() {
 			$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
@@ -93,7 +93,7 @@ foreach ( $webd_wc_ars_pro_plugins as $webd_wc_ars_pro_plugin ) {
 	return;
 }
 
-defined( 'WPFACTORY_WC_ARS_VERSION' ) || define( 'WPFACTORY_WC_ARS_VERSION', '4.1.9-dev-20261029-1650' );
+defined( 'WPFACTORY_WC_ARS_VERSION' ) || define( 'WPFACTORY_WC_ARS_VERSION', '4.1.8' );
 
 defined( 'WPFACTORY_WC_ARS_FILE' ) || define( 'WPFACTORY_WC_ARS_FILE', __FILE__ );
 
@@ -140,7 +140,7 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 	/**
 	 * Constructor.
 	 *
-	 * @version 4.1.9
+	 * @version 4.1.8
 	 */
 	public function __construct() {
 
@@ -176,7 +176,7 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 	/**
 	 * onActivation.
 	 *
-	 * @version 4.1.9
+	 * @version 4.1.8
 	 */
 	public function onActivation() {
 		$default_status = ['wc-completed', 'wc-processing', 'wc-on-hold', 'wc-refunded' ];
@@ -186,7 +186,7 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 	/**
 	 * BackEndScripts.
 	 *
-	 * @version 4.1.9
+	 * @version 4.1.8
 	 *
 	 * @todo    (v4.0.0) add `version`, etc.
 	 */

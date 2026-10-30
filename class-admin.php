@@ -2,7 +2,7 @@
 /**
  * Advanced WooCommerce Product Sales Reporting - Statistics & Forecast - webdWoocommerceReportingStatisticsAdmin Class
  *
- * @version 4.1.9
+ * @version 4.1.8
  *
  * @author  WPFactory
  */
@@ -402,7 +402,7 @@ class webdWoocommerceReportingStatisticsAdmin {
 	/**
 	 * displayFilterForm.
 	 *
-	 * @version 4.1.9
+	 * @version 4.1.8
 	 */
 	public function displayFilterForm() {
 

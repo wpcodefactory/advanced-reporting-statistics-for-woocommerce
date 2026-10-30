@@ -1,7 +1,7 @@
 === Advanced Reporting and Statistics for WooCommerce ===
 Contributors: wpcodefactory
 Tags: reporting, woocommerce statistics, sales report, analytics, woocommerce sales
-Stable tag: 4.1.9
+Stable tag: 4.1.8
 Requires at least: 4.6
 Requires PHP: 7.0
 Tested up to: 7.1
@@ -96,7 +96,7 @@ ExtendWP's privacy policy: https://wpfactory.com/privacy-policy/
 
 == Changelog ==
 
-= 4.1.9 - 29/10/2026 =
+= 4.1.8 - 29/10/2026 =
 * Fix - Out of date libraries upgraded: Chart.js 4.6.1, WPFactory Admin Menu 1.1.4 and WPFactory Cross-selling 1.1.7.
 * Dev - Documented the ExtendWP external services with terms and privacy links.
 * Dev - "Requires at least" WordPress version set to major-only format (4.6).
@@ -109,9 +109,6 @@ ExtendWP's privacy policy: https://wpfactory.com/privacy-policy/
 * Fix - WooCommerce HPOS compatibility is now declared from the main plugin file, so the plugin is not listed as incompatible with WooCommerce features while the Pro version is active.
 * Fix - Deactivation survey strings now use the plugin's own text domain instead of the bundled library's `codecabin` domain (Plugin Check i18n requirement).
 * Dev - AJAX action names prefixed with `webd_wc_ars_` and the `OrderProcessorHelp` helper class renamed to `WPFactory_WC_ARS_OrderProcessorHelp` (Plugin Check prefix requirement).
-
-= 4.1.8 - 27/10/2026 =
-* Dev - Minimum required WordPress version raised to 4.6.0.
 
 = 4.1.7 - 23/10/2026 =
 * Fix - Improved escaping.
