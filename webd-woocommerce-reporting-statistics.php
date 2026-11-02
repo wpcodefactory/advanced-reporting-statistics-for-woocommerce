@@ -1,9 +1,9 @@
 <?php
-/*
+/**
  * Plugin Name: Advanced Reporting and Statistics for WooCommerce
  * Plugin URI: https://extend-wp.com/advanced-reporting-statistics-plugin-for-woocommerce/
  * Description: A comprehensive WordPress Plugin for WooCommerce Reports, Statistics, Analytics & Forecasting Tool for Orders, Sales, Products, Countries, Payment Gateways Shipping, Tax, Refunds, Top Products.
- * Version: 4.1.9
+ * Version: 4.2.0
  * Author: WPFactory
  * Author URI: https://wpfactory.com
  * Requires at least: 4.6
@@ -17,6 +17,8 @@
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * Created On: 23-01-2019
  * Updated On: 02-11-2026
+ *
+ * @package WPFactory\WC_ARS
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -93,7 +95,7 @@ foreach ( $webd_wc_ars_pro_plugins as $webd_wc_ars_pro_plugin ) { // phpcs:ignor
 	return;
 }
 
-defined( 'WPFACTORY_WC_ARS_VERSION' ) || define( 'WPFACTORY_WC_ARS_VERSION', '4.1.9' );
+defined( 'WPFACTORY_WC_ARS_VERSION' ) || define( 'WPFACTORY_WC_ARS_VERSION', '4.2.0' );
 
 defined( 'WPFACTORY_WC_ARS_FILE' ) || define( 'WPFACTORY_WC_ARS_FILE', __FILE__ );
 
@@ -115,9 +117,11 @@ add_action( 'plugins_loaded', 'wpfactory_wc_ars' );
 
 /**
  * includes.
+ *
+ * @version 4.2.0
  */
-include_once( plugin_dir_path(__FILE__) ."/helper-class.php");
-include_once( plugin_dir_path(__FILE__) ."/class-admin.php");
+require_once plugin_dir_path( __FILE__ ) . '/helper-class.php';
+require_once plugin_dir_path( __FILE__ ) . '/class-admin.php';
 
 /**
  * webdWoocommerceReportingStatistics class.
@@ -162,15 +166,17 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 		add_action( 'wp_ajax_webd_wc_ars_stat_extensions', array( $this, 'extensions' ) );
 
 		// Deactivation survey
-		include( plugin_dir_path( __FILE__ ) . '/lib/codecabin/plugin-deactivation-survey/deactivate-feedback-form.php' );
-		add_filter( 'codecabin_deactivate_feedback_form_plugins', function ( $plugins ) {
-			$plugins[] = (object) array(
-				'slug'    => 'webd-woocommerce-advanced-reporting-statistics',
-				'version' => '3.1',
-			);
-			return $plugins;
-		} );
-
+		include plugin_dir_path( __FILE__ ) . '/lib/codecabin/plugin-deactivation-survey/deactivate-feedback-form.php';
+		add_filter(
+			'codecabin_deactivate_feedback_form_plugins',
+			function ( $plugins ) {
+				$plugins[] = (object) array(
+					'slug'    => 'webd-woocommerce-advanced-reporting-statistics',
+					'version' => '3.1',
+				);
+				return $plugins;
+			}
+		);
 	}
 
 	/**
@@ -179,8 +185,8 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 	 * @version 4.1.8
 	 */
 	public function onActivation() {
-		$default_status = ['wc-completed', 'wc-processing', 'wc-on-hold', 'wc-refunded' ];
-		update_option( $this->plugin.'_status' , $default_status );
+		$default_status = array( 'wc-completed', 'wc-processing', 'wc-on-hold', 'wc-refunded' );
+		update_option( $this->plugin . '_status', $default_status );
 	}
 
 	/**
@@ -196,46 +202,45 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 			return;
 		}
 
-		wp_enqueue_style( "webd-woocommerce-reporting-statistics"."adminCss", plugins_url( "/css/backend.css", __FILE__ ), array(), WPFACTORY_WC_ARS_VERSION );
+		wp_enqueue_style( 'webd-woocommerce-reporting-statistics' . 'adminCss', plugins_url( '/css/backend.css', __FILE__ ), array(), WPFACTORY_WC_ARS_VERSION );
 
-		wp_enqueue_script('jquery');
+		wp_enqueue_script( 'jquery' );
 
 		wp_enqueue_script( 'jquery-ui-datepicker' );
 
-		wp_enqueue_style( 'jquery-ui-style', plugins_url( "/css/jquery-ui.css", __FILE__ ), array(), WPFACTORY_WC_ARS_VERSION );
+		wp_enqueue_style( 'jquery-ui-style', plugins_url( '/css/jquery-ui.css', __FILE__ ), array(), WPFACTORY_WC_ARS_VERSION );
 
-		wp_enqueue_script('jquery-ui-accordion');
+		wp_enqueue_script( 'jquery-ui-accordion' );
 
-		wp_enqueue_script("jquery-ui-tabs");
+		wp_enqueue_script( 'jquery-ui-tabs' );
 
-		wp_enqueue_script( "webd-woocommerce-reporting-statistics"."charts", plugins_url( "/js/chart.js", __FILE__ ), array(), WPFACTORY_WC_ARS_VERSION, true );
+		wp_enqueue_script( 'webd-woocommerce-reporting-statistics' . 'charts', plugins_url( '/js/chart.js', __FILE__ ), array(), WPFACTORY_WC_ARS_VERSION, true );
 
-		wp_enqueue_script( "webd-woocommerce-reporting-statistics"."adminJs", plugins_url( "/js/backend.js", __FILE__ ), array( 'jquery', 'jquery-ui-accordion', 'jquery-ui-tabs', 'jquery-ui-datepicker' ), WPFACTORY_WC_ARS_VERSION, true );
+		wp_enqueue_script( 'webd-woocommerce-reporting-statistics' . 'adminJs', plugins_url( '/js/backend.js', __FILE__ ), array( 'jquery', 'jquery-ui-accordion', 'jquery-ui-tabs', 'jquery-ui-datepicker' ), WPFACTORY_WC_ARS_VERSION, true );
 
-		wp_enqueue_style( "webd-woocommerce-reporting-statistics"."_fa", plugins_url( '/css/font-awesome.min.css', __FILE__ ), array(), WPFACTORY_WC_ARS_VERSION );
+		wp_enqueue_style( 'webd-woocommerce-reporting-statistics' . '_fa', plugins_url( '/css/font-awesome.min.css', __FILE__ ), array(), WPFACTORY_WC_ARS_VERSION );
 
 		wp_localize_script(
-			"webd-woocommerce-reporting-statistics"."adminJs",
-			"webdWoocommerceReportingStatistics",
+			'webd-woocommerce-reporting-statistics' . 'adminJs',
+			'webdWoocommerceReportingStatistics',
 			array(
-				'thispluginpage' => admin_url("/admin.php?page=".$this->slug),
+				'thispluginpage' => admin_url( '/admin.php?page=' . $this->slug ),
 				'url'            => admin_url( 'admin-ajax.php' ),
 				'plugin_url'     => plugins_url( '', __FILE__ ),
 				'ajax_url'       => admin_url( 'admin-ajax.php' ),
 				'nonce'          => wp_create_nonce( 'webd-woocommerce-reporting-statistics' ),
 				'siteUrl'        => site_url(),
-				'plugin_wrapper' => "webd-woocommerce-reporting-statistics",
+				'plugin_wrapper' => 'webd-woocommerce-reporting-statistics',
 				'select'         => esc_html__( 'Select...', 'webd-woocommerce-advanced-reporting-statistics' ),
-				'orders_loading' => esc_html__( "Your orders are loading please wait...", 'webd-woocommerce-advanced-reporting-statistics' ),
-				'orders_loaded'  => esc_html__( "All orders are loaded!", 'webd-woocommerce-advanced-reporting-statistics' ),
-				'no_orders'      => esc_html__( "No orders found...", 'webd-woocommerce-advanced-reporting-statistics' ),
+				'orders_loading' => esc_html__( 'Your orders are loading please wait...', 'webd-woocommerce-advanced-reporting-statistics' ),
+				'orders_loaded'  => esc_html__( 'All orders are loaded!', 'webd-woocommerce-advanced-reporting-statistics' ),
+				'no_orders'      => esc_html__( 'No orders found...', 'webd-woocommerce-advanced-reporting-statistics' ),
 				'page'           => $this->slug,
 				'tab'            => array( 'all' ),
 				'currency'       => get_woocommerce_currency_symbol(),
-				'limit'          => get_option( $this->plugin."queryLimit" , 500 ),
+				'limit'          => get_option( $this->plugin . 'queryLimit', 500 ),
 			)
 		);
-
 	}
 
 	/**
@@ -248,7 +253,7 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 		$this->adminHeader();
 		$this->adminSettings();
 		$this->adminFooter();
-		print "</div>";
+		print '</div>';
 	}
 
 	/**
@@ -259,12 +264,11 @@ class webdWoocommerceReportingStatistics extends webdWoocommerceReportingStatist
 	public function initStats() {
 		print '<div class="' . esc_attr( $this->plugin ) . '">';
 		$this->adminHeader();
-		echo "<h3>". esc_html__('Statistics',"webd-woocommerce-advanced-reporting-statistics") ."</h3>";
+		echo '<h3>' . esc_html__( 'Statistics', 'webd-woocommerce-advanced-reporting-statistics' ) . '</h3>';
 		echo do_shortcode( '[adStats]' );
 		$this->adminFooter();
-		print "</div>";
+		print '</div>';
 	}
-
 }
 
 // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- Legacy slug kept for backwards compatibility.
