@@ -2,7 +2,7 @@
 /**
  * Advanced Reporting and Statistics for WooCommerce - WPFactory_WC_ARS_OrderProcessorHelp Class
  *
- * @version 4.1.8
+ * @version 4.1.9
  *
  * @author  WPFactory
  */
@@ -163,7 +163,7 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 	/**
 	 * display_orders_by_period.
 	 *
-	 * @version 4.1.8
+	 * @version 4.1.9
 	 *
 	 * @todo    (v4.1.0) `$topush = 0.1`?
 	 * @todo    (v4.1.0) `forecastHoltWinters()`?
@@ -408,7 +408,7 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 						$topush = 0.1;
 					}
 
-					array_push( $totals, $topush );
+					array_push( $totals, esc_html( $topush ) );
 
 					$number_orders = $row->num_orders;
 
@@ -418,12 +418,12 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 					$response['periods'] .= "<tr>" .
 						"<td>" . esc_html( $row->period ) . "</td>" .
 						"<td>" . esc_html( $number_orders ) . "</td>" .
-						"<td>" . wc_price( $row->tax ) . "</td>" .
-						"<td>" . wc_price( $row->shipping ) . "</td>" .
-						"<td>" . wc_price( $row->discount ) . "</td>" .
-						"<td>" . wc_price( $row->refund ) . "</td>" .
-						"<td>" . wc_price( $thegross ) . "</td>" .
-						"<td>" . wc_price( $thenet ) . "</td>" .
+						"<td>" . wp_kses( wc_price( $row->tax ), $this->get_allowed_price_html() ) . "</td>" .
+						"<td>" . wp_kses( wc_price( $row->shipping ), $this->get_allowed_price_html() ) . "</td>" .
+						"<td>" . wp_kses( wc_price( $row->discount ), $this->get_allowed_price_html() ) . "</td>" .
+						"<td>" . wp_kses( wc_price( $row->refund ), $this->get_allowed_price_html() ) . "</td>" .
+						"<td>" . wp_kses( wc_price( $thegross ), $this->get_allowed_price_html() ) . "</td>" .
+						"<td>" . wp_kses( wc_price( $thenet ), $this->get_allowed_price_html() ) . "</td>" .
 					"</tr>";
 
 					array_push( $response['name'], esc_html( $row->period ) );
@@ -433,19 +433,19 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 				$response['totals'] .= (
 					'<td>TOTALS</td>' .
 					'<td>' . esc_html( $num_orders ) . '</td>' .
-					'<td class="tax" >' . wc_price( $tax_amount ) . '</td>' .
-					'<td class="shipping">' . wc_price( $shipping ) . '</td>' .
-					'<td class="discount">' . wc_price( $discount ) . '</td>' .
-					'<td class="refund">' . wc_price( $refunds ) . '</td>' .
-					'<td class="gross">' . wc_price( $total_sales ) . '</td>' .
-					'<td class="net">' . wc_price( $net ) . '</td>'
+					'<td class="tax" >' . wp_kses( wc_price( $tax_amount ), $this->get_allowed_price_html() ) . '</td>' .
+					'<td class="shipping">' . wp_kses( wc_price( $shipping ), $this->get_allowed_price_html() ) . '</td>' .
+					'<td class="discount">' . wp_kses( wc_price( $discount ), $this->get_allowed_price_html() ) . '</td>' .
+					'<td class="refund">' . wp_kses( wc_price( $refunds ), $this->get_allowed_price_html() ) . '</td>' .
+					'<td class="gross">' . wp_kses( wc_price( $total_sales ), $this->get_allowed_price_html() ) . '</td>' .
+					'<td class="net">' . wp_kses( wc_price( $net ), $this->get_allowed_price_html() ) . '</td>'
 				);
 
 				$average = $total_sales / count( $results );
 
-				if ( array_sum( $totals ) != '' && count( $totals ) > 1 ) {
+				if ( '' != array_sum( $totals ) && count( $totals ) > 1 ) {
 					$forecast = (
-						( $period =='month' ) ?
+						( 'month' === $period ) ?
 						$this->forecastHoltWinters( array_reverse( $totals ) , 2, 4 )[0] :
 						$this->forecastHoltWinters( array_reverse( $totals ) , 1, 1 )[0]
 					);
@@ -453,11 +453,11 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 					$forecast = $average;
 				}
 
-				$response['average']  = wc_price( $average );
-				$response['forecast'] = wc_price( $forecast );
+				$response['average']  = wp_kses( wc_price( $average ), $this->get_allowed_price_html() );
+				$response['forecast'] = wp_kses( wc_price( $forecast ), $this->get_allowed_price_html() );
 				$response['total']    = $totals;
 				$response['message']  = $message;
-				$response['results']  = count( $results );
+				$response['results']  = esc_html( count( $results ) );
 
 			} else {
 
@@ -487,8 +487,7 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 
 			}
 
-			echo json_encode( $response );
-
+			echo wp_json_encode( $response );
 			wp_die();
 
 		}
@@ -553,7 +552,7 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 	/**
 	 * getOrders.
 	 *
-	 * @version 4.1.8
+	 * @version 4.1.9
 	 */
 	public function getOrders() {
 
@@ -658,70 +657,68 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 
 				foreach ( $result_orders as $order ) {
 
-					$order_data['total_orders'] = $results->total;
+					$order_data['total_orders']   = esc_html( $results->total );
+					$order_data['message']        = sanitize_text_field( $message );
+					$order_data['days']           = esc_html( round( $datediff / DAY_IN_SECONDS ) );
+					$order_data['order_id']       = esc_html( $order->get_id() );
+					$order_data['date_created']   = ( method_exists( $order, 'get_date_created' ) ) ? esc_html( gmdate( "Y-m-d", strtotime( $order->get_date_created() ) ) ) : '';
+					$order_data['subtotal']       = ( method_exists( $order, 'get_subtotal' ) ) ? esc_html( $order->get_subtotal() ) : '';
+					$order_data['total']          = ( method_exists( $order, 'get_total' ) ) ? esc_html( $order->get_total() ) : '';
+					$order_data['total_tax']      = ( method_exists( $order, 'get_total_tax' ) ) ? esc_html( $order->get_total_tax() ) : '';
+					$order_data['total_refunded'] = ( method_exists( $order, 'get_total_refunded' ) ) ? esc_html( $order->get_total_refunded() ) : '';
+					$order_data['total_discount'] = ( method_exists( $order, 'get_total_discount' ) ) ? esc_html( $order->get_total_discount() ) : '';
+					$order_data['shipping_total'] = ( method_exists( $order, 'get_shipping_total' ) ) ? esc_html( $order->get_shipping_total() ) : '';
 
-						$order_data['message'] = sanitize_text_field( $message );
-						$order_data['days']    = round( $datediff / DAY_IN_SECONDS );
+					if (
+						0 != $order->get_total_refunded() &&
+						0 == ( $order->get_total() - $order->get_total_refunded() )
+					) {
+						$order_data['subtotal']       = 0;
+						$order_data['total']          = 0;
+						$order_data['total_tax']      = 0;
+						$order_data['total_discount'] = 0;
+						$order_data['shipping_total'] = 0;
+					}
 
-						$order_data['order_id'] = $order->get_id();
+					$quantity   = array();
+					$products   = array();
+					$categories = array();
 
-						$order_data['date_created']   = ( method_exists( $order, 'get_date_created' ) ) ? gmdate( "Y-m-d", strtotime( $order->get_date_created() ) ) : '';
-						$order_data['subtotal']       = ( method_exists( $order, 'get_subtotal' ) ) ? $order->get_subtotal() : '';
-						$order_data['total']          = ( method_exists( $order, 'get_total' ) ) ? $order->get_total() : '';
-						$order_data['total_tax']      = ( method_exists( $order, 'get_total_tax' ) ) ? $order->get_total_tax() : '';
-						$order_data['total_refunded'] = ( method_exists( $order, 'get_total_refunded' ) ) ? $order->get_total_refunded() : '';
-						$order_data['total_discount'] = ( method_exists( $order, 'get_total_discount' ) ) ? $order->get_total_discount() : '';
-						$order_data['shipping_total'] = ( method_exists( $order, 'get_shipping_total' ) ) ? $order->get_shipping_total() : '';
+					foreach ( $order->get_items() as $item_id => $item ) {
 
-						if (
-							0 != $order->get_total_refunded() &&
-							0 == ( $order->get_total() - $order->get_total_refunded() )
-						) {
-							$order_data['subtotal']       = 0;
-							$order_data['total']          = 0;
-							$order_data['total_tax']      = 0;
-							$order_data['total_discount'] = 0;
-							$order_data['shipping_total'] = 0;
-						}
+						$product_id = ( 0 != $item->get_variation_id() ) ? $item->get_variation_id() : $item->get_product_id();
 
-						$quantity   = array();
-						$products   = array();
-						$categories = array();
+						array_push( $quantity, esc_html( $item->get_quantity() ) );
 
-						foreach ( $order->get_items() as $item_id => $item ) {
+						$products[] = array(
+							'name'     => esc_html( get_the_title( $product_id ) ),
+							'quantity' => esc_html( $item->get_quantity() ),
+							'total'    => esc_html( $item->get_subtotal() ),
+							'sku'      => esc_html( get_post_meta( $product_id, '_sku', true ) ),
+						);
 
-							$product_id = ( 0 != $item->get_variation_id() ) ? $item->get_variation_id() : $item->get_product_id();
-
-							array_push( $quantity, $item->get_quantity() );
-
-							$products[] = array(
-								'name'     => get_the_title( $product_id ),
+						$terms = wp_get_post_terms( $product_id, 'product_cat' );
+						foreach ( $terms as $term ) {
+							$categories[] = array(
+								'discount' => $order->get_total_discount(),
+								'refund'   => $order->get_total_refunded(),
+								'name'     => $term->name,
 								'quantity' => $item->get_quantity(),
 								'total'    => $item->get_subtotal(),
-								'sku'      => get_post_meta( $product_id, '_sku', true ),
 							);
-
-							$terms = wp_get_post_terms( $product_id, 'product_cat' );
-							foreach ( $terms as $term ) {
-								$categories[] = array(
-									'discount' => $order->get_total_discount(),
-									'refund'   => $order->get_total_refunded(),
-									'name'     => $term->name,
-									'quantity' => $item->get_quantity(),
-									'total'    => $item->get_subtotal(),
-								);
-							}
-
 						}
 
-						$order_data['quantity'] = $quantity;
-						$order_data['products'] = $products;
+					}
 
-						array_push( $orders, $order_data );
+					$order_data['quantity'] = $quantity;
+					$order_data['products'] = $products;
+
+					array_push( $orders, $order_data );
 
 				}
 
-				echo json_encode( $orders );
+				echo wp_json_encode( $orders );
+				wp_die();
 
 			} else {
 
@@ -776,11 +773,10 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 
 				array_push( $orders, $nodata );
 
-				echo json_encode( $orders );
+				echo wp_json_encode( $orders );
+				wp_die();
 
 			}
-
-			wp_die();
 
 		}
 
@@ -789,7 +785,7 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 	/**
 	 * get_orders.
 	 *
-	 * @version 4.1.8
+	 * @version 4.1.9
 	 */
 	public function get_orders() {
 
@@ -824,7 +820,7 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 			$query = $orders->orders;
 
 			$response = array(
-				'max_num_pages' => $orders->max_num_pages,
+				'max_num_pages' => esc_html( $orders->max_num_pages ),
 				'orders'        => '',
 			);
 
@@ -846,25 +842,24 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 					$net        = ( method_exists( $order, 'get_subtotal' ) ) ? $order->get_subtotal() : '';
 
 					$response['orders'] .= "<tr>" .
-						"<td>" . $id . "</td>" .
+						"<td>" . esc_html( $id ) . "</td>" .
 						"<td>" . esc_html( $date ) . "</td>" .
 						"<td>" . esc_html( $payment ) . "</td>" .
 						"<td>" . esc_html( $coupons ) . "</td>" .
 						"<td>" . esc_html( $first_name . " " . $last_name ) . "</td>" .
 						"<td>" . esc_html( $country ) . "</td>" .
-						"<td>" . wc_price( $discount ) . "</td>" .
-						"<td>" . wc_price( $shipping ) . "</td>" .
-						"<td>" . wc_price( $tax ) . "</td>" .
-						"<td>" . wc_price( $total ) . "</td>" .
-						"<td>" . wc_price( $refunds ) . "</td>" .
-						"<td>" . wc_price( $net ) . "</td>" .
+						"<td>" . wp_kses( wc_price( $discount ), $this->get_allowed_price_html() ) . "</td>" .
+						"<td>" . wp_kses( wc_price( $shipping ), $this->get_allowed_price_html() ) . "</td>" .
+						"<td>" . wp_kses( wc_price( $tax ), $this->get_allowed_price_html() ) . "</td>" .
+						"<td>" . wp_kses( wc_price( $total ), $this->get_allowed_price_html() ) . "</td>" .
+						"<td>" . wp_kses( wc_price( $refunds ), $this->get_allowed_price_html() ) . "</td>" .
+						"<td>" . wp_kses( wc_price( $net ), $this->get_allowed_price_html() ) . "</td>" .
 					"</tr>";
 
 				}
 			}
 
-			echo json_encode( $response );
-
+			echo wp_json_encode( $response );
 			wp_die();
 
 		}
@@ -874,7 +869,7 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 	/**
 	 * get_customers.
 	 *
-	 * @version 4.1.8
+	 * @version 4.1.9
 	 */
 	public function get_customers() {
 
@@ -996,8 +991,7 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 				}
 			}
 
-			echo json_encode( $response );
-
+			echo wp_json_encode( $response );
 			wp_die();
 
 		}
@@ -1007,7 +1001,7 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 	/**
 	 * get_countries.
 	 *
-	 * @version 4.1.8
+	 * @version 4.1.9
 	 */
 	public function get_countries() {
 
@@ -1095,8 +1089,7 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 				}
 			}
 
-			echo json_encode( $response );
-
+			echo wp_json_encode( $response );
 			wp_die();
 
 		}
@@ -1106,7 +1099,7 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 	/**
 	 * get_payments.
 	 *
-	 * @version 4.1.8
+	 * @version 4.1.9
 	 */
 	public function get_payments() {
 
@@ -1193,8 +1186,7 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 				}
 			}
 
-			echo json_encode( $response );
-
+			echo wp_json_encode( $response );
 			wp_die();
 
 		}
@@ -1280,8 +1272,7 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 				}
 			}
 
-			echo json_encode( $response );
-
+			echo wp_json_encode( $response );
 			wp_die();
 
 		}
@@ -1291,7 +1282,7 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 	/**
 	 * get_products.
 	 *
-	 * @version 4.1.8
+	 * @version 4.1.9
 	 */
 	public function get_products() {
 
@@ -1312,7 +1303,7 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 			}
 
 			if ( empty( $ids ) ) {
-				echo json_encode(
+				echo wp_json_encode(
 					array(
 						'name'     => array(),
 						'total'    => array(),
@@ -1351,7 +1342,7 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 			// Query completed orders with order date and total sales.
 			if ( OrderUtil::custom_orders_table_usage_is_enabled() ) {
 
-				// phpcs:disable WordPress.DB.PreparedSQL.NotPrepared -- `where` fragment is filterable (default empty) via `wpfactory_wc_ars_report_sql_filter`.
+				// phpcs:disable PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.PreparedSQL.NotPrepared -- `where` fragment is filterable (default empty) via `wpfactory_wc_ars_report_sql_filter`.
 				$data = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom reporting SQL; no WP API equivalent.
 					$wpdb->prepare(
 						"SELECT DISTINCT product_id AS product, variation_id AS variation,
@@ -1364,11 +1355,11 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 						...$prepare_args
 					)
 				);
-				// phpcs:enable WordPress.DB.PreparedSQL.NotPrepared
+				// phpcs:enable PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.PreparedSQL.NotPrepared
 
 			} else {
 
-				// phpcs:disable WordPress.DB.PreparedSQL.NotPrepared -- `where` fragment is filterable (default empty) via `wpfactory_wc_ars_report_sql_filter`.
+				// phpcs:disable PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.PreparedSQL.NotPrepared -- `where` fragment is filterable (default empty) via `wpfactory_wc_ars_report_sql_filter`.
 				$data = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom reporting SQL; no WP API equivalent.
 					$wpdb->prepare(
 						"SELECT
@@ -1395,7 +1386,7 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 						...$prepare_args
 					)
 				);
-				// phpcs:enable WordPress.DB.PreparedSQL.NotPrepared
+				// phpcs:enable PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.PreparedSQL.NotPrepared
 
 			}
 
@@ -1414,7 +1405,7 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 					$num_products = $d->num_products;
 
 					$response['products'] .= "<tr>" .
-						"<td>" . get_the_title( $product ) . "</td>" .
+						"<td>" . esc_html( get_the_title( $product ) ) . "</td>" .
 						"<td>" . esc_html( $sku ) . "</td>" .
 						"<td>" . esc_html( $num_products ) . "</td>" .
 						"<td>" . esc_html( round( $total, 2 ) ) . "</td>" .
@@ -1426,8 +1417,7 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 				}
 			}
 
-			echo json_encode( $response );
-
+			echo wp_json_encode( $response );
 			wp_die();
 
 		}
@@ -1437,7 +1427,7 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 	/**
 	 * get_categories.
 	 *
-	 * @version 4.1.8
+	 * @version 4.1.9
 	 */
 	public function get_categories() {
 
@@ -1458,7 +1448,7 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 			}
 
 			if ( empty( $ids ) ) {
-				echo json_encode(
+				echo wp_json_encode(
 					array(
 						'name'       => array(),
 						'total'      => array(),
@@ -1496,7 +1486,7 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 
 			if ( OrderUtil::custom_orders_table_usage_is_enabled() ) {
 
-				// phpcs:disable WordPress.DB.PreparedSQL.NotPrepared -- `where` fragment is filterable (default empty) via `wpfactory_wc_ars_report_sql_filter`.
+				// phpcs:disable PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.PreparedSQL.NotPrepared -- `where` fragment is filterable (default empty) via `wpfactory_wc_ars_report_sql_filter`.
 				$data = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom reporting SQL; no WP API equivalent.
 					$wpdb->prepare(
 						"SELECT DISTINCT terms.name AS term,
@@ -1512,11 +1502,11 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 						...$prepare_args
 					)
 				);
-				// phpcs:enable WordPress.DB.PreparedSQL.NotPrepared
+				// phpcs:enable PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.PreparedSQL.NotPrepared
 
 			} else {
 
-				// phpcs:disable WordPress.DB.PreparedSQL.NotPrepared -- `where` fragment is filterable (default empty) via `wpfactory_wc_ars_report_sql_filter`.
+				// phpcs:disable PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.PreparedSQL.NotPrepared -- `where` fragment is filterable (default empty) via `wpfactory_wc_ars_report_sql_filter`.
 				$data = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom reporting SQL; no WP API equivalent.
 					$wpdb->prepare(
 						"SELECT DISTINCT terms.name AS term,
@@ -1536,7 +1526,7 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 						...$prepare_args
 					)
 				);
-				// phpcs:enable WordPress.DB.PreparedSQL.NotPrepared
+				// phpcs:enable PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.PreparedSQL.NotPrepared
 
 			}
 
@@ -1565,8 +1555,7 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 				}
 			}
 
-			echo json_encode( $response );
-
+			echo wp_json_encode( $response );
 			wp_die();
 
 		}
@@ -1794,6 +1783,18 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 			) :
 			null
 		);
+	}
+
+	/**
+	 * get_allowed_price_html.
+	 *
+	 * @version 4.1.9
+	 * @since   4.1.9
+	 */
+	function get_allowed_price_html() {
+		$allowed_price_html        = wp_kses_allowed_html( 'post' );
+		$allowed_price_html['bdi'] = array();
+		return $allowed_price_html;
 	}
 
 }
