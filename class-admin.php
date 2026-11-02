@@ -28,95 +28,179 @@ class webdWoocommerceReportingStatisticsAdmin {
 	public $activeTab;
 
 	public $allowed_html = array(
-			'a' => array(
-				'style' => array(),
-				'href' => array(),
-				'title' => array(),
-				'class' => array(),
-				'id'=>array(),
-				'target'=>array(),
-			),
-			'i' => array('style' => array(),'class' => array(),'id'=>array() ),
-			'br' => array('style' => array(),'class' => array(),'id'=>array() ),
-			'em' => array('style' => array(),'class' => array(),'id'=>array() ),
-			'strong' => array('style' => array(),'class' => array(),'id'=>array() ),
-			'h1' => array('style' => array(),'class' => array(),'id'=>array() ),
-			'h2' => array('style' => array(),'class' => array(),'id'=>array() ),
-			'h3' => array('style' => array(),'class' => array(),'id'=>array() ),
-			'h4' => array('style' => array(),'class' => array(),'id'=>array() ),
-			'h5' => array('style' => array(),'class' => array(),'id'=>array() ),
-			'h6' => array('style' => array(),'class' => array(),'id'=>array() ),
-			'img' => array('style' => array(),'class' => array(),'id'=>array() ),
-			'p' => array('style' => array(),'class' => array(),'id'=>array() ),
-			'div' => array('style' => array(),'class' => array(),'id'=>array() ),
-			'section' => array('style' => array(),'class' => array(),'id'=>array() ),
-			'ul' => array('style' => array(),'class' => array(),'id'=>array() ),
-			'li' => array('style' => array(),'class' => array(),'id'=>array() ),
-			'ol' => array('style' => array(),'class' => array(),'id'=>array() ),
-			'video' => array('style' => array(),'class' => array(),'id'=>array() ),
-			'blockquote' => array('style' => array(),'class' => array(),'id'=>array() ),
-			'figure' => array('style' => array(),'class' => array(),'id'=>array() ),
-			'figcaption' => array('style' => array(),'class' => array(),'id'=>array() ),
+		'a'          => array(
+			'style'  => array(),
+			'href'   => array(),
+			'title'  => array(),
+			'class'  => array(),
+			'id'     => array(),
+			'target' => array(),
+		),
+		'i'          => array(
 			'style' => array(),
-			'button' => array(
-				'class' => array(),
-			),
+			'class' => array(),
+			'id'    => array(),
+		),
+		'br'         => array(
+			'style' => array(),
+			'class' => array(),
+			'id'    => array(),
+		),
+		'em'         => array(
+			'style' => array(),
+			'class' => array(),
+			'id'    => array(),
+		),
+		'strong'     => array(
+			'style' => array(),
+			'class' => array(),
+			'id'    => array(),
+		),
+		'h1'         => array(
+			'style' => array(),
+			'class' => array(),
+			'id'    => array(),
+		),
+		'h2'         => array(
+			'style' => array(),
+			'class' => array(),
+			'id'    => array(),
+		),
+		'h3'         => array(
+			'style' => array(),
+			'class' => array(),
+			'id'    => array(),
+		),
+		'h4'         => array(
+			'style' => array(),
+			'class' => array(),
+			'id'    => array(),
+		),
+		'h5'         => array(
+			'style' => array(),
+			'class' => array(),
+			'id'    => array(),
+		),
+		'h6'         => array(
+			'style' => array(),
+			'class' => array(),
+			'id'    => array(),
+		),
+		'img'        => array(
+			'style' => array(),
+			'class' => array(),
+			'id'    => array(),
+		),
+		'p'          => array(
+			'style' => array(),
+			'class' => array(),
+			'id'    => array(),
+		),
+		'div'        => array(
+			'style' => array(),
+			'class' => array(),
+			'id'    => array(),
+		),
+		'section'    => array(
+			'style' => array(),
+			'class' => array(),
+			'id'    => array(),
+		),
+		'ul'         => array(
+			'style' => array(),
+			'class' => array(),
+			'id'    => array(),
+		),
+		'li'         => array(
+			'style' => array(),
+			'class' => array(),
+			'id'    => array(),
+		),
+		'ol'         => array(
+			'style' => array(),
+			'class' => array(),
+			'id'    => array(),
+		),
+		'video'      => array(
+			'style' => array(),
+			'class' => array(),
+			'id'    => array(),
+		),
+		'blockquote' => array(
+			'style' => array(),
+			'class' => array(),
+			'id'    => array(),
+		),
+		'figure'     => array(
+			'style' => array(),
+			'class' => array(),
+			'id'    => array(),
+		),
+		'figcaption' => array(
+			'style' => array(),
+			'class' => array(),
+			'id'    => array(),
+		),
+		'style'      => array(),
+		'button'     => array(
+			'class' => array(),
+		),
 
-			'input' => array(
-				'type' => array(),
-				'class' => array(),
-				'placeholder' => array(),
-				'disabled' => array(),
-			),
-			'option' => array(
-				'value' => array(),
-				'stock' => array(),
-				'quantity' => array(),
-				'price' => array(),
-				'id' => array(),
-			),
-			'iframe' => array(
-				'height' => array(),
-				'src' => array(),
-				'width' => array(),
-				'allowfullscreen' => array(),
-				'style' => array(),
-				'class' => array(),
-				'id'=>array()
-			),
-			'img' => array(
-				'alt' => array(),
-				'src' => array(),
-				'title' => array(),
-				'style' => array(),
-				'class' => array(),
-				'width' => array(),
-				'height' => array(),
-				'id'=>array()
-			),
-			'video' => array(
-				'width' => array(),
-				'height' => array(),
-				'controls'=>array(),
-				'class' => array(),
-				'id'=>array()
-			),
-			'source' => array(
-				'src' => array(),
-				'type' => array(),
-				'class' => array(),
-				'id'=>array()
-			),
-		);
+		'input'      => array(
+			'type'        => array(),
+			'class'       => array(),
+			'placeholder' => array(),
+			'disabled'    => array(),
+		),
+		'option'     => array(
+			'value'    => array(),
+			'stock'    => array(),
+			'quantity' => array(),
+			'price'    => array(),
+			'id'       => array(),
+		),
+		'iframe'     => array(
+			'height'          => array(),
+			'src'             => array(),
+			'width'           => array(),
+			'allowfullscreen' => array(),
+			'style'           => array(),
+			'class'           => array(),
+			'id'              => array(),
+		),
+		'img'        => array(
+			'alt'    => array(),
+			'src'    => array(),
+			'title'  => array(),
+			'style'  => array(),
+			'class'  => array(),
+			'width'  => array(),
+			'height' => array(),
+			'id'     => array(),
+		),
+		'video'      => array(
+			'width'    => array(),
+			'height'   => array(),
+			'controls' => array(),
+			'class'    => array(),
+			'id'       => array(),
+		),
+		'source'     => array(
+			'src'   => array(),
+			'type'  => array(),
+			'class' => array(),
+			'id'    => array(),
+		),
+	);
 
-	private $orders = [];
-	private $theproducts = [];
-	private $orderMonths = [];
-	private $orderYears = [];
-	private $chunkSize = 1000;
-	private $countries = [];
-	private $cities = [];
-	private $payments = [];
+	private $orders      = array();
+	private $theproducts = array();
+	private $orderMonths = array();
+	private $orderYears  = array();
+	private $chunkSize   = 1000;
+	private $countries   = array();
+	private $cities      = array();
+	private $payments    = array();
 
 	private $total;
 	private $subtotal;
@@ -128,7 +212,7 @@ class webdWoocommerceReportingStatisticsAdmin {
 	private $net;
 	private $saleEvery;
 	private $datediff;
-	private $uniqueDates = [];
+	private $uniqueDates = array();
 	private $avg;
 
 	/**
@@ -136,36 +220,37 @@ class webdWoocommerceReportingStatisticsAdmin {
 	 *
 	 * @version 4.1.7
 	 */
-	public function proModal(){ ?>
+	public function proModal() {
+		?>
 		<div id="webdWoocommerceReportingStatisticsModal">
-		  <!-- Modal content -->
-		  <div class="modal-content">
+			<!-- Modal content -->
+			<div class="modal-content">
 			<div class='clearfix'><span class="close">&times;</span></div>
 			<div class='clearfix verticalAlign'>
 				<div class='columns2'>
 					<center>
-						<img style='width:90%' src='<?php echo esc_url( plugins_url( 'images/'.$this->slug.'-pro.png', __FILE__ ) ); ?>' style='width:100%' />
+						<img style='width:90%' src='<?php echo esc_url( plugins_url( 'images/' . $this->slug . '-pro.png', __FILE__ ) ); ?>' style='width:100%' />
 					</center>
 				</div>
 
 				<div class='columns2'>
-					<h3><?php  esc_html_e('Go PRO and get more important features!',"webd-woocommerce-advanced-reporting-statistics");?></h3>
+					<h3><?php esc_html_e( 'Go PRO and get more important features!', 'webd-woocommerce-advanced-reporting-statistics' ); ?></h3>
 
-					<p><i class='fa fa-check'></i> <?php  esc_html_e('Get Reports by Product',"webd-woocommerce-advanced-reporting-statistics");?></p>
-					<p><i class='fa fa-check'></i> <?php  esc_html_e('Get Reports by Product Category',"webd-woocommerce-advanced-reporting-statistics");?></p>
-					<p><i class='fa fa-check'></i> <?php  esc_html_e('Get Reports by City, Country, Payment Method',"webd-woocommerce-advanced-reporting-statistics");?></p>
-					<p><i class='fa fa-check'></i> <?php  esc_html_e('Next Months Forecast per Product / Category',"webd-woocommerce-advanced-reporting-statistics");?></p>
-					<p><i class='fa fa-check'></i> <?php  esc_html_e('Custom Report Builder including custom fields',"webd-woocommerce-advanced-reporting-statistics");?></p>
-					<p><i class='fa fa-check'></i> <?php  esc_html_e('Custom Set From - To date to Search',"webd-woocommerce-advanced-reporting-statistics");?></p>
-					<p><i class='fa fa-check'></i> <?php  esc_html_e('Get Reports by selecting Month or Year',"webd-woocommerce-advanced-reporting-statistics");?></p>
-					<p><i class='fa fa-check'></i> <?php  esc_html_e('Export reports in Excel',"webd-woocommerce-advanced-reporting-statistics");?></p>
-					<p><i class='fa fa-check'></i> <?php  esc_html_e('Current Selling Products Low Stock Products Reminder!',"webd-woocommerce-advanced-reporting-statistics");?> </p>
-					<p><i class='fa fa-check'></i> <?php  esc_html_e('Low Stock Products Report',"webd-woocommerce-advanced-reporting-statistics");?> </p>
-					<p><i class='fa fa-check'></i> <?php  esc_html_e('Email Report',"webd-woocommerce-advanced-reporting-statistics");?></p>
-					<p class='bottomToUp'><center><a target='_blank' class='proUrl' href='<?php print esc_url( $this->proUrl ); ?>'><?php  esc_html_e('GET IT HERE',"webd-woocommerce-advanced-reporting-statistics");?></a></center></p>
+					<p><i class='fa fa-check'></i> <?php esc_html_e( 'Get Reports by Product', 'webd-woocommerce-advanced-reporting-statistics' ); ?></p>
+					<p><i class='fa fa-check'></i> <?php esc_html_e( 'Get Reports by Product Category', 'webd-woocommerce-advanced-reporting-statistics' ); ?></p>
+					<p><i class='fa fa-check'></i> <?php esc_html_e( 'Get Reports by City, Country, Payment Method', 'webd-woocommerce-advanced-reporting-statistics' ); ?></p>
+					<p><i class='fa fa-check'></i> <?php esc_html_e( 'Next Months Forecast per Product / Category', 'webd-woocommerce-advanced-reporting-statistics' ); ?></p>
+					<p><i class='fa fa-check'></i> <?php esc_html_e( 'Custom Report Builder including custom fields', 'webd-woocommerce-advanced-reporting-statistics' ); ?></p>
+					<p><i class='fa fa-check'></i> <?php esc_html_e( 'Custom Set From - To date to Search', 'webd-woocommerce-advanced-reporting-statistics' ); ?></p>
+					<p><i class='fa fa-check'></i> <?php esc_html_e( 'Get Reports by selecting Month or Year', 'webd-woocommerce-advanced-reporting-statistics' ); ?></p>
+					<p><i class='fa fa-check'></i> <?php esc_html_e( 'Export reports in Excel', 'webd-woocommerce-advanced-reporting-statistics' ); ?></p>
+					<p><i class='fa fa-check'></i> <?php esc_html_e( 'Current Selling Products Low Stock Products Reminder!', 'webd-woocommerce-advanced-reporting-statistics' ); ?> </p>
+					<p><i class='fa fa-check'></i> <?php esc_html_e( 'Low Stock Products Report', 'webd-woocommerce-advanced-reporting-statistics' ); ?> </p>
+					<p><i class='fa fa-check'></i> <?php esc_html_e( 'Email Report', 'webd-woocommerce-advanced-reporting-statistics' ); ?></p>
+					<p class='bottomToUp'><center><a target='_blank' class='proUrl' href='<?php print esc_url( $this->proUrl ); ?>'><?php esc_html_e( 'GET IT HERE', 'webd-woocommerce-advanced-reporting-statistics' ); ?></a></center></p>
 				</div>
 			</div>
-		  </div>
+			</div>
 		</div>
 		<?php
 	}
@@ -175,8 +260,10 @@ class webdWoocommerceReportingStatisticsAdmin {
 	 *
 	 * @version 4.1.7
 	 */
-	public function adminHeader(){
-		?><h1><?php esc_html_e( 'Advanced WooCommerce Product Sales Reporting - Statistics & Forecast', 'webd-woocommerce-advanced-reporting-statistics' ); ?></h1><?php
+	public function adminHeader() {
+		?>
+		<h1><?php esc_html_e( 'Advanced WooCommerce Product Sales Reporting - Statistics & Forecast', 'webd-woocommerce-advanced-reporting-statistics' ); ?></h1>
+		<?php
 	}
 
 	/**
@@ -186,49 +273,55 @@ class webdWoocommerceReportingStatisticsAdmin {
 	 *
 	 * @todo    (v4.1.0) clean up "More extensions" tab (`extendwp_extensions`)
 	 */
-	public function adminSettings(){
+	public function adminSettings() {
 				global $product;
 
-				$this->tab = array( 'all' => esc_html__('GENERAL',"webd-woocommerce-advanced-reporting-statistics"),'years' => esc_html__('PER YEAR',"webd-woocommerce-advanced-reporting-statistics"),'months' => esc_html__('PER MONTH',"webd-woocommerce-advanced-reporting-statistics"),'top' => esc_html__('TOP 5 PRODUCTS',"webd-woocommerce-advanced-reporting-statistics"));
+				$this->tab = array(
+					'all'    => esc_html__( 'GENERAL', 'webd-woocommerce-advanced-reporting-statistics' ),
+					'years'  => esc_html__( 'PER YEAR', 'webd-woocommerce-advanced-reporting-statistics' ),
+					'months' => esc_html__( 'PER MONTH', 'webd-woocommerce-advanced-reporting-statistics' ),
+					'top'    => esc_html__( 'TOP 5 PRODUCTS', 'webd-woocommerce-advanced-reporting-statistics' ),
+				);
 				// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only tab routing; no form data processed.
 				$this->activeTab = isset( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : 'all';
 				echo '<h3 class="nav-tab-wrapper" >';
-				foreach( $this->tab as $tab => $name ){
+				foreach ( $this->tab as $tab => $name ) {
 					$class = ( $tab == $this->activeTab ) ? ' nav-tab-active' : '';
 					echo '<a class="nav-tab ' . esc_attr( $class ) . ' contant" href="?page=' . esc_attr( $this->slug ) . '&tab=' . esc_attr( $tab ) . '">' . esc_html( $name ) . '</a>';
 				}
 				?>
-				<a class='nav-tab  proVersion' href="#" style='background:#42b72a;color:#fff' ><?php  esc_html_e('GO PRO',"webd-woocommerce-advanced-reporting-statistics");?></a>
+				<a class='nav-tab  proVersion' href="#" style='background:#42b72a;color:#fff' ><?php esc_html_e( 'GO PRO', 'webd-woocommerce-advanced-reporting-statistics' ); ?></a>
 				<?php
-				echo "</h3>";
+				echo '</h3>';
 
 				?>
 
 				<?php
 				$selected = '';
 
-				if( 'all' === $this->activeTab ){
+				if ( 'all' === $this->activeTab ) {
 
-					$selected = gmdate('Y-m-d', strtotime("first day of this month"));
+					$selected = gmdate( 'Y-m-d', strtotime( 'first day of this month' ) );
 
 					$this->displayFilterForm();
 					$this->displayOrders();
 
-				}elseif( 'years' === $this->activeTab || 'months' === $this->activeTab ){
+				} elseif ( 'years' === $this->activeTab || 'months' === $this->activeTab ) {
 
 					$this->displayFilterForm();
-					$this->displayOrdersBy( 'month');
+					$this->displayOrdersBy( 'month' );
 
-				}elseif( 'years' === $this->activeTab ){
+				} elseif ( 'years' === $this->activeTab ) {
 
 					$this->displayFilterForm();
 					$this->displayOrdersBy( 'year' );
 
-				}elseif( 'stock' === $this->activeTab ){?>
+				} elseif ( 'stock' === $this->activeTab ) {
+					?>
 				<div class='premium_msg'>
 				<p>
 					<strong>
-					<?php  esc_html_e('Only available on PRO Version',"webd-woocommerce-advanced-reporting-statistics");?> <a class='premium_button' target='_blank'  href='<?php print esc_url( $this->proUrl ); ?>'><?php  esc_html_e('Get it Here',"webd-woocommerce-advanced-reporting-statistics");?></a>
+					<?php esc_html_e( 'Only available on PRO Version', 'webd-woocommerce-advanced-reporting-statistics' ); ?> <a class='premium_button' target='_blank'  href='<?php print esc_url( $this->proUrl ); ?>'><?php esc_html_e( 'Get it Here', 'webd-woocommerce-advanced-reporting-statistics' ); ?></a>
 					</strong>
 				</p>
 				</div>
@@ -236,34 +329,36 @@ class webdWoocommerceReportingStatisticsAdmin {
 
 					<div id="tabs3" class='clearfix'>
 						<ul>
-							<li><a href="#selling"><?php  esc_html_e( 'Selling Products Low Stock Reminder',"webd-woocommerce-advanced-reporting-statistics" );?></a></li>
-							<li><a href="#noselling"><?php  esc_html_e( 'All Time Low Stock Products',"webd-woocommerce-advanced-reporting-statistics" );?></a></li>
+							<li><a href="#selling"><?php esc_html_e( 'Selling Products Low Stock Reminder', 'webd-woocommerce-advanced-reporting-statistics' ); ?></a></li>
+							<li><a href="#noselling"><?php esc_html_e( 'All Time Low Stock Products', 'webd-woocommerce-advanced-reporting-statistics' ); ?></a></li>
 						</ul>
 						<?php $this->sellingProdStock(); ?>
 						<?php $this->LowStock(); ?>
 					</div>
 				</div>
-				<?php }elseif( 'top' === $this->activeTab ){ ?>
+				<?php } elseif ( 'top' === $this->activeTab ) { ?>
 						<div class='report_widge'>
-							<?php  $this->topSellers(); ?>
+							<?php $this->topSellers(); ?>
 						</div>
-				<?php }elseif( 'email' === $this->activeTab ){ ?>
+				<?php } elseif ( 'email' === $this->activeTab ) { ?>
 				<div class='premium_msg'>
 				<p>
 					<strong>
-					<?php  esc_html_e('Only available on PRO Version',"webd-woocommerce-advanced-reporting-statistics");?> <a class='premium_button' target='_blank'  href='<?php print esc_url( $this->proUrl ); ?>'><?php  esc_html_e('Get it Here',"webd-woocommerce-advanced-reporting-statistics");?></a>
+					<?php esc_html_e( 'Only available on PRO Version', 'webd-woocommerce-advanced-reporting-statistics' ); ?> <a class='premium_button' target='_blank'  href='<?php print esc_url( $this->proUrl ); ?>'><?php esc_html_e( 'Get it Here', 'webd-woocommerce-advanced-reporting-statistics' ); ?></a>
 					</strong>
 				</p>
 				</div>
-					<form method="post" id='<?php print "webd-woocommerce-reporting-statistics"; ?>Form'
-					action= "<?php echo esc_url( admin_url( "admin.php?page=".$this->slug."&tab=email" ) ); ?>">
+					<form method="post" id='<?php print 'webd-woocommerce-reporting-statistics'; ?>Form'
+					action= "<?php echo esc_url( admin_url( 'admin.php?page=' . $this->slug . '&tab=email' ) ); ?>">
 					<?php
-						settings_fields( "webd-woocommerce-reporting-statistics"."general-options" );
-						do_settings_sections( "webd-woocommerce-reporting-statistics"."general-options" );
+						settings_fields( 'webd-woocommerce-reporting-statistics' . 'general-options' );
+						do_settings_sections( 'webd-woocommerce-reporting-statistics' . 'general-options' );
 
-					?></form>
+					?>
+					</form>
 
-				<?php }
+					<?php
+				}
 	}
 
 	/**
@@ -271,7 +366,8 @@ class webdWoocommerceReportingStatisticsAdmin {
 	 *
 	 * @version 4.0.0
 	 */
-	public function adminFooter(){ ?>
+	public function adminFooter() {
+		?>
 		<div class='clearfix'>
 		<hr>
 		<div></div>
@@ -286,113 +382,116 @@ class webdWoocommerceReportingStatisticsAdmin {
 	 *
 	 * @version 4.1.7
 	 */
-	public function defaultStatus(){
+	public function defaultStatus() {
 
-			$default_status = get_option( $this->plugin.'_status' );
+			$default_status = get_option( $this->plugin . '_status' );
 
-			?>
+		?>
 
 			<select multiple name="<?php print esc_attr( $this->plugin . '_status' ); ?>[]" id='<?php print esc_attr( $this->plugin . '_status' ); ?>'>
 
-			<option value=''><?php esc_html_e( 'Choose Status...', 'webd-woocommerce-advanced-reporting-statistics' );?></option>
+			<option value=''><?php esc_html_e( 'Choose Status...', 'webd-woocommerce-advanced-reporting-statistics' ); ?></option>
 			<?php
 
-			foreach( wc_get_order_statuses() as $key=>$value){
+			foreach ( wc_get_order_statuses() as $key => $value ) {
 
-				$in = in_array( $key, $default_status ) ? "selected" : "";
+				$in = in_array( $key, $default_status ) ? 'selected' : '';
 
-				print "<option value='" . esc_attr( $key ) . "'  " . esc_attr( $in ) . " >" . esc_attr( $value ) . "</option>";
+				print "<option value='" . esc_attr( $key ) . "'  " . esc_attr( $in ) . ' >' . esc_attr( $value ) . '</option>';
 			}
 			?>
 			</select>
 			<?php
 	}
 
-	public function rating(){
-	?>
+	public function rating() {
+		?>
 		<div class="notices notice-success rating is-dismissible">
 
-			<?php esc_html_e( "You like this plugin? ", 'webd-woocommerce-advanced-reporting-statistics' ); ?><i class='fa fa-smile-o' ></i> <?php esc_html_e( "Then please give us ", "webd-woocommerce-advanced-reporting-statistics" ); ?>
+			<?php esc_html_e( 'You like this plugin? ', 'webd-woocommerce-advanced-reporting-statistics' ); ?><i class='fa fa-smile-o' ></i> <?php esc_html_e( 'Then please give us ', 'webd-woocommerce-advanced-reporting-statistics' ); ?>
 				<a target='_blank' href='https://wordpress.org/support/plugin/webd-woocommerce-advanced-reporting-statistics/reviews/#new-post'>
 					<i class='fa fa-star' ></i><i class='fa fa-star' ></i><i class='fa fa-star' ></i><i class='fa fa-star' ></i><i class='fa fa-star' ></i>
 				</a>
 
 		</div>
-	<?php
+		<?php
 	}
 
-	public function sendReport(){
+	public function sendReport() {
 		?>
 		<select class='proVersion' >
-			<option   readonly value=''><?php  esc_html_e('Select...',"webd-woocommerce-advanced-reporting-statistics");?></option>
-			<option value='yes'><?php  esc_html_e('yes',"webd-woocommerce-advanced-reporting-statistics");?></option>
-			<option value='no'><?php  esc_html_e('no',"webd-woocommerce-advanced-reporting-statistics");?></option>
+			<option   readonly value=''><?php esc_html_e( 'Select...', 'webd-woocommerce-advanced-reporting-statistics' ); ?></option>
+			<option value='yes'><?php esc_html_e( 'yes', 'webd-woocommerce-advanced-reporting-statistics' ); ?></option>
+			<option value='no'><?php esc_html_e( 'no', 'webd-woocommerce-advanced-reporting-statistics' ); ?></option>
 		</select>
 		<?php
 	}
 
-	public function emailForReport(){
+	public function emailForReport() {
 		?>
 		<input type="text" readonly placeholder='Email to send - PRO Version' class='proVersion' />
 		<?php
 	}
 
-	public function emailFrequency(){
+	public function emailFrequency() {
 		?>
 		<select  readonly class='proVersion' >
-			<option   value=''><?php  esc_html_e('Select...',"webd-woocommerce-advanced-reporting-statistics");?></option>
-			<option value='daily'><?php  esc_html_e('Daily',"webd-woocommerce-advanced-reporting-statistics");?></option>
-			<option value='weekly'><?php  esc_html_e('Weekly',"webd-woocommerce-advanced-reporting-statistics");?></option>
-			<option value='monthly'><?php  esc_html_e('Monthly',"webd-woocommerce-advanced-reporting-statistics");?></option>
+			<option   value=''><?php esc_html_e( 'Select...', 'webd-woocommerce-advanced-reporting-statistics' ); ?></option>
+			<option value='daily'><?php esc_html_e( 'Daily', 'webd-woocommerce-advanced-reporting-statistics' ); ?></option>
+			<option value='weekly'><?php esc_html_e( 'Weekly', 'webd-woocommerce-advanced-reporting-statistics' ); ?></option>
+			<option value='monthly'><?php esc_html_e( 'Monthly', 'webd-woocommerce-advanced-reporting-statistics' ); ?></option>
 		</select>
 		<?php
 	}
 
-	public function settingsSection(){
-		add_settings_section("webd-woocommerce-reporting-statistics"."general", "", null, "webd-woocommerce-reporting-statistics"."general-options");
-		add_settings_field('sendReport',"Send Report", array($this, 'sendReport'),  "webd-woocommerce-reporting-statistics"."general-options", "webd-woocommerce-reporting-statistics"."general");
-		add_settings_field('emailFrequency',"Email Frequency", array($this, 'emailFrequency'),  "webd-woocommerce-reporting-statistics"."general-options", "webd-woocommerce-reporting-statistics"."general");
-		add_settings_field('emailForReport',"Emai for Report", array($this, 'emailForReport'),  "webd-woocommerce-reporting-statistics"."general-options", "webd-woocommerce-reporting-statistics"."general");
+	public function settingsSection() {
+		add_settings_section( 'webd-woocommerce-reporting-statistics' . 'general', '', null, 'webd-woocommerce-reporting-statistics' . 'general-options' );
+		add_settings_field( 'sendReport', 'Send Report', array( $this, 'sendReport' ), 'webd-woocommerce-reporting-statistics' . 'general-options', 'webd-woocommerce-reporting-statistics' . 'general' );
+		add_settings_field( 'emailFrequency', 'Email Frequency', array( $this, 'emailFrequency' ), 'webd-woocommerce-reporting-statistics' . 'general-options', 'webd-woocommerce-reporting-statistics' . 'general' );
+		add_settings_field( 'emailForReport', 'Emai for Report', array( $this, 'emailForReport' ), 'webd-woocommerce-reporting-statistics' . 'general-options', 'webd-woocommerce-reporting-statistics' . 'general' );
 	}
 
 	public function displayOrdersBy( $period ) {
 
 		echo '<div class="column1 periods">';
 
-			?><center class='results_found'></center><?php
+		?>
+			<center class='results_found'></center>
+			<?php
 			echo "<div class='periods_table'>";
 
 			echo "<table class='widefat striped' >";
-				echo "<thead><th>" . esc_html( ucfirst( $period ) ) . "</th><th>" . esc_html__( "# Orders" ,"webd-woocommerce-advanced-reporting-statistics" ) . "</th><th>" . esc_html__( "Tax" , "webd-woocommerce-advanced-reporting-statistics" ) . "</th><th>" . esc_html__( "Shipping" , "webd-woocommerce-advanced-reporting-statistics" ) . "</th><th>" . esc_html__( "Discount" , "webd-woocommerce-advanced-reporting-statistics" ) . "</th><th>" . esc_html__( "Refunds" , "webd-woocommerce-advanced-reporting-statistics" ) . "</th><th class='gross_label'>" . esc_html__( "Gross Total" , "webd-woocommerce-advanced-reporting-statistics" ) . "</th><th class='net_label'>" . esc_html__( "Net Total" , "webd-woocommerce-advanced-reporting-statistics" ) ."</th>";
+				echo '<thead><th>' . esc_html( ucfirst( $period ) ) . '</th><th>' . esc_html__( '# Orders', 'webd-woocommerce-advanced-reporting-statistics' ) . '</th><th>' . esc_html__( 'Tax', 'webd-woocommerce-advanced-reporting-statistics' ) . '</th><th>' . esc_html__( 'Shipping', 'webd-woocommerce-advanced-reporting-statistics' ) . '</th><th>' . esc_html__( 'Discount', 'webd-woocommerce-advanced-reporting-statistics' ) . '</th><th>' . esc_html__( 'Refunds', 'webd-woocommerce-advanced-reporting-statistics' ) . "</th><th class='gross_label'>" . esc_html__( 'Gross Total', 'webd-woocommerce-advanced-reporting-statistics' ) . "</th><th class='net_label'>" . esc_html__( 'Net Total', 'webd-woocommerce-advanced-reporting-statistics' ) . '</th>';
+			?>
+				<tr class='totals'><td><?php esc_html_e( 'TOTALS', 'webd-woocommerce-advanced-reporting-statistics' ); ?></td><td class='num_orders'></td><td class='tax'></td><td class='shipping'></td><td class='discount'></td><td class='refund'><td class='total'></td><td class='net'></td></tr>
+
+				<?php
+				print '</thead>';
+				echo '<tbody>';
+
+				echo '</tbody>';
+				echo '</table>';
+
+				echo '</div>';
+
+				print "<div class='report_widget columns2 em '><b><i class='fa fa-2x fa-filter'></i> " . esc_html__( 'AVERAGE SALES', 'webd-woocommerce-advanced-reporting-statistics' ) . " <span class='avg_period'></span></b></div>";
+				print "<div class='report_widget columns2 em'><b><i class='fa fa-2x fa-signal'></i> " . esc_html__( 'NEXT ', 'webd-woocommerce-advanced-reporting-statistics' ) . esc_html( strtoupper( $period ) ) . esc_html__( ' SALES FORECAST', 'webd-woocommerce-advanced-reporting-statistics' ) . " <span class='forecast'></span></b></div>";
+
+				echo '</div>';
+
 				?>
-				<tr class='totals'><td><?php esc_html_e( 'TOTALS','webd-woocommerce-advanced-reporting-statistics' ); ?></td><td class='num_orders'></td><td class='tax'></td><td class='shipping'></td><td class='discount'></td><td class='refund'><td class='total'></td><td class='net'></td></tr>
-
-				<?php print "</thead>";
-				echo "<tbody>";
-
-				echo "</tbody>";
-			echo '</table>';
-
-			echo '</div>';
-
-			print "<div class='report_widget columns2 em '><b><i class='fa fa-2x fa-filter'></i> ". esc_html__( 'AVERAGE SALES', "webd-woocommerce-advanced-reporting-statistics" ) . " <span class='avg_period'></span></b></div>";
-			print "<div class='report_widget columns2 em'><b><i class='fa fa-2x fa-signal'></i> ". esc_html__( 'NEXT ', "webd-woocommerce-advanced-reporting-statistics" ) . esc_html( strtoupper( $period ) ) . esc_html__( ' SALES FORECAST', "webd-woocommerce-advanced-reporting-statistics" ) . " <span class='forecast'></span></b></div>";
-
-		echo '</div>';
-
-		?>
 		<div  class="chart-container column1 byPeriod periods" style="position: relative" ></div>
 
 		<div class='no_orders'>
 			<center>
-				<?php print "<h3> ". esc_html__( 'No Orders found...',"webd-woocommerce-advanced-reporting-statistics" ) ." </h3>"; ?>
+				<?php print '<h3> ' . esc_html__( 'No Orders found...', 'webd-woocommerce-advanced-reporting-statistics' ) . ' </h3>'; ?>
 			</center>
 		</div>
 
 		<?php
 	}
 
-	public function progress(){
+	public function progress() {
 		?>
 			<div class='progress text-center'></div>
 			<div class='progressBar'><span style='visibility:hidden'>..</span></div>
@@ -414,48 +513,48 @@ class webdWoocommerceReportingStatisticsAdmin {
 		<form method='post'  id='selectDates' autocomplete="off" role="presentation" >
 
 				<select name='customer' id='customer' class='dateFilter'>
-					<option value=''><?php esc_html_e( 'Customer..',"webd-woocommerce-advanced-reporting-statistics" );?></option>
+					<option value=''><?php esc_html_e( 'Customer..', 'webd-woocommerce-advanced-reporting-statistics' ); ?></option>
 				<?php
 
 				// get customer
 				$customer_query = new WP_User_Query(
 					array(
-						'role'	  =>	'customer',
+						'role' => 'customer',
 					)
 				);
-				$custs = $customer_query->get_results();
+				$custs          = $customer_query->get_results();
 
-						foreach ( $custs as $res ) {
-							$user_info = get_userdata( $res->ID );
-							$name      = trim( $user_info->first_name . ' ' . $user_info->last_name );
-							if ( '' === $name ) {
-								$name = $user_info->display_name;
-							}
-							if ( '' === $name ) {
-								$name = $user_info->user_login;
-							}
-							echo "<option value='" . esc_attr( $res->ID ) . "'>" . esc_html( $name ) . "</option>";
-						}
+				foreach ( $custs as $res ) {
+					$user_info = get_userdata( $res->ID );
+					$name      = trim( $user_info->first_name . ' ' . $user_info->last_name );
+					if ( '' === $name ) {
+						$name = $user_info->display_name;
+					}
+					if ( '' === $name ) {
+						$name = $user_info->user_login;
+					}
+					echo "<option value='" . esc_attr( $res->ID ) . "'>" . esc_html( $name ) . '</option>';
+				}
 				?>
 				</select>
 
 				<select class='dateFilter proVersionPreselect' style='background:#eee;' id="pt-filter-by-date">
-					<option value=""><?php  esc_html_e('Query by...',"webd-woocommerce-advanced-reporting-statistics");?></option>
-					<option class='proVersionPreselected' style='background:#eee;' value="proVersionPreselected"><?php  esc_html_e('Product - in PRO',"webd-woocommerce-advanced-reporting-statistics");?></option>
-					<option class='proVersionPreselected' style='background:#eee;' value="proVersionPreselected"><?php  esc_html_e('Category - in PRO',"webd-woocommerce-advanced-reporting-statistics");?></option>
-					<option class='proVersionPreselected' style='background:#eee;' value="proVersionPreselected"><?php  esc_html_e('City - in PRO',"webd-woocommerce-advanced-reporting-statistics");?></option>
-					<option class='proVersionPreselected' style='background:#eee;' value="proVersionPreselected"><?php  esc_html_e('Country - in PRO',"webd-woocommerce-advanced-reporting-statistics");?></option>
-					<option class='proVersionPreselected' style='background:#eee;' value="proVersionPreselected"><?php  esc_html_e('Payment Method - in PRO',"webd-woocommerce-advanced-reporting-statistics");?></option>
+					<option value=""><?php esc_html_e( 'Query by...', 'webd-woocommerce-advanced-reporting-statistics' ); ?></option>
+					<option class='proVersionPreselected' style='background:#eee;' value="proVersionPreselected"><?php esc_html_e( 'Product - in PRO', 'webd-woocommerce-advanced-reporting-statistics' ); ?></option>
+					<option class='proVersionPreselected' style='background:#eee;' value="proVersionPreselected"><?php esc_html_e( 'Category - in PRO', 'webd-woocommerce-advanced-reporting-statistics' ); ?></option>
+					<option class='proVersionPreselected' style='background:#eee;' value="proVersionPreselected"><?php esc_html_e( 'City - in PRO', 'webd-woocommerce-advanced-reporting-statistics' ); ?></option>
+					<option class='proVersionPreselected' style='background:#eee;' value="proVersionPreselected"><?php esc_html_e( 'Country - in PRO', 'webd-woocommerce-advanced-reporting-statistics' ); ?></option>
+					<option class='proVersionPreselected' style='background:#eee;' value="proVersionPreselected"><?php esc_html_e( 'Payment Method - in PRO', 'webd-woocommerce-advanced-reporting-statistics' ); ?></option>
 
 				</select>
 
 				<select name='order_status' id='order_status' class='dateFilter'>
-					<option value=''><?php esc_html_e('Order Status', "webd-woocommerce-advanced-reporting-statistics" );?></option>
+					<option value=''><?php esc_html_e( 'Order Status', 'webd-woocommerce-advanced-reporting-statistics' ); ?></option>
 
 						<?php
-							foreach( wc_get_order_statuses() as $key=>$value){
-								print "<option value='".esc_attr($key)."' >".esc_attr($value)."</option>";
-							}
+						foreach ( wc_get_order_statuses() as $key => $value ) {
+							print "<option value='" . esc_attr( $key ) . "' >" . esc_attr( $value ) . '</option>';
+						}
 						?>
 
 				</select>
@@ -464,56 +563,55 @@ class webdWoocommerceReportingStatisticsAdmin {
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only tab check; no form data processed.
 			$active_tab = isset( $_REQUEST['tab'] ) ? sanitize_key( wp_unslash( $_REQUEST['tab'] ) ) : 'all';
 			if ( 'all' === $active_tab ) {
-				$date = current_time( 'mysql' ) ;
-				$today = gmdate("Y-m-d", strtotime( $date ) );
+				$date  = current_time( 'mysql' );
+				$today = gmdate( 'Y-m-d', strtotime( $date ) );
 				?>
 
 				<select name="selected" class='dateFilter ' id='selected' >
-					<option value=""><?php  esc_html_e('Preselected Period',"webd-woocommerce-advanced-reporting-statistics");?></option>
-					<option value="<?php print esc_attr( $today ); ?>"><?php  esc_html_e( 'Today',"webd-woocommerce-advanced-reporting-statistics" );?></option>
-					<option value="<?php print esc_attr( gmdate( 'Y-m-d', strtotime( $date . "- 1 day" ) ) ); ?>"><?php  esc_html_e( 'Yesterday',"webd-woocommerce-advanced-reporting-statistics" );?></option>
-					<option value="<?php print esc_attr( gmdate( 'Y-m-d', strtotime( $date . "- 7 days" ) ) ); ?>"><?php  esc_html_e( 'This Week',"webd-woocommerce-advanced-reporting-statistics" );?></option>
-					<option value="<?php print esc_attr( gmdate( 'Y-m-d', strtotime( "first day of this month" ) ) ); ?>"><?php  esc_html_e( 'This Month',"webd-woocommerce-advanced-reporting-statistics" );?></option>
-					<option value="<?php print esc_attr( gmdate( 'Y-m-d', strtotime( $date . "- 2 months" ) ) ); ?>"><?php  esc_html_e( 'Last 2 Months',"webd-woocommerce-advanced-reporting-statistics" );?></option>
-					<option value="<?php print esc_attr( gmdate( 'Y-m-d', strtotime( $date . "- 3 months" ) ) ); ?>"><?php  esc_html_e( 'Last 3 Months', "webd-woocommerce-advanced-reporting-statistics" );?></option>
-					<option value="<?php print esc_attr( gmdate( 'Y-m-d', strtotime( $date . "- 6 months" ) ) ); ?>"><?php  esc_html_e( 'Last 6 Months', "webd-woocommerce-advanced-reporting-statistics" );?></option>
+					<option value=""><?php esc_html_e( 'Preselected Period', 'webd-woocommerce-advanced-reporting-statistics' ); ?></option>
+					<option value="<?php print esc_attr( $today ); ?>"><?php esc_html_e( 'Today', 'webd-woocommerce-advanced-reporting-statistics' ); ?></option>
+					<option value="<?php print esc_attr( gmdate( 'Y-m-d', strtotime( $date . '- 1 day' ) ) ); ?>"><?php esc_html_e( 'Yesterday', 'webd-woocommerce-advanced-reporting-statistics' ); ?></option>
+					<option value="<?php print esc_attr( gmdate( 'Y-m-d', strtotime( $date . '- 7 days' ) ) ); ?>"><?php esc_html_e( 'This Week', 'webd-woocommerce-advanced-reporting-statistics' ); ?></option>
+					<option value="<?php print esc_attr( gmdate( 'Y-m-d', strtotime( 'first day of this month' ) ) ); ?>"><?php esc_html_e( 'This Month', 'webd-woocommerce-advanced-reporting-statistics' ); ?></option>
+					<option value="<?php print esc_attr( gmdate( 'Y-m-d', strtotime( $date . '- 2 months' ) ) ); ?>"><?php esc_html_e( 'Last 2 Months', 'webd-woocommerce-advanced-reporting-statistics' ); ?></option>
+					<option value="<?php print esc_attr( gmdate( 'Y-m-d', strtotime( $date . '- 3 months' ) ) ); ?>"><?php esc_html_e( 'Last 3 Months', 'webd-woocommerce-advanced-reporting-statistics' ); ?></option>
+					<option value="<?php print esc_attr( gmdate( 'Y-m-d', strtotime( $date . '- 6 months' ) ) ); ?>"><?php esc_html_e( 'Last 6 Months', 'webd-woocommerce-advanced-reporting-statistics' ); ?></option>
 				</select>
 
 				<select name='month' class='dateFilter proVersionPreselect' style='background:#eee;' id="pt-filter-by-date">
 
-					<option value=''><?php esc_html_e( 'Select Month..',"webd-woocommerce-advanced-reporting-statistics" );?></option>
+					<option value=''><?php esc_html_e( 'Select Month..', 'webd-woocommerce-advanced-reporting-statistics' ); ?></option>
 					<?php
-					foreach( WPFactory_WC_ARS_OrderProcessorHelp::get_instance()->periodFilter( 'month') as $period ){
-						print "<option value='proVersionPreselected'>". esc_attr( $period->period ) ."</option>";
+					foreach ( WPFactory_WC_ARS_OrderProcessorHelp::get_instance()->periodFilter( 'month' ) as $period ) {
+						print "<option value='proVersionPreselected'>" . esc_attr( $period->period ) . '</option>';
 					}
 					?>
 				</select>
 				<select name='year' class='dateFilter proVersionPreselect' style='background:#eee;' id="pt-filter-by-date" >
 
-					<option value=''><?php esc_html_e( 'Select Year..',"webd-woocommerce-advanced-reporting-statistics" );?></option>
+					<option value=''><?php esc_html_e( 'Select Year..', 'webd-woocommerce-advanced-reporting-statistics' ); ?></option>
 					<?php
-					foreach( WPFactory_WC_ARS_OrderProcessorHelp::get_instance()->periodFilter( 'year') as $period ){
-						print "<option value='proVersionPreselected'>". esc_attr( $period->period ) ."</option>";
+					foreach ( WPFactory_WC_ARS_OrderProcessorHelp::get_instance()->periodFilter( 'year' ) as $period ) {
+						print "<option value='proVersionPreselected'>" . esc_attr( $period->period ) . '</option>';
 					}
 					?>
 
 				</select>
 
-				 <input  placeholder='From'  class="from datepicker dateFilter" readonly name='from' value='' />
-				 <input  placeholder='To'  class="to datepicker dateFilter"  readonly name='to' value='' />
+				<input  placeholder='From'  class="from datepicker dateFilter" readonly name='from' value='' />
+				<input  placeholder='To'  class="to datepicker dateFilter"  readonly name='to' value='' />
 
-			 <?php } ?>
+			<?php } ?>
 
-			 <?php wp_nonce_field("webd-woocommerce-reporting-statistics"); ?>
-			 <input type='submit' class='button button-primary' />
-		 </form>
+			<?php wp_nonce_field( 'webd-woocommerce-reporting-statistics' ); ?>
+			<input type='submit' class='button button-primary' />
+		</form>
 
-		 </div>
-	<?php
-
+		</div>
+		<?php
 	}
 
-	public function overview(){
+	public function overview() {
 
 		?>
 
@@ -523,17 +621,17 @@ class webdWoocommerceReportingStatisticsAdmin {
 				<div class='flexmeContainer'>
 					<?php
 
-					print "<div class='report_widget'><h3><i class='fa fa-2x fa-signal' ></i> " . esc_html__( "GROSS SALES", 'webd-woocommerce-advanced-reporting-statistics' )." <br/><small><i>".esc_html__( 'after tax, shipping, discount & refunds' , 'webd-woocommerce-advanced-reporting-statistics' )."</i></small><hr/> <span class='total'></span></h3></div>";
-					print "<div class='report_widget'><h3><i class='fa fa-2x fa-signal' ></i> " . esc_html__( "NET SALES", 'webd-woocommerce-advanced-reporting-statistics' )." <br/><small><i>".esc_html__( 'before tax, shipping, discount, after refunds' , 'webd-woocommerce-advanced-reporting-statistics' )."</i></small><hr/> <span class='subtotal'></span></h3></div>";
-					print "<div class='report_widget'><h3><i class='fa fa-2x fa-truck' ></i> " . esc_html__( "SHIPPING", 'webd-woocommerce-advanced-reporting-statistics' )." <hr/> <span class='shipping'></span></h3></div>";
-					print "<div class='report_widget'><h3><i class='fa fa-2x fa-percent' ></i> ". esc_html__( "TAXES", 'webd-woocommerce-advanced-reporting-statistics' )." <hr/> <span class='tax'></span></h3></div>";
-					print "<div class='report_widget'><h3><i class='fa fa-2x fa-thumbs-down' ></i> " . esc_html__( "REFUNDS", 'webd-woocommerce-advanced-reporting-statistics' )." <hr/> <span class='refund'></span></h3></div>";
-					print "<div class='report_widget'><h3><i class='fa fa-2x fa-tag' ></i> " . esc_html__( "DISCOUNTS", 'webd-woocommerce-advanced-reporting-statistics' )." <hr/> <span class='discount'></span></h3></div>";
-					print "<div class='report_widget'><h3><i class='fa fa-2x fa-pie-chart' ></i> " . esc_html__( "#PRODUCTS PURCHASED", 'webd-woocommerce-advanced-reporting-statistics' )." <hr/> <span class='num_products'></span></h3></div>";
-					print "<div class='report_widget'><h3><i class='fa fa-2x fa-pie-chart' ></i> " . esc_html__( "#ORDERS", 'webd-woocommerce-advanced-reporting-statistics' )." <hr/> <span class='num_orders'></span></h3></div>";
-					print "<div class='report_widget em'><h3><i class='fa fa-2x fa-filter' ></i> " . esc_html__( "AVG NET SALES / day", 'webd-woocommerce-advanced-reporting-statistics' )." <hr/> <span class='avg'></span></h3></div>";
-					print "<div class='report_widget em'><h3><i class='fa fa-2x fa-clock-o' ></i> " . esc_html__( "SALES EVERY", 'webd-woocommerce-advanced-reporting-statistics' )." <hr/> <span class='salesEvery'></span>" . esc_html__( " days", 'webd-woocommerce-advanced-reporting-statistics' )."</h3></div>";
-				?>
+					print "<div class='report_widget'><h3><i class='fa fa-2x fa-signal' ></i> " . esc_html__( 'GROSS SALES', 'webd-woocommerce-advanced-reporting-statistics' ) . ' <br/><small><i>' . esc_html__( 'after tax, shipping, discount & refunds', 'webd-woocommerce-advanced-reporting-statistics' ) . "</i></small><hr/> <span class='total'></span></h3></div>";
+					print "<div class='report_widget'><h3><i class='fa fa-2x fa-signal' ></i> " . esc_html__( 'NET SALES', 'webd-woocommerce-advanced-reporting-statistics' ) . ' <br/><small><i>' . esc_html__( 'before tax, shipping, discount, after refunds', 'webd-woocommerce-advanced-reporting-statistics' ) . "</i></small><hr/> <span class='subtotal'></span></h3></div>";
+					print "<div class='report_widget'><h3><i class='fa fa-2x fa-truck' ></i> " . esc_html__( 'SHIPPING', 'webd-woocommerce-advanced-reporting-statistics' ) . " <hr/> <span class='shipping'></span></h3></div>";
+					print "<div class='report_widget'><h3><i class='fa fa-2x fa-percent' ></i> " . esc_html__( 'TAXES', 'webd-woocommerce-advanced-reporting-statistics' ) . " <hr/> <span class='tax'></span></h3></div>";
+					print "<div class='report_widget'><h3><i class='fa fa-2x fa-thumbs-down' ></i> " . esc_html__( 'REFUNDS', 'webd-woocommerce-advanced-reporting-statistics' ) . " <hr/> <span class='refund'></span></h3></div>";
+					print "<div class='report_widget'><h3><i class='fa fa-2x fa-tag' ></i> " . esc_html__( 'DISCOUNTS', 'webd-woocommerce-advanced-reporting-statistics' ) . " <hr/> <span class='discount'></span></h3></div>";
+					print "<div class='report_widget'><h3><i class='fa fa-2x fa-pie-chart' ></i> " . esc_html__( '#PRODUCTS PURCHASED', 'webd-woocommerce-advanced-reporting-statistics' ) . " <hr/> <span class='num_products'></span></h3></div>";
+					print "<div class='report_widget'><h3><i class='fa fa-2x fa-pie-chart' ></i> " . esc_html__( '#ORDERS', 'webd-woocommerce-advanced-reporting-statistics' ) . " <hr/> <span class='num_orders'></span></h3></div>";
+					print "<div class='report_widget em'><h3><i class='fa fa-2x fa-filter' ></i> " . esc_html__( 'AVG NET SALES / day', 'webd-woocommerce-advanced-reporting-statistics' ) . " <hr/> <span class='avg'></span></h3></div>";
+					print "<div class='report_widget em'><h3><i class='fa fa-2x fa-clock-o' ></i> " . esc_html__( 'SALES EVERY', 'webd-woocommerce-advanced-reporting-statistics' ) . " <hr/> <span class='salesEvery'></span>" . esc_html__( ' days', 'webd-woocommerce-advanced-reporting-statistics' ) . '</h3></div>';
+					?>
 				</div>
 			</div>
 			<?php
@@ -546,13 +644,13 @@ class webdWoocommerceReportingStatisticsAdmin {
 		<div id="tabs2" class='clearfix'>
 			<ul>
 
-				<li><a href="#orders"><?php  esc_html_e( 'Orders',"webd-woocommerce-advanced-reporting-statistics"  );?></a></li>
-				<li><a href="#customers"><?php  esc_html_e( 'Customers', "webd-woocommerce-advanced-reporting-statistics" );?></a></li>
-				<li><a href="#products"><?php  esc_html_e( 'Products',"webd-woocommerce-advanced-reporting-statistics" );?></a></li>
-				<li><a href="#categories"><?php  esc_html_e( 'Categories', "webd-woocommerce-advanced-reporting-statistics" );?></a></li>
-				<li><a href="#countries"><?php  esc_html_e( 'Countries', "webd-woocommerce-advanced-reporting-statistics" );?></a></li>
-				<li><a href="#payment"><?php  esc_html_e( 'Payment Methods',"webd-woocommerce-advanced-reporting-statistics" );?></a></li>
-				<li><a href="#coupons"><?php  esc_html_e( 'Coupons', "webd-woocommerce-advanced-reporting-statistics" );?></a></li>
+				<li><a href="#orders"><?php esc_html_e( 'Orders', 'webd-woocommerce-advanced-reporting-statistics' ); ?></a></li>
+				<li><a href="#customers"><?php esc_html_e( 'Customers', 'webd-woocommerce-advanced-reporting-statistics' ); ?></a></li>
+				<li><a href="#products"><?php esc_html_e( 'Products', 'webd-woocommerce-advanced-reporting-statistics' ); ?></a></li>
+				<li><a href="#categories"><?php esc_html_e( 'Categories', 'webd-woocommerce-advanced-reporting-statistics' ); ?></a></li>
+				<li><a href="#countries"><?php esc_html_e( 'Countries', 'webd-woocommerce-advanced-reporting-statistics' ); ?></a></li>
+				<li><a href="#payment"><?php esc_html_e( 'Payment Methods', 'webd-woocommerce-advanced-reporting-statistics' ); ?></a></li>
+				<li><a href="#coupons"><?php esc_html_e( 'Coupons', 'webd-woocommerce-advanced-reporting-statistics' ); ?></a></li>
 
 			</ul>
 
@@ -567,38 +665,38 @@ class webdWoocommerceReportingStatisticsAdmin {
 		</div>
 
 		<?php
-
 	}
 
-	public function orders( ){?>
+	public function orders() {
+		?>
 
 		<div id='orders'>
 
 			<div class='column1'>
-				<h3 class='text-center'><i class='fa fa-pie-chart' ></i> <?php  esc_html_e( 'ORDERS PLACED', "webd-woocommerce-advanced-reporting-statistics" );?> </h3>
+				<h3 class='text-center'><i class='fa fa-pie-chart' ></i> <?php esc_html_e( 'ORDERS PLACED', 'webd-woocommerce-advanced-reporting-statistics' ); ?> </h3>
 
-				<p><button class='proVersion custom_fields' ><?php esc_html_e( 'Choose your custom fields - PRO ' , 'webd-woocommerce-advanced-reporting-statistics' ); ?></p>
-				<button class='proVersion'><i class='fa fa-file-excel-o '></i> <?php  esc_html_e('Export / PRO',"webd-woocommerce-advanced-reporting-statistics");?></button>
-				<input type="text" class="search" placeholder="<?php  esc_html_e( 'Search...', "webd-woocommerce-advanced-reporting-statistics" );?>"></input>
+				<p><button class='proVersion custom_fields' ><?php esc_html_e( 'Choose your custom fields - PRO ', 'webd-woocommerce-advanced-reporting-statistics' ); ?></p>
+				<button class='proVersion'><i class='fa fa-file-excel-o '></i> <?php esc_html_e( 'Export / PRO', 'webd-woocommerce-advanced-reporting-statistics' ); ?></button>
+				<input type="text" class="search" placeholder="<?php esc_html_e( 'Search...', 'webd-woocommerce-advanced-reporting-statistics' ); ?>"></input>
 
 				<table class="widefat striped ordersToExport" >
 					<thead>
-							<th><?php  esc_html_e( 'Order ID','webd-woocommerce-advanced-reporting-statistics' );?></th>
-							<th><?php  esc_html_e( 'Date','webd-woocommerce-advanced-reporting-statistics' );?></th>
-							<th><?php  esc_html_e( 'Payment Method','webd-woocommerce-advanced-reporting-statistics' );?></th>
-							<th><?php  esc_html_e( 'Coupons','webd-woocommerce-advanced-reporting-statistics' );?></th>
-							<th><?php  esc_html_e( 'Customer Name','webd-woocommerce-advanced-reporting-statistics' );?></th>
-							<th><?php  esc_html_e( 'Customer Country','webd-woocommerce-advanced-reporting-statistics' );?></th>
-							<th><?php  esc_html_e( 'Discount','webd-woocommerce-advanced-reporting-statistics' );?></th>
-							<th><?php  esc_html_e( 'Shipping Cost','webd-woocommerce-advanced-reporting-statistics' );?></th>
-							<th><?php  esc_html_e( 'Taxes','webd-woocommerce-advanced-reporting-statistics' );?></th>
-							<th><?php  esc_html_e( 'Gross Total','webd-woocommerce-advanced-reporting-statistics' );?></th>
-							<th><?php  esc_html_e( 'Refunds','webd-woocommerce-advanced-reporting-statistics' );?></th>
-							<th><?php  esc_html_e( 'Net Total','webd-woocommerce-advanced-reporting-statistics' );?></th>
+							<th><?php esc_html_e( 'Order ID', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+							<th><?php esc_html_e( 'Date', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+							<th><?php esc_html_e( 'Payment Method', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+							<th><?php esc_html_e( 'Coupons', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+							<th><?php esc_html_e( 'Customer Name', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+							<th><?php esc_html_e( 'Customer Country', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+							<th><?php esc_html_e( 'Discount', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+							<th><?php esc_html_e( 'Shipping Cost', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+							<th><?php esc_html_e( 'Taxes', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+							<th><?php esc_html_e( 'Gross Total', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+							<th><?php esc_html_e( 'Refunds', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+							<th><?php esc_html_e( 'Net Total', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
 						</tr>
 					</thead>
 					<tbody>
-				   </tbody>
+					</tbody>
 
 				</table>
 			</div>
@@ -609,26 +707,26 @@ class webdWoocommerceReportingStatisticsAdmin {
 		<?php
 	}
 
-	public function payments( ){
-	?>
+	public function payments() {
+		?>
 		<div id='payment'>
 
-			<h3 class='text-center'><i class='fa fa-money' ></i> <?php  esc_html_e( 'PAYMENT METHODS', "webd-woocommerce-advanced-reporting-statistics" );?></h3>
+			<h3 class='text-center'><i class='fa fa-money' ></i> <?php esc_html_e( 'PAYMENT METHODS', 'webd-woocommerce-advanced-reporting-statistics' ); ?></h3>
 			<div class='columns2'>
-				<button class='proVersion'><i class='fa fa-file-excel-o '></i> <?php  esc_html_e('Export / PRO',"webd-woocommerce-advanced-reporting-statistics");?></button>
-				<input type="text" class="search" placeholder="<?php  esc_html_e( 'Search...', "webd-woocommerce-advanced-reporting-statistics" );?>"></input>
+				<button class='proVersion'><i class='fa fa-file-excel-o '></i> <?php esc_html_e( 'Export / PRO', 'webd-woocommerce-advanced-reporting-statistics' ); ?></button>
+				<input type="text" class="search" placeholder="<?php esc_html_e( 'Search...', 'webd-woocommerce-advanced-reporting-statistics' ); ?>"></input>
 				<table class="widefat striped" >
 					<thead>
-					   <tr class="row-title">
-							<th><?php  esc_html_e( 'Payment Method',"webd-woocommerce-advanced-reporting-statistics" );?></th>
-							<th><?php  esc_html_e( 'Orders', "webd-woocommerce-advanced-reporting-statistics" );?></th>
-							<th><?php  esc_html_e( 'Tax', "webd-woocommerce-advanced-reporting-statistics" );?></th>
-							<th><?php  esc_html_e( 'Sales', "webd-woocommerce-advanced-reporting-statistics" );?></th>
+						<tr class="row-title">
+							<th><?php esc_html_e( 'Payment Method', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+							<th><?php esc_html_e( 'Orders', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+							<th><?php esc_html_e( 'Tax', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+							<th><?php esc_html_e( 'Sales', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
 						</tr>
-						<tr class='totals'><td><?php esc_html_e( 'TOTALS', "webd-woocommerce-advanced-reporting-statistics" ); ?></td><td class='num_orders'></td><td class='tax'></td><td class='total'></td></tr>
+						<tr class='totals'><td><?php esc_html_e( 'TOTALS', 'webd-woocommerce-advanced-reporting-statistics' ); ?></td><td class='num_orders'></td><td class='tax'></td><td class='total'></td></tr>
 					</thead>
 					<tbody>
-				   </tbody>
+					</tbody>
 
 				</table>
 
@@ -638,123 +736,121 @@ class webdWoocommerceReportingStatisticsAdmin {
 			</div>
 
 		</div>
-	<?php
+		<?php
 	}
 
-	public function customers(){
+	public function customers() {
 		?>
 		<div id='customers'>
-			<h3 class='text-center'><i class='fa fa-users' ></i> <?php  esc_html_e( 'CUSTOMERS', "webd-woocommerce-advanced-reporting-statistics" );?> </h3>
+			<h3 class='text-center'><i class='fa fa-users' ></i> <?php esc_html_e( 'CUSTOMERS', 'webd-woocommerce-advanced-reporting-statistics' ); ?> </h3>
 			<div class='column1'>
-				<button class='proVersion'><i class='fa fa-file-excel-o '></i> <?php  esc_html_e('Export / PRO',"webd-woocommerce-advanced-reporting-statistics");?></button>
-				<input type="text" class="search" placeholder="<?php  esc_html_e( 'Search...', "webd-woocommerce-advanced-reporting-statistics" );?>"></input>
+				<button class='proVersion'><i class='fa fa-file-excel-o '></i> <?php esc_html_e( 'Export / PRO', 'webd-woocommerce-advanced-reporting-statistics' ); ?></button>
+				<input type="text" class="search" placeholder="<?php esc_html_e( 'Search...', 'webd-woocommerce-advanced-reporting-statistics' ); ?>"></input>
 				<table class="widefat striped" id='custs'>
 					<thead>
-					   <tr class="row-title">
-							<th><?php  esc_html_e( 'Customer Name',"webd-woocommerce-advanced-reporting-statistics" );?></th>
-							<th><?php  esc_html_e( 'Phone',"webd-woocommerce-advanced-reporting-statistics" );?></th>
-							<th><?php  esc_html_e( 'Email',"webd-woocommerce-advanced-reporting-statistics" );?></th>
-							<th><?php  esc_html_e( 'Country',"webd-woocommerce-advanced-reporting-statistics" );?></th>
-							<th><?php  esc_html_e( 'State',"webd-woocommerce-advanced-reporting-statistics" );?></th>
-							<th><?php  esc_html_e( 'City',"webd-woocommerce-advanced-reporting-statistics" );?></th>
-							<th><?php  esc_html_e( 'Company',"webd-woocommerce-advanced-reporting-statistics" );?></th>
-							<th><?php  esc_html_e( '# of Orders',"webd-woocommerce-advanced-reporting-statistics" );?></th>
-							<th><?php  esc_html_e( 'Tax',"webd-woocommerce-advanced-reporting-statistics" );?></th>
-							<th><?php  esc_html_e( 'Sales',"webd-woocommerce-advanced-reporting-statistics" );?></th>
+						<tr class="row-title">
+							<th><?php esc_html_e( 'Customer Name', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+							<th><?php esc_html_e( 'Phone', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+							<th><?php esc_html_e( 'Email', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+							<th><?php esc_html_e( 'Country', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+							<th><?php esc_html_e( 'State', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+							<th><?php esc_html_e( 'City', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+							<th><?php esc_html_e( 'Company', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+							<th><?php esc_html_e( '# of Orders', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+							<th><?php esc_html_e( 'Tax', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+							<th><?php esc_html_e( 'Sales', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
 						</tr>
-						<tr class='totals'><td><?php esc_html_e( 'TOTALS','webd-woocommerce-advanced-reporting-statistics' ); ?></td><td></td><td></td><td></td><td></td><td></td><td></td><td class='num_orders'></td><td class='tax'></td><td class='total'></td></tr>
+						<tr class='totals'><td><?php esc_html_e( 'TOTALS', 'webd-woocommerce-advanced-reporting-statistics' ); ?></td><td></td><td></td><td></td><td></td><td></td><td></td><td class='num_orders'></td><td class='tax'></td><td class='total'></td></tr>
 					</thead>
 					<tbody>
-				   </tbody>
+					</tbody>
 
 				</table>
 			</div>
 		</div>
-	<?php
-
+		<?php
 	}
 
-	public function countries(){
+	public function countries() {
 		?>
 
 		<div  id='countries'>
 
-			<h3 class='text-center'><i class='fa fa-globe' ></i> <?php  esc_html_e( 'COUNTRIES', "webd-woocommerce-advanced-reporting-statistics" );?></h3>
+			<h3 class='text-center'><i class='fa fa-globe' ></i> <?php esc_html_e( 'COUNTRIES', 'webd-woocommerce-advanced-reporting-statistics' ); ?></h3>
 			<div class='columns2' >
-				<button class='proVersion'><i class='fa fa-file-excel-o '></i> <?php  esc_html_e('Export / PRO',"webd-woocommerce-advanced-reporting-statistics");?></button>
-				<input type="text" class="search" placeholder="<?php  esc_html_e( 'Search...', "webd-woocommerce-advanced-reporting-statistics" );?>"></input>
+				<button class='proVersion'><i class='fa fa-file-excel-o '></i> <?php esc_html_e( 'Export / PRO', 'webd-woocommerce-advanced-reporting-statistics' ); ?></button>
+				<input type="text" class="search" placeholder="<?php esc_html_e( 'Search...', 'webd-woocommerce-advanced-reporting-statistics' ); ?>"></input>
 				<table class="widefat striped" >
 					<thead>
-					   <tr class="row-title">
-							<th><?php  esc_html_e('Country', "webd-woocommerce-advanced-reporting-statistics" );?></th>
-							<th><?php  esc_html_e('# of Orders', "webd-woocommerce-advanced-reporting-statistics" );?></th>
-							<th><?php  esc_html_e('Tax',"webd-woocommerce-advanced-reporting-statistics" );?></th>
-							<th><?php  esc_html_e('Sales', "webd-woocommerce-advanced-reporting-statistics" );?></th>
+						<tr class="row-title">
+							<th><?php esc_html_e( 'Country', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+							<th><?php esc_html_e( '# of Orders', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+							<th><?php esc_html_e( 'Tax', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+							<th><?php esc_html_e( 'Sales', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
 						</tr>
-						<tr class='totals'><td><?php esc_html_e( 'TOTALS', "webd-woocommerce-advanced-reporting-statistics" ); ?></td><td class='num_orders'></td><td class='tax'></td><td class='total'></td></tr>
+						<tr class='totals'><td><?php esc_html_e( 'TOTALS', 'webd-woocommerce-advanced-reporting-statistics' ); ?></td><td class='num_orders'></td><td class='tax'></td><td class='total'></td></tr>
 					</thead>
 					<tbody>
-				   </tbody>
+					</tbody>
 
 				</table>
 			</div>
 			<div class="chart-container byCountry columns2" ></div>
 
 		</div>
-	<?php
+		<?php
 	}
 
-	public function products(){
-	?>
+	public function products() {
+		?>
 		<div id='products'>
 
-			<h3 class='text-center'><i class='fa fa-pie-chart' ></i> <?php  esc_html_e( 'PRODUCTS',"webd-woocommerce-advanced-reporting-statistics" );?></h3>
+			<h3 class='text-center'><i class='fa fa-pie-chart' ></i> <?php esc_html_e( 'PRODUCTS', 'webd-woocommerce-advanced-reporting-statistics' ); ?></h3>
 
 			<div class='column1'>
-				<center><i><?php esc_html_e( "Amounts before tax and total discount" ,"webd-woocommerce-advanced-reporting-statistics" ); ?></i><center>
-				<button class='proVersion'><i class='fa fa-file-excel-o '></i> <?php  esc_html_e('Export / PRO',"webd-woocommerce-advanced-reporting-statistics");?></button>
-				<input type="text" class="search" placeholder="<?php  esc_html_e( 'Search...',"webd-woocommerce-advanced-reporting-statistics" );?>"></input>
+				<center><i><?php esc_html_e( 'Amounts before tax and total discount', 'webd-woocommerce-advanced-reporting-statistics' ); ?></i><center>
+				<button class='proVersion'><i class='fa fa-file-excel-o '></i> <?php esc_html_e( 'Export / PRO', 'webd-woocommerce-advanced-reporting-statistics' ); ?></button>
+				<input type="text" class="search" placeholder="<?php esc_html_e( 'Search...', 'webd-woocommerce-advanced-reporting-statistics' ); ?>"></input>
 				<table class="widefat striped" >
 					<thead>
-					   <tr class="row-title">
-							<th><?php  esc_html_e( 'Product',"webd-woocommerce-advanced-reporting-statistics" );?></th>
-							<th><?php  esc_html_e( 'SKU',"webd-woocommerce-advanced-reporting-statistics" );?></th>
-							<th><?php  esc_html_e( 'Items Sold',"webd-woocommerce-advanced-reporting-statistics" );?></th>
-							<th><?php  esc_html_e( 'Sales',"webd-woocommerce-advanced-reporting-statistics" );?></th>
+						<tr class="row-title">
+							<th><?php esc_html_e( 'Product', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+							<th><?php esc_html_e( 'SKU', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+							<th><?php esc_html_e( 'Items Sold', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+							<th><?php esc_html_e( 'Sales', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
 						</tr>
-						<tr class='totals'><td><?php esc_html_e( 'TOTALS',"webd-woocommerce-advanced-reporting-statistics" ); ?></td><td></td><td class='num_products'></td><td class='sum_products'></td></tr>
+						<tr class='totals'><td><?php esc_html_e( 'TOTALS', 'webd-woocommerce-advanced-reporting-statistics' ); ?></td><td></td><td class='num_products'></td><td class='sum_products'></td></tr>
 					</thead>
 					<tbody>
-				   </tbody>
+					</tbody>
 				</table>
 			</div>
 			<div class="chart-container productChart" ></div>
 
 		</div>
-	<?php
-
+		<?php
 	}
 
-	public function categories(){
+	public function categories() {
 
-	?>
+		?>
 		<div id='categories'>
-			<h3 class='text-center'><i class='fa fa-tag' ></i> <?php  esc_html_e( 'CATEGORIES', "webd-woocommerce-advanced-reporting-statistics" );?></h3>
+			<h3 class='text-center'><i class='fa fa-tag' ></i> <?php esc_html_e( 'CATEGORIES', 'webd-woocommerce-advanced-reporting-statistics' ); ?></h3>
 			<div class='columns2'>
 
-				<center><i><?php esc_html_e( "Amounts before tax and total discount","webd-woocommerce-advanced-reporting-statistics" ); ?></i></center>
-				<input type="text" class="search" placeholder="<?php  esc_html_e( 'Search...',"webd-woocommerce-advanced-reporting-statistics"  );?>"></input>
+				<center><i><?php esc_html_e( 'Amounts before tax and total discount', 'webd-woocommerce-advanced-reporting-statistics' ); ?></i></center>
+				<input type="text" class="search" placeholder="<?php esc_html_e( 'Search...', 'webd-woocommerce-advanced-reporting-statistics' ); ?>"></input>
 				<table class="widefat striped" >
 					<thead>
-					   <tr class="row-title">
-							<th><?php  esc_html_e( 'Category', "webd-woocommerce-advanced-reporting-statistics" );?></th>
-							<th><?php  esc_html_e( 'Items Sold', "webd-woocommerce-advanced-reporting-statistics" );?></th>
-							<th><?php  esc_html_e( 'Sales', "webd-woocommerce-advanced-reporting-statistics" );?></th>
+						<tr class="row-title">
+							<th><?php esc_html_e( 'Category', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+							<th><?php esc_html_e( 'Items Sold', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+							<th><?php esc_html_e( 'Sales', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
 						</tr>
-						<tr class='totals'><td><?php esc_html_e( 'TOTALS', "webd-woocommerce-advanced-reporting-statistics" ); ?></td><td class='num_products'></td><td class='sum_products'></td></tr>
+						<tr class='totals'><td><?php esc_html_e( 'TOTALS', 'webd-woocommerce-advanced-reporting-statistics' ); ?></td><td class='num_products'></td><td class='sum_products'></td></tr>
 					</thead>
 					<tbody>
-				   </tbody>
+					</tbody>
 
 				</table>
 			</div>
@@ -762,35 +858,33 @@ class webdWoocommerceReportingStatisticsAdmin {
 
 		</div>
 
-	<?php
-
+		<?php
 	}
 
-	public function coupons(){
+	public function coupons() {
 
 		?>
 		<div id='coupons'>
 
-			<h3 class='text-center'><i class='fa fa-tag' ></i> <?php  esc_html_e( 'COUPONS', "webd-woocommerce-advanced-reporting-statistics" );?></h3>
+			<h3 class='text-center'><i class='fa fa-tag' ></i> <?php esc_html_e( 'COUPONS', 'webd-woocommerce-advanced-reporting-statistics' ); ?></h3>
 			<div class='columns2'>
-				<input type="text" class="search" placeholder="<?php  esc_html_e( 'Search...', "webd-woocommerce-advanced-reporting-statistics" );?>"></input>
+				<input type="text" class="search" placeholder="<?php esc_html_e( 'Search...', 'webd-woocommerce-advanced-reporting-statistics' ); ?>"></input>
 				<table class="widefat striped" >
 					<thead>
-					   <tr class="row-title">
-							<th><?php  esc_html_e( 'Coupon', "webd-woocommerce-advanced-reporting-statistics" );?></th>
-							<th><?php  esc_html_e( 'Total', "webd-woocommerce-advanced-reporting-statistics" );?></th>
+						<tr class="row-title">
+							<th><?php esc_html_e( 'Coupon', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+							<th><?php esc_html_e( 'Total', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
 						</tr>
-						<tr class='totals'><td><?php esc_html_e( 'TOTALS', "webd-woocommerce-advanced-reporting-statistics" ); ?></td><td class='discount'></td></tr>
+						<tr class='totals'><td><?php esc_html_e( 'TOTALS', 'webd-woocommerce-advanced-reporting-statistics' ); ?></td><td class='discount'></td></tr>
 					</thead>
 					<tbody>
-				   </tbody>
+					</tbody>
 				</table>
 			</div>
 			<div class="chart-container couponCharts columns2" ></div>
 
 		</div>
-	<?php
-
+		<?php
 	}
 
 	/**
@@ -798,100 +892,105 @@ class webdWoocommerceReportingStatisticsAdmin {
 	 *
 	 * @version 4.1.7
 	 */
-	public function topSellers(){
+	public function topSellers() {
 			global $woocommerce;
-			include_once(WC()->plugin_path().'/includes/admin/reports/class-wc-admin-report.php');
+			include_once WC()->plugin_path() . '/includes/admin/reports/class-wc-admin-report.php';
 				$wc_report = new WC_Admin_Report();
 
-				$data = $wc_report->get_order_report_data( array(
-					'data' => array(
-						'_qty' => array(
-							'type' => 'order_item_meta',
-							'order_item_type' => 'line_item',
-							'function' => 'SUM',
-							'name' => 'quantity'
+				$data = $wc_report->get_order_report_data(
+					array(
+						'data'         => array(
+							'_qty'            => array(
+								'type'            => 'order_item_meta',
+								'order_item_type' => 'line_item',
+								'function'        => 'SUM',
+								'name'            => 'quantity',
+							),
+							'_line_subtotal'  => array(
+								'type'            => 'order_item_meta',
+								'order_item_type' => 'line_item',
+								'function'        => 'SUM',
+								'name'            => 'gross',
+							),
+							'_product_id'     => array(
+								'type'            => 'order_item_meta',
+								'order_item_type' => 'line_item',
+								'function'        => '',
+								'name'            => 'product_id',
+							),
+							'order_item_name' => array(
+								'type'     => 'order_item',
+								'function' => '',
+								'name'     => 'order_item_name',
+							),
 						),
-						'_line_subtotal' => array(
-							'type' => 'order_item_meta',
-							'order_item_type' => 'line_item',
-							'function' => 'SUM',
-							'name' => 'gross'
-						),
-						'_product_id' => array(
-							'type' => 'order_item_meta',
-							'order_item_type' => 'line_item',
-							'function' => '',
-							'name' => 'product_id'
-						),
-						'order_item_name' => array(
-							'type'     => 'order_item',
-							'function' => '',
-							'name'     => 'order_item_name',
-						),
-					),
-					'group_by'     => 'product_id',
-					'order_by'     => 'quantity DESC',
-					'query_type' => 'get_results',
+						'group_by'     => 'product_id',
+						'order_by'     => 'quantity DESC',
+						'query_type'   => 'get_results',
 
-					'limit' => 5,
-					'order_types' => wc_get_order_types( 'order_count' ),
-					'order_status' => array( 'completed','processing','onhold','refunded'),
-				) );
+						'limit'        => 5,
+						'order_types'  => wc_get_order_types( 'order_count' ),
+						'order_status' => array( 'completed', 'processing', 'onhold', 'refunded' ),
+					)
+				);
 
-				if(!empty($data)){
-				?><br/><hr/>
-				<h3 class='text-center'><i class='fa fa-tag' ></i> <?php  esc_html_e('ALL TIMES TOP 5 SELLING PRODUCTS',"webd-woocommerce-advanced-reporting-statistics");?></h3>
+		if ( ! empty( $data ) ) {
+			?>
+				<br/><hr/>
+				<h3 class='text-center'><i class='fa fa-tag' ></i> <?php esc_html_e( 'ALL TIMES TOP 5 SELLING PRODUCTS', 'webd-woocommerce-advanced-reporting-statistics' ); ?></h3>
 				<table class='widefat striped'>
 					<thead>
-						<th class="manage-column column-count" scope="col"><?php  esc_html_e('Category',"webd-woocommerce-advanced-reporting-statistics");?></th>
-						<th class="manage-column column-count" scope="col"><?php  esc_html_e('Product',"webd-woocommerce-advanced-reporting-statistics");?></th>
-						<th class="manage-column column-count" scope="col"><?php  esc_html_e('Quantity',"webd-woocommerce-advanced-reporting-statistics");?></th>
-						<th class="manage-column column-count" scope="col"><?php  esc_html_e('Sales',"webd-woocommerce-advanced-reporting-statistics");?></th>
+						<th class="manage-column column-count" scope="col"><?php esc_html_e( 'Category', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+						<th class="manage-column column-count" scope="col"><?php esc_html_e( 'Product', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+						<th class="manage-column column-count" scope="col"><?php esc_html_e( 'Quantity', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+						<th class="manage-column column-count" scope="col"><?php esc_html_e( 'Sales', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
 					</thead>
 
 					<tbody>
 
-					<?php
-					foreach($data as $d){
-						$terms = wp_get_post_terms( $d->product_id, 'product_cat' );
-						print "<tr><td>";
-						foreach ( $terms as $term ) {
-							 $cat_id = $term->name;
-							 print esc_html( $term->name ) . "<br/>";
+			<?php
+			foreach ( $data as $d ) {
+				$terms = wp_get_post_terms( $d->product_id, 'product_cat' );
+				print '<tr><td>';
+				foreach ( $terms as $term ) {
+					$cat_id = $term->name;
+					print esc_html( $term->name ) . '<br/>';
 
-						}
-						//$d->product_id
-						print "</td>";
-						print "<td>" . esc_attr( $d->order_item_name ) . "</td><td>" . esc_attr( $d->quantity ) . "</td><td>" . wp_kses_post( wc_price( esc_attr( $d->gross ) ) ) . "</td>";
-						print "</tr>";
-					}
-					?>
+				}
+				// $d->product_id
+				print '</td>';
+				print '<td>' . esc_attr( $d->order_item_name ) . '</td><td>' . esc_attr( $d->quantity ) . '</td><td>' . wp_kses_post( wc_price( esc_attr( $d->gross ) ) ) . '</td>';
+				print '</tr>';
+			}
+			?>
 					</tbody>
-				 </table>
-				<?php
-				}else print esc_html__("There is no sale yet!","webd-woocommerce-advanced-reporting-statistics");
+				</table>
+			<?php
+		} else {
+			print esc_html__( 'There is no sale yet!', 'webd-woocommerce-advanced-reporting-statistics' );
+		}
 	}
 
-	public function LowStock(){
-			?>
+	public function LowStock() {
+		?>
 		<div id='noselling'>
 			<div class='column1'>
-			<h3 class='text-center title'><i class='fa fa-pie-chart' ></i> <?php  esc_html_e('All Time Low Stock Products( < 5 items )',"webd-woocommerce-advanced-reporting-statistics");?></h3>
+			<h3 class='text-center title'><i class='fa fa-pie-chart' ></i> <?php esc_html_e( 'All Time Low Stock Products( < 5 items )', 'webd-woocommerce-advanced-reporting-statistics' ); ?></h3>
 			<table class='widefat'>
 			<thead>
 				<tr>
-					<th><?php  esc_html_e('Title',"webd-woocommerce-advanced-reporting-statistics");?></th>
-					<th><?php  esc_html_e('Stock',"webd-woocommerce-advanced-reporting-statistics");?></th>
-					<th><?php  esc_html_e('Sales',"webd-woocommerce-advanced-reporting-statistics");?></th>
+					<th><?php esc_html_e( 'Title', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+					<th><?php esc_html_e( 'Stock', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+					<th><?php esc_html_e( 'Sales', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
 				</tr>
 			</thead>
 			<tbody>
-			<tr><td rowspan="3"><h1 class='proVersion'><a href='#'><?php  esc_html_e('PRO VERSION ONLY- get it Here!',"webd-woocommerce-advanced-reporting-statistics");?></a></h1></td></tr>
+			<tr><td rowspan="3"><h1 class='proVersion'><a href='#'><?php esc_html_e( 'PRO VERSION ONLY- get it Here!', 'webd-woocommerce-advanced-reporting-statistics' ); ?></a></h1></td></tr>
 		</tbody>
-		 <button class='proVersion'><i class='fa fa-file-excel-o '></i> <?php  esc_html_e('Export / PRO',"webd-woocommerce-advanced-reporting-statistics");?></button><input type="text" class="search proVersion" readonly placeholder="<?php  esc_html_e('Search / PRO.',"webd-woocommerce-advanced-reporting-statistics");?>"></input>
+		<button class='proVersion'><i class='fa fa-file-excel-o '></i> <?php esc_html_e( 'Export / PRO', 'webd-woocommerce-advanced-reporting-statistics' ); ?></button><input type="text" class="search proVersion" readonly placeholder="<?php esc_html_e( 'Search / PRO.', 'webd-woocommerce-advanced-reporting-statistics' ); ?>"></input>
 		</table>
 		</div>
-	<?php
+		<?php
 	}
 
 	private function get_coupon_used( $order_id ) {
@@ -901,98 +1000,99 @@ class webdWoocommerceReportingStatisticsAdmin {
 			$order = wc_get_order( $order_id );
 			if ( version_compare( WC()->version, '3.7', '>=' ) ) {
 				$coupons = $order->get_coupon_codes();
-			}else{
+			} else {
 				$coupons = $order->get_used_coupons();
 			}
 
-			if (!empty( $coupons ) ) {
+			if ( ! empty( $coupons ) ) {
 				return implode( ', ', $coupons );
 			} else {
 				return '';
 			}
-
-		}else return  '';
+		} else {
+			return '';
+		}
 	}
 
-	public function divide($a, $b){
+	public function divide( $a, $b ) {
 		try {
-			if(@($a / $b) === false) return INF; // covers PHP5
-			return @($a / $b); // covers PHP7
-		} catch (DivisionByZeroError $e) {
+			if ( @( $a / $b ) === false ) {
+				return INF; // covers PHP5
+			}
+			return @( $a / $b ); // covers PHP7
+		} catch ( DivisionByZeroError $e ) {
 			return INF; // covers PHP8
 		}
 	}
 
-	public function sellingProdStock(){
+	public function sellingProdStock() {
 		?>
 		<div id='selling'>
 			<div class='column1'>
-			<h3 class='text-center'><i class='fa fa-pie-chart' ></i> <?php  esc_html_e('Last 30 days Selling Products Stock Reminder',"webd-woocommerce-advanced-reporting-statistics");?></h3>
+			<h3 class='text-center'><i class='fa fa-pie-chart' ></i> <?php esc_html_e( 'Last 30 days Selling Products Stock Reminder', 'webd-woocommerce-advanced-reporting-statistics' ); ?></h3>
 			<table class="widefat striped" >
 				<thead>
-				   <tr class="row-title">
-						<th><?php  esc_html_e('Product',"webd-woocommerce-advanced-reporting-statistics");?></th>
-						<th><?php  esc_html_e('Items Sold',"webd-woocommerce-advanced-reporting-statistics");?></th>
-						<th><?php  esc_html_e('In Stock',"webd-woocommerce-advanced-reporting-statistics");?></th>
-						<th><?php  esc_html_e('Sales Amount',"webd-woocommerce-advanced-reporting-statistics");?></th>
-						<th><?php  esc_html_e('Sales Every (days)',"webd-woocommerce-advanced-reporting-statistics");?></th>
-						<th><?php  esc_html_e('Avg Quantity Sold / Order',"webd-woocommerce-advanced-reporting-statistics");?></th>
-						<th><?php  esc_html_e('Next Order Forecasted Quantity',"webd-woocommerce-advanced-reporting-statistics");?></th>
-						<th><?php  esc_html_e('Days Left to Out of Stock',"webd-woocommerce-advanced-reporting-statistics");?></th>
+					<tr class="row-title">
+						<th><?php esc_html_e( 'Product', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+						<th><?php esc_html_e( 'Items Sold', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+						<th><?php esc_html_e( 'In Stock', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+						<th><?php esc_html_e( 'Sales Amount', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+						<th><?php esc_html_e( 'Sales Every (days)', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+						<th><?php esc_html_e( 'Avg Quantity Sold / Order', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+						<th><?php esc_html_e( 'Next Order Forecasted Quantity', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
+						<th><?php esc_html_e( 'Days Left to Out of Stock', 'webd-woocommerce-advanced-reporting-statistics' ); ?></th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr><td rowspan="8"><h1 class='proVersion '><a href='#'><?php  esc_html_e('PRO VERSION ONLY- get it Here!',"webd-woocommerce-advanced-reporting-statistics");?></a></h1></td></tr>
-			   </tbody>
-				<button class='proVersion'><i class='fa fa-file-excel-o '></i> <?php  esc_html_e('Export / PRO',"webd-woocommerce-advanced-reporting-statistics");?></button><input type="text" class="search proVersion" readonly placeholder="<?php  esc_html_e('Search / PRO.',"webd-woocommerce-advanced-reporting-statistics");?>"></input>
+					<tr><td rowspan="8"><h1 class='proVersion '><a href='#'><?php esc_html_e( 'PRO VERSION ONLY- get it Here!', 'webd-woocommerce-advanced-reporting-statistics' ); ?></a></h1></td></tr>
+				</tbody>
+				<button class='proVersion'><i class='fa fa-file-excel-o '></i> <?php esc_html_e( 'Export / PRO', 'webd-woocommerce-advanced-reporting-statistics' ); ?></button><input type="text" class="search proVersion" readonly placeholder="<?php esc_html_e( 'Search / PRO.', 'webd-woocommerce-advanced-reporting-statistics' ); ?>"></input>
 			</table>
 			</div>
 		</div>
 		<?php
 	}
 
-	public function extensions(){
+	public function extensions() {
 
-		if( is_admin() && current_user_can( 'administrator' ) ){
+		if ( is_admin() && current_user_can( 'administrator' ) ) {
 
-			$response = wp_remote_get( "https://extend-wp.com/wp-json/products/v2/product/category/excel" );
-			if( is_wp_error( $response ) ) {
+			$response = wp_remote_get( 'https://extend-wp.com/wp-json/products/v2/product/category/excel' );
+			if ( is_wp_error( $response ) ) {
 				return;
 			}
 			$posts = json_decode( wp_remote_retrieve_body( $response ) );
 
-			if( empty( $posts ) ) {
+			if ( empty( $posts ) ) {
 				return;
 			}
 
-			if( !empty( $posts ) ) {
+			if ( ! empty( $posts ) ) {
 				echo "<div id='extendwp_extensions_popup'>";
 					echo "<div class='extendwp_extensions_content '>";
-						?>
+				?>
 						<span class="extendwp_close">&times;</span>
-						<h2><i><?php esc_html_e( 'More Plugins to Make your life easier by ExtendWP!', "webd-woocommerce-advanced-reporting-statistics" ); ?></i></h2>
+						<h2><i><?php esc_html_e( 'More Plugins to Make your life easier by ExtendWP!', 'webd-woocommerce-advanced-reporting-statistics' ); ?></i></h2>
 						<hr/>
 						<?php
 						print "<div class='extend_flex'>";
-						foreach( $posts as $post ) {
+						foreach ( $posts as $post ) {
 
-							if( $post->class == 'webdWoocommerceReportingStatisticsPro'   ){
+							if ( $post->class == 'webdWoocommerceReportingStatisticsPro' ) {
 
-							}else{
+							} else {
 
-								echo "<div class='columns3'><a target='_blank' href='".esc_url( $post->url )."' /><img src='".esc_url( $post->image )."' /></a>
-								<h3><a target='_blank' href='".esc_url( $post->url )."' />". esc_html( $post->title ) . "</a></h3>
-								<div>". wp_kses( $post->excerpt, $this->allowed_html )."</div>
-								<a class='button_extensions button-primary' target='_blank' href='".esc_url( $post->url )."' />". esc_html__( 'Get it here', "webd-woocommerce-advanced-reporting-statistics" ) . " <i class='fa fa-angle-double-right'></i></a>
+								echo "<div class='columns3'><a target='_blank' href='" . esc_url( $post->url ) . "' /><img src='" . esc_url( $post->image ) . "' /></a>
+								<h3><a target='_blank' href='" . esc_url( $post->url ) . "' />" . esc_html( $post->title ) . '</a></h3>
+								<div>' . wp_kses( $post->excerpt, $this->allowed_html ) . "</div>
+								<a class='button_extensions button-primary' target='_blank' href='" . esc_url( $post->url ) . "' />" . esc_html__( 'Get it here', 'webd-woocommerce-advanced-reporting-statistics' ) . " <i class='fa fa-angle-double-right'></i></a>
 								</div>";
 							}
-
 						}
-						print "</div>";
-					echo '</div>';
-				echo '</div>';
+						print '</div>';
+						echo '</div>';
+						echo '</div>';
 			}
-
 		}
 	}
 }

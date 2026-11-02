@@ -77,12 +77,12 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 	/**
 	 * products.
 	 */
-	private $products = [];
+	private $products = array();
 
 	/**
 	 * instance.
 	 */
-	protected static $instance = NULL;
+	protected static $instance = null;
 
 	/**
 	 * datediff.
@@ -93,8 +93,8 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 	 * get_instance.
 	 */
 	public static function get_instance() {
-		if ( NULL === self::$instance ) {
-			self::$instance = new self;
+		if ( null === self::$instance ) {
+			self::$instance = new self();
 		}
 		return self::$instance;
 	}
@@ -125,7 +125,7 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 
 		global $wpdb;
 
-		$theperiod = ( ( isset( $period ) && $period =='month' ) ? '%Y-%m' : '%Y' );
+		$theperiod = ( ( isset( $period ) && $period == 'month' ) ? '%Y-%m' : '%Y' );
 
 		if ( OrderUtil::custom_orders_table_usage_is_enabled() ) {
 
@@ -157,7 +157,6 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 		if ( $periods ) {
 			return $periods;
 		}
-
 	}
 
 	/**
@@ -226,8 +225,8 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 							FROM {$wpdb->prefix}wc_orders AS orders
 							LEFT JOIN {$wpdb->prefix}wc_orders_meta AS meta_refunds ON ( orders.id = meta_refunds.order_id OR orders.parent_order_id = meta_refunds.order_id ) AND meta_refunds.meta_key = '_refund_amount'
 							LEFT JOIN {$wpdb->prefix}wc_order_operational_data AS operational_data ON orders.id = operational_data.order_id
-							WHERE orders.type IN( 'shop_order','shop_order_refund' ) AND orders.status IN (" . implode( ',', array_fill( 0, count( $order_status ), '%s' ) ) . ") AND ( orders.customer_id = %d OR orders.billing_email IN (" . implode( ',', array_fill( 0, count( $customer_emails ), '%s' ) ) . ") )
-							GROUP BY period ORDER BY period DESC ",
+							WHERE orders.type IN( 'shop_order','shop_order_refund' ) AND orders.status IN (" . implode( ',', array_fill( 0, count( $order_status ), '%s' ) ) . ') AND ( orders.customer_id = %d OR orders.billing_email IN (' . implode( ',', array_fill( 0, count( $customer_emails ), '%s' ) ) . ') )
+							GROUP BY period ORDER BY period DESC ',
 							...$prepare_args
 						)
 					);
@@ -247,8 +246,8 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 							FROM {$wpdb->prefix}wc_orders AS orders
 							LEFT JOIN {$wpdb->prefix}wc_orders_meta AS meta_refunds ON ( orders.id = meta_refunds.order_id OR orders.parent_order_id = meta_refunds.order_id ) AND meta_refunds.meta_key = '_refund_amount'
 							LEFT JOIN {$wpdb->prefix}wc_order_operational_data AS operational_data ON orders.id = operational_data.order_id
-							WHERE orders.type IN( 'shop_order','shop_order_refund' ) AND orders.status IN (" . implode( ',', array_fill( 0, count( $order_status ), '%s' ) ) . ") AND orders.customer_id = %d
-							GROUP BY period ORDER BY period DESC ",
+							WHERE orders.type IN( 'shop_order','shop_order_refund' ) AND orders.status IN (" . implode( ',', array_fill( 0, count( $order_status ), '%s' ) ) . ') AND orders.customer_id = %d
+							GROUP BY period ORDER BY period DESC ',
 							...$prepare_args
 						)
 					);
@@ -268,14 +267,13 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 							FROM {$wpdb->prefix}wc_orders AS orders
 							LEFT JOIN {$wpdb->prefix}wc_orders_meta AS meta_refunds ON ( orders.id = meta_refunds.order_id OR orders.parent_order_id = meta_refunds.order_id ) AND meta_refunds.meta_key = '_refund_amount'
 							LEFT JOIN {$wpdb->prefix}wc_order_operational_data AS operational_data ON orders.id = operational_data.order_id
-							WHERE orders.type IN( 'shop_order','shop_order_refund' ) AND orders.status IN (" . implode( ',', array_fill( 0, count( $order_status ), '%s' ) ) . ")
-							GROUP BY period ORDER BY period DESC ",
+							WHERE orders.type IN( 'shop_order','shop_order_refund' ) AND orders.status IN (" . implode( ',', array_fill( 0, count( $order_status ), '%s' ) ) . ')
+							GROUP BY period ORDER BY period DESC ',
 							...$prepare_args
 						)
 					);
 
 				}
-
 			} elseif ( $customer_emails ) {
 
 					$results = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom reporting SQL; no WP API equivalent.
@@ -296,8 +294,8 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 							LEFT JOIN {$wpdb->prefix}postmeta AS meta_discount ON {$wpdb->prefix}posts.ID = meta_discount.post_id AND meta_discount.meta_key = '_cart_discount'
 							LEFT JOIN {$wpdb->prefix}postmeta AS meta_customer ON ( {$wpdb->prefix}posts.ID = meta_customer.post_id OR {$wpdb->prefix}posts.post_parent = meta_customer.post_id ) AND meta_customer.meta_key = '_customer_user'
 							LEFT JOIN {$wpdb->prefix}postmeta AS meta_billing_email ON ( {$wpdb->prefix}posts.ID = meta_billing_email.post_id OR {$wpdb->prefix}posts.post_parent = meta_billing_email.post_id ) AND meta_billing_email.meta_key = '_billing_email'
-							WHERE post_type IN( 'shop_order','shop_order_refund' ) AND {$wpdb->prefix}posts.post_status IN (" . implode( ',', array_fill( 0, count( $order_status ), '%s' ) ) . ") AND ( meta_customer.meta_value = %d OR meta_billing_email.meta_value IN (" . implode( ',', array_fill( 0, count( $customer_emails ), '%s' ) ) . ") )
-							GROUP BY period ORDER BY period DESC ",
+							WHERE post_type IN( 'shop_order','shop_order_refund' ) AND {$wpdb->prefix}posts.post_status IN (" . implode( ',', array_fill( 0, count( $order_status ), '%s' ) ) . ') AND ( meta_customer.meta_value = %d OR meta_billing_email.meta_value IN (' . implode( ',', array_fill( 0, count( $customer_emails ), '%s' ) ) . ') )
+							GROUP BY period ORDER BY period DESC ',
 							...$prepare_args
 						)
 					);
@@ -321,8 +319,8 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 							LEFT JOIN {$wpdb->prefix}postmeta AS meta_refunds ON ( {$wpdb->prefix}posts.ID = meta_refunds.post_id OR {$wpdb->prefix}posts.post_parent = meta_refunds.post_id ) AND {$wpdb->prefix}posts.post_type = 'shop_order_refund' AND meta_refunds.meta_key = '_refund_amount'
 							LEFT JOIN {$wpdb->prefix}postmeta AS meta_discount ON {$wpdb->prefix}posts.ID = meta_discount.post_id AND meta_discount.meta_key = '_cart_discount'
 							LEFT JOIN {$wpdb->prefix}postmeta AS meta_customer ON ( {$wpdb->prefix}posts.ID = meta_customer.post_id OR {$wpdb->prefix}posts.post_parent = meta_customer.post_id ) AND meta_customer.meta_key = '_customer_user'
-							WHERE post_type IN( 'shop_order','shop_order_refund' ) AND {$wpdb->prefix}posts.post_status IN (" . implode( ',', array_fill( 0, count( $order_status ), '%s' ) ) . ") AND meta_customer.meta_value = %d
-							GROUP BY period ORDER BY period DESC ",
+							WHERE post_type IN( 'shop_order','shop_order_refund' ) AND {$wpdb->prefix}posts.post_status IN (" . implode( ',', array_fill( 0, count( $order_status ), '%s' ) ) . ') AND meta_customer.meta_value = %d
+							GROUP BY period ORDER BY period DESC ',
 						...$prepare_args
 					)
 				);
@@ -345,8 +343,8 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 							LEFT JOIN {$wpdb->prefix}postmeta AS meta_shipping ON {$wpdb->prefix}posts.ID = meta_shipping.post_id AND meta_shipping.meta_key = '_order_shipping'
 							LEFT JOIN {$wpdb->prefix}postmeta AS meta_refunds ON ( {$wpdb->prefix}posts.ID = meta_refunds.post_id OR {$wpdb->prefix}posts.post_parent = meta_refunds.post_id ) AND {$wpdb->prefix}posts.post_type = 'shop_order_refund' AND meta_refunds.meta_key = '_refund_amount'
 							LEFT JOIN {$wpdb->prefix}postmeta AS meta_discount ON {$wpdb->prefix}posts.ID = meta_discount.post_id AND meta_discount.meta_key = '_cart_discount'
-							WHERE post_type IN( 'shop_order','shop_order_refund' ) AND {$wpdb->prefix}posts.post_status IN (" . implode( ',', array_fill( 0, count( $order_status ), '%s' ) ) . ")
-							GROUP BY period ORDER BY period DESC ",
+							WHERE post_type IN( 'shop_order','shop_order_refund' ) AND {$wpdb->prefix}posts.post_status IN (" . implode( ',', array_fill( 0, count( $order_status ), '%s' ) ) . ')
+							GROUP BY period ORDER BY period DESC ',
 						...$prepare_args
 					)
 				);
@@ -380,17 +378,17 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 
 				if ( ! empty( $_POST['order_status'] ) ) {
 					$order_status = array( $this->get_posted_order_status() );
-					$message = "<h3> " .
+					$message      = '<h3> ' .
 						esc_html__( 'Orders with Status', 'webd-woocommerce-advanced-reporting-statistics' ) .
-						" " .
+						' ' .
 						esc_html( implode( "','", $order_status ) ) .
-					" </h3>";
+					' </h3>';
 				}
 
 				if ( ! empty( $_POST['customer'] ) ) {
-					$message .= "<h3> for " .
+					$message .= '<h3> for ' .
 						esc_html( $this->get_customer_display_name( $this->get_posted_customer_id() ) ) .
-					" </h3>";
+					' </h3>';
 				}
 
 				foreach ( $results as $row ) {
@@ -415,16 +413,16 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 					$thegross = $row->total + $row->refund;
 					$thenet   = $row->total + $row->refund - $row->tax - $row->shipping;
 
-					$response['periods'] .= "<tr>" .
-						"<td>" . esc_html( $row->period ) . "</td>" .
-						"<td>" . esc_html( $number_orders ) . "</td>" .
-						"<td>" . wp_kses( wc_price( $row->tax ), $this->get_allowed_price_html() ) . "</td>" .
-						"<td>" . wp_kses( wc_price( $row->shipping ), $this->get_allowed_price_html() ) . "</td>" .
-						"<td>" . wp_kses( wc_price( $row->discount ), $this->get_allowed_price_html() ) . "</td>" .
-						"<td>" . wp_kses( wc_price( $row->refund ), $this->get_allowed_price_html() ) . "</td>" .
-						"<td>" . wp_kses( wc_price( $thegross ), $this->get_allowed_price_html() ) . "</td>" .
-						"<td>" . wp_kses( wc_price( $thenet ), $this->get_allowed_price_html() ) . "</td>" .
-					"</tr>";
+					$response['periods'] .= '<tr>' .
+						'<td>' . esc_html( $row->period ) . '</td>' .
+						'<td>' . esc_html( $number_orders ) . '</td>' .
+						'<td>' . wp_kses( wc_price( $row->tax ), $this->get_allowed_price_html() ) . '</td>' .
+						'<td>' . wp_kses( wc_price( $row->shipping ), $this->get_allowed_price_html() ) . '</td>' .
+						'<td>' . wp_kses( wc_price( $row->discount ), $this->get_allowed_price_html() ) . '</td>' .
+						'<td>' . wp_kses( wc_price( $row->refund ), $this->get_allowed_price_html() ) . '</td>' .
+						'<td>' . wp_kses( wc_price( $thegross ), $this->get_allowed_price_html() ) . '</td>' .
+						'<td>' . wp_kses( wc_price( $thenet ), $this->get_allowed_price_html() ) . '</td>' .
+					'</tr>';
 
 					array_push( $response['name'], esc_html( $row->period ) );
 
@@ -446,8 +444,8 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 				if ( '' != array_sum( $totals ) && count( $totals ) > 1 ) {
 					$forecast = (
 						( 'month' === $period ) ?
-						$this->forecastHoltWinters( array_reverse( $totals ) , 2, 4 )[0] :
-						$this->forecastHoltWinters( array_reverse( $totals ) , 1, 1 )[0]
+						$this->forecastHoltWinters( array_reverse( $totals ), 2, 4 )[0] :
+						$this->forecastHoltWinters( array_reverse( $totals ), 1, 1 )[0]
 					);
 				} else {
 					$forecast = $average;
@@ -461,25 +459,25 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 
 			} else {
 
-				$nomessage = "<h3> " .
+				$nomessage = '<h3> ' .
 					esc_html__( 'No Orders ', 'webd-woocommerce-advanced-reporting-statistics' ) .
-				"</h3>";
+				'</h3>';
 
 				if ( ! empty( $_POST['order_status'] ) ) {
 					$order_status = $this->get_posted_order_status();
-					$nomessage .= "<h3> " .
+					$nomessage   .= '<h3> ' .
 						esc_html__( ' with Status: ', 'webd-woocommerce-advanced-reporting-statistics' ) .
 						esc_html( $order_status ) .
-					"</h3>";
+					'</h3>';
 				}
 
 				if ( ! empty( $_POST['customer'] ) ) {
-					$nomessage .= "<h3> " .
+					$nomessage .= '<h3> ' .
 						esc_html(
 							' for customer: ' .
 							$this->get_customer_display_name( $this->get_posted_customer_id() )
 						) .
-					"</h3>";
+					'</h3>';
 				}
 
 				$response['message'] = $nomessage;
@@ -491,7 +489,6 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 			wp_die();
 
 		}
-
 	}
 
 	/**
@@ -512,15 +509,15 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 			isset( $_POST['tab'] ) &&
 			( 'months' === $_POST['tab'] || 'years' === $_POST['tab'] )
 		) {
-			$default = gmdate( 'Y-m-d', strtotime( $date . "- 20 years" ) );
+			$default = gmdate( 'Y-m-d', strtotime( $date . '- 20 years' ) );
 		} else {
-			$default = gmdate( 'Y-m-d', strtotime( "first day of this month" ) );
+			$default = gmdate( 'Y-m-d', strtotime( 'first day of this month' ) );
 		}
 
 		if ( ! empty( $_POST['selected'] ) ) {
-			$dayfilter = array( 'date_created' => sanitize_text_field( wp_unslash( $_POST['selected'] ) ) . "..." . $today );
+			$dayfilter = array( 'date_created' => sanitize_text_field( wp_unslash( $_POST['selected'] ) ) . '...' . $today );
 		} else {
-			$dayfilter = array( 'date_created' => ">=" . $default );
+			$dayfilter = array( 'date_created' => '>=' . $default );
 		}
 
 		$status = array();
@@ -546,7 +543,6 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 		$filters = array_merge( $dayfilter, $filters );
 
 		return $filters;
-
 	}
 
 	/**
@@ -591,11 +587,11 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 
 			$args = array_merge( $args, $this->filter_orders() );
 
-			if ( strstr( $args['date_created'], "..." ) ) {
-				$dates    = explode( "...", $args['date_created'] );
+			if ( strstr( $args['date_created'], '...' ) ) {
+				$dates    = explode( '...', $args['date_created'] );
 				$datediff = strtotime( $dates[1] ) - strtotime( $dates[0] );
 			} else {
-				$dates    = explode( ">=", $args['date_created'] );
+				$dates    = explode( '>=', $args['date_created'] );
 				$from     = strtotime( $dates[1] );
 				$date     = current_time( 'mysql' );
 				$to       = gmdate( 'Y-m-d', strtotime( $date ) );
@@ -614,11 +610,11 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 
 			if ( ! empty( $_POST['order_status'] ) ) {
 				$order_status = array( $this->get_posted_order_status() );
-				$message = "<h3> " .
+				$message      = '<h3> ' .
 					esc_html__( 'Orders with Status', 'webd-woocommerce-advanced-reporting-statistics' ) .
-					" " .
+					' ' .
 					esc_html( implode( "','", $order_status ) ) .
-				" </h3>";
+				' </h3>';
 			}
 
 			if (
@@ -627,30 +623,29 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 			) {
 
 				if ( ! empty( $_POST['selected'] ) ) {
-					$selected = sanitize_text_field( wp_unslash( $_POST['selected'] ) );
-					$message .= "<h3>" .
+					$selected       = sanitize_text_field( wp_unslash( $_POST['selected'] ) );
+					$message       .= '<h3>' .
 						esc_html__( 'Analysis for period', 'webd-woocommerce-advanced-reporting-statistics' ) .
-						" " .
+						' ' .
 						gmdate( 'd/m/Y', strtotime( $selected ) ) .
-						" to " .
+						' to ' .
 						gmdate( 'd/m/Y' ) .
-					"</h3>";
+					'</h3>';
 					$this->datediff = strtotime( gmdate( 'Y-m-d' ) ) - strtotime( $selected );
 					$this->datediff = abs( round( $this->datediff / DAY_IN_SECONDS ) );
 				} else {
-					$message .= "<h3>" .
+					$message       .= '<h3>' .
 						esc_html__( 'This Month Analysis', 'webd-woocommerce-advanced-reporting-statistics' ) .
-					"</h3>";
+					'</h3>';
 					$this->datediff = strtotime( $today ) - strtotime( gmdate( 'Y-m-01' ) );
 					$this->datediff = round( $this->datediff / DAY_IN_SECONDS );
 				}
-
 			}
 
 			if ( ! empty( $_POST['customer'] ) ) {
-				$message .= "<h3> for " .
+				$message .= '<h3> for ' .
 					esc_html( $this->get_customer_display_name( $this->get_posted_customer_id() ) ) .
-				" </h3>";
+				' </h3>';
 			}
 
 			if ( $result_orders ) {
@@ -661,7 +656,7 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 					$order_data['message']        = sanitize_text_field( $message );
 					$order_data['days']           = esc_html( round( $datediff / DAY_IN_SECONDS ) );
 					$order_data['order_id']       = esc_html( $order->get_id() );
-					$order_data['date_created']   = ( method_exists( $order, 'get_date_created' ) ) ? esc_html( gmdate( "Y-m-d", strtotime( $order->get_date_created() ) ) ) : '';
+					$order_data['date_created']   = ( method_exists( $order, 'get_date_created' ) ) ? esc_html( gmdate( 'Y-m-d', strtotime( $order->get_date_created() ) ) ) : '';
 					$order_data['subtotal']       = ( method_exists( $order, 'get_subtotal' ) ) ? esc_html( $order->get_subtotal() ) : '';
 					$order_data['total']          = ( method_exists( $order, 'get_total' ) ) ? esc_html( $order->get_total() ) : '';
 					$order_data['total_tax']      = ( method_exists( $order, 'get_total_tax' ) ) ? esc_html( $order->get_total_tax() ) : '';
@@ -707,7 +702,6 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 								'total'    => $item->get_subtotal(),
 							);
 						}
-
 					}
 
 					$order_data['quantity'] = $quantity;
@@ -726,16 +720,16 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 
 				$todayDisplay = gmdate( 'd/m/Y', strtotime( $date ) );
 
-				$nomessage = "<h3> " .
+				$nomessage = '<h3> ' .
 					esc_html__( 'No Orders ', 'webd-woocommerce-advanced-reporting-statistics' ) .
-				"</h3>";
+				'</h3>';
 
 				if ( ! empty( $_POST['order_status'] ) ) {
 					$order_status = $this->get_posted_order_status();
-					$nomessage .= "<h3> " .
+					$nomessage   .= '<h3> ' .
 						esc_html__( ' with Status: ', 'webd-woocommerce-advanced-reporting-statistics' ) .
 						esc_html( $order_status ) .
-					"</h3>";
+					'</h3>';
 				}
 
 				if (
@@ -743,29 +737,29 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 					! isset( $_POST['tab'] )
 				) {
 					if ( ! empty( $_POST['selected'] ) ) {
-						$nomessage .= "<h3> " .
+						$nomessage .= '<h3> ' .
 							esc_html__( ' for ', 'webd-woocommerce-advanced-reporting-statistics' ) .
 							esc_html( gmdate( 'd/m/Y', strtotime( sanitize_text_field( wp_unslash( $_POST['selected'] ) ) ) ) ) .
-							" " .
+							' ' .
 							esc_html__( 'to', 'webd-woocommerce-advanced-reporting-statistics' ) .
-							" " .
+							' ' .
 							esc_html( $todayDisplay ) .
-						"</h3>";
+						'</h3>';
 					} else {
-						$nomessage .= "<h3> " .
+						$nomessage .= '<h3> ' .
 							esc_html__( ' for ', 'webd-woocommerce-advanced-reporting-statistics' ) .
 							gmdate( 'F' ) .
-						"</h3>";
+						'</h3>';
 					}
 				}
 
 				if ( ! empty( $_POST['customer'] ) ) {
-					$nomessage .= "<h3> " .
+					$nomessage .= '<h3> ' .
 						esc_html(
 							' for customer: ' .
 							$this->get_customer_display_name( $this->get_posted_customer_id() )
 						) .
-					"</h3>";
+					'</h3>';
 				}
 
 				$nodata['message']      = $nomessage;
@@ -777,9 +771,7 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 				wp_die();
 
 			}
-
 		}
-
 	}
 
 	/**
@@ -828,33 +820,33 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 				foreach ( $query as $order ) {
 
 					$id         = $order->get_id();
-					$date       = gmdate( "d-m-Y", strtotime( $order->get_date_created() ) );
+					$date       = gmdate( 'd-m-Y', strtotime( $order->get_date_created() ) );
 					$payment    = ( method_exists( $order, 'get_payment_method_title' ) ) ? $order->get_payment_method_title() : '';
 					$coupons    = $this->get_coupon_used( $order->get_id() );
 					$first_name = ( method_exists( $order, 'get_billing_first_name' ) ) ? $order->get_billing_first_name() : '';
 					$last_name  = ( method_exists( $order, 'get_billing_last_name' ) ) ? $order->get_billing_last_name() : '';
 					$country    = ( method_exists( $order, 'get_billing_country' ) ) ? WC()->countries->countries[ $order->get_billing_country() ] : '';
 					$discount   = ( method_exists( $order, 'get_total_discount' ) ) ? $order->get_total_discount() : '';
-					$shipping   = ( method_exists( $order, 'get_shipping_total' ) ) ? $order->get_shipping_total()  : '';
+					$shipping   = ( method_exists( $order, 'get_shipping_total' ) ) ? $order->get_shipping_total() : '';
 					$tax        = ( method_exists( $order, 'get_total_tax' ) ) ? $order->get_total_tax() : '';
 					$total      = ( method_exists( $order, 'get_total' ) ) ? $order->get_total() : '';
 					$refunds    = ( method_exists( $order, 'get_total_refunded' ) ) ? $order->get_total_refunded() : '';
 					$net        = ( method_exists( $order, 'get_subtotal' ) ) ? $order->get_subtotal() : '';
 
-					$response['orders'] .= "<tr>" .
-						"<td>" . esc_html( $id ) . "</td>" .
-						"<td>" . esc_html( $date ) . "</td>" .
-						"<td>" . esc_html( $payment ) . "</td>" .
-						"<td>" . esc_html( $coupons ) . "</td>" .
-						"<td>" . esc_html( $first_name . " " . $last_name ) . "</td>" .
-						"<td>" . esc_html( $country ) . "</td>" .
-						"<td>" . wp_kses( wc_price( $discount ), $this->get_allowed_price_html() ) . "</td>" .
-						"<td>" . wp_kses( wc_price( $shipping ), $this->get_allowed_price_html() ) . "</td>" .
-						"<td>" . wp_kses( wc_price( $tax ), $this->get_allowed_price_html() ) . "</td>" .
-						"<td>" . wp_kses( wc_price( $total ), $this->get_allowed_price_html() ) . "</td>" .
-						"<td>" . wp_kses( wc_price( $refunds ), $this->get_allowed_price_html() ) . "</td>" .
-						"<td>" . wp_kses( wc_price( $net ), $this->get_allowed_price_html() ) . "</td>" .
-					"</tr>";
+					$response['orders'] .= '<tr>' .
+						'<td>' . esc_html( $id ) . '</td>' .
+						'<td>' . esc_html( $date ) . '</td>' .
+						'<td>' . esc_html( $payment ) . '</td>' .
+						'<td>' . esc_html( $coupons ) . '</td>' .
+						'<td>' . esc_html( $first_name . ' ' . $last_name ) . '</td>' .
+						'<td>' . esc_html( $country ) . '</td>' .
+						'<td>' . wp_kses( wc_price( $discount ), $this->get_allowed_price_html() ) . '</td>' .
+						'<td>' . wp_kses( wc_price( $shipping ), $this->get_allowed_price_html() ) . '</td>' .
+						'<td>' . wp_kses( wc_price( $tax ), $this->get_allowed_price_html() ) . '</td>' .
+						'<td>' . wp_kses( wc_price( $total ), $this->get_allowed_price_html() ) . '</td>' .
+						'<td>' . wp_kses( wc_price( $refunds ), $this->get_allowed_price_html() ) . '</td>' .
+						'<td>' . wp_kses( wc_price( $net ), $this->get_allowed_price_html() ) . '</td>' .
+					'</tr>';
 
 				}
 			}
@@ -863,7 +855,6 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 			wp_die();
 
 		}
-
 	}
 
 	/**
@@ -894,7 +885,7 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 
 				$data = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom reporting SQL; no WP API equivalent.
 					$wpdb->prepare(
-						"SELECT
+						'SELECT
 							orders.billing_email AS data,
 							SUM(orders.total_amount ) AS total,
 							SUM( orders.tax_amount ) AS tax,
@@ -907,11 +898,11 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 							address.email AS email,
 							address.phone AS phone,
 							address.country AS country
-						FROM " . $wpdb->prefix . "wc_orders AS orders
-						LEFT JOIN " . $wpdb->prefix . "wc_order_addresses AS address ON orders.id = address.order_id AND orders.billing_email = address.email
-						WHERE address.address_type='billing' AND orders.id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ")
+						FROM ' . $wpdb->prefix . 'wc_orders AS orders
+						LEFT JOIN ' . $wpdb->prefix . "wc_order_addresses AS address ON orders.id = address.order_id AND orders.billing_email = address.email
+						WHERE address.address_type='billing' AND orders.id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ')
 						GROUP BY email
-						ORDER BY total DESC",
+						ORDER BY total DESC',
 						$ids
 					)
 				);
@@ -920,7 +911,7 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 
 				$data = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom reporting SQL; no WP API equivalent.
 					$wpdb->prepare(
-						"SELECT
+						'SELECT
 							billing_email.meta_value AS billing_email,
 							billing_first_name.meta_value AS first_name,
 							billing_last_name.meta_value AS last_name,
@@ -933,8 +924,8 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 							SUM(order_tax.meta_value) AS tax,
 							COUNT( p.ID ) AS num_orders
 						FROM
-							" . $wpdb->prefix . "posts AS p
-						LEFT JOIN " . $wpdb->prefix . "postmeta AS billing_email ON p.ID = billing_email.post_id AND billing_email.meta_key = '_billing_email'
+							' . $wpdb->prefix . 'posts AS p
+						LEFT JOIN ' . $wpdb->prefix . "postmeta AS billing_email ON p.ID = billing_email.post_id AND billing_email.meta_key = '_billing_email'
 						LEFT JOIN " . $wpdb->prefix . "postmeta AS billing_first_name ON p.ID = billing_first_name.post_id AND billing_first_name.meta_key = '_billing_first_name'
 						LEFT JOIN " . $wpdb->prefix . "postmeta AS billing_last_name ON p.ID = billing_last_name.post_id AND billing_last_name.meta_key = '_billing_last_name'
 						LEFT JOIN " . $wpdb->prefix . "postmeta AS billing_country ON p.ID = billing_country.post_id AND billing_country.meta_key = '_billing_country'
@@ -944,9 +935,9 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 						LEFT JOIN " . $wpdb->prefix . "postmeta AS billing_company ON p.ID = billing_company.post_id AND billing_company.meta_key = '_billing_company'
 						LEFT JOIN " . $wpdb->prefix . "postmeta AS order_total ON p.ID = order_total.post_id AND order_total.meta_key = '_order_total'
 						LEFT JOIN " . $wpdb->prefix . "postmeta AS order_tax ON p.ID = order_tax.post_id AND order_tax.meta_key = '_order_tax'
-						WHERE p.ID IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ")
+						WHERE p.ID IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ')
 						GROUP BY billing_email.meta_value
-						ORDER BY total DESC",
+						ORDER BY total DESC',
 						$ids
 					)
 				);
@@ -975,18 +966,18 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 					$tax        = $d->tax;
 					$num_orders = $d->num_orders;
 
-					$response['customers'] .= "<tr>" .
-						"<td>" . esc_html( $name ) . "</td>" .
-						"<td>" . esc_html( $phone ) . "</td>" .
-						"<td>" . esc_html( $email ) . "</td>" .
-						"<td>" . esc_html( $country ) . "</td>" .
-						"<td>" . esc_html( $state ) . "</td>" .
-						"<td>" . esc_html( $city ) . "</td>" .
-						"<td>" . esc_html( $company ) . "</td>" .
-						"<td>" . esc_html( $num_orders ) . "</td>" .
-						"<td>" . esc_html( round( $tax, 2 ) ) . "</td>" .
-						"<td>" . esc_html( round( $total, 2 ) ) . "</td>" .
-					"</tr>";
+					$response['customers'] .= '<tr>' .
+						'<td>' . esc_html( $name ) . '</td>' .
+						'<td>' . esc_html( $phone ) . '</td>' .
+						'<td>' . esc_html( $email ) . '</td>' .
+						'<td>' . esc_html( $country ) . '</td>' .
+						'<td>' . esc_html( $state ) . '</td>' .
+						'<td>' . esc_html( $city ) . '</td>' .
+						'<td>' . esc_html( $company ) . '</td>' .
+						'<td>' . esc_html( $num_orders ) . '</td>' .
+						'<td>' . esc_html( round( $tax, 2 ) ) . '</td>' .
+						'<td>' . esc_html( round( $total, 2 ) ) . '</td>' .
+					'</tr>';
 
 				}
 			}
@@ -995,7 +986,6 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 			wp_die();
 
 		}
-
 	}
 
 	/**
@@ -1025,16 +1015,16 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 
 				$data = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom reporting SQL; no WP API equivalent.
 					$wpdb->prepare(
-						"SELECT DISTINCT address.country AS country,
+						'SELECT DISTINCT address.country AS country,
 						SUM(orders.total_amount ) AS total,
 						SUM( orders.tax_amount ) AS tax,
 						COUNT(orders.id) AS num_orders,
 						address.country AS country
-						FROM " . $wpdb->prefix . "wc_order_addresses AS address
-						LEFT JOIN " . $wpdb->prefix . "wc_orders AS orders ON orders.id = address.order_id
-						WHERE address.address_type='billing' AND orders.id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ")
+						FROM ' . $wpdb->prefix . 'wc_order_addresses AS address
+						LEFT JOIN ' . $wpdb->prefix . "wc_orders AS orders ON orders.id = address.order_id
+						WHERE address.address_type='billing' AND orders.id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ')
 						GROUP BY country
-						ORDER BY total DESC",
+						ORDER BY total DESC',
 						$ids
 					)
 				);
@@ -1071,17 +1061,17 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 			if ( $data ) {
 				foreach ( $data as $d ) {
 
-					$country     = ( $d->country != '' ) ? WC()->countries->countries[ $d->country ] : '';
-					$total       = $d->total;
-					$tax         = $d->tax;
-					$num_orders  = $d->num_orders;
+					$country    = ( $d->country != '' ) ? WC()->countries->countries[ $d->country ] : '';
+					$total      = $d->total;
+					$tax        = $d->tax;
+					$num_orders = $d->num_orders;
 
-					$response['countries'] .= "<tr>" .
-						"<td>" . esc_html( $country ) . "</td>" .
-						"<td>" . esc_html( $num_orders ) . "</td>" .
-						"<td>" . esc_html( round( $tax, 2 ) ) . "</td>" .
-						"<td>" . esc_html( round( $total, 2 ) ) . "</td>" .
-					"</tr>";
+					$response['countries'] .= '<tr>' .
+						'<td>' . esc_html( $country ) . '</td>' .
+						'<td>' . esc_html( $num_orders ) . '</td>' .
+						'<td>' . esc_html( round( $tax, 2 ) ) . '</td>' .
+						'<td>' . esc_html( round( $total, 2 ) ) . '</td>' .
+					'</tr>';
 
 					array_push( $response['name'], esc_html( $country ) );
 					array_push( $response['total'], round( $total, 2 ) );
@@ -1093,7 +1083,6 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 			wp_die();
 
 		}
-
 	}
 
 	/**
@@ -1124,14 +1113,14 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 
 				$data = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom reporting SQL; no WP API equivalent.
 					$wpdb->prepare(
-						"SELECT DISTINCT orders.payment_method_title AS payment,
+						'SELECT DISTINCT orders.payment_method_title AS payment,
 						SUM(orders.total_amount ) AS total,
 						SUM( orders.tax_amount ) AS tax,
 						COUNT(orders.id) AS num_orders
-						FROM " . $wpdb->prefix . "wc_orders AS orders
-						WHERE orders.id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ")
+						FROM ' . $wpdb->prefix . 'wc_orders AS orders
+						WHERE orders.id IN (' . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ')
 						GROUP BY payment
-						ORDER BY total DESC",
+						ORDER BY total DESC',
 						$ids
 					)
 				);
@@ -1173,12 +1162,12 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 					$tax        = $d->tax;
 					$num_orders = $d->num_orders;
 
-					$response['payments'] .= "<tr>" .
-						"<td>" . esc_html( $payment ) . "</td>" .
-						"<td>" . esc_html( $num_orders ) . "</td>" .
-						"<td>" . esc_html( round( $tax, 2 ) ) . "</td>" .
-						"<td>" . esc_html( round( $total, 2 ) ) . "</td>" .
-					"</tr>";
+					$response['payments'] .= '<tr>' .
+						'<td>' . esc_html( $payment ) . '</td>' .
+						'<td>' . esc_html( $num_orders ) . '</td>' .
+						'<td>' . esc_html( round( $tax, 2 ) ) . '</td>' .
+						'<td>' . esc_html( round( $total, 2 ) ) . '</td>' .
+					'</tr>';
 
 					array_push( $response['name'], esc_html( $payment ) );
 					array_push( $response['total'], round( $total, 2 ) );
@@ -1190,7 +1179,6 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 			wp_die();
 
 		}
-
 	}
 
 	/**
@@ -1220,12 +1208,12 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 
 				$data = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom reporting SQL; no WP API equivalent.
 					$wpdb->prepare(
-						"SELECT DISTINCT coupons.coupon_id AS coupon,
+						'SELECT DISTINCT coupons.coupon_id AS coupon,
 						SUM(coupons.discount_amount ) AS total
-						FROM " . $wpdb->prefix . "wc_order_coupon_lookup AS coupons
-						WHERE coupons.order_id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ")
+						FROM ' . $wpdb->prefix . 'wc_order_coupon_lookup AS coupons
+						WHERE coupons.order_id IN (' . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ')
 						GROUP BY coupon
-						ORDER BY total DESC",
+						ORDER BY total DESC',
 						$ids
 					)
 				);
@@ -1238,9 +1226,9 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 						SUM(im.meta_value) AS total
 						FROM {$wpdb->prefix}woocommerce_order_itemmeta AS im
 						JOIN {$wpdb->prefix}woocommerce_order_items AS oi ON im.order_item_id = oi.order_item_id
-						WHERE im.meta_key = 'discount_amount' AND oi.order_item_type = 'coupon' AND oi.order_id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ")
+						WHERE im.meta_key = 'discount_amount' AND oi.order_item_type = 'coupon' AND oi.order_id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ')
 						GROUP BY coupon
-						ORDER BY total DESC",
+						ORDER BY total DESC',
 						$ids
 					)
 				);
@@ -1261,10 +1249,10 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 					$coupon = $coupon->get_code();
 					$total  = $d->total;
 
-					$response['coupons'] .= "<tr>" .
-						"<td>" . esc_html( $coupon ) . "</td>" .
-						"<td>" . esc_html( round( $total, 2 ) ) . "</td>" .
-					"</tr>";
+					$response['coupons'] .= '<tr>' .
+						'<td>' . esc_html( $coupon ) . '</td>' .
+						'<td>' . esc_html( round( $total, 2 ) ) . '</td>' .
+					'</tr>';
 
 					array_push( $response['name'], esc_html( $coupon ) );
 					array_push( $response['total'], round( $total, 2 ) );
@@ -1276,7 +1264,6 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 			wp_die();
 
 		}
-
 	}
 
 	/**
@@ -1345,13 +1332,13 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 				// phpcs:disable PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.PreparedSQL.NotPrepared -- `where` fragment is filterable (default empty) via `wpfactory_wc_ars_report_sql_filter`.
 				$data = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom reporting SQL; no WP API equivalent.
 					$wpdb->prepare(
-						"SELECT DISTINCT product_id AS product, variation_id AS variation,
+						'SELECT DISTINCT product_id AS product, variation_id AS variation,
 							SUM(products.product_net_revenue ) AS total,
 							SUM(products.product_qty ) AS num_products
-						FROM " . $wpdb->prefix . "wc_order_product_lookup AS products
-						WHERE products.order_id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ")" . $report_filter['where'] . "
+						FROM ' . $wpdb->prefix . 'wc_order_product_lookup AS products
+						WHERE products.order_id IN (' . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ')' . $report_filter['where'] . '
 						GROUP BY product, variation
-						ORDER BY total DESC",
+						ORDER BY total DESC',
 						...$prepare_args
 					)
 				);
@@ -1380,9 +1367,9 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 								{$wpdb->prefix}woocommerce_order_itemmeta AS order_itemmeta_line_tax ON items.order_item_id = order_itemmeta_line_tax.order_item_id AND order_itemmeta_line_tax.meta_key = '_line_tax'
 							JOIN
 								{$wpdb->prefix}woocommerce_order_itemmeta AS qty ON items.order_item_id = qty.order_item_id AND qty.meta_key = '_qty'
-							WHERE items.order_id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ")" . $report_filter['where'] . "
+							WHERE items.order_id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ')' . $report_filter['where'] . '
 							GROUP BY product, variation
-							ORDER BY total DESC",
+							ORDER BY total DESC',
 						...$prepare_args
 					)
 				);
@@ -1404,12 +1391,12 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 					$total        = $d->total;
 					$num_products = $d->num_products;
 
-					$response['products'] .= "<tr>" .
-						"<td>" . esc_html( get_the_title( $product ) ) . "</td>" .
-						"<td>" . esc_html( $sku ) . "</td>" .
-						"<td>" . esc_html( $num_products ) . "</td>" .
-						"<td>" . esc_html( round( $total, 2 ) ) . "</td>" .
-					"</tr>";
+					$response['products'] .= '<tr>' .
+						'<td>' . esc_html( get_the_title( $product ) ) . '</td>' .
+						'<td>' . esc_html( $sku ) . '</td>' .
+						'<td>' . esc_html( $num_products ) . '</td>' .
+						'<td>' . esc_html( round( $total, 2 ) ) . '</td>' .
+					'</tr>';
 
 					array_push( $response['name'], esc_html( get_the_title( $product ) ) );
 					array_push( $response['total'], round( $total, 2 ) );
@@ -1421,7 +1408,6 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 			wp_die();
 
 		}
-
 	}
 
 	/**
@@ -1496,9 +1482,9 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 						LEFT JOIN {$wpdb->prefix}term_relationships AS rel ON ( products.product_id = rel.object_id || products.variation_id = rel.object_id )
 						LEFT JOIN {$wpdb->prefix}term_taxonomy AS tax ON rel.term_taxonomy_id = tax.term_taxonomy_id AND tax.taxonomy = 'product_cat'
 						LEFT JOIN {$wpdb->prefix}terms AS terms ON tax.term_id = terms.term_id
-						WHERE products.order_id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ") AND terms.name IS NOT NULL" . $report_filter['where'] . "
+						WHERE products.order_id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ') AND terms.name IS NOT NULL' . $report_filter['where'] . '
 						GROUP BY term
-						ORDER BY total DESC",
+						ORDER BY total DESC',
 						...$prepare_args
 					)
 				);
@@ -1520,9 +1506,9 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 							LEFT JOIN {$wpdb->prefix}term_relationships AS rel ON ( product.meta_value = rel.object_id || variation.meta_value = rel.object_id )
 							LEFT JOIN {$wpdb->prefix}term_taxonomy AS tax ON rel.term_taxonomy_id = tax.term_taxonomy_id AND tax.taxonomy = 'product_cat'
 							LEFT JOIN {$wpdb->prefix}terms AS terms ON tax.term_id = terms.term_id
-							WHERE order_items.order_id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ") AND terms.name IS NOT NULL" . $report_filter['where'] . "
+							WHERE order_items.order_id IN (" . implode( ',', array_fill( 0, count( $ids ), '%d' ) ) . ') AND terms.name IS NOT NULL' . $report_filter['where'] . '
 							GROUP BY term
-							ORDER BY total DESC",
+							ORDER BY total DESC',
 						...$prepare_args
 					)
 				);
@@ -1543,11 +1529,11 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 					$total        = $d->total;
 					$num_products = $d->num_products;
 
-					$response['categories'] .= "<tr>" .
-						"<td>" . esc_html( $category ) . "</td>" .
-						"<td>" . esc_html( $num_products ) . "</td>" .
-						"<td>" . esc_html( round( $total, 2 ) ) . "</td>" .
-					"</tr>";
+					$response['categories'] .= '<tr>' .
+						'<td>' . esc_html( $category ) . '</td>' .
+						'<td>' . esc_html( $num_products ) . '</td>' .
+						'<td>' . esc_html( round( $total, 2 ) ) . '</td>' .
+					'</tr>';
 
 					array_push( $response['name'], esc_html( $category ) );
 					array_push( $response['total'], round( $total, 2 ) );
@@ -1559,7 +1545,6 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 			wp_die();
 
 		}
-
 	}
 
 	/**
@@ -1569,7 +1554,7 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 		$subcats = get_term_children( $categories, 'product_cat' );
 		foreach ( $subcats as $cat ) {
 			if ( has_term( $cat, 'product_cat', $post ) ) {
-				return "1";
+				return '1';
 			}
 		}
 	}
@@ -1593,11 +1578,9 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 			} else {
 				return '';
 			}
-
 		} else {
 			return '';
 		}
-
 	}
 
 	/**
@@ -1626,7 +1609,7 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 		$nTrend2 = 1;
 		for ( $i = $nSeasonLength; $i < 2 * $nSeasonLength; $i++ ) {
 			$anData[ $i ] = $anData[1] ?? null;
-			$nTrend2 += $anData[ $i ];
+			$nTrend2     += $anData[ $i ];
 		}
 		$nTrend2 /= $nSeasonLength;
 
@@ -1644,12 +1627,12 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 		// Build season buffer
 		$anSeason = array_fill( 0, count( $anData ), 0 );
 		for ( $i = 0; $i < $nSeasonLength; $i++ ) {
-			$anSeason[ $i ] = ( $anIndex[ $i ] + $anIndex[ $i+$nSeasonLength ] ) / 2;
+			$anSeason[ $i ] = ( $anIndex[ $i ] + $anIndex[ $i + $nSeasonLength ] ) / 2;
 		}
 
 		// Normalise season
-		 $Total = array_sum( $anSeason );
-		 $Total = isset( $Total ) & ! empty( $Total ) ? $Total : '0.1';
+		$Total = array_sum( $anSeason );
+		$Total = isset( $Total ) & ! empty( $Total ) ? $Total : '0.1';
 
 		$nSeasonFactor = $nSeasonLength / $Total;
 		foreach ( $anSeason as $nKey => $nVal ) {
@@ -1796,7 +1779,6 @@ class WPFactory_WC_ARS_OrderProcessorHelp {
 		$allowed_price_html['bdi'] = array();
 		return $allowed_price_html;
 	}
-
 }
 
 // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- Legacy slug kept for backwards compatibility.
