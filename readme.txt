@@ -1,7 +1,7 @@
 === Advanced Reporting and Statistics for WooCommerce ===
 Contributors: wpcodefactory
 Tags: reporting, woocommerce statistics, sales report, analytics, woocommerce sales
-Stable tag: 4.1.9
+Stable tag: 4.2.0
 Requires at least: 4.6
 Requires PHP: 7.4
 Tested up to: 7.1
@@ -95,6 +95,9 @@ ExtendWP's privacy policy: https://wpfactory.com/privacy-policy/
 3. Advanced WooCommerce Reporting - Statistics & Forecast | Analysis Grouped by Month and next Month's Forecast
 
 == Changelog ==
+
+= 4.2.0 - 02/11/2026 =
+* Dev - Coding standards improved.
 
 = 4.1.9 - 02/11/2026 =
 * Fix - Overlapping chart titles fixed (`webd_chart_title_plugin` removed).

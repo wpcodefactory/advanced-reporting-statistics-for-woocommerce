@@ -4,7 +4,9 @@
  *
  * @version 4.1.8
  *
- * @author  WPFactory
+ * @author WPFactory
+ *
+ * @package WPFactory\WC_ARS
  */
 
 defined( 'ABSPATH' ) || exit;
