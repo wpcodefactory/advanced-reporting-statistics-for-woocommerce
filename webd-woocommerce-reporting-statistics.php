@@ -3,11 +3,11 @@
  * Plugin Name: Advanced Reporting and Statistics for WooCommerce
  * Plugin URI: https://extend-wp.com/advanced-reporting-statistics-plugin-for-woocommerce/
  * Description: A comprehensive WordPress Plugin for WooCommerce Reports, Statistics, Analytics & Forecasting Tool for Orders, Sales, Products, Countries, Payment Gateways Shipping, Tax, Refunds, Top Products.
- * Version: 4.1.8
+ * Version: 4.1.9
  * Author: WPFactory
  * Author URI: https://wpfactory.com
  * Requires at least: 4.6
- * Requires PHP: 7.0
+ * Requires PHP: 7.4
  * WC requires at least: 2.2
  * WC tested up to: 11.2
  * Requires Plugins: woocommerce
@@ -16,7 +16,7 @@
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * Created On: 23-01-2019
- * Updated On: 29-10-2026
+ * Updated On: 02-11-2026
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -60,12 +60,12 @@ if ( ! function_exists( 'is_plugin_active' ) ) {
 	require_once ABSPATH . 'wp-admin/includes/plugin.php';
 }
 
-$webd_wc_ars_pro_plugins = array(
+$webd_wc_ars_pro_plugins = array( // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 	'advanced-reporting-statistics-for-woocommerce-pro/woocommerce-reporting-statistics-pro.php',
 	'woocommerce-reporting-statistics-pro/woocommerce-reporting-statistics-pro.php',
 );
 
-foreach ( $webd_wc_ars_pro_plugins as $webd_wc_ars_pro_plugin ) {
+foreach ( $webd_wc_ars_pro_plugins as $webd_wc_ars_pro_plugin ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 	if ( ! is_plugin_active( $webd_wc_ars_pro_plugin ) ) {
 		continue;
 	}
@@ -77,7 +77,7 @@ foreach ( $webd_wc_ars_pro_plugins as $webd_wc_ars_pro_plugin ) {
 		 * @since   4.1.8
 		 * @version 4.1.8
 		 */
-		function webd_wc_ars_pro_active_notice() {
+		function webd_wc_ars_pro_active_notice() { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
 			$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
 			if ( ! $screen || 'plugins' !== $screen->id ) {
 				return;
@@ -93,7 +93,7 @@ foreach ( $webd_wc_ars_pro_plugins as $webd_wc_ars_pro_plugin ) {
 	return;
 }
 
-defined( 'WPFACTORY_WC_ARS_VERSION' ) || define( 'WPFACTORY_WC_ARS_VERSION', '4.1.8' );
+defined( 'WPFACTORY_WC_ARS_VERSION' ) || define( 'WPFACTORY_WC_ARS_VERSION', '4.1.9' );
 
 defined( 'WPFACTORY_WC_ARS_FILE' ) || define( 'WPFACTORY_WC_ARS_FILE', __FILE__ );
 

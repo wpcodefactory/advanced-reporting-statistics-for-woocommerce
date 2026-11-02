@@ -2,35 +2,40 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Advanced Reporting and Statistics for WooCommerce 4.1.8\n"
+"Project-Id-Version: Advanced Reporting and Statistics for WooCommerce 4.1.9\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/advanced-reporting-statistics-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-30T01:03:24+01:00\n"
+"POT-Creation-Date: 2026-11-02T16:05:24+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: webd-woocommerce-advanced-reporting-statistics\n"
 
 #. Plugin Name of the plugin
+#: webd-woocommerce-reporting-statistics.php
 msgid "Advanced Reporting and Statistics for WooCommerce"
 msgstr ""
 
 #. Plugin URI of the plugin
+#: webd-woocommerce-reporting-statistics.php
 msgid "https://extend-wp.com/advanced-reporting-statistics-plugin-for-woocommerce/"
 msgstr ""
 
 #. Description of the plugin
+#: webd-woocommerce-reporting-statistics.php
 msgid "A comprehensive WordPress Plugin for WooCommerce Reports, Statistics, Analytics & Forecasting Tool for Orders, Sales, Products, Countries, Payment Gateways Shipping, Tax, Refunds, Top Products."
 msgstr ""
 
 #. Author of the plugin
+#: webd-woocommerce-reporting-statistics.php
 msgid "WPFactory"
 msgstr ""
 
 #. Author URI of the plugin
+#: webd-woocommerce-reporting-statistics.php
 msgid "https://wpfactory.com"
 msgstr ""
 
@@ -608,34 +613,34 @@ msgid "Get it here"
 msgstr ""
 
 #: helper-class.php:384
-#: helper-class.php:619
+#: helper-class.php:618
 msgid "Orders with Status"
 msgstr ""
 
 #: helper-class.php:465
-#: helper-class.php:733
+#: helper-class.php:730
 msgid "No Orders "
 msgstr ""
 
 #: helper-class.php:471
-#: helper-class.php:739
+#: helper-class.php:736
 msgid " with Status: "
 msgstr ""
 
-#: helper-class.php:633
+#: helper-class.php:632
 msgid "Analysis for period"
 msgstr ""
 
-#: helper-class.php:643
+#: helper-class.php:642
 msgid "This Month Analysis"
 msgstr ""
 
-#: helper-class.php:750
-#: helper-class.php:759
+#: helper-class.php:747
+#: helper-class.php:756
 msgid " for "
 msgstr ""
 
-#: helper-class.php:753
+#: helper-class.php:750
 msgid "to"
 msgstr ""
 
